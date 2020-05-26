@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connection_error_title">Error de connexión</string>
+    <string name="Cancel">Cancelar</string>
+    <string name="connection_error">Error de conexión. Comprueba tu conexión a Internet.</string>
+</resources>

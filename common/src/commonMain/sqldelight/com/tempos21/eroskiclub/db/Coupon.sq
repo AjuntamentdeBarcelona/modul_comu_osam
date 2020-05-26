@@ -1,0 +1,64 @@
+CREATE TABLE CouponVo(
+    id TEXT NOT NULL PRIMARY KEY,
+    customerId INTEGER  NOT NULL,
+    valeEAN TEXT  NOT NULL,
+    redeemingFinalDate INTEGER  NOT NULL,
+    activationFinalDate INTEGER  NOT NULL,
+    redeemedDate INTEGER  NOT NULL,
+    activatedDate INTEGER  NOT NULL,
+    ployText TEXT  NOT NULL,
+    titleText TEXT  NOT NULL,
+    status TEXT NOT NULL,
+    description TEXT  NOT NULL,
+    isActivable INTEGER  NOT NULL,
+    isExclusive INTEGER  NOT NULL,
+    numOffer TEXT  NOT NULL,
+    redeemCenter TEXT  NOT NULL,
+    redeemDescription TEXT  NOT NULL,
+    legal TEXT  NOT NULL,
+    couponType TEXT  NOT NULL,
+    minCondition TEXT  NOT NULL,
+    validityStartDate INTEGER  NOT NULL,
+    validityEndDate INTEGER  NOT NULL,
+    couponOrder INTEGER NOT NULL
+);
+
+selectAll:
+SELECT * FROM CouponVo;
+
+selectById:
+SELECT * FROM CouponVo WHERE id = ? LIMIT 1;
+
+deleteAll:
+DELETE FROM CouponVo;
+
+updateStatus:
+UPDATE CouponVo SET status = ? WHERE id = ?;
+
+deleteExpired:
+DELETE FROM CouponVo WHERE validityEndDate < ?;
+
+addOrUpdate:
+INSERT OR REPLACE INTO CouponVo(
+    id,
+    customerId,
+    valeEAN,
+    redeemingFinalDate,
+    activationFinalDate,
+    redeemedDate,
+    activatedDate,
+    ployText,
+    titleText,
+    status,
+    description,
+    isActivable,
+    isExclusive,
+    numOffer,
+    redeemCenter,
+    redeemDescription,
+    legal,
+    couponType,
+    minCondition,
+    validityStartDate,
+    validityEndDate,
+    couponOrder) VALUES ?;
