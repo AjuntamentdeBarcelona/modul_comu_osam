@@ -10,6 +10,7 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.model.Version.ComparisonMode.*
+import cat.bcn.commonmodule.model.localize
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -34,14 +35,18 @@ actual class OSAM constructor(private val context: Context) {
 
                 withContext(Dispatchers.Main) {
                     val dialog = AlertDialog.Builder(context)
-                        .setTitle(version.title(language))
-                        .setMessage(version.message(language))
-                        .setPositiveButton(version.ok(language)) { _, _ -> f(VersionControlResponse.ACCEPTED) }
+                        .setTitle(version.title.localize(language))
+                        .setMessage(version.message.localize(language))
+                        .setPositiveButton(version.ok.localize(language)) { _, _ ->
+                            f(
+                                VersionControlResponse.ACCEPTED
+                            )
+                        }
                         .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
 
                     when (version.comparisonMode) {
                         FORCE -> dialog.setCancelable(true)
-                        LAZY -> dialog.setNegativeButton(version.cancel(language)) { _, _ ->
+                        LAZY -> dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
                             f(VersionControlResponse.CANCELLED)
                         }
                         INFO -> {
@@ -75,7 +80,7 @@ actual class OSAM constructor(private val context: Context) {
                     withContext(Dispatchers.Main) {
                         val dialog = AlertDialog.Builder(context)
                             .setTitle("Control de rating title")
-                            .setMessage("Control de rating message")
+                            .setMessage(rating.message.localize(Language.CA))
                             .setPositiveButton("Aceptar") { _, _ -> f(RatingControlResponse.ACCEPTED) }
                             .setOnDismissListener { f(RatingControlResponse.ACCEPTED) }
                             .setNegativeButton("Cancelar") { _, _ -> f(RatingControlResponse.ACCEPTED) }

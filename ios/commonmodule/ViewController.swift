@@ -13,8 +13,10 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var checkVersionControl: UIButton!
     
+    lazy var osam = OSAM(vc: self)
+    
     @IBAction func onVersionControlClick(_ sender: Any) {
-        VersionControl(vc: self).check(
+        osam.versionControl(
             appId: "cat.bcn.areadum",
             versionCode: 2020021715,
             language: Language.en,
@@ -23,6 +25,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onRatingClick(_ sender: Any) {
+        osam.rating(
+            appId: "cat.bcn.areadum",
+            f: {_ in }
+        )
     }
     
     override func viewDidLoad() {

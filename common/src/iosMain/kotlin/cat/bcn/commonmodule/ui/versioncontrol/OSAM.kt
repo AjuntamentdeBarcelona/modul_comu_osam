@@ -7,6 +7,7 @@ import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.model.localize
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,12 +36,12 @@ actual class OSAM constructor(private val vc: UIViewController) {
 
                 val alert = UIAlertController()
 
-                alert.title = version.title(language)
-                alert.message = version.message(language)
+                alert.title = version.title.localize(language)
+                alert.message = version.message.localize(language)
 
                 alert.addAction(
                     UIAlertAction.actionWithTitle(
-                        title = version.ok(language),
+                        title = version.ok.localize(language),
                         style = UIAlertActionStyleDefault,
                         handler = { f(VersionControlResponse.ACCEPTED) }
                     )
@@ -52,7 +53,7 @@ actual class OSAM constructor(private val vc: UIViewController) {
                     }
                     else -> {
                         alert.addAction(UIAlertAction.actionWithTitle(
-                            title = version.cancel(language),
+                            title = version.cancel.localize(language),
                             style = UIAlertActionStyleCancel,
                             handler = { f(VersionControlResponse.CANCELLED) }
                         ))
@@ -69,7 +70,7 @@ actual class OSAM constructor(private val vc: UIViewController) {
 
     actual fun rating(appId: String, f: (RatingControlResponse) -> Unit) {
         try {
-            GlobalScope.launch {
+            GlobalScope.launch(Dispatchers.Main) {
                 val rating = remote.getRating(appId, Platform.ANDROID)
 
                 val shouldShowRatingDialog = shouldShowRatingDialog(
@@ -83,7 +84,7 @@ actual class OSAM constructor(private val vc: UIViewController) {
                     val alert = UIAlertController()
 
                     alert.title = "titulo"
-                    alert.message = "mensaje"
+                    alert.message = rating.message.localize(Language.CA)
 
                     alert.addAction(
                         UIAlertAction.actionWithTitle(

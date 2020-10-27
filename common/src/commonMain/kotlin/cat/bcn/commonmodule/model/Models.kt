@@ -28,30 +28,12 @@ data class Version(
     enum class ComparisonMode {
         FORCE, LAZY, INFO
     }
+}
 
-    fun title(language: Language) = when (language) {
-        Language.CA -> title.ca
-        Language.ES -> title.es
-        Language.EN -> title.en
-    }
-
-    fun message(language: Language) = when (language) {
-        Language.CA -> message.ca
-        Language.ES -> message.es
-        Language.EN -> message.en
-    }
-
-    fun ok(language: Language) = when (language) {
-        Language.CA -> ok.ca
-        Language.ES -> ok.es
-        Language.EN -> ok.en
-    }
-
-    fun cancel(language: Language) = when (language) {
-        Language.CA -> cancel.ca
-        Language.ES -> cancel.es
-        Language.EN -> cancel.en
-    }
+fun Text.localize(language: Language) = when (language) {
+    Language.CA -> ca
+    Language.ES -> es
+    Language.EN -> en
 }
 
 @Serializable
