@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation(Dependencies.Android.coroutinesPlayServices)
+    implementation(Dependencies.Android.appCompat)
 }
 
 kotlin {
