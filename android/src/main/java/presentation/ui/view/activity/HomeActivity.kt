@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         ratingButton.setOnClickListener {
-            osam.rating("cat.bcn.apropdaqui") {
+            osam.rating("cat.bcn.apropdaqui", Language.CA) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
         }

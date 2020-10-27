@@ -64,6 +64,7 @@ actual class OSAM constructor(private val context: Context) {
 
     actual fun rating(
         appId: String,
+        language: Language,
         f: (RatingControlResponse) -> Unit
     ) {
         try {
@@ -80,7 +81,7 @@ actual class OSAM constructor(private val context: Context) {
                     withContext(Dispatchers.Main) {
                         val dialog = AlertDialog.Builder(context)
                             .setTitle("Control de rating title")
-                            .setMessage(rating.message.localize(Language.CA))
+                            .setMessage(rating.message.localize(language))
                             .setPositiveButton("Aceptar") { _, _ -> f(RatingControlResponse.ACCEPTED) }
                             .setOnDismissListener { f(RatingControlResponse.ACCEPTED) }
                             .setNegativeButton("Cancelar") { _, _ -> f(RatingControlResponse.ACCEPTED) }

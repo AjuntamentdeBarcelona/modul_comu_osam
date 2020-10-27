@@ -34,10 +34,11 @@ actual class OSAM constructor(private val vc: UIViewController) {
                     platform = Platform.IOS
                 )
 
-                val alert = UIAlertController()
-
-                alert.title = version.title.localize(language)
-                alert.message = version.message.localize(language)
+                val alert = UIAlertController.alertControllerWithTitle(
+                    title = version.title.localize(language),
+                    message = version.message.localize(language),
+                    preferredStyle = UIAlertControllerStyleAlert
+                )
 
                 alert.addAction(
                     UIAlertAction.actionWithTitle(
@@ -68,7 +69,7 @@ actual class OSAM constructor(private val vc: UIViewController) {
 
     }
 
-    actual fun rating(appId: String, f: (RatingControlResponse) -> Unit) {
+    actual fun rating(appId: String, language: Language, f: (RatingControlResponse) -> Unit) {
         try {
             GlobalScope.launch(Dispatchers.Main) {
                 val rating = remote.getRating(appId, Platform.ANDROID)
@@ -81,10 +82,11 @@ actual class OSAM constructor(private val vc: UIViewController) {
 
                 if (shouldShowRatingDialog) {
 
-                    val alert = UIAlertController()
-
-                    alert.title = "titulo"
-                    alert.message = rating.message.localize(Language.CA)
+                    val alert = UIAlertController.alertControllerWithTitle(
+                        title = "titulo",
+                        message = rating.message.localize(language),
+                        preferredStyle = UIAlertControllerStyleAlert
+                    )
 
                     alert.addAction(
                         UIAlertAction.actionWithTitle(

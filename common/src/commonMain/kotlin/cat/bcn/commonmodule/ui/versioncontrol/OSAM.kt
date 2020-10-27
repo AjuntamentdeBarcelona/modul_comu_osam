@@ -12,7 +12,11 @@ expect class OSAM {
         f: (VersionControlResponse) -> Unit
     )
 
-    fun rating(appId: String, f: (RatingControlResponse) -> Unit)
+    fun rating(
+        appId: String,
+        language: Language,
+        f: (RatingControlResponse) -> Unit
+    )
 }
 
 enum class VersionControlResponse {
