@@ -94,12 +94,13 @@ actual class OSAM constructor(private val vc: UIViewController) {
                         )
                     )
 
-
                     alert.addAction(UIAlertAction.actionWithTitle(
                         title = "Cancelar",
                         style = UIAlertActionStyleCancel,
                         handler = { f(RatingControlResponse.CANCELLED) }
                     ))
+
+                    vc.presentViewController(alert, animated = true, completion = null)
 
                     preferences.setLastDatetime(DateTime.nowUnixLong())
                 }
