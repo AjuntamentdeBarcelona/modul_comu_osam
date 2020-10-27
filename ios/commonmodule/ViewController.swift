@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import common
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        VersionControl(vc: self).check(
+            appId: "cat.bcn.areadum",
+            versionCode: 2020021715,
+            language: Language.en,
+            f: {_ in }
+        )
     }
 
 

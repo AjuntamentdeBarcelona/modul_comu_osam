@@ -14,7 +14,6 @@ buildscript {
         classpath(Dependencies.Root.android)
         // classpath(Dependencies.Root.googlePlay)
         classpath(Dependencies.Root.serialization)
-        classpath(Dependencies.Root.cocoapods)
         classpath(kotlin("gradle-plugin", kotlin_version))
     }
 }

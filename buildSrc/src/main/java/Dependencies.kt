@@ -66,7 +66,6 @@ object Dependencies {
         const val googlePlay = "com.google.gms:google-services:4.2.0"
         const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta04"
         const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        const val cocoapods = "co.touchlab:kotlinnativecocoapods:$cocoapods_version"
     }
 
     object Common {

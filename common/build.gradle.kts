@@ -4,7 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("kotlinx-serialization")
     id("com.android.library")
-    id("co.touchlab.native.cocoapods")
+    kotlin("native.cocoapods")
 }
 
 android {
@@ -75,8 +75,6 @@ kotlin {
         implementation(Dependencies.Common.Main.ktorClientAuth)
         implementation(Dependencies.Common.Main.ktorLogging)
 
-        implementation(Dependencies.Common.Main.stately)
-
         implementation(kotlin("stdlib-common"))
     }
 
@@ -104,9 +102,9 @@ kotlin {
     sourceSets["iosTest"].dependencies {
     }
 
-    cocoapodsext {
+    cocoapods {
         summary = "Common library for the osam version control"
-        homepage = ""
-        isStatic = false
+        homepage = "Hello"
+        frameworkName = "common"
     }
 }

@@ -1,18 +1,20 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'common'
     spec.version                  = '1.1'
-    spec.homepage                 = 'https://gitlab.kazan.atosworldline.com/android-tempos-21/eroski_mpp'
+    spec.homepage                 = 'Hello'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Common library for the Eroski/Caprabo app'
+    spec.summary                  = 'Common library for the osam version control'
 
-
+    spec.static_framework         = true
     spec.vendored_frameworks      = "build/cocoapods/framework/common.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
-            
+                
+
+                
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
