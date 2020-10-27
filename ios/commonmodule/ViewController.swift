@@ -11,15 +11,22 @@ import common
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    @IBOutlet weak var checkVersionControl: UIButton!
+    
+    @IBAction func onVersionControlClick(_ sender: Any) {
         VersionControl(vc: self).check(
             appId: "cat.bcn.areadum",
             versionCode: 2020021715,
             language: Language.en,
             f: {_ in }
         )
+    }
+    
+    @IBAction func onRatingClick(_ sender: Any) {
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
 

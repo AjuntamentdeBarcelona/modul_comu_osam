@@ -20,9 +20,7 @@ internal class CommonRemote(
         platform: App.Platform
     ): Version =
         buildClient(Constants.VERSION_CONTROL_ENDPOINT).use {
-            it.get<VersionResponse>("${Constants.VERSION_ROUTE}/$appId/$platform/$versionCode") {
-                this.header("Authentication", "Basic b3NhbTpvc2Ft")
-            }
+            it.get<VersionResponse>("${Constants.VERSION_ROUTE}/$appId/$platform/$versionCode")
         }.data
 
 }
