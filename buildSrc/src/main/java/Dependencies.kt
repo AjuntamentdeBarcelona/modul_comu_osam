@@ -81,7 +81,7 @@ object Dependencies {
             const val ktorClientAuth = "io.ktor:ktor-client-auth:$ktor_version"
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
 
-            const val stately = "co.touchlab:stately-common:1.0.3"
+            const val time = "com.soywiz.korlibs.klock:klock:2.0.0-alpha"
         }
 
         object Android {

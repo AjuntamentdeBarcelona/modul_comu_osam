@@ -75,6 +75,8 @@ kotlin {
         implementation(Dependencies.Common.Main.ktorClientAuth)
         implementation(Dependencies.Common.Main.ktorLogging)
 
+        implementation(Dependencies.Common.Main.time)
+
         implementation(kotlin("stdlib-common"))
     }
 
