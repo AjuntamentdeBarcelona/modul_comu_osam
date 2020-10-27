@@ -8,8 +8,6 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("realm-android")
-    // id("io.fabric")
     // id("com.google.gms.google-services")
 }
 
@@ -78,35 +76,17 @@ dependencies {
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.constraintLayout)
     implementation(Dependencies.Android.recycler)
-    implementation(Dependencies.Android.material)
-    implementation(Dependencies.Android.fragment)
-    implementation(Dependencies.Android.fragmentKtx)
-    implementation(Dependencies.Android.appCompatLegacy)
-    implementation(Dependencies.Android.browser)
+
     implementation(Dependencies.Android.multidex)
     implementation(Dependencies.Android.playServices)
-    implementation(Dependencies.Android.playServicesAuthPhone)
-    implementation(Dependencies.Android.playServicesAuth)
-    implementation(Dependencies.Android.playServicesLocation)
-    implementation(Dependencies.Android.playServicesMaps)
-    implementation(Dependencies.Android.playServicesGcm)
-    implementation(Dependencies.Android.playServicesVision)
+
     implementation(Dependencies.Android.firebaseCore)
     implementation(Dependencies.Android.firebaseAnalytics)
     implementation(Dependencies.Android.firebasePerf)
-    // implementation(Dependencies.Android.Data.fabric) {
-    //     isTransitive = true
-    // }
-    implementation(Dependencies.Android.kodeinJvm)
-    implementation(Dependencies.Android.kodeinX)
+
+
     implementation(Dependencies.Android.coroutinesAndroid)
     implementation(Dependencies.Android.coroutinesPlayServices)
-    implementation(Dependencies.Android.glide)
-    implementation(Dependencies.Android.httpClient)
-    implementation(Dependencies.Android.barcode) {
-        exclude(group = "com.google.android.gms")
-    }
-    implementation(Dependencies.Android.dexter)
 
     androidTestImplementation(Dependencies.Android.Test.runner)
 }

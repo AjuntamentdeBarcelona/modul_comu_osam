@@ -5,7 +5,6 @@ plugins {
     id("kotlinx-serialization")
     id("com.android.library")
     id("co.touchlab.native.cocoapods")
-    id("com.squareup.sqldelight")
 }
 
 android {
@@ -75,7 +74,6 @@ kotlin {
         implementation(Dependencies.Common.Main.ktorSerialization)
         implementation(Dependencies.Common.Main.ktorClientAuth)
         implementation(Dependencies.Common.Main.ktorLogging)
-        implementation(Dependencies.Common.Main.sqldelightRuntime)
 
         implementation(Dependencies.Common.Main.stately)
 
@@ -88,14 +86,7 @@ kotlin {
     }
 
     sourceSets["androidMain"].dependencies {
-        implementation(Dependencies.Common.Android.coroutines)
-        implementation(Dependencies.Common.Android.serialization)
         implementation(Dependencies.Common.Android.ktorClientCore)
-        implementation(Dependencies.Common.Android.ktorClientJson)
-        implementation(Dependencies.Common.Android.ktorSerialization)
-        implementation(Dependencies.Common.Android.ktorClientAuth)
-        implementation(Dependencies.Common.Android.ktorLogging)
-        implementation(Dependencies.Common.Android.sqldelightDriverAndroid)
 
         implementation(kotlin("stdlib"))
     }
@@ -106,14 +97,7 @@ kotlin {
     }
 
     sourceSets["iosMain"].dependencies {
-        implementation(Dependencies.Common.Native.coroutines)
-        implementation(Dependencies.Common.Native.serialization)
         implementation(Dependencies.Common.Native.ktorClientCore)
-        implementation(Dependencies.Common.Native.ktorClientJson)
-        implementation(Dependencies.Common.Native.ktorSerialization)
-        implementation(Dependencies.Common.Native.ktorClientAuth)
-        implementation(Dependencies.Common.Native.ktorLogging)
-        implementation(Dependencies.Common.Native.sqldelightDriverNative)
 
         implementation(kotlin("stdlib"))
     }
@@ -121,14 +105,8 @@ kotlin {
     }
 
     cocoapodsext {
-        summary = "Common library for the Eroski/Caprabo app"
-        homepage = "https://gitlab.kazan.atosworldline.com/android-tempos-21/eroski_mpp"
+        summary = "Common library for the osam version control"
+        homepage = ""
         isStatic = false
-    }
-}
-
-sqldelight {
-    database("eroskiclub") {
-        packageName = "com.tempos21.eroskiclub.db"
     }
 }

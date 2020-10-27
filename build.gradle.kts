@@ -13,11 +13,8 @@ buildscript {
     dependencies {
         classpath(Dependencies.Root.android)
         // classpath(Dependencies.Root.googlePlay)
-        classpath(Dependencies.Root.fabric)
         classpath(Dependencies.Root.serialization)
         classpath(Dependencies.Root.cocoapods)
-        classpath(Dependencies.Root.realm)
-        classpath(Dependencies.Root.sqldelight)
         classpath(kotlin("gradle-plugin", kotlin_version))
     }
 }

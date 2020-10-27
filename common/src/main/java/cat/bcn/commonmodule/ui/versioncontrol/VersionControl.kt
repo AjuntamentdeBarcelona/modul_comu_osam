@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import cat.bcn.commonmodule.constants.Constants.Companion.VERSION_CONTROL_ENDPOINT
 import cat.bcn.commonmodule.constants.Constants.Companion.VERSION_ROUTE
+import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
 import cat.bcn.commonmodule.data.datasource.remote.client.buildClient
 import cat.bcn.commonmodule.model.App
 import cat.bcn.commonmodule.model.Version
@@ -27,9 +28,7 @@ actual class VersionControl constructor(private val context: Context) {
     ) {
         GlobalScope.launch {
             try {
-                val version: Version = buildClient(VERSION_CONTROL_ENDPOINT).use {
-                    it.get<VersionResponse>("$VERSION_ROUTE/$appId/${App.Platform.ANDROID}/$versionCode")
-                }.data
+                val version: Version = CommonRemote().getVersion(appId,  versionCode, language, App.Platform.ANDROID)
 
                 withContext(Dispatchers.Main) {
                     val dialog = AlertDialog.Builder(context)
