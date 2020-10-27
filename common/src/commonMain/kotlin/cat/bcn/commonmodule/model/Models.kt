@@ -3,27 +3,9 @@ package cat.bcn.commonmodule.model
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import kotlinx.serialization.Serializable
 
-data class App(
-    val id: Int,
-    val packageName: String,
-    val appName: String,
-    val platform: Platform,
-    val image: String,
-    val versions: List<Version>
-) {
-    enum class Platform {
-        ANDROID, IOS
-    }
+enum class Platform {
+    ANDROID, IOS
 }
-
-data class AppItem(
-    val id: Int,
-    val packageName: String,
-    val appName: String,
-    val platform: App.Platform,
-    val image: String,
-    val lastVersion: Version
-)
 
 @Serializable
 data class VersionResponse(val data: Version)
@@ -35,7 +17,7 @@ data class Version(
     val packageName: String,
     val versionCode: Long,
     val versionName: String,
-    val platform: App.Platform,
+    val platform: Platform,
     val comparisonMode: ComparisonMode,
     val title: Text,
     val message: Text,
@@ -76,7 +58,7 @@ data class Rating(
     val id: Int,
     val appId: Int,
     val packageName: String,
-    val platform: App.Platform,
+    val platform: Platform,
     val minutes: Int,
     val numAperture: Int,
     val message: Text,

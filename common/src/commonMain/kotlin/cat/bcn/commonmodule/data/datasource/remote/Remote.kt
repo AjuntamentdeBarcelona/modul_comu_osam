@@ -1,6 +1,6 @@
 package cat.bcn.commonmodule.data.datasource.remote
 
-import cat.bcn.commonmodule.model.App
+import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 
@@ -9,6 +9,6 @@ internal interface Remote {
         appId: String,
         versionCode: Int,
         language: Language,
-        platform: App.Platform
+        platform: Platform
     ): Version
 }

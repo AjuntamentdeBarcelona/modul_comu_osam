@@ -1,7 +1,7 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
-expect class VersionControl {
-    fun check(
+expect class OSAM {
+    fun versionControl(
         appId: String,
         versionCode: Int,
         language: Language,
