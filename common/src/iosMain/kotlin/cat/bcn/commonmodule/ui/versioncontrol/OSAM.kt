@@ -1,6 +1,7 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
 import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
+import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import kotlinx.coroutines.Dispatchers
@@ -8,9 +9,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import platform.UIKit.*
 
-actual class OSAM constructor(
-    private val vc: UIViewController
-) {
+actual class OSAM constructor(private val vc: UIViewController) {
+
+    private val remote: Remote by lazy { CommonRemote() }
+
     actual fun versionControl(
         appId: String,
         versionCode: Int,
@@ -19,7 +21,7 @@ actual class OSAM constructor(
     ) {
         try {
             GlobalScope.launch(Dispatchers.Main) {
-                val version = CommonRemote().getVersion(
+                val version = remote.getVersion(
                     appId = appId,
                     versionCode = versionCode,
                     language = language,
@@ -58,6 +60,15 @@ actual class OSAM constructor(
             f(VersionControlResponse.ERROR)
         }
 
+    }
+
+    actual fun rating(appId: String, f: (RatingControlResponse) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val rating = remote.getRating(
+                appId = appId,
+                platform = Platform.IOS
+            )
+        }
     }
 
 }

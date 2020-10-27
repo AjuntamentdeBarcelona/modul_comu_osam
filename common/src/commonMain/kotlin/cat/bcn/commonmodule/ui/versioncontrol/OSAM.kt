@@ -7,9 +7,15 @@ expect class OSAM {
         language: Language,
         f: (VersionControlResponse) -> Unit
     )
+
+    fun rating(appId: String, f: (RatingControlResponse) -> Unit)
 }
 
 enum class VersionControlResponse {
+    ACCEPTED, DISMISSED, CANCELLED, ERROR
+}
+
+enum class RatingControlResponse {
     ACCEPTED, DISMISSED, CANCELLED, ERROR
 }
 

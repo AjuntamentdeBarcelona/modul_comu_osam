@@ -11,14 +11,14 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
-    private val versionControl by lazy { OSAM(this) }
+    private val osam by lazy { OSAM(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         versionControlButton.setOnClickListener {
-            versionControl.versionControl(
+            osam.versionControl(
                 appId = "cat.bcn.apropdaqui",
                 versionCode = 20141104,
                 language = Language.CA
@@ -33,6 +33,12 @@ class HomeActivity : AppCompatActivity() {
                     },
                     Toast.LENGTH_LONG
                 ).show()
+            }
+        }
+
+        ratingButton.setOnClickListener {
+            osam.rating("cat.bcn.apropdaqui") {
+                Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
         }
     }

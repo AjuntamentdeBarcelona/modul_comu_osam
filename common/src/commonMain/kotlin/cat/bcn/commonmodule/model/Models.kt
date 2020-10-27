@@ -54,6 +54,10 @@ data class Version(
     }
 }
 
+@Serializable
+data class RatingResponse(val data: Rating)
+
+@Serializable
 data class Rating(
     val id: Int,
     val appId: Int,
@@ -61,8 +65,7 @@ data class Rating(
     val platform: Platform,
     val minutes: Int,
     val numAperture: Int,
-    val message: Text,
-    val url: String
+    val message: Text
 )
 
 @Serializable
