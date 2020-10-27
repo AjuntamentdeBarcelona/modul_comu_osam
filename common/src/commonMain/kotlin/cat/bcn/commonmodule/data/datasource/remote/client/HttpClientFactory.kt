@@ -2,16 +2,14 @@ package cat.bcn.commonmodule.data.datasource.remote.client
 
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.TokenFeature
-import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
-import io.ktor.client.features.defaultRequest
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logger
-import io.ktor.client.features.logging.Logging
-import io.ktor.client.features.logging.SIMPLE
-import io.ktor.http.URLBuilder
+import io.ktor.client.*
+import io.ktor.client.features.*
+import io.ktor.client.features.auth.*
+import io.ktor.client.features.auth.providers.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
+import io.ktor.http.*
 
 fun buildClient(endpoint: String, block: HttpClientConfig<*>.() -> Unit = {}): HttpClient =
     HttpClient {
@@ -29,6 +27,14 @@ fun buildClient(endpoint: String, block: HttpClientConfig<*>.() -> Unit = {}): H
         install(JsonFeature) {
             serializer = KotlinxSerializer(json)
         }
+
+        install(Auth) {
+            basic {
+                username = "osam"
+                password = "osam"
+            }
+        }
+
         block(this)
     }
 

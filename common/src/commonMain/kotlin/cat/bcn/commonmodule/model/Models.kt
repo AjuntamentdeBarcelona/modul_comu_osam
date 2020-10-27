@@ -1,6 +1,7 @@
 package cat.bcn.commonmodule.model
 
 import cat.bcn.commonmodule.ui.versioncontrol.Language
+import kotlinx.serialization.Serializable
 
 data class App(
     val id: Int,
@@ -24,6 +25,10 @@ data class AppItem(
     val lastVersion: Version
 )
 
+@Serializable
+data class VersionResponse(val data: Version)
+
+@Serializable
 data class Version(
     val id: Int,
     val appId: Int,
@@ -78,4 +83,5 @@ data class Rating(
     val url: String
 )
 
+@Serializable
 data class Text(val es: String, val en: String, val ca: String)
