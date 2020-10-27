@@ -36,7 +36,8 @@ internal fun shouldShowRatingDialog(
     val latest = DateTime.fromUnix(lastDatetime)
     val minutesBetween = DateTimeRange(from = latest, to = now).duration.minutes
 
-
+    println("Minutes between: $minutesBetween")
+    println("Num apertures: $numAperture")
 
     return rating.minutes <= minutesBetween || rating.numAperture <= numAperture
 }

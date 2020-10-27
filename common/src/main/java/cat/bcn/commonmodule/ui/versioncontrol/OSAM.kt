@@ -82,11 +82,15 @@ actual class OSAM constructor(private val context: Context) {
                             .create()
 
                         dialog.show()
+                        preferences.setLastDatetime(DateTime.nowUnixLong())
                     }
                 }
 
-                preferences.setLastDatetime(DateTime.nowUnixLong())
-                preferences.setNumApertures(preferences.getNumApertures() + 1)
+                if (preferences.getNumApertures() == rating.numAperture) {
+                    preferences.setNumApertures(0)
+                } else {
+                    preferences.setNumApertures(preferences.getNumApertures() + 1)
+                }
             }
         } catch (e: Exception) {
             f(RatingControlResponse.ERROR)
