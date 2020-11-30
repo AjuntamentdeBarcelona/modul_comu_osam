@@ -14,7 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import platform.UIKit.*
 
-actual class OSAM constructor(private val vc: UIViewController) {
+actual class OSAMCommons constructor(private val vc: UIViewController) {
 
     private val remote: Remote by lazy { CommonRemote() }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default")) }

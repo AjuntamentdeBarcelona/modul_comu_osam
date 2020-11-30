@@ -17,7 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-actual class OSAM constructor(private val context: Context) {
+actual class OSAMCommons constructor(private val context: Context) {
 
     private val remote: Remote by lazy { CommonRemote() }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default", context)) }
