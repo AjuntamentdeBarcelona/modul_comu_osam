@@ -8,15 +8,17 @@
 
 import UIKit
 import common
+import StoreKit
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var checkVersionControl: UIButton!
     
-    lazy var osam = OSAM(vc: self)
+    lazy var osamCommons = OSAMCommons(vc: self)
     
     @IBAction func onVersionControlClick(_ sender: Any) {
-        osam.versionControl(
+        SKStoreReviewController.requestReview()
+        osamCommons.versionControl(
             appId: "cat.bcn.areadum",
             versionCode: 2020021715,
             language: Language.es,
@@ -25,11 +27,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onRatingClick(_ sender: Any) {
-        osam.rating(
-            appId: "cat.bcn.areadum",
-            language: Language.es,
-            f: {_ in }
-        )
+        SKStoreReviewController.requestReview()
+        
     }
     
     override func viewDidLoad() {
