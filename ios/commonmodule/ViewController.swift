@@ -9,6 +9,7 @@
 import UIKit
 import common
 import StoreKit
+import FirebaseAnalytics
 
 class ViewController: UIViewController {
 
@@ -27,8 +28,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onRatingClick(_ sender: Any) {
+        Analytics.logEvent("rating_popup_showed", parameters: [
+            "message": "Rating popup showed"
+        ])
         SKStoreReviewController.requestReview()
-        
     }
     
     override func viewDidLoad() {
