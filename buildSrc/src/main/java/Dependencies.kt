@@ -40,7 +40,7 @@ object Dependencies {
 
         // Firebase
         const val firebaseCore = "com.google.firebase:firebase-core:16.0.8"
-        const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.2.1"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx:17.6.0"
         const val firebasePerf = "com.google.firebase:firebase-perf:19.0.5"
         const val crashlytics =
             "com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar" // transitive = true
