@@ -2,6 +2,8 @@ package cat.bcn.commonmodule.ui.versioncontrol
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import cat.bcn.commonmodule.analytics.Analytics
+import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
@@ -11,6 +13,7 @@ import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.model.Version.ComparisonMode.*
 import cat.bcn.commonmodule.model.localize
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,8 +22,12 @@ import kotlinx.coroutines.withContext
 
 actual class OSAMCommons constructor(private val context: Context) {
 
+    private val analytics: Analytics by lazy { CommonAnalytics(context) }
     private val remote: Remote by lazy { CommonRemote() }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default", context)) }
+    private val EVENT_ID = "osamcommons"
+    private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
+    private val RATING_POPUP = "rating_popup_showed"
 
     actual fun versionControl(
         appId: String,
@@ -55,6 +62,9 @@ actual class OSAMCommons constructor(private val context: Context) {
                     }
 
                     dialog.show()
+                    analytics.logVersionControlPopUp(
+                        params = mapOf(FirebaseAnalytics.Param.ITEM_ID to EVENT_ID, FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP)
+                    )
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) { f(VersionControlResponse.ERROR) }
@@ -88,6 +98,9 @@ actual class OSAMCommons constructor(private val context: Context) {
                             .create()
 
                         dialog.show()
+                        analytics.logRatingPopUp(
+                            params = mapOf(FirebaseAnalytics.Param.ITEM_ID to EVENT_ID, FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP)
+                        )
                         preferences.setLastDatetime(DateTime.nowUnixLong())
                     }
                 }

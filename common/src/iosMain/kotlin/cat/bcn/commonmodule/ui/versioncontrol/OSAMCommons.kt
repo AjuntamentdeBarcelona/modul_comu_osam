@@ -62,6 +62,8 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
                 }
 
                 vc.presentViewController(alert, animated = true, completion = null)
+
+                //TODO send Firebase Event Log
             }
         } catch (e: Exception) {
             f(VersionControlResponse.ERROR)
@@ -106,6 +108,8 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
 
                     preferences.setLastDatetime(DateTime.nowUnixLong())
                 }
+
+                //TODO send Firebase Event Log
 
                 if (preferences.getNumApertures() == rating.numAperture) {
                     preferences.setNumApertures(0)

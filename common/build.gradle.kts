@@ -87,7 +87,7 @@ kotlin {
 
     sourceSets["androidMain"].dependencies {
         implementation(Dependencies.Common.Android.ktorClientCore)
-
+        implementation(Dependencies.Android.analytics)
         implementation(kotlin("stdlib"))
     }
 
@@ -98,8 +98,8 @@ kotlin {
 
     sourceSets["iosMain"].dependencies {
         implementation(Dependencies.Common.Native.ktorClientCore)
-
         implementation(kotlin("stdlib"))
+
     }
     sourceSets["iosTest"].dependencies {
     }
@@ -108,5 +108,8 @@ kotlin {
         summary = "Common library for the osam version control"
         homepage = "Hello"
         frameworkName = "common"
+//TODO https://github.com/JetBrains/kotlin-native/issues/3588
+        pod("FirebaseAnalytics")
+        pod("FirebaseCore")
     }
 }

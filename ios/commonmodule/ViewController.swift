@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     lazy var osamCommons = OSAMCommons(vc: self)
     
     @IBAction func onVersionControlClick(_ sender: Any) {
-        SKStoreReviewController.requestReview()
         osamCommons.versionControl(
             appId: "cat.bcn.areadum",
             versionCode: 2020021715,
@@ -28,9 +27,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onRatingClick(_ sender: Any) {
-        Analytics.logEvent("rating_popup_showed", parameters: [
-            "message": "Rating popup showed"
-        ])
+        osamCommons.rating()
+        //TODO Esto se llama en la libreria
         SKStoreReviewController.requestReview()
     }
     

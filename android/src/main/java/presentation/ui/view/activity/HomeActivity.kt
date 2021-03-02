@@ -3,17 +3,14 @@ package presentation.ui.view.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
 import com.app.app.R
-import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
     private val osamCommons by lazy { OSAMCommons(this) }
-    private val analytics by lazy { FirebaseAnalytics.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +27,15 @@ class HomeActivity : AppCompatActivity() {
         }
 
         ratingButton.setOnClickListener {
-            osamCommons.rating("cat.bcn.apropdaqui", Language.CA) {
+            /*val bundle2 = Bundle()
+            bundle2.putString(FirebaseAnalytics.Param.ITEM_ID, "osamcommons")
+            bundle2.putString(FirebaseAnalytics.Param.ITEM_NAME, "rating_popup_showed")
+            FirebaseAnalytics.getInstance(applicationContext).logEvent("OSAM_COMMONS_SHOW_RATING_DIALOG", bundle2)*/
+            osamCommons.rating(
+                appId = "cat.bcn.apropdaqui",
+                language = Language.CA
+            ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
-                val bundle = Bundle()
-                bundle.putString(FirebaseAnalytics.Param.VALUE, "rating pop up showed")
-                analytics.logEvent(CommonAnalytics.RATING_POPUP, bundle)
             }
         }
     }
