@@ -1,5 +1,7 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
+import cat.bcn.commonmodule.analytics.Analytics
+import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
@@ -8,16 +10,25 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.model.localize
+import cocoapods.FirebaseAnalytics.FIRAnalytics
+import cocoapods.FirebaseAnalytics.FIRAnalyticsMeta
+import cocoapods.FirebaseAnalytics.kFIRParameterItemID
+import cocoapods.FirebaseAnalytics.kFIRParameterItemName
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
 
 actual class OSAMCommons constructor(private val vc: UIViewController) {
 
+    private val analytics: Analytics by lazy { CommonAnalytics() }
     private val remote: Remote by lazy { CommonRemote() }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default")) }
+    private val EVENT_ID = "osamcommons"
+    private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
+    private val RATING_POPUP = "rating_popup_showed"
 
     actual fun versionControl(
         appId: String,
@@ -63,7 +74,10 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
 
                 vc.presentViewController(alert, animated = true, completion = null)
 
-                //TODO send Firebase Event Log
+                analytics.logVersionControlPopUp(
+                    params = mapOf(kFIRParameterItemID!! to EVENT_ID, kFIRParameterItemName!! to VERSION_CONTROL_POPUP)
+                )
+
             }
         } catch (e: Exception) {
             f(VersionControlResponse.ERROR)
@@ -84,32 +98,13 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
 
                 if (shouldShowRatingDialog) {
 
-                    val alert = UIAlertController.alertControllerWithTitle(
-                        title = "titulo",
-                        message = rating.message.localize(language),
-                        preferredStyle = UIAlertControllerStyleAlert
-                    )
-
-                    alert.addAction(
-                        UIAlertAction.actionWithTitle(
-                            title = "Aceptar",
-                            style = UIAlertActionStyleDefault,
-                            handler = { f(RatingControlResponse.ACCEPTED) }
-                        )
-                    )
-
-                    alert.addAction(UIAlertAction.actionWithTitle(
-                        title = "Cancelar",
-                        style = UIAlertActionStyleCancel,
-                        handler = { f(RatingControlResponse.CANCELLED) }
-                    ))
-
-                    vc.presentViewController(alert, animated = true, completion = null)
+                    SKStoreReviewController.requestReview()
 
                     preferences.setLastDatetime(DateTime.nowUnixLong())
+                    analytics.logRatingPopUp(
+                        params = mapOf(kFIRParameterItemID!! to EVENT_ID, kFIRParameterItemName!! to RATING_POPUP)
+                    )
                 }
-
-                //TODO send Firebase Event Log
 
                 if (preferences.getNumApertures() == rating.numAperture) {
                     preferences.setNumApertures(0)

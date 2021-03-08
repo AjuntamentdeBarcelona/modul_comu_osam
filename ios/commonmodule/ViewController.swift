@@ -27,9 +27,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onRatingClick(_ sender: Any) {
-        osamCommons.rating()
-        //TODO Esto se llama en la libreria
-        SKStoreReviewController.requestReview()
+        osamCommons.rating(
+            appId: "cat.bcn.areadum",
+            language: Language.es,
+            f: {_ in }
+        )
     }
     
     override func viewDidLoad() {
