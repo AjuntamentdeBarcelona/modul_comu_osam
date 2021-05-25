@@ -4,7 +4,7 @@ import cat.bcn.commonmodule.model.Rating
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.DateTimeRange
 
-expect class OSAM {
+expect class OSAMCommons {
     fun versionControl(
         appId: String,
         versionCode: Int,

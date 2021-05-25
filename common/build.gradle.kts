@@ -38,6 +38,7 @@ android {
 dependencies {
     implementation(Dependencies.Android.coroutinesPlayServices)
     implementation(Dependencies.Android.appCompat)
+    implementation("com.google.firebase:firebase-core:18.0.2")
 }
 
 kotlin {
@@ -87,7 +88,7 @@ kotlin {
 
     sourceSets["androidMain"].dependencies {
         implementation(Dependencies.Common.Android.ktorClientCore)
-
+        implementation(Dependencies.Android.analytics)
         implementation(kotlin("stdlib"))
     }
 
@@ -98,9 +99,10 @@ kotlin {
 
     sourceSets["iosMain"].dependencies {
         implementation(Dependencies.Common.Native.ktorClientCore)
-
         implementation(kotlin("stdlib"))
+
     }
+
     sourceSets["iosTest"].dependencies {
     }
 
@@ -108,5 +110,7 @@ kotlin {
         summary = "Common library for the osam version control"
         homepage = "Hello"
         frameworkName = "common"
+        pod("FirebaseAnalytics")
+        //podfile = project.file("../ios/Podfile")
     }
 }

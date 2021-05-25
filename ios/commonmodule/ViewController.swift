@@ -8,25 +8,27 @@
 
 import UIKit
 import common
+import StoreKit
+import FirebaseAnalytics
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var checkVersionControl: UIButton!
     
-    lazy var osam = OSAM(vc: self)
+    lazy var osamCommons = OSAMCommons(vc: self)
     
     @IBAction func onVersionControlClick(_ sender: Any) {
-        osam.versionControl(
-            appId: "cat.bcn.festamerce",
-            versionCode: 2019092218,
+        osamCommons.versionControl(
+            appId: "cat.bcn.areadum",
+            versionCode: 2020021715,
             language: Language.es,
             f: {_ in }
         )
     }
     
     @IBAction func onRatingClick(_ sender: Any) {
-        osam.rating(
-            appId: "cat.bcn.festamerce",
+        osamCommons.rating(
+            appId: "cat.bcn.areadum",
             language: Language.es,
             f: {_ in }
         )

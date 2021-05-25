@@ -8,7 +8,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    // id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 }
 
 repositories {
@@ -81,7 +81,7 @@ dependencies {
     implementation(Dependencies.Android.playServices)
 
     implementation(Dependencies.Android.firebaseCore)
-    implementation(Dependencies.Android.firebaseAnalytics)
+    implementation(Dependencies.Android.analytics)
     implementation(Dependencies.Android.firebasePerf)
 
 

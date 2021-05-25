@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath(Dependencies.Root.android)
-        // classpath(Dependencies.Root.googlePlay)
+        classpath(Dependencies.Root.googlePlay)
         classpath(Dependencies.Root.serialization)
         classpath(kotlin("gradle-plugin", kotlin_version))
     }
