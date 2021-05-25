@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAM
+import cat.bcn.commonmodule.ui.versioncontrol.RatingControlResponse
+import cat.bcn.commonmodule.ui.versioncontrol.VersionControlResponse
 import com.app.app.R
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -18,8 +20,8 @@ class HomeActivity : AppCompatActivity() {
 
         versionControlButton.setOnClickListener {
             osam.versionControl(
-                appId = "cat.bcn.apropdaqui",
-                versionCode = 20141104,
+                appId = "cat.bcn.festamerce",
+                versionCode = 2019091811,
                 language = Language.CA
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
@@ -27,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         ratingButton.setOnClickListener {
-            osam.rating("cat.bcn.apropdaqui", Language.CA) {
+            osam.rating("cat.bcn.festamerce", Language.CA) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
         }

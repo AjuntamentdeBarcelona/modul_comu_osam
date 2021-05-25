@@ -24,7 +24,9 @@ fun buildClient(endpoint: String, block: HttpClientConfig<*>.() -> Unit = {}): H
             level = LogLevel.ALL
         }
         install(JsonFeature) {
-            serializer = KotlinxSerializer()
+            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+                ignoreUnknownKeys = true
+            })
         }
 
         block(this)
