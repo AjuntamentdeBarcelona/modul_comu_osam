@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
+import com.app.app.BuildConfig
 import com.app.app.R
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -18,8 +19,8 @@ class HomeActivity : AppCompatActivity() {
 
         versionControlButton.setOnClickListener {
             osamCommons.versionControl(
-                appId = "cat.bcn.apropdaqui",
-                versionCode = 20141104,
+                appId = BuildConfig.APPLICATION_ID,
+                versionCode = 2021050000,
                 language = Language.CA
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
@@ -27,12 +28,8 @@ class HomeActivity : AppCompatActivity() {
         }
 
         ratingButton.setOnClickListener {
-            /*val bundle2 = Bundle()
-            bundle2.putString(FirebaseAnalytics.Param.ITEM_ID, "osamcommons")
-            bundle2.putString(FirebaseAnalytics.Param.ITEM_NAME, "rating_popup_showed")
-            FirebaseAnalytics.getInstance(applicationContext).logEvent("OSAM_COMMONS_SHOW_RATING_DIALOG", bundle2)*/
             osamCommons.rating(
-                appId = "cat.bcn.apropdaqui",
+                appId = BuildConfig.APPLICATION_ID,
                 language = Language.CA
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
