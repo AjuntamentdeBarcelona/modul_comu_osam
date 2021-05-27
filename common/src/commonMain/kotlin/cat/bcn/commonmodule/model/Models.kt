@@ -26,7 +26,7 @@ data class Version(
     val url: String
 ) {
     enum class ComparisonMode {
-        FORCE, LAZY, INFO
+        FORCE, LAZY, INFO, NONE
     }
 }
 

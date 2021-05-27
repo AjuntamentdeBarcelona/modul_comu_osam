@@ -59,25 +59,32 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
                     )
                 )
 
-                when (version.comparisonMode) {
-                    Version.ComparisonMode.FORCE -> {
-                        // Do nothing, by default will be not dismissable
+                if (version.comparisonMode.equals(Version.ComparisonMode.NONE)) {
+                    when (version.comparisonMode) {
+                        Version.ComparisonMode.FORCE -> {
+                            // Do nothing, by default will be not dismissable
+                        }
+                        Version.ComparisonMode.LAZY -> {
+                            alert.addAction(UIAlertAction.actionWithTitle(
+                                title = version.cancel.localize(language),
+                                style = UIAlertActionStyleCancel,
+                                handler = { f(VersionControlResponse.CANCELLED) }
+                            ))
+                        }
+                        Version.ComparisonMode.INFO -> {
+                            //Only make dismissable
+                        }
                     }
-                    else -> {
-                        alert.addAction(UIAlertAction.actionWithTitle(
-                            title = version.cancel.localize(language),
-                            style = UIAlertActionStyleCancel,
-                            handler = { f(VersionControlResponse.CANCELLED) }
-                        ))
-                    }
+
+                    vc.presentViewController(alert, animated = true, completion = null)
+
+                    analytics.logVersionControlPopUp(
+                        params = mapOf(
+                            kFIRParameterItemID!! to EVENT_ID,
+                            kFIRParameterItemName!! to VERSION_CONTROL_POPUP
+                        )
+                    )
                 }
-
-                vc.presentViewController(alert, animated = true, completion = null)
-
-                analytics.logVersionControlPopUp(
-                    params = mapOf(kFIRParameterItemID!! to EVENT_ID, kFIRParameterItemName!! to VERSION_CONTROL_POPUP)
-                )
-
             }
         } catch (e: Exception) {
             f(VersionControlResponse.ERROR)

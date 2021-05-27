@@ -40,33 +40,38 @@ actual class OSAMCommons constructor(private val context: Context) {
                 val version: Version =
                     remote.getVersion(appId, versionCode, language, Platform.ANDROID)
 
-                withContext(Dispatchers.Main) {
-                    val dialog = AlertDialog.Builder(context)
-                        .setTitle(version.title.localize(language))
-                        .setMessage(version.message.localize(language))
-                        .setPositiveButton(version.ok.localize(language)) { _, _ ->
-                            f(VersionControlResponse.ACCEPTED)
-                            //Launch intent to version.url
-                        }
-
-
-                    when (version.comparisonMode) {
-                        FORCE -> dialog.setCancelable(false)
-                        LAZY -> {
-                            dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
-                                f(VersionControlResponse.CANCELLED)
+                if (!version.comparisonMode.equals(NONE)) {
+                    withContext(Dispatchers.Main) {
+                        val dialog = AlertDialog.Builder(context)
+                            .setTitle(version.title.localize(language))
+                            .setMessage(version.message.localize(language))
+                            .setPositiveButton(version.ok.localize(language)) { _, _ ->
+                                f(VersionControlResponse.ACCEPTED)
+                                //Launch intent to version.url
                             }
-                                .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
-                        }
-                        INFO -> {
-                            // Do nothing
-                        }
-                    }
 
-                    dialog.show()
-                    analytics.logVersionControlPopUp(
-                        params = mapOf(FirebaseAnalytics.Param.ITEM_ID to EVENT_ID, FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP)
-                    )
+
+                        when (version.comparisonMode) {
+                            FORCE -> dialog.setCancelable(false)
+                            LAZY -> {
+                                dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
+                                    f(VersionControlResponse.CANCELLED)
+                                }
+                                    .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
+                            }
+                            INFO -> {
+                                // Do nothing
+                            }
+                        }
+
+                        dialog.show()
+                        analytics.logVersionControlPopUp(
+                            params = mapOf(
+                                FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP
+                            )
+                        )
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) { f(VersionControlResponse.ERROR) }
@@ -94,7 +99,10 @@ actual class OSAMCommons constructor(private val context: Context) {
                         val dialog = AlertDialog.Builder(context)
                             .setTitle("Control de rating title")
                             .setMessage(rating.message.localize(language))
-                            .setPositiveButton("Aceptar") { _, _ -> f(RatingControlResponse.ACCEPTED) }
+                            .setPositiveButton("Aceptar") { _, _ ->
+                                //Launch to URL OR GOOGLE PLAY
+                                f(RatingControlResponse.ACCEPTED)
+                            }
                             .setOnDismissListener { f(RatingControlResponse.ACCEPTED) }
                             .setNegativeButton("Cancelar") { _, _ -> f(RatingControlResponse.ACCEPTED) }
                             .create()
