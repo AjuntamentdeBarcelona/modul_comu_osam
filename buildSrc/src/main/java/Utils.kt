@@ -35,12 +35,12 @@ enum class AppFlavor(
     val signInName: String
 ) {
     AppName1(
-        appId = "cat.bcn.demo",
+        appId = "cat.bcn.appdemo",
         signInFile = "appname1.properties",
         signInName = "name1"
     ),
     AppName2(
-        appId = "cat.bcn.demo",
+        appId = "cat.bcn.appdemo",
         signInFile = "appname1.properties",
         signInName = "name2"
     )

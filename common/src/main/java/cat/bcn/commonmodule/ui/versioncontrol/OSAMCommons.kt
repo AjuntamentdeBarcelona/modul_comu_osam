@@ -45,16 +45,18 @@ actual class OSAMCommons constructor(private val context: Context) {
                         .setTitle(version.title.localize(language))
                         .setMessage(version.message.localize(language))
                         .setPositiveButton(version.ok.localize(language)) { _, _ ->
-                            f(
-                                VersionControlResponse.ACCEPTED
-                            )
+                            f(VersionControlResponse.ACCEPTED)
+                            //Launch intent to version.url
                         }
-                        .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
+
 
                     when (version.comparisonMode) {
-                        FORCE -> dialog.setCancelable(true)
-                        LAZY -> dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
-                            f(VersionControlResponse.CANCELLED)
+                        FORCE -> dialog.setCancelable(false)
+                        LAZY -> {
+                            dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
+                                f(VersionControlResponse.CANCELLED)
+                            }
+                                .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
                         }
                         INFO -> {
                             // Do nothing
