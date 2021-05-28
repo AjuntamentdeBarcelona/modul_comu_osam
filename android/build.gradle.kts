@@ -34,8 +34,8 @@ android {
     flavorDimensions("version")
 
     productFlavors {
-        createProductFlavor(AppFlavor.AppName1)
-        createProductFlavor(AppFlavor.AppName2)
+        createProductFlavor(AppFlavor.Demo)
+        createProductFlavor(AppFlavor.Jenkins)
     }
 
     signingConfigs {
@@ -98,7 +98,7 @@ fun NamedDomainObjectContainer<ProductFlavor>.createProductFlavor(appFlavor: App
 
 fun NamedDomainObjectContainer<SigningConfig>.createSignInConfig(appFlavor: AppFlavor) = create(appFlavor.signInName) {
     val path = "${rootDir.absolutePath}/$propertiesDir"
-    storeFile = getSignFile(rootDir.absolutePath, "$path/${appFlavor.signInFile}")
+    storeFile = getSignFile("$path/${appFlavor.signInFile}")
     storePassword = getSignFilePassword("$path/${appFlavor.signInFile}")
     keyAlias = getSignAlias("$path/${appFlavor.signInFile}")
     keyPassword = getSignAliasPassword("$path/${appFlavor.signInFile}")

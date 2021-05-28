@@ -21,13 +21,13 @@ android {
     flavorDimensions("version")
 
     productFlavors {
-        create(AppFlavor.AppName1.name.toLowerCase())
-        create(AppFlavor.AppName2.name.toLowerCase())
+        create(AppFlavor.Demo.name.toLowerCase())
+        create(AppFlavor.Jenkins.name.toLowerCase())
     }
 
     signingConfigs {
-        // create(AppFlavor.AppName1.signInName)
-        // create(AppFlavor.AppName2.signInName)
+        create(AppFlavor.Demo.signInName)
+        create(AppFlavor.Jenkins.signInName)
     }
 
     buildTypes {
