@@ -35,7 +35,7 @@ enum class AppFlavor(
     val signInName: String
 ) {
     Demo(
-        appId = "cat.bcn.appdemo",
+        appId = "cat.bcn.commonmodule",
         signInFile = "keystore.properties",
         signInName = "Demo"
     ),
