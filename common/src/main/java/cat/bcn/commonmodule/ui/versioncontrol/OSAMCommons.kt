@@ -1,7 +1,10 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import cat.bcn.commonmodule.analytics.Analytics
 import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
@@ -27,7 +30,13 @@ actual class OSAMCommons constructor(private val context: Context) {
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default", context)) }
     private val EVENT_ID = "osamcommons"
     private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
+    private val VERSION_CONTROL_POPUP_ACCEPTED = "version_control_popup_accepted"
+    private val VERSION_CONTROL_POPUP_CANCELLED = "version_control_popup_cancelled"
+    private val VERSION_CONTROL_POPUP_DISMISS = "version_control_popup_dismiss"
     private val RATING_POPUP = "rating_popup_showed"
+    private val RATING_POPUP_ACCEPTED = "rating_popup_accepted"
+    private val RATING_POPUP_CANCELLED = "rating_popup_cancelled"
+    private val RATING_POPUP_LATER = "rating_popup_later"
 
     actual fun versionControl(
         appId: String,
@@ -47,7 +56,16 @@ actual class OSAMCommons constructor(private val context: Context) {
                             .setMessage(version.message.localize(language))
                             .setPositiveButton(version.ok.localize(language)) { _, _ ->
                                 f(VersionControlResponse.ACCEPTED)
-                                //Launch intent to version.url
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(version.url)
+                                startActivity(context, intent, null)
+
+                                analytics.logVersionControlPopUp(
+                                    params = mapOf(
+                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                        FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP_ACCEPTED
+                                    )
+                                )
                             }
 
 
@@ -56,6 +74,12 @@ actual class OSAMCommons constructor(private val context: Context) {
                             LAZY -> {
                                 dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
                                     f(VersionControlResponse.CANCELLED)
+                                    analytics.logVersionControlPopUp(
+                                        params = mapOf(
+                                            FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                            FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP_CANCELLED
+                                        )
+                                    )
                                 }
                                     .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
                             }
@@ -100,16 +124,36 @@ actual class OSAMCommons constructor(private val context: Context) {
                             .setTitle("Control de rating title")
                             .setMessage(rating.message.localize(language))
                             .setPositiveButton("Aceptar") { _, _ ->
-                                //Launch to URL OR GOOGLE PLAY
                                 f(RatingControlResponse.ACCEPTED)
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse("https://play.google.com/store/apps/details?id=$appId")
+                                startActivity(context, intent, null)
+
+                                analytics.logRatingPopUp(
+                                    params = mapOf(
+                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                        FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP_ACCEPTED
+                                    )
+                                )
                             }
-                            .setOnDismissListener { f(RatingControlResponse.ACCEPTED) }
-                            .setNegativeButton("Cancelar") { _, _ -> f(RatingControlResponse.ACCEPTED) }
+                            .setOnDismissListener { f(RatingControlResponse.DISMISSED) }
+                            .setNegativeButton("Cancelar") { _, _ ->
+                                f(RatingControlResponse.CANCELLED)
+                                analytics.logRatingPopUp(
+                                    params = mapOf(
+                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                        FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP_CANCELLED
+                                    )
+                                )
+                            }
                             .create()
 
                         dialog.show()
                         analytics.logRatingPopUp(
-                            params = mapOf(FirebaseAnalytics.Param.ITEM_ID to EVENT_ID, FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP)
+                            params = mapOf(
+                                FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP
+                            )
                         )
                         preferences.setLastDatetime(DateTime.nowUnixLong())
                     }
