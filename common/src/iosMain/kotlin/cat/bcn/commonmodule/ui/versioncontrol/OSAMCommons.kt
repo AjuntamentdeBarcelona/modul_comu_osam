@@ -18,6 +18,7 @@ import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import platform.Foundation.NSBundle
 import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
 
@@ -28,10 +29,11 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default")) }
     private val EVENT_ID = "osamcommons"
     private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
+    private val VERSION_CONTROL_POPUP_ACCEPTED = "version_control_popup_accepted"
+    private val VERSION_CONTROL_POPUP_CANCELLED = "version_control_popup_cancelled"
     private val RATING_POPUP = "rating_popup_showed"
 
     actual fun versionControl(
-        appId: String,
         versionCode: Int,
         language: Language,
         f: (VersionControlResponse) -> Unit
@@ -39,7 +41,7 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
         try {
             GlobalScope.launch(Dispatchers.Main) {
                 val version = remote.getVersion(
-                    appId = appId,
+                    appId = NSBundle.mainBundle.bundleIdentifier!!,
                     versionCode = versionCode,
                     language = language,
                     platform = Platform.IOS
@@ -55,7 +57,15 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
                     UIAlertAction.actionWithTitle(
                         title = version.ok.localize(language),
                         style = UIAlertActionStyleDefault,
-                        handler = { f(VersionControlResponse.ACCEPTED) }
+                        handler = {
+                            f(VersionControlResponse.ACCEPTED)
+                            analytics.logVersionControlPopUp(
+                                params = mapOf(
+                                    kFIRParameterItemID!! to EVENT_ID,
+                                    kFIRParameterItemName!! to VERSION_CONTROL_POPUP_ACCEPTED
+                                )
+                            )
+                        }
                     )
                 )
 
@@ -68,7 +78,15 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
                             alert.addAction(UIAlertAction.actionWithTitle(
                                 title = version.cancel.localize(language),
                                 style = UIAlertActionStyleCancel,
-                                handler = { f(VersionControlResponse.CANCELLED) }
+                                handler = {
+                                    f(VersionControlResponse.CANCELLED)
+                                    analytics.logVersionControlPopUp(
+                                        params = mapOf(
+                                            kFIRParameterItemID!! to EVENT_ID,
+                                            kFIRParameterItemName!! to VERSION_CONTROL_POPUP_CANCELLED
+                                        )
+                                    )
+                                }
                             ))
                         }
                         Version.ComparisonMode.INFO -> {
@@ -92,15 +110,16 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
 
     }
 
-    actual fun rating(appId: String, language: Language, f: (RatingControlResponse) -> Unit) {
+    actual fun rating(language: Language, f: (RatingControlResponse) -> Unit) {
         try {
             GlobalScope.launch(Dispatchers.Main) {
-                val rating = remote.getRating(appId, Platform.ANDROID)
+                val rating = remote.getRating(NSBundle.mainBundle.bundleIdentifier!!, Platform.ANDROID)
 
                 val shouldShowRatingDialog = shouldShowRatingDialog(
                     rating = rating,
                     lastDatetime = preferences.getLastDatetime(),
-                    numAperture = preferences.getNumApertures()
+                    numAperture = preferences.getNumApertures(),
+                    dontShowDialog = preferences.getDontShowAgain()
                 )
 
                 if (shouldShowRatingDialog) {

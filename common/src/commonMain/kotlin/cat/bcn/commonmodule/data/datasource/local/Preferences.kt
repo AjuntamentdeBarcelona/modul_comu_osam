@@ -11,4 +11,8 @@ interface Preferences {
     fun setLastDatetime(value: Long)
     fun hasLastDatetime(): Boolean
     fun getLastDatetime(): Long
+
+    fun setDontShowAgain(value: Boolean)
+    fun hasDontShowAgain(): Boolean
+    fun getDontShowAgain(): Boolean
 }

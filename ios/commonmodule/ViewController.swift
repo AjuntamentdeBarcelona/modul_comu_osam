@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     
     @IBAction func onVersionControlClick(_ sender: Any) {
         osamCommons.versionControl(
-            appId: "cat.bcn.areadum",
             versionCode: 2020021715,
             language: Language.es,
             f: {_ in }
@@ -28,7 +27,6 @@ class ViewController: UIViewController {
     
     @IBAction func onRatingClick(_ sender: Any) {
         osamCommons.rating(
-            appId: "cat.bcn.areadum",
             language: Language.es,
             f: {_ in }
         )

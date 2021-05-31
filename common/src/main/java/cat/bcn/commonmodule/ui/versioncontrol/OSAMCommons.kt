@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startActivity
+import cat.bcn.commonmodule.R
 import cat.bcn.commonmodule.analytics.Analytics
 import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
@@ -32,14 +33,12 @@ actual class OSAMCommons constructor(private val context: Context) {
     private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
     private val VERSION_CONTROL_POPUP_ACCEPTED = "version_control_popup_accepted"
     private val VERSION_CONTROL_POPUP_CANCELLED = "version_control_popup_cancelled"
-    private val VERSION_CONTROL_POPUP_DISMISS = "version_control_popup_dismiss"
     private val RATING_POPUP = "rating_popup_showed"
     private val RATING_POPUP_ACCEPTED = "rating_popup_accepted"
     private val RATING_POPUP_CANCELLED = "rating_popup_cancelled"
     private val RATING_POPUP_LATER = "rating_popup_later"
 
     actual fun versionControl(
-        appId: String,
         versionCode: Int,
         language: Language,
         f: (VersionControlResponse) -> Unit
@@ -47,7 +46,7 @@ actual class OSAMCommons constructor(private val context: Context) {
         GlobalScope.launch {
             try {
                 val version: Version =
-                    remote.getVersion(appId, versionCode, language, Platform.ANDROID)
+                    remote.getVersion(context.packageName, versionCode, language, Platform.ANDROID)
 
                 if (!version.comparisonMode.equals(NONE)) {
                     withContext(Dispatchers.Main) {
@@ -104,29 +103,29 @@ actual class OSAMCommons constructor(private val context: Context) {
     }
 
     actual fun rating(
-        appId: String,
         language: Language,
         f: (RatingControlResponse) -> Unit
     ) {
         try {
             GlobalScope.launch {
-                val rating = remote.getRating(appId, Platform.ANDROID)
+                val rating = remote.getRating(context.packageName, Platform.ANDROID)
 
                 val shouldShowRatingDialog = shouldShowRatingDialog(
                     rating = rating,
                     lastDatetime = preferences.getLastDatetime(),
-                    numAperture = preferences.getNumApertures()
+                    numAperture = preferences.getNumApertures(),
+                    dontShowDialog = preferences.getDontShowAgain()
                 )
 
                 if (shouldShowRatingDialog) {
                     withContext(Dispatchers.Main) {
                         val dialog = AlertDialog.Builder(context)
-                            .setTitle("Control de rating title")
+                            .setTitle(context.getString(R.string.dialog_rating_title, context.applicationInfo.loadLabel(context.packageManager).toString()))
                             .setMessage(rating.message.localize(language))
-                            .setPositiveButton("Aceptar") { _, _ ->
+                            .setPositiveButton(R.string.dialog_rating_positive) { _, _ ->
                                 f(RatingControlResponse.ACCEPTED)
                                 val intent = Intent(Intent.ACTION_VIEW)
-                                intent.data = Uri.parse("https://play.google.com/store/apps/details?id=$appId")
+                                intent.data = Uri.parse("https://play.google.com/store/apps/details?id=$context.packageName")
                                 startActivity(context, intent, null)
 
                                 analytics.logRatingPopUp(
@@ -136,9 +135,9 @@ actual class OSAMCommons constructor(private val context: Context) {
                                     )
                                 )
                             }
-                            .setOnDismissListener { f(RatingControlResponse.DISMISSED) }
-                            .setNegativeButton("Cancelar") { _, _ ->
+                            .setNegativeButton(R.string.dialog_rating_negative) { _, _ ->
                                 f(RatingControlResponse.CANCELLED)
+                                preferences.setDontShowAgain(true)
                                 analytics.logRatingPopUp(
                                     params = mapOf(
                                         FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
@@ -146,6 +145,17 @@ actual class OSAMCommons constructor(private val context: Context) {
                                     )
                                 )
                             }
+                            .setNeutralButton(R.string.dialog_rating_neutral) { _, _ ->
+                                f(RatingControlResponse.LATER)
+                                preferences.setDontShowAgain(true)
+                                analytics.logRatingPopUp(
+                                    params = mapOf(
+                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                        FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP_LATER
+                                    )
+                                )
+                            }
+                            .setOnDismissListener { f(RatingControlResponse.DISMISSED) }
                             .create()
 
                         dialog.show()

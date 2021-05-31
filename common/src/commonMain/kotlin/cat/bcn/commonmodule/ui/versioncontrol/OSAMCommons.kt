@@ -6,14 +6,12 @@ import com.soywiz.klock.DateTimeRange
 
 expect class OSAMCommons {
     fun versionControl(
-        appId: String,
         versionCode: Int,
         language: Language,
         f: (VersionControlResponse) -> Unit
     )
 
     fun rating(
-        appId: String,
         language: Language,
         f: (RatingControlResponse) -> Unit
     )
@@ -24,7 +22,7 @@ enum class VersionControlResponse {
 }
 
 enum class RatingControlResponse {
-    ACCEPTED, DISMISSED, CANCELLED, ERROR
+    ACCEPTED, DISMISSED, CANCELLED, LATER, ERROR
 }
 
 enum class Language {
@@ -34,7 +32,8 @@ enum class Language {
 internal fun shouldShowRatingDialog(
     rating: Rating,
     lastDatetime: Long,
-    numAperture: Int
+    numAperture: Int,
+    dontShowDialog: Boolean
 ): Boolean {
     val now = DateTime.now()
     val latest = DateTime.fromUnix(lastDatetime)
@@ -43,5 +42,5 @@ internal fun shouldShowRatingDialog(
     println("Minutes between: $minutesBetween")
     println("Num apertures: $numAperture")
 
-    return rating.minutes <= minutesBetween || rating.numAperture <= numAperture
+    return !dontShowDialog && rating.minutes <= minutesBetween && rating.numAperture <= numAperture
 }

@@ -19,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
 
         versionControlButton.setOnClickListener {
             osamCommons.versionControl(
-                appId = BuildConfig.APPLICATION_ID,
                 versionCode = 2021050000,
                 language = Language.CA
             ) {
@@ -29,7 +28,6 @@ class HomeActivity : AppCompatActivity() {
 
         ratingButton.setOnClickListener {
             osamCommons.rating(
-                appId = BuildConfig.APPLICATION_ID,
                 language = Language.CA
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()

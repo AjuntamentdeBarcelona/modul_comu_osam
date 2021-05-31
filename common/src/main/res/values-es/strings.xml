@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connection_error_title">Error de connexión</string>
+    <string name="dialog_rating_title">Valorar %s</string>
+    <string name="dialog_rating_positive">Valorar ahora</string>
+    <string name="dialog_rating_neutral">Más tarde</string>
+    <string name="dialog_rating_negative">No, gracias</string>
+    <string name="connection_error">Error de conexión. Comprueba tu conexión a Internet.</string>
+</resources>

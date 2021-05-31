@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="connection_error_title">Error de connexión</string>
-    <string name="Cancel">Cancelar</string>
-    <string name="connection_error">Error de conexión. Comprueba tu conexión a Internet.</string>
+    <string name="connection_error_title">Connection error</string>
+    <string name="dialog_rating_title">Rate %s</string>
+    <string name="dialog_rating_positive">Rate now</string>
+    <string name="dialog_rating_neutral">Later</string>
+    <string name="dialog_rating_negative">No, thanks</string>
+    <string name="connection_error">Connection error. Check you internet connection.</string>
 </resources>

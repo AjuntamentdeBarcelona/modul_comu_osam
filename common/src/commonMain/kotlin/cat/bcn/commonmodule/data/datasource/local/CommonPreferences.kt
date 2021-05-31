@@ -7,6 +7,7 @@ class CommonPreferences(private val settings: Settings) : Preferences {
     companion object {
         private const val NUM_APERTURES = "NUM_APERTURES"
         private const val LAST_DATETIME = "LAST_DATETIME"
+        private const val DONT_SHOW_AGAIN = "DONT_SHOW_AGAIN"
     }
 
     override fun clear() {
@@ -20,4 +21,8 @@ class CommonPreferences(private val settings: Settings) : Preferences {
     override fun setLastDatetime(value: Long) = settings.setLong(LAST_DATETIME, value)
     override fun hasLastDatetime(): Boolean = settings.has(LAST_DATETIME)
     override fun getLastDatetime(): Long = settings.getLong(LAST_DATETIME, 0)
+
+    override fun setDontShowAgain(value: Boolean) = settings.setBoolean(DONT_SHOW_AGAIN, value)
+    override fun hasDontShowAgain(): Boolean = settings.has(DONT_SHOW_AGAIN)
+    override fun getDontShowAgain(): Boolean = settings.getBoolean(DONT_SHOW_AGAIN)
 }
