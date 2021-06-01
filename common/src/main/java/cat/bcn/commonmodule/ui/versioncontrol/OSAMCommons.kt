@@ -2,7 +2,10 @@ package cat.bcn.commonmodule.ui.versioncontrol
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startActivity
 import cat.bcn.commonmodule.R
@@ -13,10 +16,8 @@ import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
-import cat.bcn.commonmodule.model.Platform
-import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.model.*
 import cat.bcn.commonmodule.model.Version.ComparisonMode.*
-import cat.bcn.commonmodule.model.localize
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
@@ -108,8 +109,20 @@ actual class OSAMCommons constructor(private val context: Context) {
     ) {
         try {
             GlobalScope.launch {
-                //TODO probar el modo avion
-                val rating = remote.getRating(context.packageName, Platform.ANDROID)
+                var rating: Rating = Rating(
+                    id = 0,
+                    appId = 0,
+                    packageName = context.packageName,
+                    platform = Platform.ANDROID,
+                    minutes = preferences.getRatingDateInterval(),
+                    numAperture = preferences.getRatingNumApertures(),
+                    message = Text(es = "", en = "", ca = "")
+                )
+                if (isOnline(context)) {
+                    rating = remote.getRating(context.packageName, Platform.ANDROID)
+                    preferences.setRatingNumApertures(rating.numAperture)
+                    preferences.setRatingDateInterval(rating.minutes)
+                }
                 //Initialize LastDateTime if needed
                 if (preferences.getLastDatetime() == 0L) {
                     preferences.setLastDatetime(DateTime.nowUnixLong())
@@ -180,5 +193,31 @@ actual class OSAMCommons constructor(private val context: Context) {
         } catch (e: Exception) {
             f(RatingControlResponse.ERROR)
         }
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        return true
+                    }
+                }
+            }
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+                return true
+            }
+        }
+        return false
     }
 }

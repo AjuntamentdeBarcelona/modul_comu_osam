@@ -14,6 +14,16 @@ class CommonPreferences(private val settings: Settings) : Preferences {
         settings.clear()
     }
 
+    override fun setRatingNumApertures(value: Int) = settings.setInt(NUM_APERTURES, value)
+    override fun hasRatingNumApertures(): Boolean = settings.has(NUM_APERTURES)
+    override fun getRatingNumApertures(): Int = settings.getInt(NUM_APERTURES, 5)
+
+    override fun setRatingDateInterval(value: Int) = settings.setInt(LAST_DATETIME, value)
+    override fun hasRatingDateInterval(): Boolean = settings.has(LAST_DATETIME)
+    override fun getRatingDateInterval(): Int = settings.getInt(LAST_DATETIME, 2880) //2 dias en minutos
+
+
+
     override fun setNumApertures(value: Int) = settings.setInt(NUM_APERTURES, value)
     override fun hasNumApertures(): Boolean = settings.has(NUM_APERTURES)
     override fun getNumApertures(): Int = settings.getInt(NUM_APERTURES, 0)
