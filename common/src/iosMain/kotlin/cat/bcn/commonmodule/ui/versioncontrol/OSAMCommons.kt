@@ -10,8 +10,6 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.model.localize
-import cocoapods.FirebaseAnalytics.FIRAnalytics
-import cocoapods.FirebaseAnalytics.FIRAnalyticsMeta
 import cocoapods.FirebaseAnalytics.kFIRParameterItemID
 import cocoapods.FirebaseAnalytics.kFIRParameterItemName
 import com.soywiz.klock.DateTime
@@ -145,5 +143,4 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
             f(RatingControlResponse.ERROR)
         }
     }
-
 }
