@@ -115,6 +115,10 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
             GlobalScope.launch(Dispatchers.Main) {
                 val rating = remote.getRating(NSBundle.mainBundle.bundleIdentifier!!, Platform.ANDROID)
 
+                if (preferences.getLastDatetime() == 0L) {
+                    preferences.setLastDatetime(DateTime.nowUnixLong())
+                }
+
                 val shouldShowRatingDialog = shouldShowRatingDialog(
                     rating = rating,
                     lastDatetime = preferences.getLastDatetime(),
