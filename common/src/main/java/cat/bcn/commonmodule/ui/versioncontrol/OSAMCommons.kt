@@ -108,8 +108,12 @@ actual class OSAMCommons constructor(private val context: Context) {
     ) {
         try {
             GlobalScope.launch {
+                //TODO probar el modo avion
                 val rating = remote.getRating(context.packageName, Platform.ANDROID)
-
+                //Initialize LastDateTime if needed
+                if (preferences.getLastDatetime() == 0L) {
+                    preferences.setLastDatetime(DateTime.nowUnixLong())
+                }
                 val shouldShowRatingDialog = shouldShowRatingDialog(
                     rating = rating,
                     lastDatetime = preferences.getLastDatetime(),
@@ -147,7 +151,6 @@ actual class OSAMCommons constructor(private val context: Context) {
                             }
                             .setNeutralButton(R.string.dialog_rating_neutral) { _, _ ->
                                 f(RatingControlResponse.LATER)
-                                preferences.setDontShowAgain(true)
                                 analytics.logRatingPopUp(
                                     params = mapOf(
                                         FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
@@ -168,7 +171,6 @@ actual class OSAMCommons constructor(private val context: Context) {
                         preferences.setLastDatetime(DateTime.nowUnixLong())
                     }
                 }
-
                 if (preferences.getNumApertures() == rating.numAperture) {
                     preferences.setNumApertures(0)
                 } else {
