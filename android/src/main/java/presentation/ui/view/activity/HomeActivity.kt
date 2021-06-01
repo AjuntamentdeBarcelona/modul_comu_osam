@@ -19,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
 
         versionControlButton.setOnClickListener {
             osamCommons.versionControl(
-                versionCode = 2021050000,
                 language = Language.CA
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()

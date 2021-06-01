@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="connection_error_title">Connection error</string>
+    <string name="dialog_version_control_title">Update it!</string>
+    <string name="dialog_version_control_message">New version available.</string>
+    <string name="dialog_version_control_positive">Download</string>
+    <string name="dialog_version_control_negative">Cancel</string>
     <string name="dialog_rating_title">Rate %s</string>
     <string name="dialog_rating_positive">Rate now</string>
     <string name="dialog_rating_neutral">Later</string>

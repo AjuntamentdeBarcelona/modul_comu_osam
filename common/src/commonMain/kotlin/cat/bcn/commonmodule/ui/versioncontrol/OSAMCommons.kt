@@ -6,7 +6,6 @@ import com.soywiz.klock.DateTimeRange
 
 expect class OSAMCommons {
     fun versionControl(
-        versionCode: Int,
         language: Language,
         f: (VersionControlResponse) -> Unit
     )

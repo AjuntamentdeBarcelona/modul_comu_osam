@@ -40,14 +40,59 @@ actual class OSAMCommons constructor(private val context: Context) {
     private val RATING_POPUP_LATER = "rating_popup_later"
 
     actual fun versionControl(
-        versionCode: Int,
         language: Language,
         f: (VersionControlResponse) -> Unit
     ) {
         GlobalScope.launch {
             try {
-                val version: Version =
-                    remote.getVersion(context.packageName, versionCode, language, Platform.ANDROID)
+                var version = Version(
+                    id = 0,
+                    appId = 0,
+                    packageName = context.packageName,
+                    versionCode = context.packageManager.getPackageInfo(context.packageName, 0).versionCode.toLong(),
+                    versionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName,
+                    platform = Platform.ANDROID,
+                    comparisonMode = preferences.getVersionControlComparisionMode(),
+                    title = Text(
+                        es = preferences.getVersionControlTitleEs(),
+                        en = preferences.getVersionControlTitleEn(),
+                        ca = preferences.getVersionControlTitleCa()
+                    ),
+                    message = Text(
+                        es = preferences.getVersionControlMessageEs(),
+                        en = preferences.getVersionControlMessageEn(),
+                        ca = preferences.getVersionControlMessageCa()
+                    ),
+                    ok = Text(
+                        es = preferences.getVersionControlOkEs(),
+                        en = preferences.getVersionControlOkEn(),
+                        ca = preferences.getVersionControlOkCa()
+                    ),
+                    cancel = Text(
+                        es = preferences.getVersionControlCancelEs(),
+                        en = preferences.getVersionControlCancelEn(),
+                        ca = preferences.getVersionControlCancelCa(),
+                    ),
+                    url = preferences.getVersionControlUrl()
+                )
+
+                if (isOnline(context)) {
+                    version = remote.getVersion(context.packageName, context.packageManager.getPackageInfo(context.packageName, 0).versionCode, language, Platform.ANDROID)
+                    preferences.setVersionControlTitleEs(version.title.localize(Language.ES))
+                    preferences.setVersionControlTitleEn(version.title.localize(Language.EN))
+                    preferences.setVersionControlTitleCa(version.title.localize(Language.CA))
+                    preferences.setVersionControlMessageEs(version.message.localize(Language.ES))
+                    preferences.setVersionControlMessageEn(version.message.localize(Language.EN))
+                    preferences.setVersionControlMessageCa(version.message.localize(Language.CA))
+                    preferences.setVersionControlOkEs(version.ok.localize(Language.ES))
+                    preferences.setVersionControlOkEn(version.ok.localize(Language.EN))
+                    preferences.setVersionControlOkCa(version.ok.localize(Language.CA))
+                    preferences.setVersionControlCancelEs(version.cancel.localize(Language.ES))
+                    preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
+                    preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
+                    preferences.setVersionControlUrl(version.url)
+                    preferences.setVersionControlComparisionMode(version.comparisonMode)
+                }
 
                 if (!version.comparisonMode.equals(NONE)) {
                     withContext(Dispatchers.Main) {
@@ -195,7 +240,7 @@ actual class OSAMCommons constructor(private val context: Context) {
         }
     }
 
-    fun isOnline(context: Context): Boolean {
+    private fun isOnline(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)

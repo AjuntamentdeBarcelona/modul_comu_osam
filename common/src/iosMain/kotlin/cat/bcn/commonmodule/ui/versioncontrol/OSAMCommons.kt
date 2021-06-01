@@ -34,7 +34,6 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
     private val RATING_POPUP = "rating_popup_showed"
 
     actual fun versionControl(
-        versionCode: Int,
         language: Language,
         f: (VersionControlResponse) -> Unit
     ) {
@@ -42,7 +41,7 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
             GlobalScope.launch(Dispatchers.Main) {
                 val version = remote.getVersion(
                     appId = NSBundle.mainBundle.bundleIdentifier!!,
-                    versionCode = versionCode,
+                    versionCode = NSBundle.mainBundle.infoDictionary!!["CFBundleVersion"] as Int,
                     language = language,
                     platform = Platform.IOS
                 )

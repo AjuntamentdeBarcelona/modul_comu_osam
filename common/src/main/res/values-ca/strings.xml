@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="connection_error_title">Error de connexió</string>
+    <string name="dialog_version_control_title">Actualitza’t!</string>
+    <string name="dialog_version_control_message">Nova versió disponible.</string>
+    <string name="dialog_version_control_positive">Descarregar</string>
+    <string name="dialog_version_control_negative">Cancel·lar</string>
     <string name="dialog_rating_title">Valorar %s</string>
     <string name="dialog_rating_positive">Valorar ara</string>
     <string name="dialog_rating_neutral">Més tard</string>
