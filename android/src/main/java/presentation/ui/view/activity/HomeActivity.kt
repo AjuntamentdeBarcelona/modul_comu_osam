@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
-import com.app.app.BuildConfig
 import com.app.app.R
 import kotlinx.android.synthetic.main.activity_home.*
 
