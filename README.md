@@ -64,7 +64,7 @@ private val osamCommons by lazy { OSAMCommons(this) }
 osamCommons.versionControl(
   language = Language.CA
   ) {
-    Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+    // Do something...
   }
 ```
 A la inicialització se li ha de passar el context de l'app.
@@ -111,7 +111,7 @@ private val osamCommons by lazy { OSAMCommons(this) }
 osamCommons.rating(
   language = Language.CA
   ) {
-    Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+    // Do something...
   }
 ```
 A la inicialització se li ha de passar el context de l'app.
