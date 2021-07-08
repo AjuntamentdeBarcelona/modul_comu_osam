@@ -25,11 +25,6 @@ android {
         create(AppFlavor.Jenkins.name.toLowerCase())
     }
 
-    signingConfigs {
-        create(AppFlavor.Demo.signInName)
-        create(AppFlavor.Jenkins.signInName)
-    }
-
     buildTypes {
         val proguard = getDefaultProguardFile("proguard-android.txt")
     }
