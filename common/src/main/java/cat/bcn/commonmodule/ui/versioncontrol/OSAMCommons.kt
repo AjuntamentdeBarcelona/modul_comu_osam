@@ -19,6 +19,7 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.*
 import cat.bcn.commonmodule.model.Version.ComparisonMode.*
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -76,22 +77,26 @@ actual class OSAMCommons constructor(private val context: Context) {
                     url = preferences.getVersionControlUrl()
                 )
 
-                if (isOnline(context)) {
-                    version = remote.getVersion(context.packageName, context.packageManager.getPackageInfo(context.packageName, 0).versionCode, language, Platform.ANDROID)
-                    preferences.setVersionControlTitleEs(version.title.localize(Language.ES))
-                    preferences.setVersionControlTitleEn(version.title.localize(Language.EN))
-                    preferences.setVersionControlTitleCa(version.title.localize(Language.CA))
-                    preferences.setVersionControlMessageEs(version.message.localize(Language.ES))
-                    preferences.setVersionControlMessageEn(version.message.localize(Language.EN))
-                    preferences.setVersionControlMessageCa(version.message.localize(Language.CA))
-                    preferences.setVersionControlOkEs(version.ok.localize(Language.ES))
-                    preferences.setVersionControlOkEn(version.ok.localize(Language.EN))
-                    preferences.setVersionControlOkCa(version.ok.localize(Language.CA))
-                    preferences.setVersionControlCancelEs(version.cancel.localize(Language.ES))
-                    preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
-                    preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
-                    preferences.setVersionControlUrl(version.url)
-                    preferences.setVersionControlComparisionMode(version.comparisonMode)
+                try {
+                    if (isOnline(context)) {
+                        version = remote.getVersion(context.packageName, context.packageManager.getPackageInfo(context.packageName, 0).versionCode, language, Platform.ANDROID)
+                        preferences.setVersionControlTitleEs(version.title.localize(Language.ES))
+                        preferences.setVersionControlTitleEn(version.title.localize(Language.EN))
+                        preferences.setVersionControlTitleCa(version.title.localize(Language.CA))
+                        preferences.setVersionControlMessageEs(version.message.localize(Language.ES))
+                        preferences.setVersionControlMessageEn(version.message.localize(Language.EN))
+                        preferences.setVersionControlMessageCa(version.message.localize(Language.CA))
+                        preferences.setVersionControlOkEs(version.ok.localize(Language.ES))
+                        preferences.setVersionControlOkEn(version.ok.localize(Language.EN))
+                        preferences.setVersionControlOkCa(version.ok.localize(Language.CA))
+                        preferences.setVersionControlCancelEs(version.cancel.localize(Language.ES))
+                        preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
+                        preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
+                        preferences.setVersionControlUrl(version.url)
+                        preferences.setVersionControlComparisionMode(version.comparisonMode)
+                    }
+                } catch (e: Exception) {
+                    FirebaseCrashlytics.getInstance().recordException(e)
                 }
 
                 if (!version.comparisonMode.equals(NONE)) {
@@ -129,7 +134,16 @@ actual class OSAMCommons constructor(private val context: Context) {
                                     .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
                             }
                             INFO -> {
-                                // Do nothing
+                                dialog.setPositiveButton(version.ok.localize(language)) { _, _ ->
+                                    f(VersionControlResponse.ACCEPTED)
+                                    analytics.logVersionControlPopUp(
+                                        params = mapOf(
+                                            FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
+                                            FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP_ACCEPTED
+                                        )
+                                    )
+                                }
+                                    .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
                             }
                         }
 
@@ -141,8 +155,11 @@ actual class OSAMCommons constructor(private val context: Context) {
                             )
                         )
                     }
+                } else {
+                    f(VersionControlResponse.DISMISSED)
                 }
             } catch (e: Exception) {
+                FirebaseCrashlytics.getInstance().recordException(e)
                 withContext(Dispatchers.Main) { f(VersionControlResponse.ERROR) }
             }
         }
@@ -152,8 +169,8 @@ actual class OSAMCommons constructor(private val context: Context) {
         language: Language,
         f: (RatingControlResponse) -> Unit
     ) {
-        try {
-            GlobalScope.launch {
+        GlobalScope.launch {
+            try {
                 var rating: Rating = Rating(
                     id = 0,
                     appId = 0,
@@ -161,17 +178,30 @@ actual class OSAMCommons constructor(private val context: Context) {
                     platform = Platform.ANDROID,
                     minutes = preferences.getRatingDateInterval(),
                     numAperture = preferences.getRatingNumApertures(),
-                    message = Text(es = "", en = "", ca = "")
+                    message = Text(
+                        es = preferences.getRatingControlMessageEs(),
+                        en = preferences.getRatingControlMessageEn(),
+                        ca = preferences.getRatingControlMessageCa()
+                    )
                 )
-                if (isOnline(context)) {
-                    rating = remote.getRating(context.packageName, Platform.ANDROID)
-                    preferences.setRatingNumApertures(rating.numAperture)
-                    preferences.setRatingDateInterval(rating.minutes)
+                try {
+                    if (isOnline(context)) {
+                        rating = remote.getRating(context.packageName, Platform.ANDROID)
+                        preferences.setRatingNumApertures(rating.numAperture)
+                        preferences.setRatingDateInterval(rating.minutes)
+                        preferences.setRatingControlMessageEs(rating.message.localize(Language.ES))
+                        preferences.setRatingControlMessageEn(rating.message.localize(Language.EN))
+                        preferences.setRatingControlMessageCa(rating.message.localize(Language.CA))
+                    }
+                } catch (e: Exception) {
+                    FirebaseCrashlytics.getInstance().recordException(e)
                 }
+
                 //Initialize LastDateTime if needed
                 if (preferences.getLastDatetime() == 0L) {
                     preferences.setLastDatetime(DateTime.nowUnixLong())
                 }
+
                 val shouldShowRatingDialog = shouldShowRatingDialog(
                     rating = rating,
                     lastDatetime = preferences.getLastDatetime(),
@@ -220,23 +250,27 @@ actual class OSAMCommons constructor(private val context: Context) {
                             .create()
 
                         dialog.show()
+                        preferences.setLastDatetime(DateTime.nowUnixLong())
                         analytics.logRatingPopUp(
                             params = mapOf(
                                 FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
                                 FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP
                             )
                         )
-                        preferences.setLastDatetime(DateTime.nowUnixLong())
                     }
+                } else {
+                    f(RatingControlResponse.LATER)
                 }
+
                 if (preferences.getNumApertures() == rating.numAperture) {
                     preferences.setNumApertures(0)
                 } else {
                     preferences.setNumApertures(preferences.getNumApertures() + 1)
                 }
+            } catch (e: Exception) {
+                FirebaseCrashlytics.getInstance().recordException(e)
+                f(RatingControlResponse.ERROR)
             }
-        } catch (e: Exception) {
-            f(RatingControlResponse.ERROR)
         }
     }
 

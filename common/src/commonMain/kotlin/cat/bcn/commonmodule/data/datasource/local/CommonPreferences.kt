@@ -82,6 +82,13 @@ class CommonPreferences(private val settings: Settings) : Preferences {
     override fun hasLastDatetime(): Boolean = settings.has(LAST_DATETIME)
     override fun getLastDatetime(): Long = settings.getLong(LAST_DATETIME, 0)
 
+    override fun setRatingControlMessageEs(value: String) = settings.setString(VERSION_MESSAGE_ES, value)
+    override fun getRatingControlMessageEs(): String = settings.getString(VERSION_MESSAGE_ES, "Si te ha gustado esta app, valórame por favor. Gracias.")
+    override fun setRatingControlMessageEn(value: String) = settings.setString(VERSION_MESSAGE_EN, value)
+    override fun getRatingControlMessageEn(): String = settings.getString(VERSION_MESSAGE_EN, "If you liked this app, please rate me. Thank you.")
+    override fun setRatingControlMessageCa(value: String) = settings.setString(VERSION_MESSAGE_CA, value)
+    override fun getRatingControlMessageCa(): String = settings.getString(VERSION_MESSAGE_CA, "Si t'ha agradat aquesta app, valora'm si us plau. Gràcies.")
+
     override fun setDontShowAgain(value: Boolean) = settings.setBoolean(DONT_SHOW_AGAIN, value)
     override fun hasDontShowAgain(): Boolean = settings.has(DONT_SHOW_AGAIN)
     override fun getDontShowAgain(): Boolean = settings.getBoolean(DONT_SHOW_AGAIN)

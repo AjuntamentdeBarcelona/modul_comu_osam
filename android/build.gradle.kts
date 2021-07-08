@@ -3,12 +3,12 @@ import com.android.build.gradle.internal.dsl.SigningConfig
 
 plugins {
     id("com.android.application")
-    // id("com.google.firebase.crashlytics")
 
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 repositories {
@@ -83,7 +83,7 @@ dependencies {
     implementation(Dependencies.Android.firebaseCore)
     implementation(Dependencies.Android.analytics)
     implementation(Dependencies.Android.firebasePerf)
-
+    implementation(Dependencies.Android.firebaseCrashlytics)
 
     implementation(Dependencies.Android.coroutinesAndroid)
     implementation(Dependencies.Android.coroutinesPlayServices)

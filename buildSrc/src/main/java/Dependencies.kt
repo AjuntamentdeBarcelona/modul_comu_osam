@@ -12,8 +12,8 @@ const val cocoapods_version = "0.6"
 object App {
     const val minSdkVersion = 19
     const val targetSdkVersion = 29
-    const val versionCode = 1
-    const val versionName = "0.0.1"
+    const val versionCode = 2021050000
+    const val versionName = "1.0.0"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 }
 
@@ -42,6 +42,7 @@ object Dependencies {
         const val firebaseCore = "com.google.firebase:firebase-core:16.0.8"
         const val analytics = "com.google.firebase:firebase-analytics-ktx:17.6.0"
         const val firebasePerf = "com.google.firebase:firebase-perf:19.0.5"
+        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:18.1.0"
         const val crashlytics =
             "com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar" // transitive = true
 
@@ -64,7 +65,7 @@ object Dependencies {
     object Root {
         const val android = "com.android.tools.build:gradle:4.0.1"
         const val googlePlay = "com.google.gms:google-services:4.2.0"
-        const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta04"
+        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.7.1"
         const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 

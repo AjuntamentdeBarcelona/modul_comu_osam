@@ -56,6 +56,13 @@ interface Preferences {
     fun hasLastDatetime(): Boolean
     fun getLastDatetime(): Long
 
+    fun setRatingControlMessageEs(value: String)
+    fun getRatingControlMessageEs(): String
+    fun setRatingControlMessageEn(value: String)
+    fun getRatingControlMessageEn(): String
+    fun setRatingControlMessageCa(value: String)
+    fun getRatingControlMessageCa(): String
+
     fun setDontShowAgain(value: Boolean)
     fun hasDontShowAgain(): Boolean
     fun getDontShowAgain(): Boolean

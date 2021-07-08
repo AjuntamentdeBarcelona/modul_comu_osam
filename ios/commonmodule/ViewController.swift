@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     
     @IBAction func onVersionControlClick(_ sender: Any) {
         osamCommons.versionControl(
-            versionCode: 2020021715,
             language: Language.es,
             f: {_ in }
         )

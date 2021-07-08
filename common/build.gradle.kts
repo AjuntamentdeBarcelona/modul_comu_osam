@@ -89,6 +89,7 @@ kotlin {
     sourceSets["androidMain"].dependencies {
         implementation(Dependencies.Common.Android.ktorClientCore)
         implementation(Dependencies.Android.analytics)
+        implementation(Dependencies.Android.firebaseCrashlytics)
         implementation(kotlin("stdlib"))
     }
 
@@ -111,6 +112,7 @@ kotlin {
         homepage = "Hello"
         frameworkName = "common"
         pod("FirebaseAnalytics")
+        pod("FirebaseCrashlytics")
         //podfile = project.file("../ios/Podfile")
     }
 }
