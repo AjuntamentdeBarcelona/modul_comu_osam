@@ -41,8 +41,8 @@ android {
     signingConfigs {
         getByName("debug") {
         }
-        // createSignInConfig(AppFlavor.AppName1)
-        // createSignInConfig(AppFlavor.AppName2)
+        createSignInConfig(AppFlavor.Demo)
+        createSignInConfig(AppFlavor.Jenkins)
     }
 
     buildTypes {
@@ -117,10 +117,10 @@ fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.
     versionNameSuffix = buildType.nameSuffix
 
     if (buildType == AppBuildType.Release) {
-        // flavors.getByName(AppFlavor.AppName1.name.toLowerCase()).signingConfig =
-        //     signingConfigs.getByName(AppFlavor.AppName1.signInName)
-        // flavors.getByName(AppFlavor.AppName2.name.toLowerCase()).signingConfig =
-        //     signingConfigs.getByName(AppFlavor.AppName2.signInName)
+        flavors.getByName(AppFlavor.Demo.name.toLowerCase()).signingConfig =
+             signingConfigs.getByName(AppFlavor.Demo.signInName)
+         flavors.getByName(AppFlavor.Jenkins.name.toLowerCase()).signingConfig =
+             signingConfigs.getByName(AppFlavor.Jenkins.signInName)
     } else {
         signingConfig = signingConfigs.getByName(buildType.signInConfig)
     }
