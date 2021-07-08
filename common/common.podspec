@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'common'
     spec.version                  = '1.1'
-    spec.homepage                 = 'Hello'
+    spec.homepage                 = 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Common library for the osam version control'
+    spec.summary                  = 'Common library for the osam version and rating app control'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/common.framework"
+    spec.vendored_frameworks      = "build/cocoapods/framework/OSAMCommon.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 

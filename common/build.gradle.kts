@@ -108,9 +108,9 @@ kotlin {
     }
 
     cocoapods {
-        summary = "Common library for the osam version control"
-        homepage = "Hello"
-        frameworkName = "common"
+        summary = "Common library for the osam version and rating app control"
+        homepage = "https://github.com/AjuntamentdeBarcelona/modul_comu_osam"
+        frameworkName = "OSAMCommon"
         pod("FirebaseAnalytics")
         pod("FirebaseCrashlytics")
         //podfile = project.file("../ios/Podfile")
