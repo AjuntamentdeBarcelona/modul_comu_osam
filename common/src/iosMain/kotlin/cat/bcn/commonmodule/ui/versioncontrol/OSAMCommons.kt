@@ -246,7 +246,7 @@ actual class OSAMCommons constructor(private val vc: UIViewController) {
                         params = mapOf(kFIRParameterItemID!! to EVENT_ID, kFIRParameterItemName!! to RATING_POPUP)
                     )
                 } else {
-                    f(RatingControlResponse.LATER)
+                    f(RatingControlResponse.DISMISSED)
                 }
 
                 if (preferences.getNumApertures() == rating.numAperture) {
