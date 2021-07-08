@@ -1,11 +1,11 @@
-# modul-comu-osam
-[![](https://jitpack.io/v/AjuntamentdeBarcelona/modul-comu-osam.svg)](https://jitpack.io/#AjuntamentdeBarcelona/modul-comu-osam)
+# modul_comu_osam
+[![](https://jitpack.io/v/AjuntamentdeBarcelona/modul_comu_osam.svg)](https://jitpack.io/#AjuntamentdeBarcelona/modul_comu_osam)
 # README
 ## Com es fa servir?
 ###Android
 - Afegeix aquesta dependència en el teu projecte:
 ```
-implementation 'com.github.AjuntamentdeBarcelona:modul-comu-osam:1.0.0'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:1.0.0'
 ```
 - Afegir aquest codi al teu build.gradle
 ```
@@ -19,7 +19,7 @@ allprojects {
 ###iOS
 - Per utilitzar el mòdul de control de versions, cal afegir l'arxiu Podfile la ubicació del repositori:
 ```
-pod 'VersionControl', :git => 'https://github.com/AjuntamentdeBarcelona/modulcomu-osam.git', :tag => '1.3.3'
+pod 'VersionControl', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '1.3.3'
 ```
 
 - Actualitzar mitjançant el comandament 'pod update' les dependències.
@@ -53,7 +53,7 @@ SKStoreReviewController.requestReview()
 Des de la OSAM es proporcionen mòduls per realitzar un conjunt de tasques comunes a totes les apps publicades per l'Ajuntament de Barcelona.
 
 El mòdul comú (IOS / Android) està disponible com a repositori a:
-https://github.com/AjuntamentdeBarcelona/modul-comu-osam
+https://github.com/AjuntamentdeBarcelona/modul_comu_osam
 
 ## Implementació control de versions
 ###Android
