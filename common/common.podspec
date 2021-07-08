@@ -1,18 +1,21 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'common'
     spec.version                  = '1.1'
-    spec.homepage                 = 'https://gitlab.kazan.atosworldline.com/android-tempos-21/eroski_mpp'
+    spec.homepage                 = 'Hello'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Common library for the Eroski/Caprabo app'
+    spec.summary                  = 'Common library for the osam version control'
 
-
+    spec.static_framework         = true
     spec.vendored_frameworks      = "build/cocoapods/framework/common.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
-            
+                
+
+    spec.dependency 'FirebaseAnalytics'
+    spec.dependency 'FirebaseCrashlytics'
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
@@ -34,7 +37,7 @@ Pod::Spec.new do |spec|
                 REPO_ROOT="$PODS_TARGET_SRCROOT"
                 "$REPO_ROOT/../gradlew" -p "$REPO_ROOT" :common:syncFramework \
                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET \
-                    -Pkotlin.native.cocoapods.configuration="Release" \
+                    -Pkotlin.native.cocoapods.configuration=$CONFIGURATION \
                     -Pkotlin.native.cocoapods.cflags="$OTHER_CFLAGS" \
                     -Pkotlin.native.cocoapods.paths.headers="$HEADER_SEARCH_PATHS" \
                     -Pkotlin.native.cocoapods.paths.frameworks="$FRAMEWORK_SEARCH_PATHS"
@@ -42,5 +45,3 @@ Pod::Spec.new do |spec|
         }
     ]
 end
-
-#                    -Pkotlin.native.cocoapods.configuration=$CONFIGURATION \

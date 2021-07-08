@@ -12,12 +12,10 @@ buildscript {
     }
     dependencies {
         classpath(Dependencies.Root.android)
-        // classpath(Dependencies.Root.googlePlay)
-        classpath(Dependencies.Root.fabric)
+        classpath(Dependencies.Root.googlePlay)
         classpath(Dependencies.Root.serialization)
-        classpath(Dependencies.Root.cocoapods)
-        classpath(Dependencies.Root.realm)
-        classpath(Dependencies.Root.sqldelight)
+        classpath(Dependencies.Root.firebaseCrashlytics)
+
         classpath(kotlin("gradle-plugin", kotlin_version))
     }
 }

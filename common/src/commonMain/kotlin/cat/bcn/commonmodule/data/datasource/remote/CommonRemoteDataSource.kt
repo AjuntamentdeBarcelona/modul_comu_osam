@@ -1,21 +1,30 @@
 package cat.bcn.commonmodule.data.datasource.remote
 
-import cat.bcn.commonmodule.data.datasource.local.Preferences
-import cat.bcn.commonmodule.data.datasource.remote.client.buildClientWithToken
-import co.touchlab.stately.ensureNeverFrozen
+import cat.bcn.commonmodule.constants.Constants
+import cat.bcn.commonmodule.data.datasource.remote.client.buildClient
+import cat.bcn.commonmodule.model.*
+import cat.bcn.commonmodule.ui.versioncontrol.Language
+import io.ktor.client.request.*
+import io.ktor.utils.io.core.*
 
 
-class CommonRemoteDataSource(
-    private val preferences: Preferences,
-    private val endPoint: String
-) : RemoteDataSource {
+internal class CommonRemote(
+) : Remote {
 
-    private val client = buildClientWithToken(endPoint, preferences)
+    override suspend fun getVersion(
+        appId: String,
+        versionCode: Int,
+        language: Language,
+        platform: Platform
+    ): Version =
+        buildClient(Constants.BACKEND_ENDPOINT).use {
+            it.get<VersionResponse>("${Constants.VERSION_ROUTE}/$appId/$platform/$versionCode")
+        }.data
 
-    init {
-        ensureNeverFrozen()
-    }
+    override suspend fun getRating(appId: String, platform: Platform): Rating =
+        buildClient(Constants.BACKEND_ENDPOINT).use {
+            it.get<RatingResponse>("${Constants.RATING_ROUTE}/$appId/$platform")
+        }.data
 
-    private fun Map<String, Any>.buildParams() = this.map { "${it.key}=${it.value}" }.joinToString("&")
 }
 

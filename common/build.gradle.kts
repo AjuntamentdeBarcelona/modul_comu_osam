@@ -4,8 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("kotlinx-serialization")
     id("com.android.library")
-    id("co.touchlab.native.cocoapods")
-    id("com.squareup.sqldelight")
+    kotlin("native.cocoapods")
 }
 
 android {
@@ -22,13 +21,13 @@ android {
     flavorDimensions("version")
 
     productFlavors {
-        create(AppFlavor.AppName1.name.toLowerCase())
-        create(AppFlavor.AppName2.name.toLowerCase())
+        create(AppFlavor.Demo.name.toLowerCase())
+        create(AppFlavor.Jenkins.name.toLowerCase())
     }
 
     signingConfigs {
-        // create(AppFlavor.AppName1.signInName)
-        // create(AppFlavor.AppName2.signInName)
+        create(AppFlavor.Demo.signInName)
+        create(AppFlavor.Jenkins.signInName)
     }
 
     buildTypes {
@@ -38,6 +37,8 @@ android {
 
 dependencies {
     implementation(Dependencies.Android.coroutinesPlayServices)
+    implementation(Dependencies.Android.appCompat)
+    implementation("com.google.firebase:firebase-core:18.0.2")
 }
 
 kotlin {
@@ -74,9 +75,8 @@ kotlin {
         implementation(Dependencies.Common.Main.ktorSerialization)
         implementation(Dependencies.Common.Main.ktorClientAuth)
         implementation(Dependencies.Common.Main.ktorLogging)
-        implementation(Dependencies.Common.Main.sqldelightRuntime)
 
-        implementation(Dependencies.Common.Main.stately)
+        implementation(Dependencies.Common.Main.time)
 
         implementation(kotlin("stdlib-common"))
     }
@@ -87,15 +87,9 @@ kotlin {
     }
 
     sourceSets["androidMain"].dependencies {
-        implementation(Dependencies.Common.Android.coroutines)
-        implementation(Dependencies.Common.Android.serialization)
         implementation(Dependencies.Common.Android.ktorClientCore)
-        implementation(Dependencies.Common.Android.ktorClientJson)
-        implementation(Dependencies.Common.Android.ktorSerialization)
-        implementation(Dependencies.Common.Android.ktorClientAuth)
-        implementation(Dependencies.Common.Android.ktorLogging)
-        implementation(Dependencies.Common.Android.sqldelightDriverAndroid)
-
+        implementation(Dependencies.Android.analytics)
+        implementation(Dependencies.Android.firebaseCrashlytics)
         implementation(kotlin("stdlib"))
     }
 
@@ -105,29 +99,20 @@ kotlin {
     }
 
     sourceSets["iosMain"].dependencies {
-        implementation(Dependencies.Common.Native.coroutines)
-        implementation(Dependencies.Common.Native.serialization)
         implementation(Dependencies.Common.Native.ktorClientCore)
-        implementation(Dependencies.Common.Native.ktorClientJson)
-        implementation(Dependencies.Common.Native.ktorSerialization)
-        implementation(Dependencies.Common.Native.ktorClientAuth)
-        implementation(Dependencies.Common.Native.ktorLogging)
-        implementation(Dependencies.Common.Native.sqldelightDriverNative)
-
         implementation(kotlin("stdlib"))
+
     }
+
     sourceSets["iosTest"].dependencies {
     }
 
-    cocoapodsext {
-        summary = "Common library for the Eroski/Caprabo app"
-        homepage = "https://gitlab.kazan.atosworldline.com/android-tempos-21/eroski_mpp"
-        isStatic = false
-    }
-}
-
-sqldelight {
-    database("eroskiclub") {
-        packageName = "com.tempos21.eroskiclub.db"
+    cocoapods {
+        summary = "Common library for the osam version control"
+        homepage = "Hello"
+        frameworkName = "common"
+        pod("FirebaseAnalytics")
+        pod("FirebaseCrashlytics")
+        //podfile = project.file("../ios/Podfile")
     }
 }

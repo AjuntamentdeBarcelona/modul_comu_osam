@@ -3,14 +3,12 @@ import com.android.build.gradle.internal.dsl.SigningConfig
 
 plugins {
     id("com.android.application")
-    // id("com.google.firebase.crashlytics")
 
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("realm-android")
-    // id("io.fabric")
-    // id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 repositories {
@@ -36,8 +34,8 @@ android {
     flavorDimensions("version")
 
     productFlavors {
-        createProductFlavor(AppFlavor.AppName1)
-        createProductFlavor(AppFlavor.AppName2)
+        createProductFlavor(AppFlavor.Demo)
+        createProductFlavor(AppFlavor.Jenkins)
     }
 
     signingConfigs {
@@ -78,35 +76,17 @@ dependencies {
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.constraintLayout)
     implementation(Dependencies.Android.recycler)
-    implementation(Dependencies.Android.material)
-    implementation(Dependencies.Android.fragment)
-    implementation(Dependencies.Android.fragmentKtx)
-    implementation(Dependencies.Android.appCompatLegacy)
-    implementation(Dependencies.Android.browser)
+
     implementation(Dependencies.Android.multidex)
     implementation(Dependencies.Android.playServices)
-    implementation(Dependencies.Android.playServicesAuthPhone)
-    implementation(Dependencies.Android.playServicesAuth)
-    implementation(Dependencies.Android.playServicesLocation)
-    implementation(Dependencies.Android.playServicesMaps)
-    implementation(Dependencies.Android.playServicesGcm)
-    implementation(Dependencies.Android.playServicesVision)
+
     implementation(Dependencies.Android.firebaseCore)
-    implementation(Dependencies.Android.firebaseAnalytics)
+    implementation(Dependencies.Android.analytics)
     implementation(Dependencies.Android.firebasePerf)
-    // implementation(Dependencies.Android.Data.fabric) {
-    //     isTransitive = true
-    // }
-    implementation(Dependencies.Android.kodeinJvm)
-    implementation(Dependencies.Android.kodeinX)
+    implementation(Dependencies.Android.firebaseCrashlytics)
+
     implementation(Dependencies.Android.coroutinesAndroid)
     implementation(Dependencies.Android.coroutinesPlayServices)
-    implementation(Dependencies.Android.glide)
-    implementation(Dependencies.Android.httpClient)
-    implementation(Dependencies.Android.barcode) {
-        exclude(group = "com.google.android.gms")
-    }
-    implementation(Dependencies.Android.dexter)
 
     androidTestImplementation(Dependencies.Android.Test.runner)
 }
@@ -118,7 +98,7 @@ fun NamedDomainObjectContainer<ProductFlavor>.createProductFlavor(appFlavor: App
 
 fun NamedDomainObjectContainer<SigningConfig>.createSignInConfig(appFlavor: AppFlavor) = create(appFlavor.signInName) {
     val path = "${rootDir.absolutePath}/$propertiesDir"
-    storeFile = getSignFile(rootDir.absolutePath, "$path/${appFlavor.signInFile}")
+    storeFile = getSignFile("$path/${appFlavor.signInFile}")
     storePassword = getSignFilePassword("$path/${appFlavor.signInFile}")
     keyAlias = getSignAlias("$path/${appFlavor.signInFile}")
     keyPassword = getSignAliasPassword("$path/${appFlavor.signInFile}")
