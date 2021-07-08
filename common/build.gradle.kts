@@ -18,13 +18,6 @@ android {
         testInstrumentationRunner = Common.testInstrumentationRunner
     }
 
-    flavorDimensions("version")
-
-    productFlavors {
-        create(AppFlavor.Demo.name.toLowerCase())
-        create(AppFlavor.Jenkins.name.toLowerCase())
-    }
-
     buildTypes {
         val proguard = getDefaultProguardFile("proguard-android.txt")
     }
