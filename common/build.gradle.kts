@@ -4,8 +4,12 @@ plugins {
     kotlin("multiplatform")
     id("kotlinx-serialization")
     id("com.android.library")
+    id("maven-publish")
     kotlin("native.cocoapods")
 }
+
+group = "com.github.AjuntamentdeBarcelona"
+version = "1.0.0"
 
 android {
     compileSdkVersion(Common.targetSdkVersion)
