@@ -31,6 +31,10 @@ dependencies {
 
 kotlin {
     android()
+    android {
+        publishLibraryVariants("release")
+    }
+
     // This is for iPhone emulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
