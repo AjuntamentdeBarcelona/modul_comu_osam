@@ -10,6 +10,7 @@ const val kotlin_version = "1.4.10"
 const val cocoapods_version = "0.6"
 
 object App {
+    const val applicationId = "cat.bcn.commonmodule"
     const val minSdkVersion = 19
     const val targetSdkVersion = 29
     const val versionCode = 2021050000
