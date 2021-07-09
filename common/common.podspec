@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'common'
-    spec.version                  = '1.1'
+    spec.version                  = '1.0.0'
     spec.homepage                 = 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''

@@ -21,10 +21,6 @@ android {
         versionName = Common.versionName
         testInstrumentationRunner = Common.testInstrumentationRunner
     }
-
-    buildTypes {
-        val proguard = getDefaultProguardFile("proguard-android.txt")
-    }
 }
 
 dependencies {
@@ -46,8 +42,6 @@ kotlin {
 
     targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
         listOf("-Xobjc-generics", "-Xg0")
-
-    version = "1.1"
 
     sourceSets {
         all {
