@@ -107,4 +107,13 @@ kotlin {
         pod("FirebaseCrashlytics")
         //podfile = project.file("../ios/Podfile")
     }
+
+    val podspec = tasks["podspec"] as org.jetbrains.kotlin.gradle.tasks.PodspecTask
+    podspec.doLast {
+        val podspec = file("${project.name.replace("-", "_")}.podspec")
+        val newPodspecContent = podspec.readLines().map {
+            if (it.contains("spec.source")) "    spec.source                   = { :git => \"https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git\", :tag => \"$version\" }" else it
+        }
+        podspec.writeText(newPodspecContent.joinToString(separator = "\n"))
+    }
 }
