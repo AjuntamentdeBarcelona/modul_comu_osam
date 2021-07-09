@@ -1,8 +1,10 @@
 # modul_comu_osam
 [![](https://jitpack.io/v/AjuntamentdeBarcelona/modul_comu_osam.svg)](https://jitpack.io/#AjuntamentdeBarcelona/modul_comu_osam)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 # README
 ## Com es fa servir?
-###Android
+### Android
 - Afegeix aquesta dependència en el teu projecte:
 ```
 implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:1.0.3'
@@ -16,7 +18,7 @@ allprojects {
 }
 ```
 
-###iOS
+### iOS
 - Per utilitzar el mòdul de control de versions, cal afegir l'arxiu Podfile la ubicació del repositori:
 ```
 pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '1.0.0'
@@ -56,7 +58,7 @@ El mòdul comú (IOS / Android) està disponible com a repositori a:
 https://github.com/AjuntamentdeBarcelona/modul_comu_osam
 
 ## Implementació control de versions
-###Android
+### Android
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
@@ -79,7 +81,7 @@ Lo que revem en el callback es l'objecte "VersionControlResponse". Aquest object
 
 Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "VersionControlResponse.CANCELLED".  Si en el cas de que volgués fer alguna acció diferent si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica.
 
-###iOS
+### iOS
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
@@ -103,7 +105,7 @@ Lo que revem en el callback es l'objecte "VersionControlResponse". Aquest object
 Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "VersionControlResponse.CANCELLED".  Si en el cas de que volgués fer alguna acció diferent si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica.
 
 ## Implementació control de valoracions
-###Android
+### Android
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
@@ -127,7 +129,7 @@ Lo que revem en el callback es l'objecte "RatingControlResponse". Aquest objecte
 
 Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "RatingControlResponse.CANCELLED".  Si en el cas de que volgués fer alguna acció diferent si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica..
 
-###iOS
+### iOS
 
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
@@ -152,7 +154,7 @@ Per exemple: Si l'usuari treu el popup, al callback rebriem l'objecte "RatingCon
 
 
 ## Format JSONs
-###Control de Versions
+### Control de Versions
 ```
 "data": {
         "id": 109,
@@ -215,7 +217,7 @@ Per exemple: Si l'usuari treu el popup, al callback rebriem l'objecte "RatingCon
     - Opcional
     - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova versió de l'aplicació a l'App Store / Google Play.
 
-###Control de Valoracions
+### Control de Valoracions
 ```
 "data": {
         "id": 74,
