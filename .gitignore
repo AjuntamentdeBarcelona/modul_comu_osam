@@ -1,0 +1,21 @@
+# Project exclude paths
+*.iml
+.DS_Store
+.externalNativeBuild
+/local.properties
+/captures
+/.gradle/
+/android/build/
+/common/build/
+/buildSrc/.gradle
+/buildSrc/build
+/.idea/
+/build/
+/ios/Pods
+/ios/EroskiClub.xcworkspace/xcuserdata
+/ios/Podfile.lock
+/ios/.idea
+/builds
+/ios/Build/
+ios/Build/
+ios/EroskiClub.xcworkspace/xcuserdata

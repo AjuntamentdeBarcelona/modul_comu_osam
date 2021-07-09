@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "689512388273",
+    "firebase_url": "https://common-module.firebaseio.com",
+    "project_id": "common-module",
+    "storage_bucket": "common-module.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689512388273:android:3dff1f728b4de58adb3490",
+        "android_client_info": {
+          "package_name": "cat.bcn.appdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689512388273-63e7oj3f48n3fibil8tn0apvdqkjshiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-0VEU63jhU0jSwQnlKz6fuUKQMLkTGqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689512388273-63e7oj3f48n3fibil8tn0apvdqkjshiv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "689512388273-hkago0e0sbterib2h03rc65sv3d2h7ao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cat.bcn.commonmodule"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689512388273:android:f3100786e47a5739db3490",
+        "android_client_info": {
+          "package_name": "cat.bcn.commonmodule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689512388273-63e7oj3f48n3fibil8tn0apvdqkjshiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-0VEU63jhU0jSwQnlKz6fuUKQMLkTGqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689512388273-63e7oj3f48n3fibil8tn0apvdqkjshiv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "689512388273-hkago0e0sbterib2h03rc65sv3d2h7ao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cat.bcn.commonmodule"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
