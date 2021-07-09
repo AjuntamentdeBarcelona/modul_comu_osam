@@ -24,6 +24,7 @@ android {
     defaultConfig {
         minSdkVersion(App.minSdkVersion)
         targetSdkVersion(App.targetSdkVersion)
+        applicationId = App.applicationId
         versionCode = App.versionCode
         versionName = App.versionName
         testInstrumentationRunner = App.testInstrumentationRunner
@@ -31,16 +32,8 @@ android {
         multiDexEnabled = true
     }
 
-    flavorDimensions("version")
-
-    productFlavors {
-        createProductFlavor(AppFlavor.Demo)
-        createProductFlavor(AppFlavor.Jenkins)
-    }
-
     buildTypes {
         val proguard = getDefaultProguardFile("proguard-android.txt")
-        createBuildType(AppBuildType.Debug, productFlavors, signingConfigs, proguard)
         createBuildType(AppBuildType.Release, productFlavors, signingConfigs, proguard)
     }
 
@@ -110,10 +103,10 @@ fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.
     versionNameSuffix = buildType.nameSuffix
 
     if (buildType == AppBuildType.Release) {
-        flavors.getByName(AppFlavor.Demo.name.toLowerCase()).signingConfig =
-             signingConfigs.getByName(AppFlavor.Demo.signInName)
-         flavors.getByName(AppFlavor.Jenkins.name.toLowerCase()).signingConfig =
-             signingConfigs.getByName(AppFlavor.Jenkins.signInName)
+        // flavors.getByName(AppFlavor.Demo.name.toLowerCase()).signingConfig =
+        //     signingConfigs.getByName(AppFlavor.Demo.signInName)
+            // flavors.getByName(AppFlavor.Jenkins.name.toLowerCase()).signingConfig =
+             //signingConfigs.getByName(AppFlavor.Jenkins.signInName)
     } else {
         signingConfig = signingConfigs.getByName(buildType.signInConfig)
     }
