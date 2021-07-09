@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.github.AjuntamentdeBarcelona"
-version = "1.0.0"
+version = "1.0.3"
 
 android {
     compileSdkVersion(Common.targetSdkVersion)
