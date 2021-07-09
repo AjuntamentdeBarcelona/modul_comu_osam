@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.github.AjuntamentdeBarcelona"
-version = "1.0.0"
+version = "1.0.3"
 
 android {
     compileSdkVersion(Common.targetSdkVersion)
@@ -101,6 +101,8 @@ kotlin {
         summary = "Common library for the osam version and rating app control"
         homepage = "https://github.com/AjuntamentdeBarcelona/modul_comu_osam"
         frameworkName = "OSAMCommon"
+        license = "BSD"
+        authors = "Eduard Carbonell eduard.carbonell@worldline.com"
         pod("FirebaseAnalytics")
         pod("FirebaseCrashlytics")
         //podfile = project.file("../ios/Podfile")
