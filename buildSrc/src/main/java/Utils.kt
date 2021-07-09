@@ -62,7 +62,7 @@ enum class AppBuildType(
         nameSuffix = ""
     ),
     Release(
-        minified = true,
+        minified = false,
         debuggable = true,
         signInConfig = "release",
         idSuffix = "",
