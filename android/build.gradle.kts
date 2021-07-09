@@ -38,13 +38,6 @@ android {
         createProductFlavor(AppFlavor.Jenkins)
     }
 
-    signingConfigs {
-        getByName("debug") {
-        }
-        createSignInConfig(AppFlavor.Demo)
-        createSignInConfig(AppFlavor.Jenkins)
-    }
-
     buildTypes {
         val proguard = getDefaultProguardFile("proguard-android.txt")
         createBuildType(AppBuildType.Debug, productFlavors, signingConfigs, proguard)
