@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.github.AjuntamentdeBarcelona"
-version = "1.0.3"
+version = "1.0.4"
 
 android {
     compileSdkVersion(Common.targetSdkVersion)
@@ -32,7 +32,7 @@ dependencies {
 kotlin {
     android()
     android {
-        publishLibraryVariants("release")
+        publishLibraryVariants("release", "debug")
     }
 
     // This is for iPhone emulator
@@ -101,8 +101,19 @@ kotlin {
         summary = "Common library for the osam version and rating app control"
         homepage = "https://github.com/AjuntamentdeBarcelona/modul_comu_osam"
         frameworkName = "OSAMCommon"
+        license = "BSD"
+        authors = "Eduard Carbonell eduard.carbonell@worldline.com"
         pod("FirebaseAnalytics")
         pod("FirebaseCrashlytics")
         //podfile = project.file("../ios/Podfile")
+    }
+
+    val podspec = tasks["podspec"] as org.jetbrains.kotlin.gradle.tasks.PodspecTask
+    podspec.doLast {
+        val podspec = file("${project.name.replace("-", "_")}.podspec")
+        val newPodspecContent = podspec.readLines().map {
+            if (it.contains("spec.source")) "    spec.source                   = { :git => \"https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git\", :tag => \"$version\" }" else it
+        }
+        podspec.writeText(newPodspecContent.joinToString(separator = "\n"))
     }
 }

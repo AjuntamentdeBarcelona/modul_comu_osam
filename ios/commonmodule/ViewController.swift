@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import common
+import OSAMCommon
 import StoreKit
 import FirebaseAnalytics
 

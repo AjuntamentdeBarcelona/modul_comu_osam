@@ -1,10 +1,10 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'common'
-    spec.version                  = '1.0.3'
+    spec.version                  = '1.0.4'
     spec.homepage                 = 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam'
-    spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
-    spec.authors                  = ''
-    spec.license                  = ''
+    spec.source                   = { :git => "https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git", :tag => "1.0.4" }
+    spec.authors                  = 'Eduard Carbonell eduard.carbonell@worldline.com'
+    spec.license                  = 'BSD'
     spec.summary                  = 'Common library for the osam version and rating app control'
 
     spec.static_framework         = true
