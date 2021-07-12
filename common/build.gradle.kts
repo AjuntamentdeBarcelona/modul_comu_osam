@@ -32,7 +32,7 @@ dependencies {
 kotlin {
     android()
     android {
-        publishLibraryVariants("release")
+        publishLibraryVariants("release", "debug")
     }
 
     // This is for iPhone emulator
