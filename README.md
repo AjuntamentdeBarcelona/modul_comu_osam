@@ -7,7 +7,7 @@
 ### Android
 - Afegeix aquesta dependència en el teu projecte:
 ```
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:1.0.4'
+implementation("com.github.AjuntamentdeBarcelona.modul_comu_osam:common:1.0.4")
 ```
 - Afegir aquest codi al teu build.gradle
 ```
@@ -21,7 +21,16 @@ allprojects {
 ### iOS
 - Per utilitzar el mòdul de control de versions, cal afegir l'arxiu Podfile la ubicació del repositori:
 ```
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '1.0.4'
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git'
+
+target 'target-name' do
+
+  # Pods for target-name
+	pod 'common', :path => '~/.cocoapods/repos/ajuntamentdebarcelona/common'
+
+end
+
 ```
 
 - Actualitzar mitjançant el comandament 'pod update' les dependències.
