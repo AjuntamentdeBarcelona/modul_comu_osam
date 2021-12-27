@@ -57,12 +57,51 @@ Des de la OSAM es proporcionen mòduls per realitzar un conjunt de tasques comun
 El mòdul comú (IOS / Android) està disponible com a repositori a:
 https://github.com/AjuntamentdeBarcelona/modul_comu_osam
 
+## Configuració del mòdul
+
+Per tal de poder utilitzar el mòdul, és necessari especificar l'entorn (desenvolupament o producció) en temps de inicialització.
+Serà obligatori especificar l'entorn de forma explícita.
+
+A continuació, es detalla per cada plataforma, com es realitza aquesta inicialització.
+
+Per utilitzar l'entorn de desenvolupament, passarem com a paràmetre el enum OSAMEnvironment.DEV.
+
+Per utilitzar l'entorn de producció, passarem com a paràmetre el enum OSAMEnvironment.PROD.
+
+### Android
+
+#### Desenvolupament
+```
+private val osamCommons by lazy {
+        OSAMCommons(this, OSAMEnvironment.DEV)
+    }
+```
+
+#### Producció
+```
+private val osamCommons by lazy {
+        OSAMCommons(this, OSAMEnvironment.PROD)
+    }
+```
+
+### iOS
+
+#### Desenvolupament
+```
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.DEV)
+```
+
+#### Producció
+```
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.PROD)
+```
+
 ## Implementació control de versions
 ### Android
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-private val osamCommons by lazy { OSAMCommons(this) }
+private val osamCommons by lazy { OSAMCommons(this, OSAMEnvironment.PROD) }
 osamCommons.versionControl(
   language = Language.CA
   ) {
@@ -85,7 +124,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self)
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.PROD)
 osamCommons.versionControl(
   language: Language.es,
   f: {_ in }
@@ -109,7 +148,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-private val osamCommons by lazy { OSAMCommons(this) }
+private val osamCommons by lazy { OSAMCommons(this, OSAMEnvironment.PROD) }
 osamCommons.rating(
   language = Language.CA
   ) {
@@ -134,7 +173,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Rat
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self)
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.PROD)
 osamCommons.rating(
   language: Language.es,
   f: {_ in }

@@ -16,6 +16,23 @@ expect class OSAMCommons {
     )
 }
 
+enum class OSAMEnvironment(
+    val backendEndpoint: String,
+    val versionRoute: String,
+    val ratingRoute: String
+) {
+    DEV(
+        backendEndpoint = "https://osam-modul-comu.dtibcn.cat",
+        versionRoute = "api/version",
+        ratingRoute = "api/rating"
+    ),
+    PROD(
+        backendEndpoint = "https://osam-modul-comu.dtibcn.cat",
+        versionRoute = "api/version",
+        ratingRoute = "api/rating"
+    )
+}
+
 enum class VersionControlResponse {
     ACCEPTED, DISMISSED, CANCELLED, ERROR
 }
