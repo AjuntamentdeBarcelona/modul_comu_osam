@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
     private val osamCommons by lazy {
-        OSAMCommons(this, OSAMEnvironment.PROD)
+        OSAMCommons(this, OSAMEnvironment.DEV)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
