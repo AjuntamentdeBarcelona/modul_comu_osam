@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var checkVersionControl: UIButton!
     
-    lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.DEV)
+    lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.dev)
     
     @IBAction func onVersionControlClick(_ sender: Any) {
         osamCommons.versionControl(

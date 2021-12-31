@@ -88,12 +88,12 @@ private val osamCommons by lazy {
 
 #### Desenvolupament
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.DEV)
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.dev)
 ```
 
 #### Producció
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.PROD)
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
 ```
 
 ## Implementació control de versions
@@ -124,7 +124,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.PROD)
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
 osamCommons.versionControl(
   language: Language.es,
   f: {_ in }
@@ -173,7 +173,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Rat
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.PROD)
+lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
 osamCommons.rating(
   language: Language.es,
   f: {_ in }
