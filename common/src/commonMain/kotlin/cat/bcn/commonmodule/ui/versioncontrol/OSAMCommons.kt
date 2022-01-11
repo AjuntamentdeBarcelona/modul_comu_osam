@@ -22,7 +22,7 @@ enum class OSAMEnvironment(
     val ratingRoute: String
 ) {
     DEV(
-        backendEndpoint = "https://osam-modul-comu.dtibcn.cat",
+        backendEndpoint = "https://dev-osam-modul-comu.dtibcn.cat",
         versionRoute = "api/version",
         ratingRoute = "api/rating"
     ),
