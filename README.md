@@ -59,41 +59,28 @@ https://github.com/AjuntamentdeBarcelona/modul_comu_osam
 
 ## Configuració del mòdul
 
-Per tal de poder utilitzar el mòdul, és necessari especificar l'entorn (desenvolupament o producció) en temps de inicialització.
-Serà obligatori especificar l'entorn de forma explícita.
+Per tal de poder utilitzar el mòdul, és necessari especificar en temps de inicialització l'endpoint de l'entorn de desenvolupament del mòdul comú.
+Serà obligatori especificar l'endpoint de l'entorn de desenvolupament forma explícita.
 
 A continuació, es detalla per cada plataforma, com es realitza aquesta inicialització.
-
-Per utilitzar l'entorn de desenvolupament, passarem com a paràmetre el enum OSAMEnvironment.DEV.
-
-Per utilitzar l'entorn de producció, passarem com a paràmetre el enum OSAMEnvironment.PROD.
+Per a més detalls de com integrar el mòdul comú amb la CI de la OSAM, consultar el manual de la CI.
 
 ### Android
 
-#### Desenvolupament
-```
-private val osamCommons by lazy {
-        OSAMCommons(this, OSAMEnvironment.DEV)
-    }
-```
+Inicialitzarem el mòdul comú, passant com a paràmetre la url del backend del mòdul comú, que especificarem en el fitxer de resources de Android:
 
-#### Producció
 ```
 private val osamCommons by lazy {
-        OSAMCommons(this, OSAMEnvironment.PROD)
+         OSAMCommons(this, getString(R.string.common_module_endpoint))
     }
 ```
 
 ### iOS
 
-#### Desenvolupament
-```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.dev)
-```
+Inicialitzarem el mòdul comú, passant com a paràmetre la url del backend del mòdul comú:
 
-#### Producció
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
+lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: "<url_endpoint_modul_comu>")
 ```
 
 ## Implementació control de versions
@@ -101,7 +88,7 @@ lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-private val osamCommons by lazy { OSAMCommons(this, OSAMEnvironment.PROD) }
+private val osamCommons by lazy {  OSAMCommons(this, getString(R.string.common_module_endpoint)) }
 osamCommons.versionControl(
   language = Language.CA
   ) {
@@ -124,7 +111,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
+lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint)
 osamCommons.versionControl(
   language: Language.es,
   f: {_ in }
@@ -148,7 +135,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-private val osamCommons by lazy { OSAMCommons(this, OSAMEnvironment.PROD) }
+private val osamCommons by lazy {  OSAMCommons(this, getString(R.string.common_module_endpoint)) }
 osamCommons.rating(
   language = Language.CA
   ) {
@@ -173,7 +160,7 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Rat
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, environment: OSAMEnvironment.prod)
+lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint)
 osamCommons.rating(
   language: Language.es,
   f: {_ in }

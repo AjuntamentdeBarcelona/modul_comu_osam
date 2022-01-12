@@ -28,11 +28,11 @@ import kotlinx.coroutines.withContext
 
 actual class OSAMCommons constructor(
     private val context: Context,
-    private val environment: OSAMEnvironment
+    private val backendEndpoint: String,
 ) {
 
     private val analytics: Analytics by lazy { CommonAnalytics(context) }
-    private val remote: Remote by lazy { CommonRemote(environment) }
+    private val remote: Remote by lazy { CommonRemote(backendEndpoint) }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default", context)) }
     private val EVENT_ID = "osamcommons"
     private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
@@ -159,7 +159,7 @@ actual class OSAMCommons constructor(
                         )
                     }
                 } else {
-                    f(VersionControlResponse.DISMISSED)
+                    withContext(Dispatchers.Main) { f(VersionControlResponse.DISMISSED) }
                 }
             } catch (e: Exception) {
                 FirebaseCrashlytics.getInstance().recordException(e)
@@ -262,7 +262,7 @@ actual class OSAMCommons constructor(
                         )
                     }
                 } else {
-                    f(RatingControlResponse.LATER)
+                    withContext(Dispatchers.Main) {(RatingControlResponse.LATER)}
                 }
 
                 if (preferences.getNumApertures() == rating.numAperture) {

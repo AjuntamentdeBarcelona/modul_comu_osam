@@ -5,14 +5,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
-import cat.bcn.commonmodule.ui.versioncontrol.OSAMEnvironment
 import com.app.app.R
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
     private val osamCommons by lazy {
-        OSAMCommons(this, OSAMEnvironment.DEV)
+        OSAMCommons(this, getString(R.string.common_module_endpoint))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
