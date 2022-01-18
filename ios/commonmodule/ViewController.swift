@@ -15,7 +15,20 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var checkVersionControl: UIButton!
     
-    lazy var osamCommons = OSAMCommons(vc: self)
+    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint)
+    
+    private var backendEndpoint: String {
+      get {
+        guard let filePath = Bundle.main.path(forResource: "config_keys", ofType: "plist") else {
+          fatalError("Couldn't find file 'config_keys.plist'.")
+        }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: "common_module_endpoint") as? String else {
+          fatalError("Couldn't find key 'common_module_endpoint' in 'config_keys.plist'.")
+        }
+        return value
+      }
+    }
     
     @IBAction func onVersionControlClick(_ sender: Any) {
         osamCommons.versionControl(

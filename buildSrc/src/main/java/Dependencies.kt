@@ -22,7 +22,7 @@ object Common {
     const val minSdkVersion = 19
     const val targetSdkVersion = 29
     const val versionCode = 1
-    const val versionName = "1.0.4"
+    const val versionName = "1.0.5"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 }
 

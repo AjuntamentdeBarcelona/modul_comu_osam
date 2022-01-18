@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
-    private val osamCommons by lazy { OSAMCommons(this) }
+    private val osamCommons by lazy {
+        OSAMCommons(this, getString(R.string.common_module_endpoint))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
