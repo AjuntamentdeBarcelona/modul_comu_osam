@@ -23,10 +23,13 @@ import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
 import platform.darwin.nil
 
-actual class OSAMCommons constructor(private val vc: UIViewController) {
+actual class OSAMCommons constructor(
+    private val vc: UIViewController,
+    private val backendEndpoint: String,
+) {
 
     private val analytics: Analytics by lazy { CommonAnalytics() }
-    private val remote: Remote by lazy { CommonRemote() }
+    private val remote: Remote by lazy { CommonRemote(backendEndpoint) }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default")) }
     private val EVENT_ID = "osamcommons"
     private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
