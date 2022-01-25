@@ -13,8 +13,7 @@ Pod::Spec.new do |spec|
 
     spec.ios.deployment_target = '13.0'
 
-    spec.dependency 'FirebaseAnalytics'
-    spec.dependency 'FirebaseCrashlytics'
+                
 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':common',

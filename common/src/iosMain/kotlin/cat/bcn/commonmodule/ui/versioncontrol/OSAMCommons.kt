@@ -1,17 +1,16 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
-import cat.bcn.commonmodule.analytics.Analytics
+import cat.bcn.commonmodule.analytics.AnalyticsWrapper
 import cat.bcn.commonmodule.analytics.CommonAnalytics
+import cat.bcn.commonmodule.analytics.CommonAnalytics.RatingAction
+import cat.bcn.commonmodule.analytics.CommonAnalytics.VersionControlAction
+import cat.bcn.commonmodule.crashlytics.CrashlyticsWrapper
 import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.*
-import cocoapods.FirebaseAnalytics.kFIRParameterItemID
-import cocoapods.FirebaseAnalytics.kFIRParameterItemName
-import cocoapods.FirebaseCrashlytics.FIRCrashlytics
-import cocoapods.FirebaseCrashlytics.FIRExceptionModel
 import com.soywiz.klock.DateTime
 import io.ktor.client.engine.ios.*
 import kotlinx.coroutines.Dispatchers
@@ -21,21 +20,17 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSURL
 import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
-import platform.darwin.nil
 
 actual class OSAMCommons constructor(
     private val vc: UIViewController,
     private val backendEndpoint: String,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
+    analyticsWrapper: AnalyticsWrapper,
 ) {
 
-    private val analytics: Analytics by lazy { CommonAnalytics() }
+    private val analytics: CommonAnalytics = CommonAnalytics(wrapper = analyticsWrapper)
     private val remote: Remote by lazy { CommonRemote(backendEndpoint) }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default")) }
-    private val EVENT_ID = "osamcommons"
-    private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
-    private val VERSION_CONTROL_POPUP_ACCEPTED = "version_control_popup_accepted"
-    private val VERSION_CONTROL_POPUP_CANCELLED = "version_control_popup_cancelled"
-    private val RATING_POPUP = "rating_popup_showed"
 
     actual fun versionControl(
         language: Language,
@@ -101,8 +96,7 @@ actual class OSAMCommons constructor(
                 } catch (e: IosHttpRequestException) {
                     println("Device not has connection")
                 } catch (e: Exception) {
-                    val exception = FIRExceptionModel(name = e::class.qualifiedName!!, reason = e.stackTraceToString())
-                    FIRCrashlytics.crashlytics().recordExceptionModel(exception)
+                    crashlyticsWrapper.recordException(e::class.qualifiedName ?: "", e.stackTraceToString())
                 }
 
                 if (!version.comparisonMode.equals(Version.ComparisonMode.NONE)) {
@@ -121,12 +115,7 @@ actual class OSAMCommons constructor(
                                     handler = {
                                         UIApplication.sharedApplication.openURL(NSURL(string = version.url))
                                         f(VersionControlResponse.ACCEPTED)
-                                        analytics.logVersionControlPopUp(
-                                            params = mapOf(
-                                                kFIRParameterItemID!! to EVENT_ID,
-                                                kFIRParameterItemName!! to VERSION_CONTROL_POPUP_ACCEPTED
-                                            )
-                                        )
+                                        analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
                                     }
                                 )
                             )
@@ -139,12 +128,7 @@ actual class OSAMCommons constructor(
                                     handler = {
                                         UIApplication.sharedApplication.openURL(NSURL(string = version.url))
                                         f(VersionControlResponse.ACCEPTED)
-                                        analytics.logVersionControlPopUp(
-                                            params = mapOf(
-                                                kFIRParameterItemID!! to EVENT_ID,
-                                                kFIRParameterItemName!! to VERSION_CONTROL_POPUP_ACCEPTED
-                                            )
-                                        )
+                                        analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
                                     }
                                 )
                             )
@@ -153,12 +137,7 @@ actual class OSAMCommons constructor(
                                 style = UIAlertActionStyleCancel,
                                 handler = {
                                     f(VersionControlResponse.CANCELLED)
-                                    analytics.logVersionControlPopUp(
-                                        params = mapOf(
-                                            kFIRParameterItemID!! to EVENT_ID,
-                                            kFIRParameterItemName!! to VERSION_CONTROL_POPUP_CANCELLED
-                                        )
-                                    )
+                                    analytics.logVersionControlPopUp(VersionControlAction.CANCELLED)
                                 }
                             ))
                             alert.dismissViewControllerAnimated(true, null)
@@ -170,12 +149,7 @@ actual class OSAMCommons constructor(
                                     style = UIAlertActionStyleDefault,
                                     handler = {
                                         f(VersionControlResponse.ACCEPTED)
-                                        analytics.logVersionControlPopUp(
-                                            params = mapOf(
-                                                kFIRParameterItemID!! to EVENT_ID,
-                                                kFIRParameterItemName!! to VERSION_CONTROL_POPUP_ACCEPTED
-                                            )
-                                        )
+                                        analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
                                     }
                                 )
                             )
@@ -183,19 +157,13 @@ actual class OSAMCommons constructor(
                     }
 
                     vc.presentViewController(alert, animated = true, completion = null)
-                    analytics.logVersionControlPopUp(
-                        params = mapOf(
-                            kFIRParameterItemID!! to EVENT_ID,
-                            kFIRParameterItemName!! to VERSION_CONTROL_POPUP
-                        )
-                    )
+                    analytics.logVersionControlPopUp(VersionControlAction.SHOWN)
                 } else {
                     f(VersionControlResponse.DISMISSED)
                 }
             } catch (e: Exception) {
                 f(VersionControlResponse.ERROR)
-                val exception = FIRExceptionModel(name = e::class.qualifiedName!!, reason = e.stackTraceToString())
-                FIRCrashlytics.crashlytics().recordExceptionModel(exception)
+                crashlyticsWrapper.recordException(e::class.qualifiedName ?: "", e.stackTraceToString())
             }
         }
     }
@@ -226,8 +194,7 @@ actual class OSAMCommons constructor(
                 } catch (e: IosHttpRequestException) {
                     println("Device not has connection")
                 } catch (e: Exception) {
-                    val exception = FIRExceptionModel(name = e::class.qualifiedName!!, reason = e.stackTraceToString())
-                    FIRCrashlytics.crashlytics().recordExceptionModel(exception)
+                    crashlyticsWrapper.recordException(e::class.qualifiedName ?: "", e.stackTraceToString())
                 }
 
                 if (preferences.getLastDatetime() == 0L) {
@@ -245,9 +212,7 @@ actual class OSAMCommons constructor(
                     SKStoreReviewController.requestReview()
                     f(RatingControlResponse.ACCEPTED)
                     preferences.setLastDatetime(DateTime.nowUnixLong())
-                    analytics.logRatingPopUp(
-                        params = mapOf(kFIRParameterItemID!! to EVENT_ID, kFIRParameterItemName!! to RATING_POPUP)
-                    )
+                    analytics.logRatingPopUp(RatingAction.SHOWN)
                 } else {
                     f(RatingControlResponse.DISMISSED)
                 }
@@ -259,8 +224,7 @@ actual class OSAMCommons constructor(
                 }
             } catch (e: Exception) {
                 f(RatingControlResponse.ERROR)
-                val exception = FIRExceptionModel(name = e::class.qualifiedName!!, reason = e.stackTraceToString())
-                FIRCrashlytics.crashlytics().recordExceptionModel(exception)
+                crashlyticsWrapper.recordException(e::class.qualifiedName ?: "", e.stackTraceToString())
             }
         }
     }

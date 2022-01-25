@@ -9,8 +9,11 @@ import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startActivity
 import cat.bcn.commonmodule.R
-import cat.bcn.commonmodule.analytics.Analytics
+import cat.bcn.commonmodule.analytics.AnalyticsWrapper
 import cat.bcn.commonmodule.analytics.CommonAnalytics
+import cat.bcn.commonmodule.analytics.CommonAnalytics.RatingAction
+import cat.bcn.commonmodule.analytics.CommonAnalytics.VersionControlAction
+import cat.bcn.commonmodule.crashlytics.CrashlyticsWrapper
 import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
@@ -18,8 +21,6 @@ import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.*
 import cat.bcn.commonmodule.model.Version.ComparisonMode.*
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,19 +30,13 @@ import kotlinx.coroutines.withContext
 actual class OSAMCommons constructor(
     private val context: Context,
     private val backendEndpoint: String,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
+    analyticsWrapper: AnalyticsWrapper,
 ) {
 
-    private val analytics: Analytics by lazy { CommonAnalytics(context) }
+    private val analytics: CommonAnalytics = CommonAnalytics(wrapper = analyticsWrapper)
     private val remote: Remote by lazy { CommonRemote(backendEndpoint) }
     private val preferences: Preferences by lazy { CommonPreferences(Settings("default", context)) }
-    private val EVENT_ID = "osamcommons"
-    private val VERSION_CONTROL_POPUP = "version_control_popup_showed"
-    private val VERSION_CONTROL_POPUP_ACCEPTED = "version_control_popup_accepted"
-    private val VERSION_CONTROL_POPUP_CANCELLED = "version_control_popup_cancelled"
-    private val RATING_POPUP = "rating_popup_showed"
-    private val RATING_POPUP_ACCEPTED = "rating_popup_accepted"
-    private val RATING_POPUP_CANCELLED = "rating_popup_cancelled"
-    private val RATING_POPUP_LATER = "rating_popup_later"
 
     actual fun versionControl(
         language: Language,
@@ -82,7 +77,12 @@ actual class OSAMCommons constructor(
 
                 try {
                     if (isOnline(context)) {
-                        version = remote.getVersion(context.packageName, context.packageManager.getPackageInfo(context.packageName, 0).versionCode, language, Platform.ANDROID)
+                        version = remote.getVersion(
+                            context.packageName,
+                            context.packageManager.getPackageInfo(context.packageName, 0).versionCode,
+                            language,
+                            Platform.ANDROID
+                        )
                         preferences.setVersionControlTitleEs(version.title.localize(Language.ES))
                         preferences.setVersionControlTitleEn(version.title.localize(Language.EN))
                         preferences.setVersionControlTitleCa(version.title.localize(Language.CA))
@@ -99,7 +99,7 @@ actual class OSAMCommons constructor(
                         preferences.setVersionControlComparisionMode(version.comparisonMode)
                     }
                 } catch (e: Exception) {
-                    FirebaseCrashlytics.getInstance().recordException(e)
+                    crashlyticsWrapper.recordException(e)
                 }
 
                 if (!version.comparisonMode.equals(NONE)) {
@@ -112,13 +112,7 @@ actual class OSAMCommons constructor(
                                 val intent = Intent(Intent.ACTION_VIEW)
                                 intent.data = Uri.parse(version.url)
                                 startActivity(context, intent, null)
-
-                                analytics.logVersionControlPopUp(
-                                    params = mapOf(
-                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                        FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP_ACCEPTED
-                                    )
-                                )
+                                analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
                             }
 
 
@@ -127,42 +121,27 @@ actual class OSAMCommons constructor(
                             LAZY -> {
                                 dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
                                     f(VersionControlResponse.CANCELLED)
-                                    analytics.logVersionControlPopUp(
-                                        params = mapOf(
-                                            FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                            FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP_CANCELLED
-                                        )
-                                    )
+                                    analytics.logVersionControlPopUp(VersionControlAction.CANCELLED)
                                 }
                                     .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
                             }
                             INFO -> {
                                 dialog.setPositiveButton(version.ok.localize(language)) { _, _ ->
                                     f(VersionControlResponse.ACCEPTED)
-                                    analytics.logVersionControlPopUp(
-                                        params = mapOf(
-                                            FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                            FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP_ACCEPTED
-                                        )
-                                    )
+                                    analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
                                 }
                                     .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
                             }
                         }
 
                         dialog.show()
-                        analytics.logVersionControlPopUp(
-                            params = mapOf(
-                                FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                FirebaseAnalytics.Param.ITEM_NAME to VERSION_CONTROL_POPUP
-                            )
-                        )
+                        analytics.logVersionControlPopUp(VersionControlAction.SHOWN)
                     }
                 } else {
                     withContext(Dispatchers.Main) { f(VersionControlResponse.DISMISSED) }
                 }
             } catch (e: Exception) {
-                FirebaseCrashlytics.getInstance().recordException(e)
+                crashlyticsWrapper.recordException(e)
                 withContext(Dispatchers.Main) { f(VersionControlResponse.ERROR) }
             }
         }
@@ -197,7 +176,7 @@ actual class OSAMCommons constructor(
                         preferences.setRatingControlMessageCa(rating.message.localize(Language.CA))
                     }
                 } catch (e: Exception) {
-                    FirebaseCrashlytics.getInstance().recordException(e)
+                    crashlyticsWrapper.recordException(e)
                 }
 
                 //Initialize LastDateTime if needed
@@ -215,54 +194,40 @@ actual class OSAMCommons constructor(
                 if (shouldShowRatingDialog) {
                     withContext(Dispatchers.Main) {
                         val dialog = AlertDialog.Builder(context)
-                            .setTitle(context.getString(R.string.dialog_rating_title, context.applicationInfo.loadLabel(context.packageManager).toString()))
+                            .setTitle(
+                                context.getString(
+                                    R.string.dialog_rating_title,
+                                    context.applicationInfo.loadLabel(context.packageManager).toString()
+                                )
+                            )
                             .setMessage(rating.message.localize(language))
                             .setPositiveButton(R.string.dialog_rating_positive) { _, _ ->
                                 f(RatingControlResponse.ACCEPTED)
                                 val intent = Intent(Intent.ACTION_VIEW)
-                                intent.data = Uri.parse("https://play.google.com/store/apps/details?id=$context.packageName")
+                                intent.data =
+                                    Uri.parse("https://play.google.com/store/apps/details?id=$context.packageName")
                                 startActivity(context, intent, null)
 
-                                analytics.logRatingPopUp(
-                                    params = mapOf(
-                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                        FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP_ACCEPTED
-                                    )
-                                )
+                                analytics.logRatingPopUp(RatingAction.ACCEPTED)
                             }
                             .setNegativeButton(R.string.dialog_rating_negative) { _, _ ->
                                 f(RatingControlResponse.CANCELLED)
                                 preferences.setDontShowAgain(true)
-                                analytics.logRatingPopUp(
-                                    params = mapOf(
-                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                        FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP_CANCELLED
-                                    )
-                                )
+                                analytics.logRatingPopUp(RatingAction.CANCELLED)
                             }
                             .setNeutralButton(R.string.dialog_rating_neutral) { _, _ ->
                                 f(RatingControlResponse.LATER)
-                                analytics.logRatingPopUp(
-                                    params = mapOf(
-                                        FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                        FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP_LATER
-                                    )
-                                )
+                                analytics.logRatingPopUp(RatingAction.LATER)
                             }
                             .setOnDismissListener { f(RatingControlResponse.DISMISSED) }
                             .create()
 
                         dialog.show()
                         preferences.setLastDatetime(DateTime.nowUnixLong())
-                        analytics.logRatingPopUp(
-                            params = mapOf(
-                                FirebaseAnalytics.Param.ITEM_ID to EVENT_ID,
-                                FirebaseAnalytics.Param.ITEM_NAME to RATING_POPUP
-                            )
-                        )
+                        analytics.logRatingPopUp(RatingAction.SHOWN)
                     }
                 } else {
-                    withContext(Dispatchers.Main) {(RatingControlResponse.LATER)}
+                    withContext(Dispatchers.Main) { (RatingControlResponse.LATER) }
                 }
 
                 if (preferences.getNumApertures() == rating.numAperture) {
@@ -271,7 +236,7 @@ actual class OSAMCommons constructor(
                     preferences.setNumApertures(preferences.getNumApertures() + 1)
                 }
             } catch (e: Exception) {
-                FirebaseCrashlytics.getInstance().recordException(e)
+                crashlyticsWrapper.recordException(e)
                 withContext(Dispatchers.Main) { f(RatingControlResponse.ERROR) }
             }
         }

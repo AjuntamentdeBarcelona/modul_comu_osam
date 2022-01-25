@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
@@ -8,6 +8,7 @@ plugins {
     kotlin("native.cocoapods")
 }
 
+val libName = "OSAMCommon"
 group = "com.github.AjuntamentdeBarcelona"
 version = "1.0.5"
 
@@ -17,17 +18,10 @@ kotlin {
         publishLibraryVariants("release", "debug")
     }
 
-    // workaround 1: select iOS target platform depending on the Xcode environment variables
-    val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-    iOSTarget("ios") {
-        binaries {
-            framework {
-                baseName = "common"
-            }
+    val xcFramework = XCFramework(libName)
+    ios {
+        binaries.framework(libName) {
+            xcFramework.add(this)
         }
     }
 
@@ -57,9 +51,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Common.Android.ktorClientCore)
-                implementation(project.dependencies.platform(Dependencies.Android.firebaseBoM))
-                implementation(Dependencies.Android.analytics)
-                implementation(Dependencies.Android.firebaseCrashlytics)
             }
         }
 
@@ -91,8 +82,7 @@ kotlin {
         license = "BSD"
         authors = "Eduard Carbonell eduard.carbonell@worldline.com"
         ios.deploymentTarget = "13.0"
-        pod("FirebaseAnalytics")
-        pod("FirebaseCrashlytics")
+        //podfile = project.file("../ios/Podfile")
     }
 
     val podspec = tasks["podspec"] as org.jetbrains.kotlin.gradle.tasks.PodspecTask
