@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("maven-publish")
     kotlin("native.cocoapods")
@@ -11,101 +11,88 @@ plugins {
 group = "com.github.AjuntamentdeBarcelona"
 version = "1.0.5"
 
-android {
-    compileSdkVersion(Common.targetSdkVersion)
-
-    defaultConfig {
-        minSdkVersion(Common.minSdkVersion)
-        targetSdkVersion(Common.targetSdkVersion)
-        versionCode = Common.versionCode
-        versionName = Common.versionName
-        testInstrumentationRunner = Common.testInstrumentationRunner
-    }
-}
-
-dependencies {
-    implementation(Dependencies.Android.coroutinesPlayServices)
-    implementation(Dependencies.Android.appCompat)
-    implementation("com.google.firebase:firebase-core:18.0.2")
-}
-
 kotlin {
     android()
     android {
         publishLibraryVariants("release", "debug")
     }
 
-    // This is for iPhone emulator
-    // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
-    }
-
-    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
-        listOf("-Xobjc-generics", "-Xg0")
-
-    sourceSets {
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
-                useExperimentalAnnotation("kotlinx.serialization.UnstableDefault")
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
+    // workaround 1: select iOS target platform depending on the Xcode environment variables
+    val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+            ::iosArm64
+        else
+            ::iosX64
+    iOSTarget("ios") {
+        binaries {
+            framework {
+                baseName = "common"
             }
         }
     }
 
-    sourceSets["commonMain"].dependencies {
-        implementation(Dependencies.Common.Main.coroutines)
-        implementation(Dependencies.Common.Main.serialization)
-        implementation(Dependencies.Common.Main.ktorClientCore)
-        implementation(Dependencies.Common.Main.ktorClientJson)
-        implementation(Dependencies.Common.Main.ktorSerialization)
-        implementation(Dependencies.Common.Main.ktorClientAuth)
-        implementation(Dependencies.Common.Main.ktorLogging)
+    sourceSets {
 
-        implementation(Dependencies.Common.Main.time)
+        val commonMain by getting {
+            dependencies {
+                implementation(Dependencies.Common.Main.coroutines)
+                implementation(Dependencies.Common.Main.serialization)
+                implementation(Dependencies.Common.Main.ktorClientCore)
+                implementation(Dependencies.Common.Main.ktorClientJson)
+                implementation(Dependencies.Common.Main.ktorSerialization)
+                implementation(Dependencies.Common.Main.ktorClientAuth)
+                implementation(Dependencies.Common.Main.ktorLogging)
 
-        implementation(kotlin("stdlib-common"))
-    }
+                implementation(Dependencies.Common.Main.time)
+            }
+        }
 
-    sourceSets["commonTest"].dependencies {
-        implementation(kotlin("test-common"))
-        implementation(kotlin("test-annotations-common"))
-    }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
 
-    sourceSets["androidMain"].dependencies {
-        implementation(Dependencies.Common.Android.ktorClientCore)
-        implementation(Dependencies.Android.analytics)
-        implementation(Dependencies.Android.firebaseCrashlytics)
-        implementation(kotlin("stdlib"))
-    }
+        val androidMain by getting {
+            dependencies {
+                implementation(Dependencies.Common.Android.ktorClientCore)
+                implementation(project.dependencies.platform(Dependencies.Android.firebaseBoM))
+                implementation(Dependencies.Android.analytics)
+                implementation(Dependencies.Android.firebaseCrashlytics)
+            }
+        }
 
-    sourceSets["androidTest"].dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
-    }
+        val androidTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
 
-    sourceSets["iosMain"].dependencies {
-        implementation(Dependencies.Common.Native.ktorClientCore)
-        implementation(kotlin("stdlib"))
+        val iosMain by getting {
+            dependencies {
+                implementation(Dependencies.Common.Native.ktorClientCore)
+            }
+        }
 
-    }
-
-    sourceSets["iosTest"].dependencies {
+        val iosTest by getting {
+            dependencies {
+            }
+        }
     }
 
     cocoapods {
         summary = "Common library for the osam version and rating app control"
         homepage = "https://github.com/AjuntamentdeBarcelona/modul_comu_osam"
-        frameworkName = "OSAMCommon"
+        framework {
+            baseName = "OSAMCommon"
+        }
         license = "BSD"
         authors = "Eduard Carbonell eduard.carbonell@worldline.com"
+        ios.deploymentTarget = "13.0"
         pod("FirebaseAnalytics")
         pod("FirebaseCrashlytics")
-        //podfile = project.file("../ios/Podfile")
     }
 
     val podspec = tasks["podspec"] as org.jetbrains.kotlin.gradle.tasks.PodspecTask
@@ -116,4 +103,19 @@ kotlin {
         }
         podspec.writeText(newPodspecContent.joinToString(separator = "\n"))
     }
+}
+
+android {
+    compileSdk = Common.targetSdkVersion
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    defaultConfig {
+        minSdk = Common.minSdkVersion
+        targetSdk = Common.targetSdkVersion
+        testInstrumentationRunner = Common.testInstrumentationRunner
+    }
+}
+
+dependencies {
+    implementation(Dependencies.Android.coroutinesPlayServices)
+    implementation(Dependencies.Android.appCompat)
 }

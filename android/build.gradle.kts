@@ -1,3 +1,7 @@
+import com.android.build.api.dsl.ApkSigningConfig
+import com.android.build.api.dsl.ApplicationBuildType
+import com.android.build.api.dsl.ApplicationProductFlavor
+import com.android.build.api.variant.ApplicationVariant
 import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
 
@@ -5,25 +9,16 @@ plugins {
     id("com.android.application")
 
     kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
 
-repositories {
-    maven(url = "https://jitpack.io")
-    flatDir {
-        dirs = mutableSetOf(File("libs"))
-    }
-}
-
 android {
-    compileSdkVersion(App.targetSdkVersion)
+    compileSdk = App.targetSdkVersion
 
     defaultConfig {
-        minSdkVersion(App.minSdkVersion)
-        targetSdkVersion(App.targetSdkVersion)
+        minSdk = App.minSdkVersion
+        targetSdk = App.targetSdkVersion
         applicationId = App.applicationId
         versionCode = App.versionCode
         versionName = App.versionName
@@ -39,23 +34,25 @@ android {
 
     applicationVariants.all { applyProperties() }
 
-    packagingOptions {
-        exclude("META-INF/*")
-    }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
-    lintOptions {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    lint {
         isAbortOnError = false
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-    implementation(kotlin("stdlib-jdk7", org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION))
 
     implementation(project(":common"))
 
@@ -64,9 +61,8 @@ dependencies {
     implementation(Dependencies.Android.recycler)
 
     implementation(Dependencies.Android.multidex)
-    implementation(Dependencies.Android.playServices)
 
-    implementation(Dependencies.Android.firebaseCore)
+    implementation(platform(Dependencies.Android.firebaseBoM))
     implementation(Dependencies.Android.analytics)
     implementation(Dependencies.Android.firebasePerf)
     implementation(Dependencies.Android.firebaseCrashlytics)
@@ -77,21 +73,21 @@ dependencies {
     androidTestImplementation(Dependencies.Android.Test.runner)
 }
 
-fun NamedDomainObjectContainer<ProductFlavor>.createProductFlavor(appFlavor: AppFlavor) =
+fun NamedDomainObjectContainer<ApplicationProductFlavor>.createProductFlavor(appFlavor: AppFlavor) =
     create(appFlavor.name.toLowerCase()) {
         applicationId = appFlavor.appId
     }
 
-fun NamedDomainObjectContainer<SigningConfig>.createSignInConfig(appFlavor: AppFlavor) = create(appFlavor.signInName) {
-    val path = "${rootDir.absolutePath}/$propertiesDir"
-    storeFile = getSignFile("$path/${appFlavor.signInFile}")
-    storePassword = getSignFilePassword("$path/${appFlavor.signInFile}")
-    keyAlias = getSignAlias("$path/${appFlavor.signInFile}")
-    keyPassword = getSignAliasPassword("$path/${appFlavor.signInFile}")
-    storeFile?.printFileName()
-}
+fun NamedDomainObjectContainer<out ApkSigningConfig>.createSignInConfig(appFlavor: AppFlavor) = create(appFlavor.signInName) {
+        val path = "${rootDir.absolutePath}/$propertiesDir"
+        storeFile = getSignFile(rootDir.absolutePath, "$path/${appFlavor.signInFile}")
+        storePassword = getSignFilePassword("$path/${appFlavor.signInFile}")
+        keyAlias = getSignAlias("$path/${appFlavor.signInFile}")
+        keyPassword = getSignAliasPassword("$path/${appFlavor.signInFile}")
+        storeFile?.printFileName()
+    }
 
-fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.createBuildType(
+fun NamedDomainObjectContainer<ApplicationBuildType>.createBuildType(
     buildType: AppBuildType,
     flavors: NamedDomainObjectContainer<ProductFlavor>,
     signingConfigs: NamedDomainObjectContainer<SigningConfig>,
@@ -103,10 +99,12 @@ fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.
     versionNameSuffix = buildType.nameSuffix
 
     if (buildType == AppBuildType.Release) {
-        // flavors.getByName(AppFlavor.Demo.name.toLowerCase()).signingConfig =
-        //     signingConfigs.getByName(AppFlavor.Demo.signInName)
-            // flavors.getByName(AppFlavor.Jenkins.name.toLowerCase()).signingConfig =
-             //signingConfigs.getByName(AppFlavor.Jenkins.signInName)
+        /*
+        flavors.getByName(AppFlavor.Demo.name.toLowerCase()).signingConfig =
+            signingConfigs.getByName(AppFlavor.Demo.signInName)
+        flavors.getByName(AppFlavor.Jenkins.name.toLowerCase()).signingConfig =
+            signingConfigs.getByName(AppFlavor.Jenkins.signInName)
+         */
     } else {
         signingConfig = signingConfigs.getByName(buildType.signInConfig)
     }
@@ -120,11 +118,9 @@ fun com.android.build.gradle.api.ApplicationVariant.applyProperties() {
     // buildConfigField("String", "PROPERTY_NAME", properties.PROPERTY_NAME)
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
-    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
-    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+fun ApplicationVariant.applyProperties() {
+    val properties = VariantProperties(name.capitalize())
 
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    // resValues.put(makeResValueKey("string", "PROPERTY_NAME"), ResValue(properties.PROPERTY_NAME))
+    // buildConfigFields.put("PROPERTY_NAME", BuildConfigField("String", properties.PROPERTY_NAME, null))
 }

@@ -1,51 +1,38 @@
 const val propertiesDir = "signin/properties"
 
-const val coroutines_version = "1.3.9-native-mt-2"
-const val serialization_version = "1.0.0"
-const val fragment_version = "1.1.0"
-const val ktor_version = "1.4.1"
-const val crashlytics_version = "2.9.8"
-const val kotlin_version = "1.4.10"
-
-const val cocoapods_version = "0.6"
+const val coroutines_version = "1.6.0-native-mt"
+const val serialization_version = "1.3.2"
+const val ktor_version = "1.6.5"
+const val kotlin_version = "1.6.10"
 
 object App {
     const val applicationId = "cat.bcn.commonmodule"
     const val minSdkVersion = 19
-    const val targetSdkVersion = 29
+    const val targetSdkVersion = 31
     const val versionCode = 2021050000
     const val versionName = "1.0.0"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 }
 
 object Common {
-    const val minSdkVersion = 19
-    const val targetSdkVersion = 29
-    const val versionCode = 1
-    const val versionName = "1.0.5"
-    const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    const val minSdkVersion = App.minSdkVersion
+    const val targetSdkVersion = App.targetSdkVersion
+    const val testInstrumentationRunner = App.testInstrumentationRunner
 }
 
 object Dependencies {
     object Android {
         // Android
-        const val appCompat = "androidx.appcompat:appcompat:1.1.0"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.3"
-        const val recycler = "androidx.recyclerview:recyclerview:1.2.0-alpha01"
-        const val multidex = "androidx.multidex:multidex:2.0.0"
-
-        // Play Services
-        const val playPrefix = "com.google.android.gms:play-services"
-
-        const val playServices = "$playPrefix-base:16.0.0"
+        const val appCompat = "androidx.appcompat:appcompat:1.4.1"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.3"
+        const val recycler = "androidx.recyclerview:recyclerview:1.2.0"
+        const val multidex = "androidx.multidex:multidex:2.0.1"
 
         // Firebase
-        const val firebaseCore = "com.google.firebase:firebase-core:16.0.8"
-        const val analytics = "com.google.firebase:firebase-analytics-ktx:17.6.0"
-        const val firebasePerf = "com.google.firebase:firebase-perf:19.0.5"
-        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:18.1.0"
-        const val crashlytics =
-            "com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar" // transitive = true
+        const val firebaseBoM = "com.google.firebase:firebase-bom:29.0.4" //import platform
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val firebasePerf = "com.google.firebase:firebase-perf-ktx"
+        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
         // Coroutines
         const val coroutinesAndroid =
@@ -57,16 +44,12 @@ object Dependencies {
             const val junit = "junit:junit:4.12"
             const val runner = "com.android.support.test:runner:1.0.2"
         }
-
-        object Data {
-            const val fabric = "com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar"
-        }
     }
 
     object Root {
-        const val android = "com.android.tools.build:gradle:4.0.1"
-        const val googlePlay = "com.google.gms:google-services:4.2.0"
-        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.7.1"
+        const val android = "com.android.tools.build:gradle:7.0.4"
+        const val googleServices = "com.google.gms:google-services:4.3.10"
+        const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
         const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 
@@ -83,7 +66,7 @@ object Dependencies {
             const val ktorClientAuth = "io.ktor:ktor-client-auth:$ktor_version"
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
 
-            const val time = "com.soywiz.korlibs.klock:klock:2.0.0-alpha"
+            const val time = "com.soywiz.korlibs.klock:klock:2.4.12"
         }
 
         object Android {
