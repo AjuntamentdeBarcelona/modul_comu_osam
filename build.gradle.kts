@@ -1,16 +1,12 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 buildscript {
     repositories {
+        gradlePluginPortal()
         google()
-        jcenter()
         mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
-        maven(url = "https://maven.fabric.io/public")
     }
     dependencies {
         classpath(Dependencies.Root.android)
-        classpath(Dependencies.Root.googlePlay)
+        classpath(Dependencies.Root.googleServices)
         classpath(Dependencies.Root.serialization)
         classpath(Dependencies.Root.firebaseCrashlytics)
 
@@ -20,15 +16,10 @@ buildscript {
 
 allprojects {
 
-    val localProperties = gradleLocalProperties(rootDir)
-
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven(url = "https://jitpack.io")
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
-        maven(url = "https://maven.fabric.io/public")
     }
 }
 

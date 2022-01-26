@@ -14,6 +14,8 @@
 		491DDC23247D57E600748032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491DDC22247D57E600748032 /* Assets.xcassets */; };
 		491DDC26247D57E600748032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491DDC24247D57E600748032 /* LaunchScreen.storyboard */; };
 		5ECD129927908C25008FBD49 /* config_keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ECD129827908C25008FBD49 /* config_keys.plist */; };
+		76CC459327A04CF900EA163B /* AnalyticsWrapperIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC459227A04CF900EA163B /* AnalyticsWrapperIOS.swift */; };
+		76CC459527A04D0600EA163B /* CrashlyticsWrapperIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC459427A04D0600EA163B /* CrashlyticsWrapperIOS.swift */; };
 		7B2BBF2525F62BBD00933316 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B2BBF2425F62BBD00933316 /* GoogleService-Info.plist */; };
 		B7CC51D5BCFA2F520C485FC4 /* Pods_commonmodule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929BE4AE1ECABF602481B055 /* Pods_commonmodule.framework */; };
 /* End PBXBuildFile section */
@@ -29,6 +31,8 @@
 		491DDC25247D57E600748032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		491DDC27247D57E600748032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5ECD129827908C25008FBD49 /* config_keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config_keys.plist; sourceTree = "<group>"; };
+		76CC459227A04CF900EA163B /* AnalyticsWrapperIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsWrapperIOS.swift; sourceTree = "<group>"; };
+		76CC459427A04D0600EA163B /* CrashlyticsWrapperIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsWrapperIOS.swift; sourceTree = "<group>"; };
 		7B2BBF2425F62BBD00933316 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		929BE4AE1ECABF602481B055 /* Pods_commonmodule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_commonmodule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A48847098DD23E6D50200634 /* Pods-commonmodule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-commonmodule.release.xcconfig"; path = "Target Support Files/Pods-commonmodule/Pods-commonmodule.release.xcconfig"; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 		491DDC18247D57E300748032 /* commonmodule */ = {
 			isa = PBXGroup;
 			children = (
+				76CC459027A04CD300EA163B /* analytics */,
+				76CC459127A04CDA00EA163B /* crashlytics */,
 				491DDC19247D57E300748032 /* AppDelegate.swift */,
 				491DDC1B247D57E300748032 /* SceneDelegate.swift */,
 				491DDC1D247D57E300748032 /* ViewController.swift */,
@@ -103,6 +109,22 @@
 				A48847098DD23E6D50200634 /* Pods-commonmodule.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		76CC459027A04CD300EA163B /* analytics */ = {
+			isa = PBXGroup;
+			children = (
+				76CC459227A04CF900EA163B /* AnalyticsWrapperIOS.swift */,
+			);
+			path = analytics;
+			sourceTree = "<group>";
+		};
+		76CC459127A04CDA00EA163B /* crashlytics */ = {
+			isa = PBXGroup;
+			children = (
+				76CC459427A04D0600EA163B /* CrashlyticsWrapperIOS.swift */,
+			);
+			path = crashlytics;
 			sourceTree = "<group>";
 		};
 		E38029E47471A01633259692 /* Frameworks */ = {
@@ -250,6 +272,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76CC459327A04CF900EA163B /* AnalyticsWrapperIOS.swift in Sources */,
+				76CC459527A04D0600EA163B /* CrashlyticsWrapperIOS.swift in Sources */,
 				491DDC1E247D57E300748032 /* ViewController.swift in Sources */,
 				491DDC1A247D57E300748032 /* AppDelegate.swift in Sources */,
 				491DDC1C247D57E300748032 /* SceneDelegate.swift in Sources */,

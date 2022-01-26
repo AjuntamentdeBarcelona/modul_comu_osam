@@ -2,8 +2,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.*
 
-private fun getFile(file: String): File {
-    return File("$file")
+private fun getFile(path: String, file: String): File {
+    return File("$path/$file")
 }
 
 private fun getProperty(file: String, property: String): String {
@@ -12,7 +12,9 @@ private fun getProperty(file: String, property: String): String {
     return properties.getProperty(property)
 }
 
-fun getSignFile(file: String): File = getFile(getProperty(file, "KEYSTORE_FILE"))
+fun getSignFile(path: String, file: String): File =
+    getFile(path, getProperty(file, "KEYSTORE_FILE"))
+
 fun getSignFilePassword(file: String): String = getProperty(file, "KEYSTORE_PASSWORD")
 fun getSignAlias(file: String) = getProperty(file, "KEY_ALIAS")
 fun getSignAliasPassword(file: String) = getProperty(file, "KEY_PASSWORD")
