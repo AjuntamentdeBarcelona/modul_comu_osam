@@ -25,6 +25,9 @@ kotlin {
 
     val xcFramework = XCFramework(libName)
     ios {
+        binaries.framework {
+            baseName = libName
+        }
         binaries.framework(libName) {
             xcFramework.add(this)
         }

@@ -143,6 +143,7 @@
 			buildConfigurationList = 491DDC2A247D57E600748032 /* Build configuration list for PBXNativeTarget "commonmodule" */;
 			buildPhases = (
 				60330858862557E506A4B93A /* [CP] Check Pods Manifest.lock */,
+				76E01BD727A1A49F001C985C /* Build kotlin common module */,
 				491DDC12247D57E300748032 /* Sources */,
 				491DDC13247D57E300748032 /* Frameworks */,
 				491DDC14247D57E300748032 /* Resources */,
@@ -228,6 +229,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		76E01BD727A1A49F001C985C /* Build kotlin common module */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build kotlin common module";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :common:embedAndSignAppleFrameworkForXcode\n";
 		};
 		7B8CBE3026945C2300B97F79 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -426,12 +445,72 @@
 				CURRENT_PROJECT_VERSION = 2021050000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 58NG96TYLK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCrashlytics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics/AdIdSupport\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement/AdIdSupport\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement/WithoutAdIdSupport\"",
+					"$(SRCROOT)/../common/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
 				INFOPLIST_FILE = commonmodule/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseCrashlytics\"",
+					"-framework",
+					"\"FirebaseInstallations\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleAppMeasurement\"",
+					"-framework",
+					"\"GoogleAppMeasurementIdentitySupport\"",
+					"-framework",
+					"\"GoogleDataTransport\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"nanopb\"",
+					"-framework",
+					OSAMCommon,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cat.bcn.commonmodule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -450,12 +529,72 @@
 				CURRENT_PROJECT_VERSION = 2021050000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 58NG96TYLK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCrashlytics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics/AdIdSupport\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement/AdIdSupport\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement/WithoutAdIdSupport\"",
+					"$(SRCROOT)/../common/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
 				INFOPLIST_FILE = commonmodule/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseCrashlytics\"",
+					"-framework",
+					"\"FirebaseInstallations\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleAppMeasurement\"",
+					"-framework",
+					"\"GoogleAppMeasurementIdentitySupport\"",
+					"-framework",
+					"\"GoogleDataTransport\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"nanopb\"",
+					"-framework",
+					OSAMCommon,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cat.bcn.commonmodule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
