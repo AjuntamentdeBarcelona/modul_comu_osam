@@ -80,7 +80,7 @@ kotlin {
 
     tasks {
 
-        register("publishDevFramework") {
+        /*register("publishDevFramework") {
             description = "Publish iOs framework to the Cocoa Repo"
 
             project.exec {
@@ -205,7 +205,7 @@ kotlin {
                     }
                 }
             }
-        }
+        }*/
     }
 }
 
