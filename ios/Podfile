@@ -6,7 +6,7 @@ target 'commonmodule' do
   use_frameworks!
 
   # Pods for commonmodule
-  pod 'common', :path => '../common/'
+  pod 'OSAMCommon', :git => 'git@gitlab.dtibcn.cat:osam/common_module_mobile_frameworks.git', :tag => '1.0.6'
   
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
