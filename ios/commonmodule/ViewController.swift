@@ -9,13 +9,12 @@
 import UIKit
 import OSAMCommon
 import StoreKit
-import FirebaseAnalytics
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var checkVersionControl: UIButton!
     
-    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint)
+    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint, crashlyticsWrapper: CrashlyticsWrapperIOS(), analyticsWrapper: AnalyticsWrapperIOS())
     
     private var backendEndpoint: String {
       get {

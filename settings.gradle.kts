@@ -1,3 +1,11 @@
-enableFeaturePreview("GRADLE_METADATA")
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "common_module_mobile"
-include(":android", ":common")
+include(":android")
+include(":common")
