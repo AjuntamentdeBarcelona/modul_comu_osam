@@ -15,8 +15,6 @@ val libVersionName = "1.0.6"
 group = libGroup
 version = libVersionName
 
-val xcframeworkDestinationRepo = "common_module_mobile_frameworks"
-
 kotlin {
     android()
     android {
@@ -83,11 +81,11 @@ kotlin {
 
     tasks {
 
-        /*register("publishDevFramework") {
+        register("publishDevFramework") {
             description = "Publish iOs framework to the Cocoa Repo"
 
             project.exec {
-                workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                workingDir = File("$rootDir")
                 commandLine("git", "checkout", "develop").standardOutput
             }
 
@@ -97,11 +95,11 @@ kotlin {
 
                 copy {
                     from("$buildDir/XCFrameworks/debug")
-                    into("$rootDir/../$xcframeworkDestinationRepo")
+                    into("$rootDir")
                 }
 
-                val dir = File("$rootDir/../$xcframeworkDestinationRepo/$libName.podspec")
-                val tempFile = File("$rootDir/../$xcframeworkDestinationRepo/$libName.podspec.new")
+                val dir = File("$rootDir/$libName.podspec")
+                val tempFile = File("$rootDir/$libName.podspec.new")
 
                 val reader = dir.bufferedReader()
                 val writer = tempFile.bufferedWriter()
@@ -121,7 +119,7 @@ kotlin {
                 if (successful) {
 
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine(
                             "git",
                             "add",
@@ -131,7 +129,7 @@ kotlin {
 
                     val dateFormatter = SimpleDateFormat("dd/MM/yyyy - HH:mm", Locale.getDefault())
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine(
                             "git",
                             "commit",
@@ -141,7 +139,7 @@ kotlin {
                     }
 
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine("git", "push", "origin", "develop").standardOutput
                     }
                 }
@@ -152,7 +150,7 @@ kotlin {
             description = "Publish iOs framework to the Cocoa Repo"
 
             project.exec {
-                workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                workingDir = File("$rootDir")
                 commandLine("git", "checkout", "master").standardOutput
             }
 
@@ -164,11 +162,11 @@ kotlin {
 
                 copy {
                     from("$buildDir/XCFrameworks/release")
-                    into("$rootDir/../$xcframeworkDestinationRepo")
+                    into("$rootDir")
                 }
 
-                val dir = File("$rootDir/../$xcframeworkDestinationRepo/$libName.podspec")
-                val tempFile = File("$rootDir/../$xcframeworkDestinationRepo/$libName.podspec.new")
+                val dir = File("$rootDir/$libName.podspec")
+                val tempFile = File("$rootDir/$libName.podspec.new")
 
                 val reader = dir.bufferedReader()
                 val writer = tempFile.bufferedWriter()
@@ -188,27 +186,27 @@ kotlin {
                 if (successful) {
 
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine("git", "add", ".").standardOutput
                     }
 
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine("git", "commit", "-m", "\"New release: ${libVersionName}\"").standardOutput
                     }
 
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine("git", "tag", libVersionName).standardOutput
                     }
 
                     project.exec {
-                        workingDir = File("$rootDir/../$xcframeworkDestinationRepo")
+                        workingDir = File("$rootDir")
                         commandLine("git", "push", "origin", "master", "--tags").standardOutput
                     }
                 }
             }
-        }*/
+        }
     }
 }
 
