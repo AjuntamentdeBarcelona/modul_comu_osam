@@ -7,7 +7,7 @@
 ### Android
 - Afegeix aquesta dependència en el teu projecte:
 ```
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:1.0.5'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:1.0.6'
 ```
 - Afegir aquest codi al teu build.gradle
 ```
