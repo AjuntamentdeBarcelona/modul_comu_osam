@@ -21,7 +21,7 @@ allprojects {
 ### iOS
 - Per utilitzar el mòdul de control de versions, cal afegir l'arxiu Podfile la ubicació del repositori:
 ```
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '1.0.5'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '1.0.6'
 ```
 
 - Actualitzar mitjançant el comandament 'pod update' les dependències.
@@ -59,28 +59,78 @@ https://github.com/AjuntamentdeBarcelona/modul_comu_osam
 
 ## Configuració del mòdul
 
-Per tal de poder utilitzar el mòdul, és necessari especificar en temps de inicialització l'endpoint de l'entorn de desenvolupament del mòdul comú.
-Serà obligatori especificar l'endpoint de l'entorn de desenvolupament forma explícita.
+Per tal de poder utilitzar el mòdul, és necessari especificar en temps de inicialització els següents paràmetres:
+- backendEndpoint: url del backend del mòdul comú
+- crashlyticsWrapper: implementació del wrapper de crashlytics que hem de implementar (o de qualsevol altre llibreria)
+- analyticsWrapper: implementació del wrapper de analytics que hem de implementar (o de qualsevol altre llibreria)
 
 A continuació, es detalla per cada plataforma, com es realitza aquesta inicialització.
 Per a més detalls de com integrar el mòdul comú amb la CI de la OSAM, consultar el manual de la CI.
 
 ### Android
 
-Inicialitzarem el mòdul comú, passant com a paràmetre la url del backend del mòdul comú, que especificarem en el fitxer de resources de Android:
+Inicialitzarem el mòdul comú de la següent manera:
 
 ```
 private val osamCommons by lazy {
-         OSAMCommons(this, getString(R.string.common_module_endpoint))
+         OSAMCommons(
+            this,
+            backendEndpoint = getString(R.string.common_module_endpoint),
+            crashlyticsWrapper = CrashlyticsWrapperAndroid(),
+            analyticsWrapper = AnalyticsWrapperAndroid()
+         )
     }
+```
+A continuació s'indiquen les implementacions del wrapper de crashlytics i analytics:
+```
+class CrashlyticsWrapperAndroid : CrashlyticsWrapper {
+    override fun recordException(exception: Exception) {
+        FirebaseCrashlytics.getInstance().recordException(exception)
+    }
+}
+
+class AnalyticsWrapperAndroid(context: Context) : AnalyticsWrapper {
+
+    private val analytics = FirebaseAnalytics.getInstance(context)
+
+    override fun logEvent(name: String, parameters: Map<String, String>) {
+        analytics.logEvent(name, parameters.toBundle())
+    }
+
+    private fun Map<String, String>.toBundle(): Bundle =
+        Bundle().apply {
+            this@toBundle.forEach {
+                putString(it.key, it.value)
+            }
+        }
+}
 ```
 
 ### iOS
 
-Inicialitzarem el mòdul comú, passant com a paràmetre la url del backend del mòdul comú:
+Inicialitzarem el mòdul comú de la següent manera:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: "<url_endpoint_modul_comu>")
+lazy var osamCommons = OSAMCommons(
+    vc: self, backendEndpoint: <url_endpoint_modul_comu>,
+    crashlyticsWrapper: CrashlyticsWrapperIOS(),
+    analyticsWrapper: AnalyticsWrapperIOS()
+  )
+```
+A continuació s'indiquen les implementacions del wrapper de Crashlytics i Analytics:
+```
+class CrashlyticsWrapperIOS: CrashlyticsWrapper {
+    func recordException(className: String, stackTrace: String) {
+        let exception = ExceptionModel(name: className, reason: stackTrace)
+        Crashlytics.crashlytics().record(exceptionModel: exception)
+    }
+}
+
+class AnalyticsWrapperIOS: AnalyticsWrapper {
+    func logEvent(name: String, parameters: [String : String]) {
+        Analytics.logEvent(name, parameters: parameters)
+    }
+}
 ```
 
 ## Implementació control de versions
@@ -88,7 +138,6 @@ lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: "<url_endpoint_mod
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-private val osamCommons by lazy {  OSAMCommons(this, getString(R.string.common_module_endpoint)) }
 osamCommons.versionControl(
   language = Language.CA
   ) {
@@ -111,7 +160,6 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint)
 osamCommons.versionControl(
   language: Language.es,
   f: {_ in }
@@ -135,7 +183,6 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Ver
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-private val osamCommons by lazy {  OSAMCommons(this, getString(R.string.common_module_endpoint)) }
 osamCommons.rating(
   language = Language.CA
   ) {
@@ -160,7 +207,6 @@ Per exemple: Si l'usuari cancel·la el popup, al callback rebriem l'objecte "Rat
 Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```
-lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint)
 osamCommons.rating(
   language: Language.es,
   f: {_ in }

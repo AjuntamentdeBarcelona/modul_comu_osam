@@ -12,10 +12,10 @@
 /.idea/
 /build/
 /ios/Pods
-/ios/EroskiClub.xcworkspace/xcuserdata
 /ios/Podfile.lock
 /ios/.idea
 /builds
 /ios/Build/
 ios/Build/
-ios/EroskiClub.xcworkspace/xcuserdata
+ios/commonmodule.xcworkspace/xcuserdata
+ios/commonmodule.xcodeproj/xcuserdata
