@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startActivity
-import cat.bcn.commonmodule.R
 import cat.bcn.commonmodule.analytics.AnalyticsWrapper
 import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.analytics.CommonAnalytics.RatingAction
@@ -103,7 +102,7 @@ actual class OSAMCommons constructor(
                     crashlyticsWrapper.recordException(e)
                 }
 
-                if (!version.comparisonMode.equals(NONE)) {
+                if (version.comparisonMode != NONE) {
                     withContext(Dispatchers.Main) {
                         val dialog = AlertDialog.Builder(context)
                             .setTitle(version.title.localize(language))
@@ -116,23 +115,24 @@ actual class OSAMCommons constructor(
                                 analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
                             }
 
-
                         when (version.comparisonMode) {
                             FORCE -> dialog.setCancelable(false)
                             LAZY -> {
-                                dialog.setNegativeButton(version.cancel.localize(language)) { _, _ ->
-                                    f(VersionControlResponse.CANCELLED)
-                                    analytics.logVersionControlPopUp(VersionControlAction.CANCELLED)
-                                }
-                                    .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
+                                dialog
+                                    .setNegativeButton(version.cancel.localize(language)) { _, _ ->
+                                        f(VersionControlResponse.CANCELLED)
+                                        analytics.logVersionControlPopUp(VersionControlAction.CANCELLED)
+                                    }
+                                    .setOnCancelListener { f(VersionControlResponse.DISMISSED) }
                             }
-                            INFO -> {
-                                dialog.setPositiveButton(version.ok.localize(language)) { _, _ ->
-                                    f(VersionControlResponse.ACCEPTED)
-                                    analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
-                                }
-                                    .setOnDismissListener { f(VersionControlResponse.DISMISSED) }
-                            }
+                            INFO ->
+                                dialog
+                                    .setPositiveButton(version.ok.localize(language)) { _, _ ->
+                                        f(VersionControlResponse.ACCEPTED)
+                                        analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
+                                    }
+                                    .setOnCancelListener { f(VersionControlResponse.DISMISSED) }
+                            NONE -> {} //Nothing to do
                         }
 
                         dialog.show()
@@ -154,7 +154,7 @@ actual class OSAMCommons constructor(
     ) {
         GlobalScope.launch {
             try {
-                var rating: Rating = Rating(
+                var rating = Rating(
                     id = 0,
                     appId = 0,
                     packageName = context.packageName,
@@ -233,7 +233,7 @@ actual class OSAMCommons constructor(
                                 f(RatingControlResponse.LATER)
                                 analytics.logRatingPopUp(RatingAction.LATER)
                             }
-                            .setOnDismissListener { f(RatingControlResponse.DISMISSED) }
+                            .setOnCancelListener { f(RatingControlResponse.DISMISSED) }
                             .create()
 
                         dialog.show()
