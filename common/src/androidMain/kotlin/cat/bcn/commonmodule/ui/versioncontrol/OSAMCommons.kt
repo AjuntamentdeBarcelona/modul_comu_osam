@@ -21,6 +21,7 @@ import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.*
 import cat.bcn.commonmodule.model.Version.ComparisonMode.*
+import cat.bcn.commonmodule.ui.strings.Strings
 import com.soywiz.klock.DateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -193,15 +194,18 @@ actual class OSAMCommons constructor(
 
                 if (shouldShowRatingDialog) {
                     withContext(Dispatchers.Main) {
+                        val dialogRatingTitle =
+                            Strings.getString(Strings.DIALOG_RATING_TITLE, language)
+                        val appLabel = context.applicationInfo.loadLabel(context.packageManager)
                         val dialog = AlertDialog.Builder(context)
-                            .setTitle(
-                                context.getString(
-                                    R.string.dialog_rating_title,
-                                    context.applicationInfo.loadLabel(context.packageManager).toString()
-                                )
-                            )
+                            .setTitle("$dialogRatingTitle $appLabel")
                             .setMessage(rating.message.localize(language))
-                            .setPositiveButton(R.string.dialog_rating_positive) { _, _ ->
+                            .setPositiveButton(
+                                Strings.getString(
+                                    Strings.DIALOG_RATING_POSITIVE,
+                                    language
+                                )
+                            ) { _, _ ->
                                 f(RatingControlResponse.ACCEPTED)
                                 val intent = Intent(Intent.ACTION_VIEW)
                                 intent.data =
@@ -210,12 +214,22 @@ actual class OSAMCommons constructor(
 
                                 analytics.logRatingPopUp(RatingAction.ACCEPTED)
                             }
-                            .setNegativeButton(R.string.dialog_rating_negative) { _, _ ->
+                            .setNegativeButton(
+                                Strings.getString(
+                                    Strings.DIALOG_RATING_NEGATIVE,
+                                    language
+                                )
+                            ) { _, _ ->
                                 f(RatingControlResponse.CANCELLED)
                                 preferences.setDontShowAgain(true)
                                 analytics.logRatingPopUp(RatingAction.CANCELLED)
                             }
-                            .setNeutralButton(R.string.dialog_rating_neutral) { _, _ ->
+                            .setNeutralButton(
+                                Strings.getString(
+                                    Strings.DIALOG_RATING_NEUTRAL,
+                                    language
+                                )
+                            ) { _, _ ->
                                 f(RatingControlResponse.LATER)
                                 analytics.logRatingPopUp(RatingAction.LATER)
                             }
