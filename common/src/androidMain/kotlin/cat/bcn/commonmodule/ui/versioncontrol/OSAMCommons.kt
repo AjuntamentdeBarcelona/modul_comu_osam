@@ -1,284 +1,40 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
 import android.content.Context
-import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import cat.bcn.commonmodule.analytics.AnalyticsWrapper
-import cat.bcn.commonmodule.analytics.CommonAnalytics
-import cat.bcn.commonmodule.analytics.CommonAnalytics.RatingAction
-import cat.bcn.commonmodule.analytics.CommonAnalytics.VersionControlAction
 import cat.bcn.commonmodule.crashlytics.CrashlyticsWrapper
-import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
-import cat.bcn.commonmodule.data.datasource.local.Preferences
-import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
-import cat.bcn.commonmodule.data.datasource.remote.Remote
+import cat.bcn.commonmodule.crashlytics.InternalCrashlyticsWrapperImplementation
 import cat.bcn.commonmodule.data.datasource.settings.Settings
-import cat.bcn.commonmodule.model.*
-import cat.bcn.commonmodule.model.Version.ComparisonMode.*
-import cat.bcn.commonmodule.ui.strings.Strings
-import com.soywiz.klock.DateTime
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import cat.bcn.commonmodule.platform.PlatformAction
+import cat.bcn.commonmodule.platform.PlatformInformation
+import cat.bcn.commonmodule.ui.alert.AlertWrapper
+import cat.bcn.commonmodule.ui.executor.Executor
 
 actual class OSAMCommons constructor(
-    private val context: Context,
-    private val backendEndpoint: String,
-    private val crashlyticsWrapper: CrashlyticsWrapper,
+    context: Context,
+    backendEndpoint: String,
+    crashlyticsWrapper: CrashlyticsWrapper,
     analyticsWrapper: AnalyticsWrapper,
 ) {
 
-    private val analytics: CommonAnalytics = CommonAnalytics(wrapper = analyticsWrapper)
-    private val remote: Remote by lazy { CommonRemote(backendEndpoint) }
-    private val preferences: Preferences by lazy { CommonPreferences(Settings("default", context)) }
+    private val internal = OSAMCommonsInternal(
+        backendEndpoint = backendEndpoint,
+        executor = Executor(),
+        settings = Settings("default", context),
+        alertWrapper = AlertWrapper(context),
+        platformAction = PlatformAction(context),
+        platformInformation = PlatformInformation(context),
+        internalCrashlyticsWrapper = InternalCrashlyticsWrapperImplementation(crashlyticsWrapper),
+        analyticsWrapper = analyticsWrapper
+    )
 
     actual fun versionControl(
         language: Language,
         f: (VersionControlResponse) -> Unit
-    ) {
-        GlobalScope.launch {
-            try {
-                var version = Version(
-                    id = 0,
-                    appId = 0,
-                    packageName = context.packageName,
-                    versionCode = context.packageManager.getPackageInfo(context.packageName, 0).versionCode.toLong(),
-                    versionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName,
-                    platform = Platform.ANDROID,
-                    comparisonMode = preferences.getVersionControlComparisionMode(),
-                    title = Text(
-                        es = preferences.getVersionControlTitleEs(),
-                        en = preferences.getVersionControlTitleEn(),
-                        ca = preferences.getVersionControlTitleCa()
-                    ),
-                    message = Text(
-                        es = preferences.getVersionControlMessageEs(),
-                        en = preferences.getVersionControlMessageEn(),
-                        ca = preferences.getVersionControlMessageCa()
-                    ),
-                    ok = Text(
-                        es = preferences.getVersionControlOkEs(),
-                        en = preferences.getVersionControlOkEn(),
-                        ca = preferences.getVersionControlOkCa()
-                    ),
-                    cancel = Text(
-                        es = preferences.getVersionControlCancelEs(),
-                        en = preferences.getVersionControlCancelEn(),
-                        ca = preferences.getVersionControlCancelCa(),
-                    ),
-                    url = preferences.getVersionControlUrl()
-                )
-
-                try {
-                    if (isOnline(context)) {
-                        version = remote.getVersion(
-                            context.packageName,
-                            context.packageManager.getPackageInfo(context.packageName, 0).versionCode,
-                            language,
-                            Platform.ANDROID
-                        )
-                        preferences.setVersionControlTitleEs(version.title.localize(Language.ES))
-                        preferences.setVersionControlTitleEn(version.title.localize(Language.EN))
-                        preferences.setVersionControlTitleCa(version.title.localize(Language.CA))
-                        preferences.setVersionControlMessageEs(version.message.localize(Language.ES))
-                        preferences.setVersionControlMessageEn(version.message.localize(Language.EN))
-                        preferences.setVersionControlMessageCa(version.message.localize(Language.CA))
-                        preferences.setVersionControlOkEs(version.ok.localize(Language.ES))
-                        preferences.setVersionControlOkEn(version.ok.localize(Language.EN))
-                        preferences.setVersionControlOkCa(version.ok.localize(Language.CA))
-                        preferences.setVersionControlCancelEs(version.cancel.localize(Language.ES))
-                        preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
-                        preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
-                        preferences.setVersionControlUrl(version.url)
-                        preferences.setVersionControlComparisionMode(version.comparisonMode)
-                    }
-                } catch (e: Exception) {
-                    crashlyticsWrapper.recordException(e)
-                }
-
-                if (version.comparisonMode != NONE) {
-                    withContext(Dispatchers.Main) {
-                        val dialog = AlertDialog.Builder(context)
-                            .setTitle(version.title.localize(language))
-                            .setMessage(version.message.localize(language))
-                            .setPositiveButton(version.ok.localize(language)) { _, _ ->
-                                f(VersionControlResponse.ACCEPTED)
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                intent.data = Uri.parse(version.url)
-                                startActivity(context, intent, null)
-                                analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
-                            }
-
-                        when (version.comparisonMode) {
-                            FORCE -> dialog.setCancelable(false)
-                            LAZY -> {
-                                dialog
-                                    .setNegativeButton(version.cancel.localize(language)) { _, _ ->
-                                        f(VersionControlResponse.CANCELLED)
-                                        analytics.logVersionControlPopUp(VersionControlAction.CANCELLED)
-                                    }
-                                    .setOnCancelListener { f(VersionControlResponse.DISMISSED) }
-                            }
-                            INFO ->
-                                dialog
-                                    .setPositiveButton(version.ok.localize(language)) { _, _ ->
-                                        f(VersionControlResponse.ACCEPTED)
-                                        analytics.logVersionControlPopUp(VersionControlAction.ACCEPTED)
-                                    }
-                                    .setOnCancelListener { f(VersionControlResponse.DISMISSED) }
-                            NONE -> {} //Nothing to do
-                        }
-
-                        dialog.show()
-                        analytics.logVersionControlPopUp(VersionControlAction.SHOWN)
-                    }
-                } else {
-                    withContext(Dispatchers.Main) { f(VersionControlResponse.DISMISSED) }
-                }
-            } catch (e: Exception) {
-                crashlyticsWrapper.recordException(e)
-                withContext(Dispatchers.Main) { f(VersionControlResponse.ERROR) }
-            }
-        }
-    }
+    ) = internal.versionControl(language, f)
 
     actual fun rating(
         language: Language,
         f: (RatingControlResponse) -> Unit
-    ) {
-        GlobalScope.launch {
-            try {
-                var rating = Rating(
-                    id = 0,
-                    appId = 0,
-                    packageName = context.packageName,
-                    platform = Platform.ANDROID,
-                    minutes = preferences.getRatingDateInterval(),
-                    numAperture = preferences.getRatingNumApertures(),
-                    message = Text(
-                        es = preferences.getRatingControlMessageEs(),
-                        en = preferences.getRatingControlMessageEn(),
-                        ca = preferences.getRatingControlMessageCa()
-                    )
-                )
-                try {
-                    if (isOnline(context)) {
-                        rating = remote.getRating(context.packageName, Platform.ANDROID)
-                        preferences.setRatingNumApertures(rating.numAperture)
-                        preferences.setRatingDateInterval(rating.minutes)
-                        preferences.setRatingControlMessageEs(rating.message.localize(Language.ES))
-                        preferences.setRatingControlMessageEn(rating.message.localize(Language.EN))
-                        preferences.setRatingControlMessageCa(rating.message.localize(Language.CA))
-                    }
-                } catch (e: Exception) {
-                    crashlyticsWrapper.recordException(e)
-                }
-
-                //Initialize LastDateTime if needed
-                if (preferences.getLastDatetime() == 0L) {
-                    preferences.setLastDatetime(DateTime.nowUnixLong())
-                }
-
-                val shouldShowRatingDialog = shouldShowRatingDialog(
-                    rating = rating,
-                    lastDatetime = preferences.getLastDatetime(),
-                    numAperture = preferences.getNumApertures(),
-                    dontShowDialog = preferences.getDontShowAgain()
-                )
-
-                if (shouldShowRatingDialog) {
-                    withContext(Dispatchers.Main) {
-                        val dialogRatingTitle =
-                            Strings.getString(Strings.DIALOG_RATING_TITLE, language)
-                        val appLabel = context.applicationInfo.loadLabel(context.packageManager)
-                        val dialog = AlertDialog.Builder(context)
-                            .setTitle("$dialogRatingTitle $appLabel")
-                            .setMessage(rating.message.localize(language))
-                            .setPositiveButton(
-                                Strings.getString(
-                                    Strings.DIALOG_RATING_POSITIVE,
-                                    language
-                                )
-                            ) { _, _ ->
-                                f(RatingControlResponse.ACCEPTED)
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                intent.data =
-                                    Uri.parse("https://play.google.com/store/apps/details?id=$context.packageName")
-                                startActivity(context, intent, null)
-
-                                analytics.logRatingPopUp(RatingAction.ACCEPTED)
-                            }
-                            .setNegativeButton(
-                                Strings.getString(
-                                    Strings.DIALOG_RATING_NEGATIVE,
-                                    language
-                                )
-                            ) { _, _ ->
-                                f(RatingControlResponse.CANCELLED)
-                                preferences.setDontShowAgain(true)
-                                analytics.logRatingPopUp(RatingAction.CANCELLED)
-                            }
-                            .setNeutralButton(
-                                Strings.getString(
-                                    Strings.DIALOG_RATING_NEUTRAL,
-                                    language
-                                )
-                            ) { _, _ ->
-                                f(RatingControlResponse.LATER)
-                                analytics.logRatingPopUp(RatingAction.LATER)
-                            }
-                            .setOnCancelListener { f(RatingControlResponse.DISMISSED) }
-                            .create()
-
-                        dialog.show()
-                        preferences.setLastDatetime(DateTime.nowUnixLong())
-                        analytics.logRatingPopUp(RatingAction.SHOWN)
-                    }
-                } else {
-                    withContext(Dispatchers.Main) { (RatingControlResponse.LATER) }
-                }
-
-                if (preferences.getNumApertures() == rating.numAperture) {
-                    preferences.setNumApertures(0)
-                } else {
-                    preferences.setNumApertures(preferences.getNumApertures() + 1)
-                }
-            } catch (e: Exception) {
-                crashlyticsWrapper.recordException(e)
-                withContext(Dispatchers.Main) { f(RatingControlResponse.ERROR) }
-            }
-        }
-    }
-
-    private fun isOnline(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                when {
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                        return true
-                    }
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                        return true
-                    }
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                        return true
-                    }
-                }
-            }
-        } else {
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
-                return true
-            }
-        }
-        return false
-    }
+    ) = internal.rating(language, f)
 }
