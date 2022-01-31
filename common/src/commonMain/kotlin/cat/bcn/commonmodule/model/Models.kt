@@ -48,7 +48,12 @@ data class Rating(
     val minutes: Int,
     val numAperture: Int,
     val message: Text
-)
+) {
+    val title: Text = Text(es = "Valorar", en = "Rate", ca = "Valorar")
+    val ok: Text = Text(es = "VALORAR AHORA", en = "RATE NOW", ca = "VALORAR ARA")
+    val cancel: Text = Text(es = "NO, GRACIAS", en = "NO, THANKS", ca = "NO, GRÀCIES")
+    val neutral: Text = Text(es = "MÁS TARDE", en = "LATER", ca = "MÉS TARD")
+}
 
 @Serializable
 data class Text(val es: String, val en: String, val ca: String)
