@@ -3,12 +3,13 @@ package cat.bcn.commonmodule.analytics
 class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
 
     companion object {
-        private const val EVENT_NAME_VERSION_CONTROL = "OSAM_COMMONS_SHOW_VERSIONCONTROL_DIALOG"
-        private const val EVENT_NAME_RATING = "OSAM_COMMONS_SHOW_RATING_DIALOG"
+        private const val EVENT_NAME_VERSION_CONTROL = "osam_commons"
+        private const val EVENT_NAME_RATING = "osam_commons"
 
         private const val ITEM_ID_KEY = "item_id"
-        private const val ITEM_NAME_KEY = "item_name"
-        private const val ITEM_ID_VALUE = "osamcommons"
+        private const val ITEM_ID_VALUE = "osam_commons"
+
+        private const val EVENT_ID_KEY = "event_id"
     }
 
     enum class RatingAction {
@@ -39,14 +40,14 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
     fun logRatingPopUp(action: RatingAction) {
         trackActionWithWrapper(
             EVENT_NAME_RATING,
-            mapOf(ITEM_ID_KEY to ITEM_ID_VALUE, ITEM_NAME_KEY to action.toEventString())
+            mapOf(ITEM_ID_KEY to ITEM_ID_VALUE, EVENT_ID_KEY to action.toEventString())
         )
     }
 
     fun logVersionControlPopUp(action: VersionControlAction) {
         trackActionWithWrapper(
             EVENT_NAME_VERSION_CONTROL,
-            mapOf(ITEM_ID_KEY to ITEM_ID_VALUE, ITEM_NAME_KEY to action.toEventString())
+            mapOf(ITEM_ID_KEY to ITEM_ID_VALUE, EVENT_ID_KEY to action.toEventString())
         )
     }
 

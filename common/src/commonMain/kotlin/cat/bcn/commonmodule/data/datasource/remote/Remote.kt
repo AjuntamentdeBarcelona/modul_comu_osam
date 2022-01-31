@@ -8,9 +8,8 @@ import cat.bcn.commonmodule.ui.versioncontrol.Language
 internal interface Remote {
     suspend fun getVersion(
         appId: String,
-        versionCode: Int,
-        language: Language,
-        platform: Platform
+        platform: Platform,
+        versionCode: Long
     ): Version
 
     suspend fun getRating(appId: String, platform: Platform): Rating
