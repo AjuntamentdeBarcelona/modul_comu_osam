@@ -47,58 +47,62 @@ internal class OSAMCommonsInternal(
         f: (VersionControlResponse) -> Unit
     ) {
         GlobalScope.launch(executor.main) {
-            try {
-                withContext(executor.bg) { commonRepository.getVersion() }.fold(
-                    error = { commonError ->
-                        internalCrashlyticsWrapper.recordException(commonError.exception)
-                    },
-                    success = { version ->
-                        when (version.comparisonMode) {
-                            Version.ComparisonMode.FORCE -> alertWrapper.showVersionControlForce(
-                                version = version,
-                                language = language,
-                                onPositiveClick = {
-                                    f(VersionControlResponse.ACCEPTED)
-                                    platformAction.openUrl(version.url)
-                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                }
-                            )
-                            Version.ComparisonMode.LAZY -> alertWrapper.showVersionControlLazy(
-                                version = version,
-                                language = language,
-                                onPositiveClick = {
-                                    f(VersionControlResponse.ACCEPTED)
-                                    platformAction.openUrl(version.url)
-                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                },
-                                onNegativeClick = {
-                                    f(VersionControlResponse.CANCELLED)
-                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
-                                },
-                                onDismissClick = {
-                                    f(VersionControlResponse.DISMISSED)
-                                }
-                            )
-                            Version.ComparisonMode.INFO -> alertWrapper.showVersionControlInfo(
-                                version = version,
-                                language = language,
-                                onPositiveClick = {
-                                    f(VersionControlResponse.ACCEPTED)
-                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                },
-                                onDismissClick = {
-                                    f(VersionControlResponse.DISMISSED)
-                                }
-                            )
-                            Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
+            if (!alertWrapper.isVersionControlShowing()) {
+                try {
+                    withContext(executor.bg) { commonRepository.getVersion() }.fold(
+                        error = { commonError ->
+                            internalCrashlyticsWrapper.recordException(commonError.exception)
+                        },
+                        success = { version ->
+                            when (version.comparisonMode) {
+                                Version.ComparisonMode.FORCE -> alertWrapper.showVersionControlForce(
+                                    version = version,
+                                    language = language,
+                                    onPositiveClick = {
+                                        f(VersionControlResponse.ACCEPTED)
+                                        platformAction.openUrl(version.url)
+                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                    }
+                                )
+                                Version.ComparisonMode.LAZY -> alertWrapper.showVersionControlLazy(
+                                    version = version,
+                                    language = language,
+                                    onPositiveClick = {
+                                        f(VersionControlResponse.ACCEPTED)
+                                        platformAction.openUrl(version.url)
+                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                    },
+                                    onNegativeClick = {
+                                        f(VersionControlResponse.CANCELLED)
+                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
+                                    },
+                                    onDismissClick = {
+                                        f(VersionControlResponse.DISMISSED)
+                                    }
+                                )
+                                Version.ComparisonMode.INFO -> alertWrapper.showVersionControlInfo(
+                                    version = version,
+                                    language = language,
+                                    onPositiveClick = {
+                                        f(VersionControlResponse.ACCEPTED)
+                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                    },
+                                    onDismissClick = {
+                                        f(VersionControlResponse.DISMISSED)
+                                    }
+                                )
+                                Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
+                            }
+                            if (version.comparisonMode != Version.ComparisonMode.NONE) {
+                                analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.SHOWN)
+                            }
                         }
-                        if (version.comparisonMode != Version.ComparisonMode.NONE) {
-                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.SHOWN)
-                        }
-                    }
-                )
-            } catch (e: Exception) {
-                internalCrashlyticsWrapper.recordException(e)
+                    )
+                } catch (e: Exception) {
+                    internalCrashlyticsWrapper.recordException(e)
+                    f(VersionControlResponse.ERROR)
+                }
+            } else {
                 f(VersionControlResponse.ERROR)
             }
         }
@@ -109,63 +113,64 @@ internal class OSAMCommonsInternal(
         f: (RatingControlResponse) -> Unit
     ) {
         GlobalScope.launch(executor.main) {
-            try {
+            if (!alertWrapper.isRatingShowing()) {
+                try {
 
-                //Initialize LastDateTime if needed
-                if (preferences.getLastDatetime() == 0L) {
-                    preferences.setLastDatetime(DateTime.nowUnixLong())
-                }
-
-                withContext(executor.bg) { commonRepository.getRating() }.fold(
-                    error = { commonError ->
-                        internalCrashlyticsWrapper.recordException(commonError.exception)
-                    },
-                    success = { rating ->
-
-                        val shouldShowRatingDialog = shouldShowRatingDialog(
-                            rating = rating,
-                            lastDatetime = preferences.getLastDatetime(),
-                            numAperture = preferences.getNumApertures(),
-                            dontShowDialog = preferences.getDontShowAgain()
-                        )
-
-                        if (shouldShowRatingDialog) {
-                            alertWrapper.showRating(
-                                rating = rating,
-                                language = language,
-                                onPositiveClick = {
-                                    f(RatingControlResponse.ACCEPTED)
-                                    platformAction.openUrl(platformInformation.getAppsStoreUrl())
-                                    analytics.logRatingPopUp(CommonAnalytics.RatingAction.ACCEPTED)
-                                },
-                                onNegativeClick = {
-                                    f(RatingControlResponse.CANCELLED)
-                                    preferences.setDontShowAgain(true)
-                                    analytics.logRatingPopUp(CommonAnalytics.RatingAction.CANCELLED)
-                                },
-                                onNeutralClick = {
-                                    f(RatingControlResponse.LATER)
-                                    analytics.logRatingPopUp(CommonAnalytics.RatingAction.LATER)
-                                },
-                                onDismissClick = {
-                                    f(RatingControlResponse.DISMISSED)
-                                }
-                            )
-                            preferences.setLastDatetime(DateTime.nowUnixLong())
-                            analytics.logRatingPopUp(CommonAnalytics.RatingAction.SHOWN)
-                        } else {
-                            f(RatingControlResponse.LATER)
-                        }
-
-                        if (preferences.getNumApertures() == rating.numAperture) {
-                            preferences.setNumApertures(0)
-                        } else {
-                            preferences.setNumApertures(preferences.getNumApertures() + 1)
-                        }
+                    //Initialize LastDateTime if needed
+                    if (preferences.getLastDatetime() == 0L) {
+                        preferences.setLastDatetime(DateTime.nowUnixLong())
                     }
-                )
-            } catch (e: Exception) {
-                internalCrashlyticsWrapper.recordException(e)
+                    preferences.setNumApertures(preferences.getNumApertures() + 1)
+
+                    withContext(executor.bg) { commonRepository.getRating() }.fold(
+                        error = { commonError ->
+                            internalCrashlyticsWrapper.recordException(commonError.exception)
+                        },
+                        success = { rating ->
+                            val shouldShowRatingDialog = shouldShowRatingDialog(
+                                rating = rating,
+                                lastDatetime = preferences.getLastDatetime(),
+                                numAperture = preferences.getNumApertures(),
+                                dontShowDialog = preferences.getDontShowAgain()
+                            )
+
+                            if (shouldShowRatingDialog) {
+                                alertWrapper.showRating(
+                                    rating = rating,
+                                    language = language,
+                                    onPositiveClick = {
+                                        f(RatingControlResponse.ACCEPTED)
+                                        platformAction.openUrl(platformInformation.getAppsStoreUrl())
+                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.ACCEPTED)
+                                    },
+                                    onNegativeClick = {
+                                        f(RatingControlResponse.CANCELLED)
+                                        preferences.setDontShowAgain(true)
+                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.CANCELLED)
+                                    },
+                                    onNeutralClick = {
+                                        f(RatingControlResponse.LATER)
+                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.LATER)
+                                    },
+                                    onDismissClick = {
+                                        f(RatingControlResponse.DISMISSED)
+                                    }
+                                )
+                                preferences.setLastDatetime(DateTime.nowUnixLong())
+                                if (preferences.getNumApertures() >= rating.numAperture) {
+                                    preferences.setNumApertures(0)
+                                }
+                                analytics.logRatingPopUp(CommonAnalytics.RatingAction.SHOWN)
+                            } else {
+                                f(RatingControlResponse.LATER)
+                            }
+                        }
+                    )
+                } catch (e: Exception) {
+                    internalCrashlyticsWrapper.recordException(e)
+                    f(RatingControlResponse.ERROR)
+                }
+            } else {
                 f(RatingControlResponse.ERROR)
             }
         }
