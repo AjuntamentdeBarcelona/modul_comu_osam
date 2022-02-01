@@ -1,6 +1,4 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-import java.text.SimpleDateFormat
-import java.util.*
 
 plugins {
     kotlin("multiplatform")
@@ -11,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "1.0.7"
+val libVersionName = "1.0.8"
 group = libGroup
 version = libVersionName
 

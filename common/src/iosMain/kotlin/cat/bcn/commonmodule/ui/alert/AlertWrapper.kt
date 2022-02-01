@@ -9,6 +9,8 @@ import platform.UIKit.*
 
 internal actual class AlertWrapper(private val vc: UIViewController) {
 
+    private var versionControlAlert: UIAlertController? = null
+
     actual fun showVersionControlForce(
         version: Version,
         language: Language,
@@ -16,6 +18,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     ) {
         val alert = buildCommonVersionAlert(version, language, onPositiveClick)
         vc.presentViewController(alert, animated = true, completion = null)
+        versionControlAlert = alert
     }
 
     actual fun showVersionControlLazy(
@@ -31,8 +34,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             style = UIAlertActionStyleCancel,
             handler = { onNegativeClick() }
         ))
-        alert.dismissViewControllerAnimated(true, null)
         vc.presentViewController(alert, animated = true, completion = null)
+        versionControlAlert = alert
     }
 
     actual fun showVersionControlInfo(
@@ -43,6 +46,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     ) {
         val alert = buildCommonVersionAlert(version, language, onPositiveClick)
         vc.presentViewController(alert, animated = true, completion = null)
+        versionControlAlert = alert
     }
 
     actual fun showRating(
@@ -56,6 +60,11 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         SKStoreReviewController.requestReview()
         onPositiveClick()
     }
+
+    actual fun isVersionControlShowing(): Boolean =
+        versionControlAlert?.let { vc.presentedViewController == it } ?: false
+
+    actual fun isRatingShowing(): Boolean = false //iOS controls the rating alert
 
     private fun buildCommonVersionAlert(
         version: Version,
