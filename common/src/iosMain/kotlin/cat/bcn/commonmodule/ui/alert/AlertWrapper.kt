@@ -61,7 +61,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onPositiveClick()
     }
 
-    actual fun isVersionControlShowing(): Boolean = versionControlAlert?.isBeingPresented() ?: false
+    actual fun isVersionControlShowing(): Boolean =
+        versionControlAlert?.let { vc.presentedViewController == it } ?: false
 
     actual fun isRatingShowing(): Boolean = false //iOS controls the rating alert
 
