@@ -156,8 +156,7 @@ internal class OSAMCommonsInternal(
                         } else {
                             f(RatingControlResponse.LATER)
                         }
-
-                        if (preferences.getNumApertures() == rating.numAperture) {
+                        if (preferences.getNumApertures() >= rating.numAperture) {
                             preferences.setNumApertures(0)
                         } else {
                             preferences.setNumApertures(preferences.getNumApertures() + 1)
