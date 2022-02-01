@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCMain, OSAMCLanguage, UIViewController, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCCommonError, OSAMCCommonErrorDefault, OSAMCCommonErrorNoInternet, OSAMCCommonErrorNotFound, OSAMCCommonErrorUnauthorized, OSAMCCommonErrorUnauthorizedCompany, OSAMCCommonErrorUnauthorizedGibraltar, OSAMCCommonErrorUnauthorizedNoActive, OSAMCEither<L, R>, OSAMCPlatform, OSAMCText, OSAMCRatingCompanion, OSAMCRating, OSAMCRatingResponseCompanion, OSAMCRatingResponse, OSAMCSuccess, OSAMCTextCompanion, OSAMCVersionComparisonMode, OSAMCVersionCompanion, OSAMCVersion, OSAMCVersionResponseCompanion, OSAMCVersionResponse, OSAMCSettings, OSAMCCommonPreferencesCompanion, OSAMCTokenFeatureFeature, OSAMCTokenFeature, OSAMCKtor_client_coreHttpClient, OSAMCKtor_utilsAttributeKey<T>, OSAMCTokenFeatureConfig, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKotlinThrowable, OSAMCKotlinException, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpClientCall, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKotlinx_serialization_coreSerializersModule, OSAMCKotlinx_serialization_coreSerialKind, OSAMCKotlinNothing, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
+@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCLanguage, UIViewController, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCKotlinException, OSAMCCommonError, OSAMCEither<L, R>, OSAMCPlatform, OSAMCText, OSAMCRatingCompanion, OSAMCRating, OSAMCRatingResponseCompanion, OSAMCRatingResponse, OSAMCSuccess, OSAMCTextCompanion, OSAMCVersionComparisonMode, OSAMCVersionCompanion, OSAMCVersion, OSAMCVersionResponseCompanion, OSAMCVersionResponse, OSAMCSettings, OSAMCCommonPreferencesCompanion, OSAMCTokenFeatureFeature, OSAMCTokenFeature, OSAMCKtor_client_coreHttpClient, OSAMCKtor_utilsAttributeKey<T>, OSAMCTokenFeatureConfig, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpClientCall, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKotlinx_serialization_coreSerializersModule, OSAMCKotlinx_serialization_coreSerialKind, OSAMCKotlinNothing, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
 
-@protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCKotlinCoroutineContextKey, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContext, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCCrashlyticsWrapper, OSAMCKotlinSuspendFunction1, OSAMCKotlinx_serialization_coreKSerializer, OSAMCPreferences, OSAMCKtor_client_coreHttpClientFeature, OSAMCKtor_httpHttpMessageBuilder, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKotlinx_coroutines_coreJob, OSAMCKotlinSuspendFunction0, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinx_serialization_coreEncoder, OSAMCKotlinx_serialization_coreSerialDescriptor, OSAMCKotlinx_serialization_coreSerializationStrategy, OSAMCKotlinx_serialization_coreDecoder, OSAMCKotlinx_serialization_coreDeserializationStrategy, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKtor_httpHeaders, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKotlinx_serialization_coreCompositeEncoder, OSAMCKotlinAnnotation, OSAMCKotlinx_serialization_coreCompositeDecoder, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinSuspendFunction2, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinx_serialization_coreSerializersModuleCollector, OSAMCKotlinKClass, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKtor_httpHttpMessage, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement, OSAMCKotlinKClassifier, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput;
+@protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCCrashlyticsWrapper, OSAMCKotlinSuspendFunction1, OSAMCKotlinx_serialization_coreKSerializer, OSAMCPreferences, OSAMCKtor_client_coreHttpClientFeature, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinx_serialization_coreEncoder, OSAMCKotlinx_serialization_coreSerialDescriptor, OSAMCKotlinx_serialization_coreSerializationStrategy, OSAMCKotlinx_serialization_coreDecoder, OSAMCKotlinx_serialization_coreDeserializationStrategy, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKotlinx_serialization_coreCompositeEncoder, OSAMCKotlinAnnotation, OSAMCKotlinx_serialization_coreCompositeDecoder, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKtor_httpHttpMessageBuilder, OSAMCKotlinx_coroutines_coreJob, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKotlinSuspendFunction2, OSAMCKotlinx_serialization_coreSerializersModuleCollector, OSAMCKotlinKClass, OSAMCKtor_httpHeaders, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKtor_httpHttpMessage, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement, OSAMCKotlinKClassifier, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinSuspendFunction0, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -214,71 +214,6 @@ __attribute__((swift_name("CommonAnalytics.VersionControlAction")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Executor")))
-@interface OSAMCExecutor : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@property (readonly) OSAMCKotlinx_coroutines_coreCoroutineDispatcher *bg __attribute__((swift_name("bg")));
-@property (readonly) OSAMCKotlinx_coroutines_coreCoroutineDispatcher *main __attribute__((swift_name("main")));
-@end;
-
-__attribute__((swift_name("KotlinCoroutineContext")))
-@protocol OSAMCKotlinCoroutineContext
-@required
-- (id _Nullable)foldInitial:(id _Nullable)initial operation:(id _Nullable (^)(id _Nullable, id<OSAMCKotlinCoroutineContextElement>))operation __attribute__((swift_name("fold(initial:operation:)")));
-- (id<OSAMCKotlinCoroutineContextElement> _Nullable)getKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("get(key:)")));
-- (id<OSAMCKotlinCoroutineContext>)minusKeyKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("minusKey(key:)")));
-- (id<OSAMCKotlinCoroutineContext>)plusContext:(id<OSAMCKotlinCoroutineContext>)context __attribute__((swift_name("plus(context:)")));
-@end;
-
-__attribute__((swift_name("KotlinCoroutineContextElement")))
-@protocol OSAMCKotlinCoroutineContextElement <OSAMCKotlinCoroutineContext>
-@required
-@property (readonly) id<OSAMCKotlinCoroutineContextKey> key __attribute__((swift_name("key")));
-@end;
-
-__attribute__((swift_name("KotlinAbstractCoroutineContextElement")))
-@interface OSAMCKotlinAbstractCoroutineContextElement : OSAMCBase <OSAMCKotlinCoroutineContextElement>
-- (instancetype)initWithKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("init(key:)"))) __attribute__((objc_designated_initializer));
-@property (readonly) id<OSAMCKotlinCoroutineContextKey> key __attribute__((swift_name("key")));
-@end;
-
-__attribute__((swift_name("KotlinContinuationInterceptor")))
-@protocol OSAMCKotlinContinuationInterceptor <OSAMCKotlinCoroutineContextElement>
-@required
-- (id<OSAMCKotlinContinuation>)interceptContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("interceptContinuation(continuation:)")));
-- (void)releaseInterceptedContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("releaseInterceptedContinuation(continuation:)")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineDispatcher")))
-@interface OSAMCKotlinx_coroutines_coreCoroutineDispatcher : OSAMCKotlinAbstractCoroutineContextElement <OSAMCKotlinContinuationInterceptor>
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("init(key:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly, getter=companion) OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey *companion __attribute__((swift_name("companion")));
-- (void)dispatchContext:(id<OSAMCKotlinCoroutineContext>)context block:(id<OSAMCKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatch(context:block:)")));
-- (void)dispatchYieldContext:(id<OSAMCKotlinCoroutineContext>)context block:(id<OSAMCKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatchYield(context:block:)")));
-- (id<OSAMCKotlinContinuation>)interceptContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("interceptContinuation(continuation:)")));
-- (BOOL)isDispatchNeededContext:(id<OSAMCKotlinCoroutineContext>)context __attribute__((swift_name("isDispatchNeeded(context:)")));
-- (OSAMCKotlinx_coroutines_coreCoroutineDispatcher *)limitedParallelismParallelism:(int32_t)parallelism __attribute__((swift_name("limitedParallelism(parallelism:)")));
-- (OSAMCKotlinx_coroutines_coreCoroutineDispatcher *)plusOther:(OSAMCKotlinx_coroutines_coreCoroutineDispatcher *)other __attribute__((swift_name("plus(other:)"))) __attribute__((unavailable("Operator '+' on two CoroutineDispatcher objects is meaningless. CoroutineDispatcher is a coroutine context element and `+` is a set-sum operator for coroutine contexts. The dispatcher to the right of `+` just replaces the dispatcher to the left.")));
-- (void)releaseInterceptedContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("releaseInterceptedContinuation(continuation:)")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Main")))
-@interface OSAMCMain : OSAMCKotlinx_coroutines_coreCoroutineDispatcher
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-+ (instancetype)main __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCMain *shared __attribute__((swift_name("shared")));
-- (void)dispatchContext:(id<OSAMCKotlinCoroutineContext>)context block:(id<OSAMCKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatch(context:block:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Language")))
 @interface OSAMCLanguage : OSAMCKotlinEnum<OSAMCLanguage *>
 + (instancetype)alloc __attribute__((unavailable));
@@ -326,92 +261,15 @@ __attribute__((swift_name("VersionControlResponse")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ErrorHandler")))
-@interface OSAMCErrorHandler : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (NSString *)convertError:(OSAMCCommonError *)error __attribute__((swift_name("convert(error:)")));
-@end;
-
 __attribute__((swift_name("CommonError")))
 @interface OSAMCCommonError : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonError.Default")))
-@interface OSAMCCommonErrorDefault : OSAMCCommonError
-- (instancetype)initWithMessage:(NSString *)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-- (NSString *)component1 __attribute__((swift_name("component1()")));
-- (OSAMCCommonErrorDefault *)doCopyMessage:(NSString *)message __attribute__((swift_name("doCopy(message:)")));
+- (instancetype)initWithException:(OSAMCKotlinException *)exception __attribute__((swift_name("init(exception:)"))) __attribute__((objc_designated_initializer));
+- (OSAMCKotlinException *)component1 __attribute__((swift_name("component1()")));
+- (OSAMCCommonError *)doCopyException:(OSAMCKotlinException *)exception __attribute__((swift_name("doCopy(exception:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *message __attribute__((swift_name("message")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonError.NoInternet")))
-@interface OSAMCCommonErrorNoInternet : OSAMCCommonError
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-+ (instancetype)noInternet __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCCommonErrorNoInternet *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonError.NotFound")))
-@interface OSAMCCommonErrorNotFound : OSAMCCommonError
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-+ (instancetype)notFound __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCCommonErrorNotFound *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((swift_name("CommonError.Unauthorized")))
-@interface OSAMCCommonErrorUnauthorized : OSAMCCommonError
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonError.UnauthorizedCompany")))
-@interface OSAMCCommonErrorUnauthorizedCompany : OSAMCCommonErrorUnauthorized
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-+ (instancetype)company __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCCommonErrorUnauthorizedCompany *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonError.UnauthorizedGibraltar")))
-@interface OSAMCCommonErrorUnauthorizedGibraltar : OSAMCCommonErrorUnauthorized
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-+ (instancetype)gibraltar __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCCommonErrorUnauthorizedGibraltar *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonError.UnauthorizedNoActive")))
-@interface OSAMCCommonErrorUnauthorizedNoActive : OSAMCCommonErrorUnauthorized
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-+ (instancetype)noActive __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCCommonErrorUnauthorizedNoActive *shared __attribute__((swift_name("shared")));
+@property (readonly) OSAMCKotlinException *exception __attribute__((swift_name("exception")));
 @end;
 
 __attribute__((swift_name("Either")))
@@ -477,12 +335,16 @@ __attribute__((swift_name("Rating")))
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) int32_t appId __attribute__((swift_name("appId")));
+@property (readonly) OSAMCText *cancel __attribute__((swift_name("cancel")));
 @property (readonly) int32_t id __attribute__((swift_name("id")));
 @property (readonly) OSAMCText *message __attribute__((swift_name("message")));
 @property (readonly) int32_t minutes __attribute__((swift_name("minutes")));
+@property (readonly) OSAMCText *neutral __attribute__((swift_name("neutral")));
 @property (readonly) int32_t numAperture __attribute__((swift_name("numAperture")));
+@property (readonly) OSAMCText *ok __attribute__((swift_name("ok")));
 @property (readonly) NSString *packageName __attribute__((swift_name("packageName")));
 @property (readonly) OSAMCPlatform *platform __attribute__((swift_name("platform")));
+@property (readonly) OSAMCText *title __attribute__((swift_name("title")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -819,37 +681,6 @@ __attribute__((swift_name("CrashlyticsWrapper")))
 - (NSString *)localizeLanguage:(OSAMCLanguage *)language __attribute__((swift_name("localize(language:)")));
 @end;
 
-__attribute__((swift_name("Ktor_httpHttpMessageBuilder")))
-@protocol OSAMCKtor_httpHttpMessageBuilder
-@required
-@property (readonly) OSAMCKtor_httpHeadersBuilder *headers __attribute__((swift_name("headers")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_coreHttpRequestBuilder")))
-@interface OSAMCKtor_client_coreHttpRequestBuilder : OSAMCBase <OSAMCKtor_httpHttpMessageBuilder>
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@property (class, readonly, getter=companion) OSAMCKtor_client_coreHttpRequestBuilderCompanion *companion __attribute__((swift_name("companion")));
-- (OSAMCKtor_client_coreHttpRequestData *)build __attribute__((swift_name("build()")));
-- (id _Nullable)getCapabilityOrNullKey:(id<OSAMCKtor_client_coreHttpClientEngineCapability>)key __attribute__((swift_name("getCapabilityOrNull(key:)")));
-- (void)setAttributesBlock:(void (^)(id<OSAMCKtor_utilsAttributes>))block __attribute__((swift_name("setAttributes(block:)")));
-- (void)setCapabilityKey:(id<OSAMCKtor_client_coreHttpClientEngineCapability>)key capability:(id)capability __attribute__((swift_name("setCapability(key:capability:)")));
-- (OSAMCKtor_client_coreHttpRequestBuilder *)takeFromBuilder:(OSAMCKtor_client_coreHttpRequestBuilder *)builder __attribute__((swift_name("takeFrom(builder:)")));
-- (OSAMCKtor_client_coreHttpRequestBuilder *)takeFromWithExecutionContextBuilder:(OSAMCKtor_client_coreHttpRequestBuilder *)builder __attribute__((swift_name("takeFromWithExecutionContext(builder:)")));
-- (void)urlBlock:(void (^)(OSAMCKtor_httpURLBuilder *, OSAMCKtor_httpURLBuilder *))block __attribute__((swift_name("url(block:)")));
-@property (readonly) id<OSAMCKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
-@property id body __attribute__((swift_name("body")));
-@property (readonly) id<OSAMCKotlinx_coroutines_coreJob> executionContext __attribute__((swift_name("executionContext")));
-@property (readonly) OSAMCKtor_httpHeadersBuilder *headers __attribute__((swift_name("headers")));
-@property OSAMCKtor_httpHttpMethod *method __attribute__((swift_name("method")));
-@property (readonly) OSAMCKtor_httpURLBuilder *url __attribute__((swift_name("url")));
-@end;
-
-@interface OSAMCKtor_client_coreHttpRequestBuilder (Extensions)
-- (void)apiUrlPath:(NSString *)path __attribute__((swift_name("apiUrl(path:)")));
-@end;
-
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("CommonExtensionsKt")))
 @interface OSAMCCommonExtensionsKt : OSAMCBase
@@ -860,17 +691,6 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("HttpClientFactoryKt")))
 @interface OSAMCHttpClientFactoryKt : OSAMCBase
 + (OSAMCKtor_client_coreHttpClient *)buildClientEndpoint:(NSString *)endpoint block:(void (^)(OSAMCKtor_client_coreHttpClientConfig<id> *))block __attribute__((swift_name("buildClient(endpoint:block:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("HttpRequestExtensionsKt")))
-@interface OSAMCHttpRequestExtensionsKt : OSAMCBase
-
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-+ (void)executeF:(id<OSAMCKotlinSuspendFunction0>)f completionHandler:(void (^)(OSAMCEither<OSAMCCommonError *, id> * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("execute(f:completionHandler:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -892,39 +712,6 @@ __attribute__((swift_name("KotlinArray")))
 - (id<OSAMCKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
 - (void)setIndex:(int32_t)index value:(T _Nullable)value __attribute__((swift_name("set(index:value:)")));
 @property (readonly) int32_t size __attribute__((swift_name("size")));
-@end;
-
-__attribute__((swift_name("KotlinCoroutineContextKey")))
-@protocol OSAMCKotlinCoroutineContextKey
-@required
-@end;
-
-__attribute__((swift_name("KotlinContinuation")))
-@protocol OSAMCKotlinContinuation
-@required
-- (void)resumeWithResult:(id _Nullable)result __attribute__((swift_name("resumeWith(result:)")));
-@property (readonly) id<OSAMCKotlinCoroutineContext> context __attribute__((swift_name("context")));
-@end;
-
-__attribute__((swift_name("KotlinAbstractCoroutineContextKey")))
-@interface OSAMCKotlinAbstractCoroutineContextKey<B, E> : OSAMCBase <OSAMCKotlinCoroutineContextKey>
-- (instancetype)initWithBaseKey:(id<OSAMCKotlinCoroutineContextKey>)baseKey safeCast:(E _Nullable (^)(id<OSAMCKotlinCoroutineContextElement>))safeCast __attribute__((swift_name("init(baseKey:safeCast:)"))) __attribute__((objc_designated_initializer));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineDispatcher.Key")))
-@interface OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey : OSAMCKotlinAbstractCoroutineContextKey<id<OSAMCKotlinContinuationInterceptor>, OSAMCKotlinx_coroutines_coreCoroutineDispatcher *>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)initWithBaseKey:(id<OSAMCKotlinCoroutineContextKey>)baseKey safeCast:(id<OSAMCKotlinCoroutineContextElement> _Nullable (^)(id<OSAMCKotlinCoroutineContextElement>))safeCast __attribute__((swift_name("init(baseKey:safeCast:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)key __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreRunnable")))
-@protocol OSAMCKotlinx_coroutines_coreRunnable
-@required
-- (void)run __attribute__((swift_name("run()")));
 @end;
 
 __attribute__((swift_name("KotlinThrowable")))
@@ -1058,142 +845,6 @@ __attribute__((swift_name("Ktor_utilsAttributeKey")))
 @property (readonly) NSString *name __attribute__((swift_name("name")));
 @end;
 
-__attribute__((swift_name("Ktor_utilsStringValuesBuilder")))
-@interface OSAMCKtor_utilsStringValuesBuilder : OSAMCBase
-- (instancetype)initWithCaseInsensitiveName:(BOOL)caseInsensitiveName size:(int32_t)size __attribute__((swift_name("init(caseInsensitiveName:size:)"))) __attribute__((objc_designated_initializer));
-- (void)appendName:(NSString *)name value:(NSString *)value __attribute__((swift_name("append(name:value:)")));
-- (void)appendAllStringValues:(id<OSAMCKtor_utilsStringValues>)stringValues __attribute__((swift_name("appendAll(stringValues:)")));
-- (void)appendAllName:(NSString *)name values:(id)values __attribute__((swift_name("appendAll(name:values:)")));
-- (void)appendMissingStringValues:(id<OSAMCKtor_utilsStringValues>)stringValues __attribute__((swift_name("appendMissing(stringValues:)")));
-- (void)appendMissingName:(NSString *)name values:(id)values __attribute__((swift_name("appendMissing(name:values:)")));
-- (id<OSAMCKtor_utilsStringValues>)build __attribute__((swift_name("build()")));
-- (void)clear __attribute__((swift_name("clear()")));
-- (BOOL)containsName:(NSString *)name __attribute__((swift_name("contains(name:)")));
-- (BOOL)containsName:(NSString *)name value:(NSString *)value __attribute__((swift_name("contains(name:value:)")));
-- (NSSet<id<OSAMCKotlinMapEntry>> *)entries __attribute__((swift_name("entries()")));
-- (NSString * _Nullable)getName:(NSString *)name __attribute__((swift_name("get(name:)")));
-- (NSArray<NSString *> * _Nullable)getAllName:(NSString *)name __attribute__((swift_name("getAll(name:)")));
-- (BOOL)isEmpty __attribute__((swift_name("isEmpty()")));
-- (NSSet<NSString *> *)names __attribute__((swift_name("names()")));
-- (void)removeName:(NSString *)name __attribute__((swift_name("remove(name:)")));
-- (BOOL)removeName:(NSString *)name value:(NSString *)value __attribute__((swift_name("remove(name:value:)")));
-- (void)removeKeysWithNoEntries __attribute__((swift_name("removeKeysWithNoEntries()")));
-- (void)setName:(NSString *)name value:(NSString *)value __attribute__((swift_name("set(name:value:)")));
-- (void)validateNameName:(NSString *)name __attribute__((swift_name("validateName(name:)")));
-- (void)validateValueValue:(NSString *)value __attribute__((swift_name("validateValue(value:)")));
-@property BOOL built __attribute__((swift_name("built")));
-@property (readonly) BOOL caseInsensitiveName __attribute__((swift_name("caseInsensitiveName")));
-@property (readonly) OSAMCMutableDictionary<NSString *, NSMutableArray<NSString *> *> *values __attribute__((swift_name("values")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpHeadersBuilder")))
-@interface OSAMCKtor_httpHeadersBuilder : OSAMCKtor_utilsStringValuesBuilder
-- (instancetype)initWithSize:(int32_t)size __attribute__((swift_name("init(size:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCaseInsensitiveName:(BOOL)caseInsensitiveName size:(int32_t)size __attribute__((swift_name("init(caseInsensitiveName:size:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-- (id<OSAMCKtor_httpHeaders>)build __attribute__((swift_name("build()")));
-- (void)validateNameName:(NSString *)name __attribute__((swift_name("validateName(name:)")));
-- (void)validateValueValue:(NSString *)value __attribute__((swift_name("validateValue(value:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_coreHttpRequestBuilder.Companion")))
-@interface OSAMCKtor_client_coreHttpRequestBuilderCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_client_coreHttpRequestBuilderCompanion *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_coreHttpRequestData")))
-@interface OSAMCKtor_client_coreHttpRequestData : OSAMCBase
-- (instancetype)initWithUrl:(OSAMCKtor_httpUrl *)url method:(OSAMCKtor_httpHttpMethod *)method headers:(id<OSAMCKtor_httpHeaders>)headers body:(OSAMCKtor_httpOutgoingContent *)body executionContext:(id<OSAMCKotlinx_coroutines_coreJob>)executionContext attributes:(id<OSAMCKtor_utilsAttributes>)attributes __attribute__((swift_name("init(url:method:headers:body:executionContext:attributes:)"))) __attribute__((objc_designated_initializer));
-- (id _Nullable)getCapabilityOrNullKey:(id<OSAMCKtor_client_coreHttpClientEngineCapability>)key __attribute__((swift_name("getCapabilityOrNull(key:)")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) id<OSAMCKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
-@property (readonly) OSAMCKtor_httpOutgoingContent *body __attribute__((swift_name("body")));
-@property (readonly) id<OSAMCKotlinx_coroutines_coreJob> executionContext __attribute__((swift_name("executionContext")));
-@property (readonly) id<OSAMCKtor_httpHeaders> headers __attribute__((swift_name("headers")));
-@property (readonly) OSAMCKtor_httpHttpMethod *method __attribute__((swift_name("method")));
-@property (readonly) OSAMCKtor_httpUrl *url __attribute__((swift_name("url")));
-@end;
-
-__attribute__((swift_name("Ktor_client_coreHttpClientEngineCapability")))
-@protocol OSAMCKtor_client_coreHttpClientEngineCapability
-@required
-@end;
-
-__attribute__((swift_name("Ktor_utilsAttributes")))
-@protocol OSAMCKtor_utilsAttributes
-@required
-- (id)computeIfAbsentKey:(OSAMCKtor_utilsAttributeKey<id> *)key block:(id (^)(void))block __attribute__((swift_name("computeIfAbsent(key:block:)")));
-- (BOOL)containsKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("contains(key:)")));
-- (id)getKey_:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("get(key_:)")));
-- (id _Nullable)getOrNullKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("getOrNull(key:)")));
-- (void)putKey:(OSAMCKtor_utilsAttributeKey<id> *)key value:(id)value __attribute__((swift_name("put(key:value:)")));
-- (void)removeKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("remove(key:)")));
-- (id)takeKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("take(key:)")));
-- (id _Nullable)takeOrNullKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("takeOrNull(key:)")));
-@property (readonly) NSArray<OSAMCKtor_utilsAttributeKey<id> *> *allKeys __attribute__((swift_name("allKeys")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpURLBuilder")))
-@interface OSAMCKtor_httpURLBuilder : OSAMCBase
-- (instancetype)initWithProtocol:(OSAMCKtor_httpURLProtocol *)protocol host:(NSString *)host port:(int32_t)port user:(NSString * _Nullable)user password:(NSString * _Nullable)password encodedPath:(NSString *)encodedPath parameters:(OSAMCKtor_httpParametersBuilder *)parameters fragment:(NSString *)fragment trailingQuery:(BOOL)trailingQuery __attribute__((swift_name("init(protocol:host:port:user:password:encodedPath:parameters:fragment:trailingQuery:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCKtor_httpURLBuilderCompanion *companion __attribute__((swift_name("companion")));
-- (OSAMCKtor_httpUrl *)build __attribute__((swift_name("build()")));
-- (NSString *)buildString __attribute__((swift_name("buildString()")));
-- (OSAMCKtor_httpURLBuilder *)pathComponents:(OSAMCKotlinArray<NSString *> *)components __attribute__((swift_name("path(components:)")));
-- (OSAMCKtor_httpURLBuilder *)pathComponents_:(NSArray<NSString *> *)components __attribute__((swift_name("path(components_:)")));
-@property NSString *encodedPath __attribute__((swift_name("encodedPath")));
-@property NSString *fragment __attribute__((swift_name("fragment")));
-@property NSString *host __attribute__((swift_name("host")));
-@property (readonly) OSAMCKtor_httpParametersBuilder *parameters __attribute__((swift_name("parameters")));
-@property NSString * _Nullable password __attribute__((swift_name("password")));
-@property int32_t port __attribute__((swift_name("port")));
-@property OSAMCKtor_httpURLProtocol *protocol __attribute__((swift_name("protocol")));
-@property BOOL trailingQuery __attribute__((swift_name("trailingQuery")));
-@property NSString * _Nullable user __attribute__((swift_name("user")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreJob")))
-@protocol OSAMCKotlinx_coroutines_coreJob <OSAMCKotlinCoroutineContextElement>
-@required
-- (id<OSAMCKotlinx_coroutines_coreChildHandle>)attachChildChild:(id<OSAMCKotlinx_coroutines_coreChildJob>)child __attribute__((swift_name("attachChild(child:)")));
-- (void)cancelCause:(OSAMCKotlinCancellationException * _Nullable)cause __attribute__((swift_name("cancel(cause:)")));
-- (OSAMCKotlinCancellationException *)getCancellationException __attribute__((swift_name("getCancellationException()")));
-- (id<OSAMCKotlinx_coroutines_coreDisposableHandle>)invokeOnCompletionOnCancelling:(BOOL)onCancelling invokeImmediately:(BOOL)invokeImmediately handler:(void (^)(OSAMCKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(onCancelling:invokeImmediately:handler:)")));
-- (id<OSAMCKotlinx_coroutines_coreDisposableHandle>)invokeOnCompletionHandler:(void (^)(OSAMCKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(handler:)")));
-
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)joinWithCompletionHandler:(void (^)(OSAMCKotlinUnit * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("join(completionHandler:)")));
-- (id<OSAMCKotlinx_coroutines_coreJob>)plusOther_:(id<OSAMCKotlinx_coroutines_coreJob>)other __attribute__((swift_name("plus(other_:)"))) __attribute__((unavailable("Operator '+' on two Job objects is meaningless. Job is a coroutine context element and `+` is a set-sum operator for coroutine contexts. The job to the right of `+` just replaces the job the left of `+`.")));
-- (BOOL)start __attribute__((swift_name("start()")));
-@property (readonly) id<OSAMCKotlinSequence> children __attribute__((swift_name("children")));
-@property (readonly) BOOL isActive __attribute__((swift_name("isActive")));
-@property (readonly) BOOL isCancelled __attribute__((swift_name("isCancelled")));
-@property (readonly) BOOL isCompleted __attribute__((swift_name("isCompleted")));
-@property (readonly) id<OSAMCKotlinx_coroutines_coreSelectClause0> onJoin __attribute__((swift_name("onJoin")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpHttpMethod")))
-@interface OSAMCKtor_httpHttpMethod : OSAMCBase
-- (instancetype)initWithValue:(NSString *)value __attribute__((swift_name("init(value:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCKtor_httpHttpMethodCompanion *companion __attribute__((swift_name("companion")));
-- (NSString *)component1 __attribute__((swift_name("component1()")));
-- (OSAMCKtor_httpHttpMethod *)doCopyValue:(NSString *)value __attribute__((swift_name("doCopy(value:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *value __attribute__((swift_name("value")));
-@end;
-
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_client_coreHttpClientConfig")))
 @interface OSAMCKtor_client_coreHttpClientConfig<T> : OSAMCBase
@@ -1209,17 +860,6 @@ __attribute__((swift_name("Ktor_client_coreHttpClientConfig")))
 @property BOOL expectSuccess __attribute__((swift_name("expectSuccess")));
 @property BOOL followRedirects __attribute__((swift_name("followRedirects")));
 @property BOOL useDefaultTransformers __attribute__((swift_name("useDefaultTransformers")));
-@end;
-
-__attribute__((swift_name("KotlinSuspendFunction0")))
-@protocol OSAMCKotlinSuspendFunction0 <OSAMCKotlinFunction>
-@required
-
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)invokeWithCompletionHandler:(void (^)(id _Nullable_result, NSError * _Nullable))completionHandler __attribute__((swift_name("invoke(completionHandler:)")));
 @end;
 
 __attribute__((swift_name("KotlinIterator")))
@@ -1290,6 +930,15 @@ __attribute__((swift_name("Kotlinx_serialization_coreDecoder")))
 @property (readonly) OSAMCKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
 @end;
 
+__attribute__((swift_name("KotlinCoroutineContext")))
+@protocol OSAMCKotlinCoroutineContext
+@required
+- (id _Nullable)foldInitial:(id _Nullable)initial operation:(id _Nullable (^)(id _Nullable, id<OSAMCKotlinCoroutineContextElement>))operation __attribute__((swift_name("fold(initial:operation:)")));
+- (id<OSAMCKotlinCoroutineContextElement> _Nullable)getKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("get(key:)")));
+- (id<OSAMCKotlinCoroutineContext>)minusKeyKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("minusKey(key:)")));
+- (id<OSAMCKotlinCoroutineContext>)plusContext:(id<OSAMCKotlinCoroutineContext>)context __attribute__((swift_name("plus(context:)")));
+@end;
+
 __attribute__((swift_name("Ktor_client_coreHttpClientEngine")))
 @protocol OSAMCKtor_client_coreHttpClientEngine <OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable>
 @required
@@ -1313,6 +962,33 @@ __attribute__((swift_name("Ktor_client_coreHttpClientEngineConfig")))
 @property OSAMCKtor_client_coreProxyConfig * _Nullable proxy __attribute__((swift_name("proxy")));
 @property (readonly) OSAMCKotlinNothing *response __attribute__((swift_name("response"))) __attribute__((unavailable("Response config is deprecated. See [HttpPlainText] feature for charset configuration")));
 @property int32_t threadsCount __attribute__((swift_name("threadsCount")));
+@end;
+
+__attribute__((swift_name("Ktor_httpHttpMessageBuilder")))
+@protocol OSAMCKtor_httpHttpMessageBuilder
+@required
+@property (readonly) OSAMCKtor_httpHeadersBuilder *headers __attribute__((swift_name("headers")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_client_coreHttpRequestBuilder")))
+@interface OSAMCKtor_client_coreHttpRequestBuilder : OSAMCBase <OSAMCKtor_httpHttpMessageBuilder>
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@property (class, readonly, getter=companion) OSAMCKtor_client_coreHttpRequestBuilderCompanion *companion __attribute__((swift_name("companion")));
+- (OSAMCKtor_client_coreHttpRequestData *)build __attribute__((swift_name("build()")));
+- (id _Nullable)getCapabilityOrNullKey:(id<OSAMCKtor_client_coreHttpClientEngineCapability>)key __attribute__((swift_name("getCapabilityOrNull(key:)")));
+- (void)setAttributesBlock:(void (^)(id<OSAMCKtor_utilsAttributes>))block __attribute__((swift_name("setAttributes(block:)")));
+- (void)setCapabilityKey:(id<OSAMCKtor_client_coreHttpClientEngineCapability>)key capability:(id)capability __attribute__((swift_name("setCapability(key:capability:)")));
+- (OSAMCKtor_client_coreHttpRequestBuilder *)takeFromBuilder:(OSAMCKtor_client_coreHttpRequestBuilder *)builder __attribute__((swift_name("takeFrom(builder:)")));
+- (OSAMCKtor_client_coreHttpRequestBuilder *)takeFromWithExecutionContextBuilder:(OSAMCKtor_client_coreHttpRequestBuilder *)builder __attribute__((swift_name("takeFromWithExecutionContext(builder:)")));
+- (void)urlBlock:(void (^)(OSAMCKtor_httpURLBuilder *, OSAMCKtor_httpURLBuilder *))block __attribute__((swift_name("url(block:)")));
+@property (readonly) id<OSAMCKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
+@property id body __attribute__((swift_name("body")));
+@property (readonly) id<OSAMCKotlinx_coroutines_coreJob> executionContext __attribute__((swift_name("executionContext")));
+@property (readonly) OSAMCKtor_httpHeadersBuilder *headers __attribute__((swift_name("headers")));
+@property OSAMCKtor_httpHttpMethod *method __attribute__((swift_name("method")));
+@property (readonly) OSAMCKtor_httpURLBuilder *url __attribute__((swift_name("url")));
 @end;
 
 __attribute__((swift_name("Ktor_client_coreHttpClientCall")))
@@ -1343,6 +1019,60 @@ __attribute__((swift_name("Ktor_client_coreHttpClientCall")))
 @property (readonly) id<OSAMCKotlinCoroutineContext> coroutineContext __attribute__((swift_name("coroutineContext")));
 @property (readonly) id<OSAMCKtor_client_coreHttpRequest> request __attribute__((swift_name("request")));
 @property (readonly) OSAMCKtor_client_coreHttpResponse *response __attribute__((swift_name("response")));
+@end;
+
+__attribute__((swift_name("Ktor_client_coreHttpClientEngineCapability")))
+@protocol OSAMCKtor_client_coreHttpClientEngineCapability
+@required
+@end;
+
+__attribute__((swift_name("Ktor_utilsAttributes")))
+@protocol OSAMCKtor_utilsAttributes
+@required
+- (id)computeIfAbsentKey:(OSAMCKtor_utilsAttributeKey<id> *)key block:(id (^)(void))block __attribute__((swift_name("computeIfAbsent(key:block:)")));
+- (BOOL)containsKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("contains(key:)")));
+- (id)getKey_:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("get(key_:)")));
+- (id _Nullable)getOrNullKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("getOrNull(key:)")));
+- (void)putKey:(OSAMCKtor_utilsAttributeKey<id> *)key value:(id)value __attribute__((swift_name("put(key:value:)")));
+- (void)removeKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("remove(key:)")));
+- (id)takeKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("take(key:)")));
+- (id _Nullable)takeOrNullKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("takeOrNull(key:)")));
+@property (readonly) NSArray<OSAMCKtor_utilsAttributeKey<id> *> *allKeys __attribute__((swift_name("allKeys")));
+@end;
+
+__attribute__((swift_name("KotlinCoroutineContextElement")))
+@protocol OSAMCKotlinCoroutineContextElement <OSAMCKotlinCoroutineContext>
+@required
+@property (readonly) id<OSAMCKotlinCoroutineContextKey> key __attribute__((swift_name("key")));
+@end;
+
+__attribute__((swift_name("KotlinAbstractCoroutineContextElement")))
+@interface OSAMCKotlinAbstractCoroutineContextElement : OSAMCBase <OSAMCKotlinCoroutineContextElement>
+- (instancetype)initWithKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("init(key:)"))) __attribute__((objc_designated_initializer));
+@property (readonly) id<OSAMCKotlinCoroutineContextKey> key __attribute__((swift_name("key")));
+@end;
+
+__attribute__((swift_name("KotlinContinuationInterceptor")))
+@protocol OSAMCKotlinContinuationInterceptor <OSAMCKotlinCoroutineContextElement>
+@required
+- (id<OSAMCKotlinContinuation>)interceptContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("interceptContinuation(continuation:)")));
+- (void)releaseInterceptedContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("releaseInterceptedContinuation(continuation:)")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineDispatcher")))
+@interface OSAMCKotlinx_coroutines_coreCoroutineDispatcher : OSAMCKotlinAbstractCoroutineContextElement <OSAMCKotlinContinuationInterceptor>
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithKey:(id<OSAMCKotlinCoroutineContextKey>)key __attribute__((swift_name("init(key:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly, getter=companion) OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey *companion __attribute__((swift_name("companion")));
+- (void)dispatchContext:(id<OSAMCKotlinCoroutineContext>)context block:(id<OSAMCKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatch(context:block:)")));
+- (void)dispatchYieldContext:(id<OSAMCKotlinCoroutineContext>)context block:(id<OSAMCKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatchYield(context:block:)")));
+- (id<OSAMCKotlinContinuation>)interceptContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("interceptContinuation(continuation:)")));
+- (BOOL)isDispatchNeededContext:(id<OSAMCKotlinCoroutineContext>)context __attribute__((swift_name("isDispatchNeeded(context:)")));
+- (OSAMCKotlinx_coroutines_coreCoroutineDispatcher *)limitedParallelismParallelism:(int32_t)parallelism __attribute__((swift_name("limitedParallelism(parallelism:)")));
+- (OSAMCKotlinx_coroutines_coreCoroutineDispatcher *)plusOther:(OSAMCKotlinx_coroutines_coreCoroutineDispatcher *)other __attribute__((swift_name("plus(other:)"))) __attribute__((unavailable("Operator '+' on two CoroutineDispatcher objects is meaningless. CoroutineDispatcher is a coroutine context element and `+` is a set-sum operator for coroutine contexts. The dispatcher to the right of `+` just replaces the dispatcher to the left.")));
+- (void)releaseInterceptedContinuationContinuation:(id<OSAMCKotlinContinuation>)continuation __attribute__((swift_name("releaseInterceptedContinuation(continuation:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
 @end;
 
 __attribute__((swift_name("Ktor_utilsPipeline")))
@@ -1405,166 +1135,6 @@ __attribute__((swift_name("Ktor_client_coreHttpSendPipeline")))
 - (instancetype)initWithPhases:(OSAMCKotlinArray<OSAMCKtor_utilsPipelinePhase *> *)phases __attribute__((swift_name("init(phases:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) OSAMCKtor_client_coreHttpSendPipelinePhases *companion __attribute__((swift_name("companion")));
 @property (readonly) BOOL developmentMode __attribute__((swift_name("developmentMode")));
-@end;
-
-__attribute__((swift_name("Ktor_utilsStringValues")))
-@protocol OSAMCKtor_utilsStringValues
-@required
-- (BOOL)containsName:(NSString *)name __attribute__((swift_name("contains(name:)")));
-- (BOOL)containsName:(NSString *)name value:(NSString *)value __attribute__((swift_name("contains(name:value:)")));
-- (NSSet<id<OSAMCKotlinMapEntry>> *)entries __attribute__((swift_name("entries()")));
-- (void)forEachBody:(void (^)(NSString *, NSArray<NSString *> *))body __attribute__((swift_name("forEach(body:)")));
-- (NSString * _Nullable)getName:(NSString *)name __attribute__((swift_name("get(name:)")));
-- (NSArray<NSString *> * _Nullable)getAllName:(NSString *)name __attribute__((swift_name("getAll(name:)")));
-- (BOOL)isEmpty_ __attribute__((swift_name("isEmpty()")));
-- (NSSet<NSString *> *)names __attribute__((swift_name("names()")));
-@property (readonly) BOOL caseInsensitiveName __attribute__((swift_name("caseInsensitiveName")));
-@end;
-
-__attribute__((swift_name("KotlinMapEntry")))
-@protocol OSAMCKotlinMapEntry
-@required
-@property (readonly) id _Nullable key __attribute__((swift_name("key")));
-@property (readonly) id _Nullable value __attribute__((swift_name("value")));
-@end;
-
-__attribute__((swift_name("Ktor_httpHeaders")))
-@protocol OSAMCKtor_httpHeaders <OSAMCKtor_utilsStringValues>
-@required
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpUrl")))
-@interface OSAMCKtor_httpUrl : OSAMCBase
-- (instancetype)initWithProtocol:(OSAMCKtor_httpURLProtocol *)protocol host:(NSString *)host specifiedPort:(int32_t)specifiedPort encodedPath:(NSString *)encodedPath parameters:(id<OSAMCKtor_httpParameters>)parameters fragment:(NSString *)fragment user:(NSString * _Nullable)user password:(NSString * _Nullable)password trailingQuery:(BOOL)trailingQuery __attribute__((swift_name("init(protocol:host:specifiedPort:encodedPath:parameters:fragment:user:password:trailingQuery:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCKtor_httpUrlCompanion *companion __attribute__((swift_name("companion")));
-- (OSAMCKtor_httpURLProtocol *)component1 __attribute__((swift_name("component1()")));
-- (NSString *)component2 __attribute__((swift_name("component2()")));
-- (int32_t)component3 __attribute__((swift_name("component3()")));
-- (NSString *)component4 __attribute__((swift_name("component4()")));
-- (id<OSAMCKtor_httpParameters>)component5 __attribute__((swift_name("component5()")));
-- (NSString *)component6 __attribute__((swift_name("component6()")));
-- (NSString * _Nullable)component7 __attribute__((swift_name("component7()")));
-- (NSString * _Nullable)component8 __attribute__((swift_name("component8()")));
-- (BOOL)component9 __attribute__((swift_name("component9()")));
-- (OSAMCKtor_httpUrl *)doCopyProtocol:(OSAMCKtor_httpURLProtocol *)protocol host:(NSString *)host specifiedPort:(int32_t)specifiedPort encodedPath:(NSString *)encodedPath parameters:(id<OSAMCKtor_httpParameters>)parameters fragment:(NSString *)fragment user:(NSString * _Nullable)user password:(NSString * _Nullable)password trailingQuery:(BOOL)trailingQuery __attribute__((swift_name("doCopy(protocol:host:specifiedPort:encodedPath:parameters:fragment:user:password:trailingQuery:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *encodedPath __attribute__((swift_name("encodedPath")));
-@property (readonly) NSString *fragment __attribute__((swift_name("fragment")));
-@property (readonly) NSString *host __attribute__((swift_name("host")));
-@property (readonly) id<OSAMCKtor_httpParameters> parameters __attribute__((swift_name("parameters")));
-@property (readonly) NSString * _Nullable password __attribute__((swift_name("password")));
-@property (readonly) int32_t port __attribute__((swift_name("port")));
-@property (readonly) OSAMCKtor_httpURLProtocol *protocol __attribute__((swift_name("protocol")));
-@property (readonly) int32_t specifiedPort __attribute__((swift_name("specifiedPort")));
-@property (readonly) BOOL trailingQuery __attribute__((swift_name("trailingQuery")));
-@property (readonly) NSString * _Nullable user __attribute__((swift_name("user")));
-@end;
-
-__attribute__((swift_name("Ktor_httpOutgoingContent")))
-@interface OSAMCKtor_httpOutgoingContent : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (id _Nullable)getPropertyKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("getProperty(key:)")));
-- (void)setPropertyKey:(OSAMCKtor_utilsAttributeKey<id> *)key value:(id _Nullable)value __attribute__((swift_name("setProperty(key:value:)")));
-@property (readonly) OSAMCLong * _Nullable contentLength __attribute__((swift_name("contentLength")));
-@property (readonly) OSAMCKtor_httpContentType * _Nullable contentType __attribute__((swift_name("contentType")));
-@property (readonly) id<OSAMCKtor_httpHeaders> headers __attribute__((swift_name("headers")));
-@property (readonly) OSAMCKtor_httpHttpStatusCode * _Nullable status __attribute__((swift_name("status")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpURLProtocol")))
-@interface OSAMCKtor_httpURLProtocol : OSAMCBase
-- (instancetype)initWithName:(NSString *)name defaultPort:(int32_t)defaultPort __attribute__((swift_name("init(name:defaultPort:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCKtor_httpURLProtocolCompanion *companion __attribute__((swift_name("companion")));
-- (NSString *)component1 __attribute__((swift_name("component1()")));
-- (int32_t)component2 __attribute__((swift_name("component2()")));
-- (OSAMCKtor_httpURLProtocol *)doCopyName:(NSString *)name defaultPort:(int32_t)defaultPort __attribute__((swift_name("doCopy(name:defaultPort:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) int32_t defaultPort __attribute__((swift_name("defaultPort")));
-@property (readonly) NSString *name __attribute__((swift_name("name")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpParametersBuilder")))
-@interface OSAMCKtor_httpParametersBuilder : OSAMCKtor_utilsStringValuesBuilder
-- (instancetype)initWithSize:(int32_t)size urlEncodingOption:(OSAMCKtor_httpUrlEncodingOption *)urlEncodingOption __attribute__((swift_name("init(size:urlEncodingOption:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCaseInsensitiveName:(BOOL)caseInsensitiveName size:(int32_t)size __attribute__((swift_name("init(caseInsensitiveName:size:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-- (id<OSAMCKtor_httpParameters>)build __attribute__((swift_name("build()")));
-@property OSAMCKtor_httpUrlEncodingOption *urlEncodingOption __attribute__((swift_name("urlEncodingOption")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpURLBuilder.Companion")))
-@interface OSAMCKtor_httpURLBuilderCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_httpURLBuilderCompanion *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreDisposableHandle")))
-@protocol OSAMCKotlinx_coroutines_coreDisposableHandle
-@required
-- (void)dispose __attribute__((swift_name("dispose()")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreChildHandle")))
-@protocol OSAMCKotlinx_coroutines_coreChildHandle <OSAMCKotlinx_coroutines_coreDisposableHandle>
-@required
-- (BOOL)childCancelledCause:(OSAMCKotlinThrowable *)cause __attribute__((swift_name("childCancelled(cause:)")));
-@property (readonly) id<OSAMCKotlinx_coroutines_coreJob> _Nullable parent __attribute__((swift_name("parent")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreChildJob")))
-@protocol OSAMCKotlinx_coroutines_coreChildJob <OSAMCKotlinx_coroutines_coreJob>
-@required
-- (void)parentCancelledParentJob:(id<OSAMCKotlinx_coroutines_coreParentJob>)parentJob __attribute__((swift_name("parentCancelled(parentJob:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KotlinUnit")))
-@interface OSAMCKotlinUnit : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)unit __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKotlinUnit *shared __attribute__((swift_name("shared")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@end;
-
-__attribute__((swift_name("KotlinSequence")))
-@protocol OSAMCKotlinSequence
-@required
-- (id<OSAMCKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreSelectClause0")))
-@protocol OSAMCKotlinx_coroutines_coreSelectClause0
-@required
-- (void)registerSelectClause0Select:(id<OSAMCKotlinx_coroutines_coreSelectInstance>)select block:(id<OSAMCKotlinSuspendFunction0>)block __attribute__((swift_name("registerSelectClause0(select:block:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpHttpMethod.Companion")))
-@interface OSAMCKtor_httpHttpMethodCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_httpHttpMethodCompanion *shared __attribute__((swift_name("shared")));
-- (OSAMCKtor_httpHttpMethod *)parseMethod:(NSString *)method __attribute__((swift_name("parse(method:)")));
-@property (readonly) NSArray<OSAMCKtor_httpHttpMethod *> *DefaultMethods __attribute__((swift_name("DefaultMethods")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Delete __attribute__((swift_name("Delete")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Get __attribute__((swift_name("Get")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Head __attribute__((swift_name("Head")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Options __attribute__((swift_name("Options")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Patch __attribute__((swift_name("Patch")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Post __attribute__((swift_name("Post")));
-@property (readonly) OSAMCKtor_httpHttpMethod *Put __attribute__((swift_name("Put")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
@@ -1637,6 +1207,25 @@ __attribute__((swift_name("KotlinNothing")))
 @interface OSAMCKotlinNothing : OSAMCBase
 @end;
 
+__attribute__((swift_name("KotlinCoroutineContextKey")))
+@protocol OSAMCKotlinCoroutineContextKey
+@required
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_client_coreHttpRequestData")))
+@interface OSAMCKtor_client_coreHttpRequestData : OSAMCBase
+- (instancetype)initWithUrl:(OSAMCKtor_httpUrl *)url method:(OSAMCKtor_httpHttpMethod *)method headers:(id<OSAMCKtor_httpHeaders>)headers body:(OSAMCKtor_httpOutgoingContent *)body executionContext:(id<OSAMCKotlinx_coroutines_coreJob>)executionContext attributes:(id<OSAMCKtor_utilsAttributes>)attributes __attribute__((swift_name("init(url:method:headers:body:executionContext:attributes:)"))) __attribute__((objc_designated_initializer));
+- (id _Nullable)getCapabilityOrNullKey:(id<OSAMCKtor_client_coreHttpClientEngineCapability>)key __attribute__((swift_name("getCapabilityOrNull(key:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) id<OSAMCKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
+@property (readonly) OSAMCKtor_httpOutgoingContent *body __attribute__((swift_name("body")));
+@property (readonly) id<OSAMCKotlinx_coroutines_coreJob> executionContext __attribute__((swift_name("executionContext")));
+@property (readonly) id<OSAMCKtor_httpHeaders> headers __attribute__((swift_name("headers")));
+@property (readonly) OSAMCKtor_httpHttpMethod *method __attribute__((swift_name("method")));
+@property (readonly) OSAMCKtor_httpUrl *url __attribute__((swift_name("url")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_client_coreHttpResponseData")))
 @interface OSAMCKtor_client_coreHttpResponseData : OSAMCBase
@@ -1657,6 +1246,109 @@ __attribute__((swift_name("Ktor_client_coreProxyConfig")))
 - (instancetype)initWithUrl:(OSAMCKtor_httpUrl *)url __attribute__((swift_name("init(url:)"))) __attribute__((objc_designated_initializer));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) OSAMCKtor_httpUrl *url __attribute__((swift_name("url")));
+@end;
+
+__attribute__((swift_name("Ktor_utilsStringValuesBuilder")))
+@interface OSAMCKtor_utilsStringValuesBuilder : OSAMCBase
+- (instancetype)initWithCaseInsensitiveName:(BOOL)caseInsensitiveName size:(int32_t)size __attribute__((swift_name("init(caseInsensitiveName:size:)"))) __attribute__((objc_designated_initializer));
+- (void)appendName:(NSString *)name value:(NSString *)value __attribute__((swift_name("append(name:value:)")));
+- (void)appendAllStringValues:(id<OSAMCKtor_utilsStringValues>)stringValues __attribute__((swift_name("appendAll(stringValues:)")));
+- (void)appendAllName:(NSString *)name values:(id)values __attribute__((swift_name("appendAll(name:values:)")));
+- (void)appendMissingStringValues:(id<OSAMCKtor_utilsStringValues>)stringValues __attribute__((swift_name("appendMissing(stringValues:)")));
+- (void)appendMissingName:(NSString *)name values:(id)values __attribute__((swift_name("appendMissing(name:values:)")));
+- (id<OSAMCKtor_utilsStringValues>)build __attribute__((swift_name("build()")));
+- (void)clear __attribute__((swift_name("clear()")));
+- (BOOL)containsName:(NSString *)name __attribute__((swift_name("contains(name:)")));
+- (BOOL)containsName:(NSString *)name value:(NSString *)value __attribute__((swift_name("contains(name:value:)")));
+- (NSSet<id<OSAMCKotlinMapEntry>> *)entries __attribute__((swift_name("entries()")));
+- (NSString * _Nullable)getName:(NSString *)name __attribute__((swift_name("get(name:)")));
+- (NSArray<NSString *> * _Nullable)getAllName:(NSString *)name __attribute__((swift_name("getAll(name:)")));
+- (BOOL)isEmpty __attribute__((swift_name("isEmpty()")));
+- (NSSet<NSString *> *)names __attribute__((swift_name("names()")));
+- (void)removeName:(NSString *)name __attribute__((swift_name("remove(name:)")));
+- (BOOL)removeName:(NSString *)name value:(NSString *)value __attribute__((swift_name("remove(name:value:)")));
+- (void)removeKeysWithNoEntries __attribute__((swift_name("removeKeysWithNoEntries()")));
+- (void)setName:(NSString *)name value:(NSString *)value __attribute__((swift_name("set(name:value:)")));
+- (void)validateNameName:(NSString *)name __attribute__((swift_name("validateName(name:)")));
+- (void)validateValueValue:(NSString *)value __attribute__((swift_name("validateValue(value:)")));
+@property BOOL built __attribute__((swift_name("built")));
+@property (readonly) BOOL caseInsensitiveName __attribute__((swift_name("caseInsensitiveName")));
+@property (readonly) OSAMCMutableDictionary<NSString *, NSMutableArray<NSString *> *> *values __attribute__((swift_name("values")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpHeadersBuilder")))
+@interface OSAMCKtor_httpHeadersBuilder : OSAMCKtor_utilsStringValuesBuilder
+- (instancetype)initWithSize:(int32_t)size __attribute__((swift_name("init(size:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithCaseInsensitiveName:(BOOL)caseInsensitiveName size:(int32_t)size __attribute__((swift_name("init(caseInsensitiveName:size:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (id<OSAMCKtor_httpHeaders>)build __attribute__((swift_name("build()")));
+- (void)validateNameName:(NSString *)name __attribute__((swift_name("validateName(name:)")));
+- (void)validateValueValue:(NSString *)value __attribute__((swift_name("validateValue(value:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_client_coreHttpRequestBuilder.Companion")))
+@interface OSAMCKtor_client_coreHttpRequestBuilderCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_client_coreHttpRequestBuilderCompanion *shared __attribute__((swift_name("shared")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpURLBuilder")))
+@interface OSAMCKtor_httpURLBuilder : OSAMCBase
+- (instancetype)initWithProtocol:(OSAMCKtor_httpURLProtocol *)protocol host:(NSString *)host port:(int32_t)port user:(NSString * _Nullable)user password:(NSString * _Nullable)password encodedPath:(NSString *)encodedPath parameters:(OSAMCKtor_httpParametersBuilder *)parameters fragment:(NSString *)fragment trailingQuery:(BOOL)trailingQuery __attribute__((swift_name("init(protocol:host:port:user:password:encodedPath:parameters:fragment:trailingQuery:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) OSAMCKtor_httpURLBuilderCompanion *companion __attribute__((swift_name("companion")));
+- (OSAMCKtor_httpUrl *)build __attribute__((swift_name("build()")));
+- (NSString *)buildString __attribute__((swift_name("buildString()")));
+- (OSAMCKtor_httpURLBuilder *)pathComponents:(OSAMCKotlinArray<NSString *> *)components __attribute__((swift_name("path(components:)")));
+- (OSAMCKtor_httpURLBuilder *)pathComponents_:(NSArray<NSString *> *)components __attribute__((swift_name("path(components_:)")));
+@property NSString *encodedPath __attribute__((swift_name("encodedPath")));
+@property NSString *fragment __attribute__((swift_name("fragment")));
+@property NSString *host __attribute__((swift_name("host")));
+@property (readonly) OSAMCKtor_httpParametersBuilder *parameters __attribute__((swift_name("parameters")));
+@property NSString * _Nullable password __attribute__((swift_name("password")));
+@property int32_t port __attribute__((swift_name("port")));
+@property OSAMCKtor_httpURLProtocol *protocol __attribute__((swift_name("protocol")));
+@property BOOL trailingQuery __attribute__((swift_name("trailingQuery")));
+@property NSString * _Nullable user __attribute__((swift_name("user")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreJob")))
+@protocol OSAMCKotlinx_coroutines_coreJob <OSAMCKotlinCoroutineContextElement>
+@required
+- (id<OSAMCKotlinx_coroutines_coreChildHandle>)attachChildChild:(id<OSAMCKotlinx_coroutines_coreChildJob>)child __attribute__((swift_name("attachChild(child:)")));
+- (void)cancelCause:(OSAMCKotlinCancellationException * _Nullable)cause __attribute__((swift_name("cancel(cause:)")));
+- (OSAMCKotlinCancellationException *)getCancellationException __attribute__((swift_name("getCancellationException()")));
+- (id<OSAMCKotlinx_coroutines_coreDisposableHandle>)invokeOnCompletionOnCancelling:(BOOL)onCancelling invokeImmediately:(BOOL)invokeImmediately handler:(void (^)(OSAMCKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(onCancelling:invokeImmediately:handler:)")));
+- (id<OSAMCKotlinx_coroutines_coreDisposableHandle>)invokeOnCompletionHandler:(void (^)(OSAMCKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(handler:)")));
+
+/**
+ @note This method converts instances of CancellationException to errors.
+ Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)joinWithCompletionHandler:(void (^)(OSAMCKotlinUnit * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("join(completionHandler:)")));
+- (id<OSAMCKotlinx_coroutines_coreJob>)plusOther_:(id<OSAMCKotlinx_coroutines_coreJob>)other __attribute__((swift_name("plus(other_:)"))) __attribute__((unavailable("Operator '+' on two Job objects is meaningless. Job is a coroutine context element and `+` is a set-sum operator for coroutine contexts. The job to the right of `+` just replaces the job the left of `+`.")));
+- (BOOL)start __attribute__((swift_name("start()")));
+@property (readonly) id<OSAMCKotlinSequence> children __attribute__((swift_name("children")));
+@property (readonly) BOOL isActive __attribute__((swift_name("isActive")));
+@property (readonly) BOOL isCancelled __attribute__((swift_name("isCancelled")));
+@property (readonly) BOOL isCompleted __attribute__((swift_name("isCompleted")));
+@property (readonly) id<OSAMCKotlinx_coroutines_coreSelectClause0> onJoin __attribute__((swift_name("onJoin")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpHttpMethod")))
+@interface OSAMCKtor_httpHttpMethod : OSAMCBase
+- (instancetype)initWithValue:(NSString *)value __attribute__((swift_name("init(value:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) OSAMCKtor_httpHttpMethodCompanion *companion __attribute__((swift_name("companion")));
+- (NSString *)component1 __attribute__((swift_name("component1()")));
+- (OSAMCKtor_httpHttpMethod *)doCopyValue:(NSString *)value __attribute__((swift_name("doCopy(value:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *value __attribute__((swift_name("value")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1867,6 +1559,34 @@ __attribute__((swift_name("Ktor_client_coreHttpResponse")))
 @property (readonly) OSAMCKtor_httpHttpProtocolVersion *version __attribute__((swift_name("version")));
 @end;
 
+__attribute__((swift_name("KotlinContinuation")))
+@protocol OSAMCKotlinContinuation
+@required
+- (void)resumeWithResult:(id _Nullable)result __attribute__((swift_name("resumeWith(result:)")));
+@property (readonly) id<OSAMCKotlinCoroutineContext> context __attribute__((swift_name("context")));
+@end;
+
+__attribute__((swift_name("KotlinAbstractCoroutineContextKey")))
+@interface OSAMCKotlinAbstractCoroutineContextKey<B, E> : OSAMCBase <OSAMCKotlinCoroutineContextKey>
+- (instancetype)initWithBaseKey:(id<OSAMCKotlinCoroutineContextKey>)baseKey safeCast:(E _Nullable (^)(id<OSAMCKotlinCoroutineContextElement>))safeCast __attribute__((swift_name("init(baseKey:safeCast:)"))) __attribute__((objc_designated_initializer));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineDispatcher.Key")))
+@interface OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey : OSAMCKotlinAbstractCoroutineContextKey<id<OSAMCKotlinContinuationInterceptor>, OSAMCKotlinx_coroutines_coreCoroutineDispatcher *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithBaseKey:(id<OSAMCKotlinCoroutineContextKey>)baseKey safeCast:(id<OSAMCKotlinCoroutineContextElement> _Nullable (^)(id<OSAMCKotlinCoroutineContextElement>))safeCast __attribute__((swift_name("init(baseKey:safeCast:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)key __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey *shared __attribute__((swift_name("shared")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreRunnable")))
+@protocol OSAMCKotlinx_coroutines_coreRunnable
+@required
+- (void)run __attribute__((swift_name("run()")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_utilsPipelinePhase")))
 @interface OSAMCKtor_utilsPipelinePhase : OSAMCBase
@@ -1955,110 +1675,6 @@ __attribute__((swift_name("Ktor_client_coreHttpSendPipeline.Phases")))
 @property (readonly) OSAMCKtor_utilsPipelinePhase *State __attribute__((swift_name("State")));
 @end;
 
-__attribute__((swift_name("Ktor_httpParameters")))
-@protocol OSAMCKtor_httpParameters <OSAMCKtor_utilsStringValues>
-@required
-@property (readonly) OSAMCKtor_httpUrlEncodingOption *urlEncodingOption __attribute__((swift_name("urlEncodingOption")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpUrl.Companion")))
-@interface OSAMCKtor_httpUrlCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_httpUrlCompanion *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((swift_name("Ktor_httpHeaderValueWithParameters")))
-@interface OSAMCKtor_httpHeaderValueWithParameters : OSAMCBase
-- (instancetype)initWithContent:(NSString *)content parameters:(NSArray<OSAMCKtor_httpHeaderValueParam *> *)parameters __attribute__((swift_name("init(content:parameters:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCKtor_httpHeaderValueWithParametersCompanion *companion __attribute__((swift_name("companion")));
-- (NSString * _Nullable)parameterName:(NSString *)name __attribute__((swift_name("parameter(name:)")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *content __attribute__((swift_name("content")));
-@property (readonly) NSArray<OSAMCKtor_httpHeaderValueParam *> *parameters __attribute__((swift_name("parameters")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpContentType")))
-@interface OSAMCKtor_httpContentType : OSAMCKtor_httpHeaderValueWithParameters
-- (instancetype)initWithContentType:(NSString *)contentType contentSubtype:(NSString *)contentSubtype parameters:(NSArray<OSAMCKtor_httpHeaderValueParam *> *)parameters __attribute__((swift_name("init(contentType:contentSubtype:parameters:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithContent:(NSString *)content parameters:(NSArray<OSAMCKtor_httpHeaderValueParam *> *)parameters __attribute__((swift_name("init(content:parameters:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly, getter=companion) OSAMCKtor_httpContentTypeCompanion *companion __attribute__((swift_name("companion")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (BOOL)matchPattern:(OSAMCKtor_httpContentType *)pattern __attribute__((swift_name("match(pattern:)")));
-- (BOOL)matchPattern_:(NSString *)pattern __attribute__((swift_name("match(pattern_:)")));
-- (OSAMCKtor_httpContentType *)withParameterName:(NSString *)name value:(NSString *)value __attribute__((swift_name("withParameter(name:value:)")));
-- (OSAMCKtor_httpContentType *)withoutParameters __attribute__((swift_name("withoutParameters()")));
-@property (readonly) NSString *contentSubtype __attribute__((swift_name("contentSubtype")));
-@property (readonly) NSString *contentType __attribute__((swift_name("contentType")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpHttpStatusCode")))
-@interface OSAMCKtor_httpHttpStatusCode : OSAMCBase
-- (instancetype)initWithValue:(int32_t)value description:(NSString *)description __attribute__((swift_name("init(value:description:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCKtor_httpHttpStatusCodeCompanion *companion __attribute__((swift_name("companion")));
-- (int32_t)component1 __attribute__((swift_name("component1()")));
-- (NSString *)component2 __attribute__((swift_name("component2()")));
-- (OSAMCKtor_httpHttpStatusCode *)doCopyValue:(int32_t)value description:(NSString *)description __attribute__((swift_name("doCopy(value:description:)")));
-- (OSAMCKtor_httpHttpStatusCode *)descriptionValue:(NSString *)value __attribute__((swift_name("description(value:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *description_ __attribute__((swift_name("description_")));
-@property (readonly) int32_t value __attribute__((swift_name("value")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpURLProtocol.Companion")))
-@interface OSAMCKtor_httpURLProtocolCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_httpURLProtocolCompanion *shared __attribute__((swift_name("shared")));
-- (OSAMCKtor_httpURLProtocol *)createOrDefaultName:(NSString *)name __attribute__((swift_name("createOrDefault(name:)")));
-@property (readonly) OSAMCKtor_httpURLProtocol *HTTP __attribute__((swift_name("HTTP")));
-@property (readonly) OSAMCKtor_httpURLProtocol *HTTPS __attribute__((swift_name("HTTPS")));
-@property (readonly) OSAMCKtor_httpURLProtocol *SOCKS __attribute__((swift_name("SOCKS")));
-@property (readonly) OSAMCKtor_httpURLProtocol *WS __attribute__((swift_name("WS")));
-@property (readonly) OSAMCKtor_httpURLProtocol *WSS __attribute__((swift_name("WSS")));
-@property (readonly) NSDictionary<NSString *, OSAMCKtor_httpURLProtocol *> *byName __attribute__((swift_name("byName")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpUrlEncodingOption")))
-@interface OSAMCKtor_httpUrlEncodingOption : OSAMCKotlinEnum<OSAMCKtor_httpUrlEncodingOption *>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *default_ __attribute__((swift_name("default_")));
-@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *keyOnly __attribute__((swift_name("keyOnly")));
-@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *valueOnly __attribute__((swift_name("valueOnly")));
-@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *noEncoding __attribute__((swift_name("noEncoding")));
-+ (OSAMCKotlinArray<OSAMCKtor_httpUrlEncodingOption *> *)values __attribute__((swift_name("values()")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreParentJob")))
-@protocol OSAMCKotlinx_coroutines_coreParentJob <OSAMCKotlinx_coroutines_coreJob>
-@required
-- (OSAMCKotlinCancellationException *)getChildJobCancellationCause __attribute__((swift_name("getChildJobCancellationCause()")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreSelectInstance")))
-@protocol OSAMCKotlinx_coroutines_coreSelectInstance
-@required
-- (void)disposeOnSelectHandle:(id<OSAMCKotlinx_coroutines_coreDisposableHandle>)handle __attribute__((swift_name("disposeOnSelect(handle:)")));
-- (id _Nullable)performAtomicTrySelectDesc:(OSAMCKotlinx_coroutines_coreAtomicDesc *)desc __attribute__((swift_name("performAtomicTrySelect(desc:)")));
-- (void)resumeSelectWithExceptionException:(OSAMCKotlinThrowable *)exception __attribute__((swift_name("resumeSelectWithException(exception:)")));
-- (BOOL)trySelect __attribute__((swift_name("trySelect()")));
-- (id _Nullable)trySelectOtherOtherOp:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp * _Nullable)otherOp __attribute__((swift_name("trySelectOther(otherOp:)")));
-@property (readonly) id<OSAMCKotlinContinuation> completion __attribute__((swift_name("completion")));
-@property (readonly) BOOL isSelected __attribute__((swift_name("isSelected")));
-@end;
-
 __attribute__((swift_name("Kotlinx_serialization_coreSerializersModuleCollector")))
 @protocol OSAMCKotlinx_serialization_coreSerializersModuleCollector
 @required
@@ -2091,6 +1707,83 @@ __attribute__((swift_name("KotlinKClass")))
 - (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
 @property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
 @property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpUrl")))
+@interface OSAMCKtor_httpUrl : OSAMCBase
+- (instancetype)initWithProtocol:(OSAMCKtor_httpURLProtocol *)protocol host:(NSString *)host specifiedPort:(int32_t)specifiedPort encodedPath:(NSString *)encodedPath parameters:(id<OSAMCKtor_httpParameters>)parameters fragment:(NSString *)fragment user:(NSString * _Nullable)user password:(NSString * _Nullable)password trailingQuery:(BOOL)trailingQuery __attribute__((swift_name("init(protocol:host:specifiedPort:encodedPath:parameters:fragment:user:password:trailingQuery:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) OSAMCKtor_httpUrlCompanion *companion __attribute__((swift_name("companion")));
+- (OSAMCKtor_httpURLProtocol *)component1 __attribute__((swift_name("component1()")));
+- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (int32_t)component3 __attribute__((swift_name("component3()")));
+- (NSString *)component4 __attribute__((swift_name("component4()")));
+- (id<OSAMCKtor_httpParameters>)component5 __attribute__((swift_name("component5()")));
+- (NSString *)component6 __attribute__((swift_name("component6()")));
+- (NSString * _Nullable)component7 __attribute__((swift_name("component7()")));
+- (NSString * _Nullable)component8 __attribute__((swift_name("component8()")));
+- (BOOL)component9 __attribute__((swift_name("component9()")));
+- (OSAMCKtor_httpUrl *)doCopyProtocol:(OSAMCKtor_httpURLProtocol *)protocol host:(NSString *)host specifiedPort:(int32_t)specifiedPort encodedPath:(NSString *)encodedPath parameters:(id<OSAMCKtor_httpParameters>)parameters fragment:(NSString *)fragment user:(NSString * _Nullable)user password:(NSString * _Nullable)password trailingQuery:(BOOL)trailingQuery __attribute__((swift_name("doCopy(protocol:host:specifiedPort:encodedPath:parameters:fragment:user:password:trailingQuery:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *encodedPath __attribute__((swift_name("encodedPath")));
+@property (readonly) NSString *fragment __attribute__((swift_name("fragment")));
+@property (readonly) NSString *host __attribute__((swift_name("host")));
+@property (readonly) id<OSAMCKtor_httpParameters> parameters __attribute__((swift_name("parameters")));
+@property (readonly) NSString * _Nullable password __attribute__((swift_name("password")));
+@property (readonly) int32_t port __attribute__((swift_name("port")));
+@property (readonly) OSAMCKtor_httpURLProtocol *protocol __attribute__((swift_name("protocol")));
+@property (readonly) int32_t specifiedPort __attribute__((swift_name("specifiedPort")));
+@property (readonly) BOOL trailingQuery __attribute__((swift_name("trailingQuery")));
+@property (readonly) NSString * _Nullable user __attribute__((swift_name("user")));
+@end;
+
+__attribute__((swift_name("Ktor_utilsStringValues")))
+@protocol OSAMCKtor_utilsStringValues
+@required
+- (BOOL)containsName:(NSString *)name __attribute__((swift_name("contains(name:)")));
+- (BOOL)containsName:(NSString *)name value:(NSString *)value __attribute__((swift_name("contains(name:value:)")));
+- (NSSet<id<OSAMCKotlinMapEntry>> *)entries __attribute__((swift_name("entries()")));
+- (void)forEachBody:(void (^)(NSString *, NSArray<NSString *> *))body __attribute__((swift_name("forEach(body:)")));
+- (NSString * _Nullable)getName:(NSString *)name __attribute__((swift_name("get(name:)")));
+- (NSArray<NSString *> * _Nullable)getAllName:(NSString *)name __attribute__((swift_name("getAll(name:)")));
+- (BOOL)isEmpty_ __attribute__((swift_name("isEmpty()")));
+- (NSSet<NSString *> *)names __attribute__((swift_name("names()")));
+@property (readonly) BOOL caseInsensitiveName __attribute__((swift_name("caseInsensitiveName")));
+@end;
+
+__attribute__((swift_name("Ktor_httpHeaders")))
+@protocol OSAMCKtor_httpHeaders <OSAMCKtor_utilsStringValues>
+@required
+@end;
+
+__attribute__((swift_name("Ktor_httpOutgoingContent")))
+@interface OSAMCKtor_httpOutgoingContent : OSAMCBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (id _Nullable)getPropertyKey:(OSAMCKtor_utilsAttributeKey<id> *)key __attribute__((swift_name("getProperty(key:)")));
+- (void)setPropertyKey:(OSAMCKtor_utilsAttributeKey<id> *)key value:(id _Nullable)value __attribute__((swift_name("setProperty(key:value:)")));
+@property (readonly) OSAMCLong * _Nullable contentLength __attribute__((swift_name("contentLength")));
+@property (readonly) OSAMCKtor_httpContentType * _Nullable contentType __attribute__((swift_name("contentType")));
+@property (readonly) id<OSAMCKtor_httpHeaders> headers __attribute__((swift_name("headers")));
+@property (readonly) OSAMCKtor_httpHttpStatusCode * _Nullable status __attribute__((swift_name("status")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpHttpStatusCode")))
+@interface OSAMCKtor_httpHttpStatusCode : OSAMCBase
+- (instancetype)initWithValue:(int32_t)value description:(NSString *)description __attribute__((swift_name("init(value:description:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) OSAMCKtor_httpHttpStatusCodeCompanion *companion __attribute__((swift_name("companion")));
+- (int32_t)component1 __attribute__((swift_name("component1()")));
+- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (OSAMCKtor_httpHttpStatusCode *)doCopyValue:(int32_t)value description:(NSString *)description __attribute__((swift_name("doCopy(value:description:)")));
+- (OSAMCKtor_httpHttpStatusCode *)descriptionValue:(NSString *)value __attribute__((swift_name("description(value:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *description_ __attribute__((swift_name("description_")));
+@property (readonly) int32_t value __attribute__((swift_name("value")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2137,6 +1830,105 @@ __attribute__((swift_name("Ktor_httpHttpProtocolVersion")))
 @property (readonly) int32_t major __attribute__((swift_name("major")));
 @property (readonly) int32_t minor __attribute__((swift_name("minor")));
 @property (readonly) NSString *name __attribute__((swift_name("name")));
+@end;
+
+__attribute__((swift_name("KotlinMapEntry")))
+@protocol OSAMCKotlinMapEntry
+@required
+@property (readonly) id _Nullable key __attribute__((swift_name("key")));
+@property (readonly) id _Nullable value __attribute__((swift_name("value")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpURLProtocol")))
+@interface OSAMCKtor_httpURLProtocol : OSAMCBase
+- (instancetype)initWithName:(NSString *)name defaultPort:(int32_t)defaultPort __attribute__((swift_name("init(name:defaultPort:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) OSAMCKtor_httpURLProtocolCompanion *companion __attribute__((swift_name("companion")));
+- (NSString *)component1 __attribute__((swift_name("component1()")));
+- (int32_t)component2 __attribute__((swift_name("component2()")));
+- (OSAMCKtor_httpURLProtocol *)doCopyName:(NSString *)name defaultPort:(int32_t)defaultPort __attribute__((swift_name("doCopy(name:defaultPort:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) int32_t defaultPort __attribute__((swift_name("defaultPort")));
+@property (readonly) NSString *name __attribute__((swift_name("name")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpParametersBuilder")))
+@interface OSAMCKtor_httpParametersBuilder : OSAMCKtor_utilsStringValuesBuilder
+- (instancetype)initWithSize:(int32_t)size urlEncodingOption:(OSAMCKtor_httpUrlEncodingOption *)urlEncodingOption __attribute__((swift_name("init(size:urlEncodingOption:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithCaseInsensitiveName:(BOOL)caseInsensitiveName size:(int32_t)size __attribute__((swift_name("init(caseInsensitiveName:size:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (id<OSAMCKtor_httpParameters>)build __attribute__((swift_name("build()")));
+@property OSAMCKtor_httpUrlEncodingOption *urlEncodingOption __attribute__((swift_name("urlEncodingOption")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpURLBuilder.Companion")))
+@interface OSAMCKtor_httpURLBuilderCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_httpURLBuilderCompanion *shared __attribute__((swift_name("shared")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreDisposableHandle")))
+@protocol OSAMCKotlinx_coroutines_coreDisposableHandle
+@required
+- (void)dispose __attribute__((swift_name("dispose()")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreChildHandle")))
+@protocol OSAMCKotlinx_coroutines_coreChildHandle <OSAMCKotlinx_coroutines_coreDisposableHandle>
+@required
+- (BOOL)childCancelledCause:(OSAMCKotlinThrowable *)cause __attribute__((swift_name("childCancelled(cause:)")));
+@property (readonly) id<OSAMCKotlinx_coroutines_coreJob> _Nullable parent __attribute__((swift_name("parent")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreChildJob")))
+@protocol OSAMCKotlinx_coroutines_coreChildJob <OSAMCKotlinx_coroutines_coreJob>
+@required
+- (void)parentCancelledParentJob:(id<OSAMCKotlinx_coroutines_coreParentJob>)parentJob __attribute__((swift_name("parentCancelled(parentJob:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinUnit")))
+@interface OSAMCKotlinUnit : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)unit __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKotlinUnit *shared __attribute__((swift_name("shared")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@end;
+
+__attribute__((swift_name("KotlinSequence")))
+@protocol OSAMCKotlinSequence
+@required
+- (id<OSAMCKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreSelectClause0")))
+@protocol OSAMCKotlinx_coroutines_coreSelectClause0
+@required
+- (void)registerSelectClause0Select:(id<OSAMCKotlinx_coroutines_coreSelectInstance>)select block:(id<OSAMCKotlinSuspendFunction0>)block __attribute__((swift_name("registerSelectClause0(select:block:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpHttpMethod.Companion")))
+@interface OSAMCKtor_httpHttpMethodCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_httpHttpMethodCompanion *shared __attribute__((swift_name("shared")));
+- (OSAMCKtor_httpHttpMethod *)parseMethod:(NSString *)method __attribute__((swift_name("parse(method:)")));
+@property (readonly) NSArray<OSAMCKtor_httpHttpMethod *> *DefaultMethods __attribute__((swift_name("DefaultMethods")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Delete __attribute__((swift_name("Delete")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Get __attribute__((swift_name("Get")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Head __attribute__((swift_name("Head")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Options __attribute__((swift_name("Options")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Patch __attribute__((swift_name("Patch")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Post __attribute__((swift_name("Post")));
+@property (readonly) OSAMCKtor_httpHttpMethod *Put __attribute__((swift_name("Put")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2357,39 +2149,45 @@ __attribute__((swift_name("KotlinKType")))
 @property (readonly) BOOL isMarkedNullable __attribute__((swift_name("isMarkedNullable")));
 @end;
 
+__attribute__((swift_name("Ktor_httpParameters")))
+@protocol OSAMCKtor_httpParameters <OSAMCKtor_utilsStringValues>
+@required
+@property (readonly) OSAMCKtor_httpUrlEncodingOption *urlEncodingOption __attribute__((swift_name("urlEncodingOption")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpHeaderValueParam")))
-@interface OSAMCKtor_httpHeaderValueParam : OSAMCBase
-- (instancetype)initWithName:(NSString *)name value:(NSString *)value __attribute__((swift_name("init(name:value:)"))) __attribute__((objc_designated_initializer));
-- (NSString *)component1 __attribute__((swift_name("component1()")));
-- (NSString *)component2 __attribute__((swift_name("component2()")));
-- (OSAMCKtor_httpHeaderValueParam *)doCopyName:(NSString *)name value:(NSString *)value __attribute__((swift_name("doCopy(name:value:)")));
+__attribute__((swift_name("Ktor_httpUrl.Companion")))
+@interface OSAMCKtor_httpUrlCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_httpUrlCompanion *shared __attribute__((swift_name("shared")));
+@end;
+
+__attribute__((swift_name("Ktor_httpHeaderValueWithParameters")))
+@interface OSAMCKtor_httpHeaderValueWithParameters : OSAMCBase
+- (instancetype)initWithContent:(NSString *)content parameters:(NSArray<OSAMCKtor_httpHeaderValueParam *> *)parameters __attribute__((swift_name("init(content:parameters:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) OSAMCKtor_httpHeaderValueWithParametersCompanion *companion __attribute__((swift_name("companion")));
+- (NSString * _Nullable)parameterName:(NSString *)name __attribute__((swift_name("parameter(name:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *content __attribute__((swift_name("content")));
+@property (readonly) NSArray<OSAMCKtor_httpHeaderValueParam *> *parameters __attribute__((swift_name("parameters")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpContentType")))
+@interface OSAMCKtor_httpContentType : OSAMCKtor_httpHeaderValueWithParameters
+- (instancetype)initWithContentType:(NSString *)contentType contentSubtype:(NSString *)contentSubtype parameters:(NSArray<OSAMCKtor_httpHeaderValueParam *> *)parameters __attribute__((swift_name("init(contentType:contentSubtype:parameters:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithContent:(NSString *)content parameters:(NSArray<OSAMCKtor_httpHeaderValueParam *> *)parameters __attribute__((swift_name("init(content:parameters:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly, getter=companion) OSAMCKtor_httpContentTypeCompanion *companion __attribute__((swift_name("companion")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *name __attribute__((swift_name("name")));
-@property (readonly) NSString *value __attribute__((swift_name("value")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpHeaderValueWithParameters.Companion")))
-@interface OSAMCKtor_httpHeaderValueWithParametersCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_httpHeaderValueWithParametersCompanion *shared __attribute__((swift_name("shared")));
-- (id _Nullable)parseValue:(NSString *)value init:(id _Nullable (^)(NSString *, NSArray<OSAMCKtor_httpHeaderValueParam *> *))init __attribute__((swift_name("parse(value:init:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_httpContentType.Companion")))
-@interface OSAMCKtor_httpContentTypeCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_httpContentTypeCompanion *shared __attribute__((swift_name("shared")));
-- (OSAMCKtor_httpContentType *)parseValue:(NSString *)value __attribute__((swift_name("parse(value:)")));
-@property (readonly) OSAMCKtor_httpContentType *Any __attribute__((swift_name("Any")));
+- (BOOL)matchPattern:(OSAMCKtor_httpContentType *)pattern __attribute__((swift_name("match(pattern:)")));
+- (BOOL)matchPattern_:(NSString *)pattern __attribute__((swift_name("match(pattern_:)")));
+- (OSAMCKtor_httpContentType *)withParameterName:(NSString *)name value:(NSString *)value __attribute__((swift_name("withParameter(name:value:)")));
+- (OSAMCKtor_httpContentType *)withoutParameters __attribute__((swift_name("withoutParameters()")));
+@property (readonly) NSString *contentSubtype __attribute__((swift_name("contentSubtype")));
+@property (readonly) NSString *contentType __attribute__((swift_name("contentType")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2453,40 +2251,6 @@ __attribute__((swift_name("Ktor_httpHttpStatusCode.Companion")))
 @property (readonly) OSAMCKtor_httpHttpStatusCode *VariantAlsoNegotiates __attribute__((swift_name("VariantAlsoNegotiates")));
 @property (readonly) OSAMCKtor_httpHttpStatusCode *VersionNotSupported __attribute__((swift_name("VersionNotSupported")));
 @property (readonly) NSArray<OSAMCKtor_httpHttpStatusCode *> *allStatusCodes __attribute__((swift_name("allStatusCodes")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreAtomicDesc")))
-@interface OSAMCKotlinx_coroutines_coreAtomicDesc : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (void)completeOp:(OSAMCKotlinx_coroutines_coreAtomicOp<id> *)op failure:(id _Nullable)failure __attribute__((swift_name("complete(op:failure:)")));
-- (id _Nullable)prepareOp:(OSAMCKotlinx_coroutines_coreAtomicOp<id> *)op __attribute__((swift_name("prepare(op:)")));
-@property OSAMCKotlinx_coroutines_coreAtomicOp<id> *atomicOp __attribute__((swift_name("atomicOp")));
-@end;
-
-__attribute__((swift_name("Kotlinx_coroutines_coreOpDescriptor")))
-@interface OSAMCKotlinx_coroutines_coreOpDescriptor : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (BOOL)isEarlierThanThat:(OSAMCKotlinx_coroutines_coreOpDescriptor *)that __attribute__((swift_name("isEarlierThan(that:)")));
-- (id _Nullable)performAffected:(id _Nullable)affected __attribute__((swift_name("perform(affected:)")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) OSAMCKotlinx_coroutines_coreAtomicOp<id> * _Nullable atomicOp __attribute__((swift_name("atomicOp")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Kotlinx_coroutines_coreLockFreeLinkedListNode.PrepareOp")))
-@interface OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp : OSAMCKotlinx_coroutines_coreOpDescriptor
-- (instancetype)initWithAffected:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *)affected next:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *)next desc:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc *)desc __attribute__((swift_name("init(affected:next:desc:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-- (void)finishPrepare __attribute__((swift_name("finishPrepare()")));
-- (id _Nullable)performAffected:(id _Nullable)affected __attribute__((swift_name("perform(affected:)")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *affected __attribute__((swift_name("affected")));
-@property (readonly) OSAMCKotlinx_coroutines_coreAtomicOp<id> *atomicOp __attribute__((swift_name("atomicOp")));
-@property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc *desc __attribute__((swift_name("desc")));
-@property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *next __attribute__((swift_name("next")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2554,6 +2318,64 @@ __attribute__((swift_name("Ktor_httpHttpProtocolVersion.Companion")))
 @property (readonly) OSAMCKtor_httpHttpProtocolVersion *HTTP_2_0 __attribute__((swift_name("HTTP_2_0")));
 @property (readonly) OSAMCKtor_httpHttpProtocolVersion *QUIC __attribute__((swift_name("QUIC")));
 @property (readonly) OSAMCKtor_httpHttpProtocolVersion *SPDY_3 __attribute__((swift_name("SPDY_3")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpURLProtocol.Companion")))
+@interface OSAMCKtor_httpURLProtocolCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_httpURLProtocolCompanion *shared __attribute__((swift_name("shared")));
+- (OSAMCKtor_httpURLProtocol *)createOrDefaultName:(NSString *)name __attribute__((swift_name("createOrDefault(name:)")));
+@property (readonly) OSAMCKtor_httpURLProtocol *HTTP __attribute__((swift_name("HTTP")));
+@property (readonly) OSAMCKtor_httpURLProtocol *HTTPS __attribute__((swift_name("HTTPS")));
+@property (readonly) OSAMCKtor_httpURLProtocol *SOCKS __attribute__((swift_name("SOCKS")));
+@property (readonly) OSAMCKtor_httpURLProtocol *WS __attribute__((swift_name("WS")));
+@property (readonly) OSAMCKtor_httpURLProtocol *WSS __attribute__((swift_name("WSS")));
+@property (readonly) NSDictionary<NSString *, OSAMCKtor_httpURLProtocol *> *byName __attribute__((swift_name("byName")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpUrlEncodingOption")))
+@interface OSAMCKtor_httpUrlEncodingOption : OSAMCKotlinEnum<OSAMCKtor_httpUrlEncodingOption *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *default_ __attribute__((swift_name("default_")));
+@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *keyOnly __attribute__((swift_name("keyOnly")));
+@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *valueOnly __attribute__((swift_name("valueOnly")));
+@property (class, readonly) OSAMCKtor_httpUrlEncodingOption *noEncoding __attribute__((swift_name("noEncoding")));
++ (OSAMCKotlinArray<OSAMCKtor_httpUrlEncodingOption *> *)values __attribute__((swift_name("values()")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreParentJob")))
+@protocol OSAMCKotlinx_coroutines_coreParentJob <OSAMCKotlinx_coroutines_coreJob>
+@required
+- (OSAMCKotlinCancellationException *)getChildJobCancellationCause __attribute__((swift_name("getChildJobCancellationCause()")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreSelectInstance")))
+@protocol OSAMCKotlinx_coroutines_coreSelectInstance
+@required
+- (void)disposeOnSelectHandle:(id<OSAMCKotlinx_coroutines_coreDisposableHandle>)handle __attribute__((swift_name("disposeOnSelect(handle:)")));
+- (id _Nullable)performAtomicTrySelectDesc:(OSAMCKotlinx_coroutines_coreAtomicDesc *)desc __attribute__((swift_name("performAtomicTrySelect(desc:)")));
+- (void)resumeSelectWithExceptionException:(OSAMCKotlinThrowable *)exception __attribute__((swift_name("resumeSelectWithException(exception:)")));
+- (BOOL)trySelect __attribute__((swift_name("trySelect()")));
+- (id _Nullable)trySelectOtherOtherOp:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp * _Nullable)otherOp __attribute__((swift_name("trySelectOther(otherOp:)")));
+@property (readonly) id<OSAMCKotlinContinuation> completion __attribute__((swift_name("completion")));
+@property (readonly) BOOL isSelected __attribute__((swift_name("isSelected")));
+@end;
+
+__attribute__((swift_name("KotlinSuspendFunction0")))
+@protocol OSAMCKotlinSuspendFunction0 <OSAMCKotlinFunction>
+@required
+
+/**
+ @note This method converts instances of CancellationException to errors.
+ Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)invokeWithCompletionHandler:(void (^)(id _Nullable_result, NSError * _Nullable))completionHandler __attribute__((swift_name("invoke(completionHandler:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2688,6 +2510,130 @@ __attribute__((swift_name("KotlinKTypeProjection")))
 @property (readonly) OSAMCKotlinKVariance * _Nullable variance __attribute__((swift_name("variance")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpHeaderValueParam")))
+@interface OSAMCKtor_httpHeaderValueParam : OSAMCBase
+- (instancetype)initWithName:(NSString *)name value:(NSString *)value __attribute__((swift_name("init(name:value:)"))) __attribute__((objc_designated_initializer));
+- (NSString *)component1 __attribute__((swift_name("component1()")));
+- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (OSAMCKtor_httpHeaderValueParam *)doCopyName:(NSString *)name value:(NSString *)value __attribute__((swift_name("doCopy(name:value:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *name __attribute__((swift_name("name")));
+@property (readonly) NSString *value __attribute__((swift_name("value")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpHeaderValueWithParameters.Companion")))
+@interface OSAMCKtor_httpHeaderValueWithParametersCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_httpHeaderValueWithParametersCompanion *shared __attribute__((swift_name("shared")));
+- (id _Nullable)parseValue:(NSString *)value init:(id _Nullable (^)(NSString *, NSArray<OSAMCKtor_httpHeaderValueParam *> *))init __attribute__((swift_name("parse(value:init:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_httpContentType.Companion")))
+@interface OSAMCKtor_httpContentTypeCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_httpContentTypeCompanion *shared __attribute__((swift_name("shared")));
+- (OSAMCKtor_httpContentType *)parseValue:(NSString *)value __attribute__((swift_name("parse(value:)")));
+@property (readonly) OSAMCKtor_httpContentType *Any __attribute__((swift_name("Any")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_utilsWeekDay.Companion")))
+@interface OSAMCKtor_utilsWeekDayCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_utilsWeekDayCompanion *shared __attribute__((swift_name("shared")));
+- (OSAMCKtor_utilsWeekDay *)fromOrdinal:(int32_t)ordinal __attribute__((swift_name("from(ordinal:)")));
+- (OSAMCKtor_utilsWeekDay *)fromValue:(NSString *)value __attribute__((swift_name("from(value:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_utilsMonth.Companion")))
+@interface OSAMCKtor_utilsMonthCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKtor_utilsMonthCompanion *shared __attribute__((swift_name("shared")));
+- (OSAMCKtor_utilsMonth *)fromOrdinal:(int32_t)ordinal __attribute__((swift_name("from(ordinal:)")));
+- (OSAMCKtor_utilsMonth *)fromValue:(NSString *)value __attribute__((swift_name("from(value:)")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreAtomicDesc")))
+@interface OSAMCKotlinx_coroutines_coreAtomicDesc : OSAMCBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (void)completeOp:(OSAMCKotlinx_coroutines_coreAtomicOp<id> *)op failure:(id _Nullable)failure __attribute__((swift_name("complete(op:failure:)")));
+- (id _Nullable)prepareOp:(OSAMCKotlinx_coroutines_coreAtomicOp<id> *)op __attribute__((swift_name("prepare(op:)")));
+@property OSAMCKotlinx_coroutines_coreAtomicOp<id> *atomicOp __attribute__((swift_name("atomicOp")));
+@end;
+
+__attribute__((swift_name("Kotlinx_coroutines_coreOpDescriptor")))
+@interface OSAMCKotlinx_coroutines_coreOpDescriptor : OSAMCBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (BOOL)isEarlierThanThat:(OSAMCKotlinx_coroutines_coreOpDescriptor *)that __attribute__((swift_name("isEarlierThan(that:)")));
+- (id _Nullable)performAffected:(id _Nullable)affected __attribute__((swift_name("perform(affected:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) OSAMCKotlinx_coroutines_coreAtomicOp<id> * _Nullable atomicOp __attribute__((swift_name("atomicOp")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_coroutines_coreLockFreeLinkedListNode.PrepareOp")))
+@interface OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp : OSAMCKotlinx_coroutines_coreOpDescriptor
+- (instancetype)initWithAffected:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *)affected next:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *)next desc:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc *)desc __attribute__((swift_name("init(affected:next:desc:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
+- (void)finishPrepare __attribute__((swift_name("finishPrepare()")));
+- (id _Nullable)performAffected:(id _Nullable)affected __attribute__((swift_name("perform(affected:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *affected __attribute__((swift_name("affected")));
+@property (readonly) OSAMCKotlinx_coroutines_coreAtomicOp<id> *atomicOp __attribute__((swift_name("atomicOp")));
+@property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc *desc __attribute__((swift_name("desc")));
+@property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *next __attribute__((swift_name("next")));
+@end;
+
+__attribute__((swift_name("KotlinCharIterator")))
+@interface OSAMCKotlinCharIterator : OSAMCBase <OSAMCKotlinIterator>
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (id)next __attribute__((swift_name("next()")));
+- (unichar)nextChar __attribute__((swift_name("nextChar()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinKVariance")))
+@interface OSAMCKotlinKVariance : OSAMCKotlinEnum<OSAMCKotlinKVariance *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) OSAMCKotlinKVariance *invariant __attribute__((swift_name("invariant")));
+@property (class, readonly) OSAMCKotlinKVariance *in __attribute__((swift_name("in")));
+@property (class, readonly) OSAMCKotlinKVariance *out __attribute__((swift_name("out")));
++ (OSAMCKotlinArray<OSAMCKotlinKVariance *> *)values __attribute__((swift_name("values()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinKTypeProjection.Companion")))
+@interface OSAMCKotlinKTypeProjectionCompanion : OSAMCBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCKotlinKTypeProjectionCompanion *shared __attribute__((swift_name("shared")));
+- (OSAMCKotlinKTypeProjection *)contravariantType:(id<OSAMCKotlinKType>)type __attribute__((swift_name("contravariant(type:)")));
+- (OSAMCKotlinKTypeProjection *)covariantType:(id<OSAMCKotlinKType>)type __attribute__((swift_name("covariant(type:)")));
+- (OSAMCKotlinKTypeProjection *)invariantType:(id<OSAMCKotlinKType>)type __attribute__((swift_name("invariant(type:)")));
+@property (readonly) OSAMCKotlinKTypeProjection *STAR __attribute__((swift_name("STAR")));
+@end;
+
 __attribute__((swift_name("Kotlinx_coroutines_coreAtomicOp")))
 @interface OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T> : OSAMCKotlinx_coroutines_coreOpDescriptor
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
@@ -2741,61 +2687,6 @@ __attribute__((swift_name("Kotlinx_coroutines_coreLockFreeLinkedListNode.Abstrac
 - (id)updatedNextAffected:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *)affected next:(OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode *)next __attribute__((swift_name("updatedNext(affected:next:)")));
 @property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode * _Nullable affectedNode __attribute__((swift_name("affectedNode")));
 @property (readonly) OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode * _Nullable originalNext __attribute__((swift_name("originalNext")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_utilsWeekDay.Companion")))
-@interface OSAMCKtor_utilsWeekDayCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_utilsWeekDayCompanion *shared __attribute__((swift_name("shared")));
-- (OSAMCKtor_utilsWeekDay *)fromOrdinal:(int32_t)ordinal __attribute__((swift_name("from(ordinal:)")));
-- (OSAMCKtor_utilsWeekDay *)fromValue:(NSString *)value __attribute__((swift_name("from(value:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_utilsMonth.Companion")))
-@interface OSAMCKtor_utilsMonthCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKtor_utilsMonthCompanion *shared __attribute__((swift_name("shared")));
-- (OSAMCKtor_utilsMonth *)fromOrdinal:(int32_t)ordinal __attribute__((swift_name("from(ordinal:)")));
-- (OSAMCKtor_utilsMonth *)fromValue:(NSString *)value __attribute__((swift_name("from(value:)")));
-@end;
-
-__attribute__((swift_name("KotlinCharIterator")))
-@interface OSAMCKotlinCharIterator : OSAMCBase <OSAMCKotlinIterator>
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (id)next __attribute__((swift_name("next()")));
-- (unichar)nextChar __attribute__((swift_name("nextChar()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KotlinKVariance")))
-@interface OSAMCKotlinKVariance : OSAMCKotlinEnum<OSAMCKotlinKVariance *>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly) OSAMCKotlinKVariance *invariant __attribute__((swift_name("invariant")));
-@property (class, readonly) OSAMCKotlinKVariance *in __attribute__((swift_name("in")));
-@property (class, readonly) OSAMCKotlinKVariance *out __attribute__((swift_name("out")));
-+ (OSAMCKotlinArray<OSAMCKotlinKVariance *> *)values __attribute__((swift_name("values()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KotlinKTypeProjection.Companion")))
-@interface OSAMCKotlinKTypeProjectionCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCKotlinKTypeProjectionCompanion *shared __attribute__((swift_name("shared")));
-- (OSAMCKotlinKTypeProjection *)contravariantType:(id<OSAMCKotlinKType>)type __attribute__((swift_name("contravariant(type:)")));
-- (OSAMCKotlinKTypeProjection *)covariantType:(id<OSAMCKotlinKType>)type __attribute__((swift_name("covariant(type:)")));
-- (OSAMCKotlinKTypeProjection *)invariantType:(id<OSAMCKotlinKType>)type __attribute__((swift_name("invariant(type:)")));
-@property (readonly) OSAMCKotlinKTypeProjection *STAR __attribute__((swift_name("STAR")));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc")))

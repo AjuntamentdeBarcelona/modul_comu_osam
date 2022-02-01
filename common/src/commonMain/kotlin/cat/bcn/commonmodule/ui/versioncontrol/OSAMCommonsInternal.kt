@@ -115,6 +115,7 @@ internal class OSAMCommonsInternal(
                 if (preferences.getLastDatetime() == 0L) {
                     preferences.setLastDatetime(DateTime.nowUnixLong())
                 }
+                preferences.setNumApertures(preferences.getNumApertures() + 1)
 
                 withContext(executor.bg) { commonRepository.getRating() }.fold(
                     error = { commonError ->
@@ -152,15 +153,12 @@ internal class OSAMCommonsInternal(
                                 }
                             )
                             preferences.setLastDatetime(DateTime.nowUnixLong())
+                            if (preferences.getNumApertures() >= rating.numAperture) {
+                                preferences.setNumApertures(0)
+                            }
                             analytics.logRatingPopUp(CommonAnalytics.RatingAction.SHOWN)
                         } else {
                             f(RatingControlResponse.LATER)
-                        }
-
-                        if (preferences.getNumApertures() == rating.numAperture) {
-                            preferences.setNumApertures(0)
-                        } else {
-                            preferences.setNumApertures(preferences.getNumApertures() + 1)
                         }
                     }
                 )
