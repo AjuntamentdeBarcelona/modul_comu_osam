@@ -9,12 +9,15 @@ import cat.bcn.commonmodule.ui.versioncontrol.Language
 
 internal actual class AlertWrapper(private val context: Context) {
 
+    private var versionControlAlert: AlertDialog? = null
+    private var ratingAlert: AlertDialog? = null
+
     actual fun showVersionControlForce(
         version: Version,
         language: Language,
         onPositiveClick: () -> Unit
     ) {
-        buildCommonVersionAlert(version, language, onPositiveClick)
+        versionControlAlert = buildCommonVersionAlert(version, language, onPositiveClick)
             .setCancelable(false)
             .show()
     }
@@ -26,7 +29,7 @@ internal actual class AlertWrapper(private val context: Context) {
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit
     ) {
-        buildCommonVersionAlert(version, language, onPositiveClick)
+        versionControlAlert = buildCommonVersionAlert(version, language, onPositiveClick)
             .setNegativeButton(version.cancel.localize(language)) { _, _ -> onNegativeClick() }
             .setOnCancelListener { onDismissClick() }
             .show()
@@ -38,7 +41,7 @@ internal actual class AlertWrapper(private val context: Context) {
         onPositiveClick: () -> Unit,
         onDismissClick: () -> Unit
     ) {
-        buildCommonVersionAlert(version, language, onPositiveClick)
+        versionControlAlert = buildCommonVersionAlert(version, language, onPositiveClick)
             .setOnCancelListener { onDismissClick() }
             .show()
     }
@@ -53,7 +56,7 @@ internal actual class AlertWrapper(private val context: Context) {
     ) {
         val dialogRatingTitle = rating.title.localize(language)
         val appLabel = context.applicationInfo.loadLabel(context.packageManager)
-        AlertDialog.Builder(context)
+        ratingAlert = AlertDialog.Builder(context)
             .setTitle("$dialogRatingTitle $appLabel")
             .setMessage(rating.message.localize(language))
             .setPositiveButton(rating.ok.localize(language)) { _, _ -> onPositiveClick() }
@@ -62,6 +65,11 @@ internal actual class AlertWrapper(private val context: Context) {
             .setOnCancelListener { onDismissClick() }
             .show()
     }
+
+    actual fun isVersionControlShowing(): Boolean = versionControlAlert?.isShowing ?: false
+
+
+    actual fun isRatingShowing(): Boolean = ratingAlert?.isShowing ?: false
 
     private fun buildCommonVersionAlert(
         version: Version,

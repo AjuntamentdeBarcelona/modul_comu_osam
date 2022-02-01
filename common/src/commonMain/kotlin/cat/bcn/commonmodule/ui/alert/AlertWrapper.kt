@@ -36,4 +36,8 @@ internal expect class AlertWrapper {
         onDismissClick: () -> Unit
     )
 
+    fun isVersionControlShowing(): Boolean
+
+    fun isRatingShowing(): Boolean
+
 }
