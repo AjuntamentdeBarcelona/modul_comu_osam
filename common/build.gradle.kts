@@ -108,7 +108,7 @@ kotlin {
 
                 while (reader.readLine().also { currLine -> currentLine = currLine } != null) {
                     if (currentLine?.startsWith("    s.version") == true) {
-                        writer.write("    s.version       = \"${libVersionName}\"" + System.lineSeparator())
+                        writer.write("    s.version                  = \'${libVersionName}\'" + System.lineSeparator())
                     } else {
                         writer.write(currentLine + System.lineSeparator())
                     }
@@ -136,7 +136,7 @@ kotlin {
 
                     project.exec {
                         workingDir = File("$rootDir")
-                        commandLine("git", "push", "origin", "master", "--tags").standardOutput
+                        //commandLine("git", "push", "origin", "master", "--tags").standardOutput
                     }
                 }
             }
