@@ -81,6 +81,7 @@ kotlin {
 
         register("publishFramework") {
             description = "Publish iOs framework to the Cocoa Repo"
+            group = "Publishing"
 
             project.exec {
                 workingDir = File("$rootDir")
@@ -106,8 +107,8 @@ kotlin {
                 var currentLine: String?
 
                 while (reader.readLine().also { currLine -> currentLine = currLine } != null) {
-                    if (currentLine?.startsWith("s.version") == true) {
-                        writer.write("s.version       = \"${libVersionName}\"" + System.lineSeparator())
+                    if (currentLine?.startsWith("    s.version") == true) {
+                        writer.write("    s.version       = \"${libVersionName}\"" + System.lineSeparator())
                     } else {
                         writer.write(currentLine + System.lineSeparator())
                     }
