@@ -52,6 +52,7 @@ internal class OSAMCommonsInternal(
                     withContext(executor.bg) { commonRepository.getVersion() }.fold(
                         error = { commonError ->
                             internalCrashlyticsWrapper.recordException(commonError.exception)
+                            f(VersionControlResponse.ERROR)
                         },
                         success = { version ->
                             when (version.comparisonMode) {
@@ -125,6 +126,7 @@ internal class OSAMCommonsInternal(
                     withContext(executor.bg) { commonRepository.getRating() }.fold(
                         error = { commonError ->
                             internalCrashlyticsWrapper.recordException(commonError.exception)
+                            f(RatingControlResponse.ERROR)
                         },
                         success = { rating ->
                             val shouldShowRatingDialog = shouldShowRatingDialog(
