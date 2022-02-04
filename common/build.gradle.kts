@@ -136,7 +136,7 @@ kotlin {
 
                     project.exec {
                         workingDir = File("$rootDir")
-                        //commandLine("git", "push", "origin", "master", "--tags").standardOutput
+                        commandLine("git", "push", "origin", "master", "--tags").standardOutput
                     }
                 }
             }
