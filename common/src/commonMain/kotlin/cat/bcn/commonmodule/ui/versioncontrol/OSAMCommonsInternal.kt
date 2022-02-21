@@ -9,6 +9,7 @@ import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
+import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.platform.PlatformAction
@@ -142,7 +143,10 @@ internal class OSAMCommonsInternal(
                                     language = language,
                                     onPositiveClick = {
                                         f(RatingControlResponse.ACCEPTED)
-                                        platformAction.openUrl(platformInformation.getAppsStoreUrl())
+                                        // As in iOS the rating dialog is native, only in Android it's necessary to open the store
+                                        if (platformInformation.getPlatform() == Platform.ANDROID) {
+                                            platformAction.openUrl(platformInformation.getAppsStoreUrl())
+                                        }
                                         analytics.logRatingPopUp(CommonAnalytics.RatingAction.ACCEPTED)
                                     },
                                     onNegativeClick = {
