@@ -151,6 +151,8 @@ android {
         minSdk = Common.minSdkVersion
         targetSdk = Common.targetSdkVersion
         testInstrumentationRunner = Common.testInstrumentationRunner
+
+        consumerProguardFile("proguard-rules.pro")
     }
 }
 
