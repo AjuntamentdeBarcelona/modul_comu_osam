@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "1.0.10"
+val libVersionName = "1.0.11"
 group = libGroup
 version = libVersionName
 
@@ -151,6 +151,8 @@ android {
         minSdk = Common.minSdkVersion
         targetSdk = Common.targetSdkVersion
         testInstrumentationRunner = Common.testInstrumentationRunner
+
+        consumerProguardFile("proguard-rules.pro")
     }
 }
 
