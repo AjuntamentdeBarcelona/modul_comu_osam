@@ -19,7 +19,9 @@ class CommonPreferences(private val settings: Settings) : Preferences {
         private const val VERSION_CANCEL_EN = "VERSION_CANCEL_EN"
         private const val VERSION_CANCEL_CA = "VERSION_OK_CA"
         private const val VERSION_URL = "VERSION_URL"
-        private const val VERSION_COMPARISION_MODE = "VERSION_COMPARISION_MODE"
+        private const val VERSION_COMPARISON_MODE = "VERSION_COMPARISON_MODE"
+        private const val VERSION_START_DATE = "VERSION_START_DATE"
+        private const val VERSION_END_DATE = "VERSION_END_DATE"
 
         private const val RATING_NUM_APERTURES = "RATING_NUM_APERTURES"
         private const val RATING_DATE_INTERVAL = "RATING_DATE_INTERVAL"
@@ -66,8 +68,14 @@ class CommonPreferences(private val settings: Settings) : Preferences {
     override fun setVersionControlUrl(value: String) = settings.setString(VERSION_URL, value)
     override fun getVersionControlUrl(): String = settings.getString(VERSION_URL, "www.google.es")
 
-    override fun setVersionControlComparisionMode(value: Version.ComparisonMode) = settings.setString(VERSION_COMPARISION_MODE, value.name)
-    override fun getVersionControlComparisionMode(): Version.ComparisonMode  = Version.ComparisonMode.valueOf(settings.getString(VERSION_COMPARISION_MODE, "NONE")) //Por defecto no se muestra
+    override fun setVersionControlComparisonMode(value: Version.ComparisonMode) = settings.setString(VERSION_COMPARISON_MODE, value.name)
+    override fun getVersionControlComparisonMode(): Version.ComparisonMode  = Version.ComparisonMode.valueOf(settings.getString(VERSION_COMPARISON_MODE, "NONE")) //Por defecto no se muestra
+
+    override fun setVersionStartDate(value: Long) = settings.setLong(VERSION_START_DATE, value)
+    override fun getVersionStartDate(): Long = settings.getLong(VERSION_START_DATE, 0L)
+
+    override fun setVersionEndDate(value: Long) = settings.setLong(VERSION_END_DATE, value)
+    override fun getVersionEndDate(): Long = settings.getLong(VERSION_END_DATE, Long.MAX_VALUE)
 
     override fun setRatingNumApertures(value: Int) = settings.setInt(RATING_NUM_APERTURES, value)
     override fun hasRatingNumApertures(): Boolean = settings.has(RATING_NUM_APERTURES)

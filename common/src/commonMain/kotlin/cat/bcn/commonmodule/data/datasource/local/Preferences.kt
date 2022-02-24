@@ -37,8 +37,14 @@ interface Preferences {
     fun setVersionControlUrl(value: String)
     fun getVersionControlUrl(): String
 
-    fun setVersionControlComparisionMode(value: Version.ComparisonMode)
-    fun getVersionControlComparisionMode(): Version.ComparisonMode
+    fun setVersionControlComparisonMode(value: Version.ComparisonMode)
+    fun getVersionControlComparisonMode(): Version.ComparisonMode
+
+    fun setVersionStartDate(value: Long)
+    fun getVersionStartDate(): Long
+
+    fun setVersionEndDate(value: Long)
+    fun getVersionEndDate(): Long
 
     fun setRatingNumApertures(value: Int)
     fun hasRatingNumApertures(): Boolean

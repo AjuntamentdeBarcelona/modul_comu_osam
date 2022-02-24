@@ -14,13 +14,14 @@ internal class CommonRepository(
 
     suspend fun getVersion(): Either<CommonError, Version> {
         var version = Version(
-            id = 0,
-            appId = 0,
             packageName = platformInformation.getPackageName(),
             versionCode = platformInformation.getVersionCode(),
             versionName = platformInformation.getVersionName(),
             platform = platformInformation.getPlatform(),
-            comparisonMode = preferences.getVersionControlComparisionMode(),
+            comparisonMode = preferences.getVersionControlComparisonMode(),
+            startDate = preferences.getVersionStartDate(),
+            endDate = preferences.getVersionEndDate(),
+            serverDate = 0L, //TODO get current date from device
             title = Text(
                 es = preferences.getVersionControlTitleEs(),
                 en = preferences.getVersionControlTitleEn(),
@@ -66,15 +67,15 @@ internal class CommonRepository(
             preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
             preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
             preferences.setVersionControlUrl(version.url)
-            preferences.setVersionControlComparisionMode(version.comparisonMode)
+            preferences.setVersionControlComparisonMode(version.comparisonMode)
+            preferences.setVersionStartDate(version.startDate)
+            preferences.setVersionEndDate(version.endDate)
         }
         return Either.Right(version)
     }
 
     suspend fun getRating(): Either<CommonError, Rating> {
         var rating = Rating(
-            id = 0,
-            appId = 0,
             packageName = platformInformation.getPackageName(),
             platform = platformInformation.getPlatform(),
             minutes = preferences.getRatingDateInterval(),
