@@ -2,6 +2,7 @@ package cat.bcn.commonmodule.data.repository
 
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.Remote
+import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.*
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.versioncontrol.Language
@@ -21,7 +22,7 @@ internal class CommonRepository(
             comparisonMode = preferences.getVersionControlComparisonMode(),
             startDate = preferences.getVersionStartDate(),
             endDate = preferences.getVersionEndDate(),
-            serverDate = 0L, //TODO get current date from device
+            serverDate = getCurrentDate(),
             title = Text(
                 es = preferences.getVersionControlTitleEs(),
                 en = preferences.getVersionControlTitleEn(),
