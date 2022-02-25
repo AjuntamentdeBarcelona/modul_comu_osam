@@ -26,6 +26,15 @@ internal data class Version(
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE
     }
+
+    fun isInTimeRange(): Boolean {
+        if (isDebug) {
+            println("Version - Start date: $startDate")
+            println("Version - End date: $endDate")
+            println("Version - Server date: $serverDate")
+        }
+        return serverDate in startDate..endDate
+    }
 }
 
 internal data class Rating(
@@ -44,7 +53,7 @@ internal data class Rating(
     val cancel: Text = Text(es = "NO, GRACIAS", en = "NO, THANKS", ca = "NO, GRÀCIES")
     val neutral: Text = Text(es = "MÁS TARDE", en = "LATER", ca = "MÉS TARD")
 
-    fun shouldShowRatingDialog(
+    fun shouldShowDialog(
         lastDatetime: Long,
         numApertures: Int,
         doNotShowDialog: Boolean

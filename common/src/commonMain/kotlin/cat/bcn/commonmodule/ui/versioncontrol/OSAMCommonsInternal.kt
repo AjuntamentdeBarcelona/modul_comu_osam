@@ -11,7 +11,6 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.Platform
-import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.platform.PlatformAction
 import cat.bcn.commonmodule.platform.PlatformInformation
@@ -55,47 +54,51 @@ internal class OSAMCommonsInternal(
                             f(VersionControlResponse.ERROR)
                         },
                         success = { version ->
-                            when (version.comparisonMode) {
-                                Version.ComparisonMode.FORCE -> alertWrapper.showVersionControlForce(
-                                    version = version,
-                                    language = language,
-                                    onPositiveClick = {
-                                        f(VersionControlResponse.ACCEPTED)
-                                        platformAction.openUrl(version.url)
-                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                    }
-                                )
-                                Version.ComparisonMode.LAZY -> alertWrapper.showVersionControlLazy(
-                                    version = version,
-                                    language = language,
-                                    onPositiveClick = {
-                                        f(VersionControlResponse.ACCEPTED)
-                                        platformAction.openUrl(version.url)
-                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                    },
-                                    onNegativeClick = {
-                                        f(VersionControlResponse.CANCELLED)
-                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
-                                    },
-                                    onDismissClick = {
-                                        f(VersionControlResponse.DISMISSED)
-                                    }
-                                )
-                                Version.ComparisonMode.INFO -> alertWrapper.showVersionControlInfo(
-                                    version = version,
-                                    language = language,
-                                    onPositiveClick = {
-                                        f(VersionControlResponse.ACCEPTED)
-                                        analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                    },
-                                    onDismissClick = {
-                                        f(VersionControlResponse.DISMISSED)
-                                    }
-                                )
-                                Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
-                            }
-                            if (version.comparisonMode != Version.ComparisonMode.NONE) {
-                                analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.SHOWN)
+                            if (version.isInTimeRange()) {
+                                when (version.comparisonMode) {
+                                    Version.ComparisonMode.FORCE -> alertWrapper.showVersionControlForce(
+                                        version = version,
+                                        language = language,
+                                        onPositiveClick = {
+                                            f(VersionControlResponse.ACCEPTED)
+                                            platformAction.openUrl(version.url)
+                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                        }
+                                    )
+                                    Version.ComparisonMode.LAZY -> alertWrapper.showVersionControlLazy(
+                                        version = version,
+                                        language = language,
+                                        onPositiveClick = {
+                                            f(VersionControlResponse.ACCEPTED)
+                                            platformAction.openUrl(version.url)
+                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                        },
+                                        onNegativeClick = {
+                                            f(VersionControlResponse.CANCELLED)
+                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
+                                        },
+                                        onDismissClick = {
+                                            f(VersionControlResponse.DISMISSED)
+                                        }
+                                    )
+                                    Version.ComparisonMode.INFO -> alertWrapper.showVersionControlInfo(
+                                        version = version,
+                                        language = language,
+                                        onPositiveClick = {
+                                            f(VersionControlResponse.ACCEPTED)
+                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                        },
+                                        onDismissClick = {
+                                            f(VersionControlResponse.DISMISSED)
+                                        }
+                                    )
+                                    Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
+                                }
+                                if (version.comparisonMode != Version.ComparisonMode.NONE) {
+                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.SHOWN)
+                                }
+                            } else {
+                                f(VersionControlResponse.DISMISSED)
                             }
                         }
                     )
@@ -129,7 +132,7 @@ internal class OSAMCommonsInternal(
                             f(RatingControlResponse.ERROR)
                         },
                         success = { rating ->
-                            val shouldShowRatingDialog = rating.shouldShowRatingDialog(
+                            val shouldShowRatingDialog = rating.shouldShowDialog(
                                 lastDatetime = preferences.getLastDatetime(),
                                 numApertures = preferences.getNumApertures(),
                                 doNotShowDialog = preferences.getDontShowAgain()
