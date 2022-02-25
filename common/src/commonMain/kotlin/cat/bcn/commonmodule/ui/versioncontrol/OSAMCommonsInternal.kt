@@ -9,6 +9,7 @@ import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
+import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
@@ -16,8 +17,6 @@ import cat.bcn.commonmodule.platform.PlatformAction
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
-import com.soywiz.klock.DateTime
-import com.soywiz.klock.DateTimeRange
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -120,7 +119,7 @@ internal class OSAMCommonsInternal(
 
                     //Initialize LastDateTime if needed
                     if (preferences.getLastDatetime() == 0L) {
-                        preferences.setLastDatetime(DateTime.nowUnixLong())
+                        preferences.setLastDatetime(getCurrentDate())
                     }
                     preferences.setNumApertures(preferences.getNumApertures() + 1)
 
@@ -130,11 +129,10 @@ internal class OSAMCommonsInternal(
                             f(RatingControlResponse.ERROR)
                         },
                         success = { rating ->
-                            val shouldShowRatingDialog = shouldShowRatingDialog(
-                                rating = rating,
+                            val shouldShowRatingDialog = rating.shouldShowRatingDialog(
                                 lastDatetime = preferences.getLastDatetime(),
-                                numAperture = preferences.getNumApertures(),
-                                dontShowDialog = preferences.getDontShowAgain()
+                                numApertures = preferences.getNumApertures(),
+                                doNotShowDialog = preferences.getDontShowAgain()
                             )
 
                             if (shouldShowRatingDialog) {
@@ -162,7 +160,7 @@ internal class OSAMCommonsInternal(
                                         f(RatingControlResponse.DISMISSED)
                                     }
                                 )
-                                preferences.setLastDatetime(DateTime.nowUnixLong())
+                                preferences.setLastDatetime(getCurrentDate())
                                 if (preferences.getNumApertures() >= rating.numAperture) {
                                     preferences.setNumApertures(0)
                                 }
@@ -180,21 +178,5 @@ internal class OSAMCommonsInternal(
                 f(RatingControlResponse.ERROR)
             }
         }
-    }
-
-    private fun shouldShowRatingDialog(
-        rating: Rating,
-        lastDatetime: Long,
-        numAperture: Int,
-        dontShowDialog: Boolean
-    ): Boolean {
-        val now = DateTime.now()
-        val latest = DateTime.fromUnix(lastDatetime)
-        val minutesBetween = DateTimeRange(from = latest, to = now).duration.minutes
-
-        println("Minutes between: $minutesBetween")
-        println("Num apertures: $numAperture")
-
-        return !dontShowDialog && rating.minutes <= minutesBetween && rating.numAperture <= numAperture
     }
 }

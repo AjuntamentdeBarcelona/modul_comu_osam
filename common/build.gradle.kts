@@ -40,8 +40,6 @@ kotlin {
                 implementation(Dependencies.Common.Main.ktorSerialization)
                 implementation(Dependencies.Common.Main.ktorClientAuth)
                 implementation(Dependencies.Common.Main.ktorLogging)
-
-                implementation(Dependencies.Common.Main.time)
             }
         }
 

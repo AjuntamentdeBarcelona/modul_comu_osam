@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
-import cat.bcn.commonmodule.model.localize
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 
 internal actual class AlertWrapper(private val context: Context) {

@@ -1,12 +1,14 @@
 package cat.bcn.commonmodule.model
 
+import cat.bcn.commonmodule.extensions.getCurrentDate
+import cat.bcn.commonmodule.extensions.isDebug
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 
-enum class Platform {
+internal enum class Platform {
     ANDROID, IOS
 }
 
-data class Version(
+internal data class Version(
     val packageName: String,
     val versionCode: Long,
     val versionName: String,
@@ -26,27 +28,48 @@ data class Version(
     }
 }
 
-fun Text.localize(language: Language) = when (language) {
-    Language.CA -> ca
-    Language.ES -> es
-    Language.EN -> en
-}
-
-data class Rating(
+internal data class Rating(
     val packageName: String,
     val platform: Platform,
     val minutes: Int,
     val numAperture: Int,
     val message: Text,
 ) {
+    companion object {
+        private const val MILLIS_PER_MINUTE = 60 * 1000
+    }
+
     val title: Text = Text(es = "Valorar", en = "Rate", ca = "Valorar")
     val ok: Text = Text(es = "VALORAR AHORA", en = "RATE NOW", ca = "VALORAR ARA")
     val cancel: Text = Text(es = "NO, GRACIAS", en = "NO, THANKS", ca = "NO, GRÀCIES")
     val neutral: Text = Text(es = "MÁS TARDE", en = "LATER", ca = "MÉS TARD")
+
+    fun shouldShowRatingDialog(
+        lastDatetime: Long,
+        numApertures: Int,
+        doNotShowDialog: Boolean
+    ): Boolean {
+        val minutesBetween = (getCurrentDate() - lastDatetime).toDouble() / MILLIS_PER_MINUTE
+
+        if (isDebug) {
+            println("Rating - Minutes between: $minutesBetween")
+            println("Rating - Num apertures: $numApertures")
+        }
+
+        return !doNotShowDialog && this.minutes <= minutesBetween && this.numAperture <= numApertures
+    }
 }
 
-data class Text(
+internal data class Text(
     val es: String,
     val en: String,
     val ca: String,
-)
+) {
+
+    fun localize(language: Language) = when (language) {
+        Language.CA -> ca
+        Language.ES -> es
+        Language.EN -> en
+    }
+
+}

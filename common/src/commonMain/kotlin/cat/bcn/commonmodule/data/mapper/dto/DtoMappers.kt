@@ -7,7 +7,7 @@ import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Text
 import cat.bcn.commonmodule.model.Version
 
-fun VersionDto.toModel(): Version = Version(
+internal fun VersionDto.toModel(): Version = Version(
     packageName = packageName,
     versionCode = versionCode,
     versionName = versionName,
@@ -23,7 +23,7 @@ fun VersionDto.toModel(): Version = Version(
     url = url,
 )
 
-fun RatingDto.toModel(): Rating = Rating(
+internal fun RatingDto.toModel(): Rating = Rating(
     packageName = packageName,
     platform = platform,
     minutes = minutes,
@@ -31,7 +31,7 @@ fun RatingDto.toModel(): Rating = Rating(
     message = message.toModel(),
 )
 
-fun TextDto.toModel(): Text = Text(
+internal fun TextDto.toModel(): Text = Text(
     es = es,
     en = en,
     ca = ca,

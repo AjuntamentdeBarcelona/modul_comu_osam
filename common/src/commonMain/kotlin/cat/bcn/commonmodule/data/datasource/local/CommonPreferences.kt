@@ -3,7 +3,7 @@ package cat.bcn.commonmodule.data.datasource.local
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Version
 
-class CommonPreferences(private val settings: Settings) : Preferences {
+internal class CommonPreferences(private val settings: Settings) : Preferences {
 
     companion object {
         private const val VERSION_TITLE_ES = "VERSION_TITLE_ES"

@@ -6,10 +6,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class VersionResponseDto(@SerialName(value = "data") val data: VersionDto)
+internal data class VersionResponseDto(@SerialName(value = "data") val data: VersionDto)
 
 @Serializable
-data class VersionDto(
+internal data class VersionDto(
     @SerialName(value = "id") val id: Int,
     @SerialName(value = "appId") val appId: Int,
     @SerialName(value = "packageName") val packageName: String,
@@ -28,10 +28,10 @@ data class VersionDto(
 )
 
 @Serializable
-data class RatingResponseDto(@SerialName(value = "data") val data: RatingDto)
+internal data class RatingResponseDto(@SerialName(value = "data") val data: RatingDto)
 
 @Serializable
-data class RatingDto(
+internal data class RatingDto(
     @SerialName(value = "id") val id: Int,
     @SerialName(value = "appId") val appId: Int,
     @SerialName(value = "packageName") val packageName: String,
@@ -42,7 +42,7 @@ data class RatingDto(
 )
 
 @Serializable
-data class TextDto(
+internal data class TextDto(
     @SerialName(value = "es") val es: String,
     @SerialName(value = "en") val en: String,
     @SerialName(value = "ca") val ca: String,

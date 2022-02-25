@@ -3,7 +3,7 @@ package cat.bcn.commonmodule.data.datasource.local
 import cat.bcn.commonmodule.model.Version
 
 
-interface Preferences {
+internal interface Preferences {
     fun clear()
 
     fun setVersionControlTitleEs(value: String)
