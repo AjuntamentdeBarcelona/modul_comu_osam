@@ -77,21 +77,26 @@ kotlin {
 
     tasks {
 
+        register("moveToMasterBranch") {
+            doLast {
+                project.exec {
+                    workingDir = File("$rootDir")
+                    commandLine("git", "checkout", "master").standardOutput
+                }
+            }
+        }
+
         register("publishFramework") {
             description = "Publish iOs framework to the Cocoa Repo"
             group = "Publishing"
 
-            project.exec {
-                workingDir = File("$rootDir")
-                commandLine("git", "checkout", "master").standardOutput
-            }
-
+            dependsOn("moveToMasterBranch")
             // Create Release Framework for Xcode
             dependsOn("assemble${libName}ReleaseXCFramework")
 
-            // Replace
-            doLast {
+            named("assemble${libName}ReleaseXCFramework").get().mustRunAfter("moveToMasterBranch")
 
+            doLast {
                 copy {
                     from("$buildDir/XCFrameworks/release")
                     into("$rootDir")
@@ -124,7 +129,12 @@ kotlin {
 
                     project.exec {
                         workingDir = File("$rootDir")
-                        commandLine("git", "commit", "-m", "\"New release: ${libVersionName}\"").standardOutput
+                        commandLine(
+                            "git",
+                            "commit",
+                            "-m",
+                            "\"New release: ${libVersionName}\""
+                        ).standardOutput
                     }
 
                     project.exec {
@@ -134,7 +144,7 @@ kotlin {
 
                     project.exec {
                         workingDir = File("$rootDir")
-                        commandLine("git", "push", "origin", "master", "--tags").standardOutput
+                        //commandLine("git", "push", "origin", "master", "--tags").standardOutput
                     }
                 }
             }
