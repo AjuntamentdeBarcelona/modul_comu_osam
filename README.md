@@ -328,7 +328,10 @@ aquest punt la casuistica.
       "en": "Cancel",
       "ca": "Cancel.lar"
     },
-    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca"
+    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca",
+    "startDate": 1645311600000,
+    "endDate": 1645311600000,
+    "serverDate": 1645788600000
   }
 }
 ```
@@ -366,6 +369,20 @@ aquest punt la casuistica.
     - Opcional
     - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
       versió de l'aplicació a l'App Store / Google Play.
+- **startDate**
+    - Opcional
+    - Data des de quan s'ha de començar a mostrar el pop-up del control de versions, expressada
+      amb *timestamp* (milisegons des del 01/01/1970). Si no arriba informada, es considerarà com si
+      fos el 0.
+- **endDate**
+    - Opcional
+    - Data fins quan s'ha de mostrar el pop-up del control de versions, expressada amb *timestamp* (
+      milisegons des del 01/01/1970). Si no arriba informada, es considerara com si fos
+      9223372036854775807 (el valor màxim possible del Long).
+- **serverDate**
+    - Obligatori
+    - Data actual proporcionada per el servidor. Serà la que s'utilitzi per comparar amb `startDate`
+      y `endDate`.
 
 ### Control de Valoracions
 
@@ -411,10 +428,10 @@ aquest punt la casuistica.
 
 ## Com funciona el mòdul de control de versions
 
-Depenent del valor del paràmetre "comparisonMode" mostrarem l'alerta.
-
-Aquest paràmetre compararà la versió instal·lada amb la qual rebem del json, en funció de tres
-valors:
+En primer lloc, ha de cumplir-se que el valor del paràmetre `serverDate` estigui entre el valor
+de `startDate` i el de `endDate`. Si això no es compleix, no es mostrarà l'alerta. Si es compleix,
+en funció del valor del paràmetre `comparisonMode` es mostrarà o no l'alerta. Aquest paràmetre
+compararà la versió instal·lada amb la qual rebem del json, en funció de tres valors:
 
 - **FORCE**: Mostra l'alerta i no es pot treure. Actualització obligatoria
 - **LAZY**: Mostra l'alerta amb l'opció d'actualitzar l'app o seguir utilitzant l'actual.
