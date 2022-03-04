@@ -1,64 +1,84 @@
 package cat.bcn.commonmodule.model
 
+import cat.bcn.commonmodule.extensions.getCurrentDate
+import cat.bcn.commonmodule.extensions.isDebug
 import cat.bcn.commonmodule.ui.versioncontrol.Language
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
-enum class Platform {
+internal enum class Platform {
     ANDROID, IOS
 }
 
-@Serializable
-data class VersionResponse(@SerialName(value = "data") val data: Version)
-
-@Serializable
-data class Version(
-    @SerialName(value = "id") val id: Int,
-    @SerialName(value = "appId") val appId: Int,
-    @SerialName(value = "packageName") val packageName: String,
-    @SerialName(value = "versionCode") val versionCode: Long,
-    @SerialName(value = "versionName") val versionName: String,
-    @SerialName(value = "platform") val platform: Platform,
-    @SerialName(value = "comparisonMode") val comparisonMode: ComparisonMode,
-    @SerialName(value = "title") val title: Text,
-    @SerialName(value = "message") val message: Text,
-    @SerialName(value = "ok") val ok: Text,
-    @SerialName(value = "cancel") val cancel: Text,
-    @SerialName(value = "url") val url: String
+internal data class Version(
+    val packageName: String,
+    val versionCode: Long,
+    val versionName: String,
+    val platform: Platform,
+    val comparisonMode: ComparisonMode,
+    val startDate: Long,
+    val endDate: Long,
+    val serverDate: Long,
+    val title: Text,
+    val message: Text,
+    val ok: Text,
+    val cancel: Text,
+    val url: String,
 ) {
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE
     }
+
+    fun isInTimeRange(): Boolean {
+        if (isDebug) {
+            println("Version - Start date: $startDate")
+            println("Version - End date: $endDate")
+            println("Version - Server date: $serverDate")
+        }
+        return serverDate in startDate..endDate
+    }
 }
 
-fun Text.localize(language: Language) = when (language) {
-    Language.CA -> ca
-    Language.ES -> es
-    Language.EN -> en
-}
-
-@Serializable
-data class RatingResponse(@SerialName(value = "data") val data: Rating)
-
-@Serializable
-data class Rating(
-    @SerialName(value = "id") val id: Int,
-    @SerialName(value = "appId") val appId: Int,
-    @SerialName(value = "packageName") val packageName: String,
-    @SerialName(value = "platform") val platform: Platform,
-    @SerialName(value = "minutes") val minutes: Int,
-    @SerialName(value = "numAperture") val numAperture: Int,
-    @SerialName(value = "message") val message: Text
+internal data class Rating(
+    val packageName: String,
+    val platform: Platform,
+    val minutes: Int,
+    val numAperture: Int,
+    val message: Text,
 ) {
+    companion object {
+        private const val MILLIS_PER_MINUTE = 60 * 1000
+    }
+
     val title: Text = Text(es = "Valorar", en = "Rate", ca = "Valorar")
     val ok: Text = Text(es = "VALORAR AHORA", en = "RATE NOW", ca = "VALORAR ARA")
     val cancel: Text = Text(es = "NO, GRACIAS", en = "NO, THANKS", ca = "NO, GRÀCIES")
     val neutral: Text = Text(es = "MÁS TARDE", en = "LATER", ca = "MÉS TARD")
+
+    fun shouldShowDialog(
+        lastDatetime: Long,
+        numApertures: Int,
+        doNotShowDialog: Boolean
+    ): Boolean {
+        val minutesBetween = (getCurrentDate() - lastDatetime).toDouble() / MILLIS_PER_MINUTE
+
+        if (isDebug) {
+            println("Rating - Minutes between: $minutesBetween")
+            println("Rating - Num apertures: $numApertures")
+        }
+
+        return !doNotShowDialog && this.minutes <= minutesBetween && this.numAperture <= numApertures
+    }
 }
 
-@Serializable
-data class Text(
-    @SerialName(value = "es") val es: String,
-    @SerialName(value = "en") val en: String,
-    @SerialName(value = "ca") val ca: String
-)
+internal data class Text(
+    val es: String,
+    val en: String,
+    val ca: String,
+) {
+
+    fun localize(language: Language) = when (language) {
+        Language.CA -> ca
+        Language.ES -> es
+        Language.EN -> en
+    }
+
+}

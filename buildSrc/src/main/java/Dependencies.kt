@@ -65,8 +65,6 @@ object Dependencies {
             const val ktorSerialization = "io.ktor:ktor-client-serialization:$ktor_version"
             const val ktorClientAuth = "io.ktor:ktor-client-auth:$ktor_version"
             const val ktorLogging = "io.ktor:ktor-client-logging:$ktor_version"
-
-            const val time = "com.soywiz.korlibs.klock:klock:2.4.12"
         }
 
         object Android {

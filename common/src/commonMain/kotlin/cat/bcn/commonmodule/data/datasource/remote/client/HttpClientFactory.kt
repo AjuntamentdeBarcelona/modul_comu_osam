@@ -1,5 +1,6 @@
 package cat.bcn.commonmodule.data.datasource.remote.client
 
+import cat.bcn.commonmodule.extensions.isDebug
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
@@ -19,9 +20,11 @@ fun buildClient(endpoint: String, block: HttpClientConfig<*>.() -> Unit = {}): H
 
             header("Authorization", "Basic b3NhbTpvc2Ft")
         }
-        install(Logging) {
-            logger = Logger.SIMPLE
-            level = LogLevel.ALL
+        if (isDebug) {
+            install(Logging) {
+                logger = Logger.SIMPLE
+                level = LogLevel.ALL
+            }
         }
         install(JsonFeature) {
             serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
