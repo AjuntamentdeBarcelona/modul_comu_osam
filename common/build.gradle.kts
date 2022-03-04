@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "1.0.11"
+val libVersionName = "1.1.0"
 group = libGroup
 version = libVersionName
 
@@ -144,7 +144,7 @@ kotlin {
 
                     project.exec {
                         workingDir = File("$rootDir")
-                        //commandLine("git", "push", "origin", "master", "--tags").standardOutput
+                        commandLine("git", "push", "origin", "master", "--tags").standardOutput
                     }
                 }
             }
