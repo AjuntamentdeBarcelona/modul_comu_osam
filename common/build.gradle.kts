@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "1.0.11"
+val libVersionName = "1.1.0"
 group = libGroup
 version = libVersionName
 
@@ -40,8 +40,6 @@ kotlin {
                 implementation(Dependencies.Common.Main.ktorSerialization)
                 implementation(Dependencies.Common.Main.ktorClientAuth)
                 implementation(Dependencies.Common.Main.ktorLogging)
-
-                implementation(Dependencies.Common.Main.time)
             }
         }
 
@@ -79,21 +77,26 @@ kotlin {
 
     tasks {
 
+        register("moveToMasterBranch") {
+            doLast {
+                project.exec {
+                    workingDir = File("$rootDir")
+                    commandLine("git", "checkout", "master").standardOutput
+                }
+            }
+        }
+
         register("publishFramework") {
             description = "Publish iOs framework to the Cocoa Repo"
             group = "Publishing"
 
-            project.exec {
-                workingDir = File("$rootDir")
-                commandLine("git", "checkout", "master").standardOutput
-            }
-
+            dependsOn("moveToMasterBranch")
             // Create Release Framework for Xcode
             dependsOn("assemble${libName}ReleaseXCFramework")
 
-            // Replace
-            doLast {
+            named("assemble${libName}ReleaseXCFramework").get().mustRunAfter("moveToMasterBranch")
 
+            doLast {
                 copy {
                     from("$buildDir/XCFrameworks/release")
                     into("$rootDir")
@@ -126,7 +129,12 @@ kotlin {
 
                     project.exec {
                         workingDir = File("$rootDir")
-                        commandLine("git", "commit", "-m", "\"New release: ${libVersionName}\"").standardOutput
+                        commandLine(
+                            "git",
+                            "commit",
+                            "-m",
+                            "\"New release: ${libVersionName}\""
+                        ).standardOutput
                     }
 
                     project.exec {

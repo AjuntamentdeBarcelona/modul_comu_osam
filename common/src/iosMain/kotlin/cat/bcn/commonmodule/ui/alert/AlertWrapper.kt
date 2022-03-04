@@ -2,7 +2,6 @@ package cat.bcn.commonmodule.ui.alert
 
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
-import cat.bcn.commonmodule.model.localize
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*

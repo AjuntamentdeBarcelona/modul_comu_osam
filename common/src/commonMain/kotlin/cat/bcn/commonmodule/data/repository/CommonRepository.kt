@@ -2,6 +2,7 @@ package cat.bcn.commonmodule.data.repository
 
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.Remote
+import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.*
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.versioncontrol.Language
@@ -14,13 +15,14 @@ internal class CommonRepository(
 
     suspend fun getVersion(): Either<CommonError, Version> {
         var version = Version(
-            id = 0,
-            appId = 0,
             packageName = platformInformation.getPackageName(),
             versionCode = platformInformation.getVersionCode(),
             versionName = platformInformation.getVersionName(),
             platform = platformInformation.getPlatform(),
-            comparisonMode = preferences.getVersionControlComparisionMode(),
+            comparisonMode = preferences.getVersionControlComparisonMode(),
+            startDate = preferences.getVersionStartDate(),
+            endDate = preferences.getVersionEndDate(),
+            serverDate = getCurrentDate(),
             title = Text(
                 es = preferences.getVersionControlTitleEs(),
                 en = preferences.getVersionControlTitleEn(),
@@ -66,15 +68,15 @@ internal class CommonRepository(
             preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
             preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
             preferences.setVersionControlUrl(version.url)
-            preferences.setVersionControlComparisionMode(version.comparisonMode)
+            preferences.setVersionControlComparisonMode(version.comparisonMode)
+            preferences.setVersionStartDate(version.startDate)
+            preferences.setVersionEndDate(version.endDate)
         }
         return Either.Right(version)
     }
 
     suspend fun getRating(): Either<CommonError, Rating> {
         var rating = Rating(
-            id = 0,
-            appId = 0,
             packageName = platformInformation.getPackageName(),
             platform = platformInformation.getPlatform(),
             minutes = preferences.getRatingDateInterval(),
