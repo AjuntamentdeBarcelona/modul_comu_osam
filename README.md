@@ -306,6 +306,9 @@ aquest punt la casuistica.
     "packageName": "cat.bcn.commonmodule",
     "versionCode": 2021050000,
     "versionName": "1.0.0",
+    "startDate": 1645311600000,
+    "endDate": 1645311600000,
+    "serverDate": 1645788600000,
     "platform": "IOS",
     "comparisonMode": "NONE",
     "title": {
@@ -328,10 +331,7 @@ aquest punt la casuistica.
       "en": "Cancel",
       "ca": "Cancel.lar"
     },
-    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca",
-    "startDate": 1645311600000,
-    "endDate": 1645311600000,
-    "serverDate": 1645788600000
+    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca"
   }
 }
 ```
@@ -344,6 +344,20 @@ aquest punt la casuistica.
 - **versionCode**
     - Obligatori
     - Especifica la versió a la que afecta el control de versions
+- **startDate**
+    - Opcional
+    - Data des de quan s'ha de començar a mostrar el pop-up del control de versions, expressada
+      amb *timestamp* (milisegons des del 01/01/1970). Si no arriba informada, es considerarà com si
+      fos el 0.
+- **endDate**
+    - Opcional
+    - Data fins quan s'ha de mostrar el pop-up del control de versions, expressada amb *timestamp* (
+      milisegons des del 01/01/1970). Si no arriba informada, es considerara com si fos
+      9223372036854775807 (el valor màxim possible del Long).
+- **serverDate**
+    - Obligatori
+    - Data actual proporcionada per el servidor. Serà la que s'utilitzi per comparar amb `startDate`
+      y `endDate`.
 - **platform**
     - Obligatori
     - Especifica per a quina plataforma (ANDROID o IOS) afecta
@@ -369,20 +383,6 @@ aquest punt la casuistica.
     - Opcional
     - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
       versió de l'aplicació a l'App Store / Google Play.
-- **startDate**
-    - Opcional
-    - Data des de quan s'ha de començar a mostrar el pop-up del control de versions, expressada
-      amb *timestamp* (milisegons des del 01/01/1970). Si no arriba informada, es considerarà com si
-      fos el 0.
-- **endDate**
-    - Opcional
-    - Data fins quan s'ha de mostrar el pop-up del control de versions, expressada amb *timestamp* (
-      milisegons des del 01/01/1970). Si no arriba informada, es considerara com si fos
-      9223372036854775807 (el valor màxim possible del Long).
-- **serverDate**
-    - Obligatori
-    - Data actual proporcionada per el servidor. Serà la que s'utilitzi per comparar amb `startDate`
-      y `endDate`.
 
 ### Control de Valoracions
 
