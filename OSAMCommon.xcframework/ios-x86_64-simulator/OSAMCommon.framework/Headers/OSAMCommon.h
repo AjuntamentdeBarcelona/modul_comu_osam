@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCLanguage, UIViewController, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCKotlinException, OSAMCCommonError, OSAMCEither<L, R>, OSAMCPlatform, OSAMCText, OSAMCRatingCompanion, OSAMCRating, OSAMCRatingResponseCompanion, OSAMCRatingResponse, OSAMCSuccess, OSAMCTextCompanion, OSAMCVersionComparisonMode, OSAMCVersionCompanion, OSAMCVersion, OSAMCVersionResponseCompanion, OSAMCVersionResponse, OSAMCSettings, OSAMCCommonPreferencesCompanion, OSAMCTokenFeatureFeature, OSAMCTokenFeature, OSAMCKtor_client_coreHttpClient, OSAMCKtor_utilsAttributeKey<T>, OSAMCTokenFeatureConfig, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpClientCall, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKotlinx_serialization_coreSerializersModule, OSAMCKotlinx_serialization_coreSerialKind, OSAMCKotlinNothing, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
+@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCLanguage, UIViewController, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCKotlinException, OSAMCCommonError, OSAMCEither<L, R>, OSAMCSuccess, NSDate, OSAMCKtor_client_coreHttpClient, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpClientCall, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKotlinNothing, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKtor_utilsAttributeKey<T>, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
 
-@protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCCrashlyticsWrapper, OSAMCKotlinSuspendFunction1, OSAMCKotlinx_serialization_coreKSerializer, OSAMCPreferences, OSAMCKtor_client_coreHttpClientFeature, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinx_serialization_coreEncoder, OSAMCKotlinx_serialization_coreSerialDescriptor, OSAMCKotlinx_serialization_coreSerializationStrategy, OSAMCKotlinx_serialization_coreDecoder, OSAMCKotlinx_serialization_coreDeserializationStrategy, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKotlinx_serialization_coreCompositeEncoder, OSAMCKotlinAnnotation, OSAMCKotlinx_serialization_coreCompositeDecoder, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKtor_httpHttpMessageBuilder, OSAMCKotlinx_coroutines_coreJob, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKotlinSuspendFunction2, OSAMCKotlinx_serialization_coreSerializersModuleCollector, OSAMCKotlinKClass, OSAMCKtor_httpHeaders, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKtor_httpHttpMessage, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement, OSAMCKotlinKClassifier, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinSuspendFunction0, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput;
+@protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCCrashlyticsWrapper, OSAMCKotlinSuspendFunction1, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKtor_client_coreHttpClientFeature, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKtor_httpHttpMessageBuilder, OSAMCKotlinx_coroutines_coreJob, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKotlinSuspendFunction2, OSAMCKtor_httpHeaders, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKotlinKClass, OSAMCKtor_httpHttpMessage, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinSuspendFunction0, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput, OSAMCKotlinKClassifier, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -308,193 +308,12 @@ __attribute__((swift_name("EitherRight")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Platform")))
-@interface OSAMCPlatform : OSAMCKotlinEnum<OSAMCPlatform *>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly) OSAMCPlatform *android __attribute__((swift_name("android")));
-@property (class, readonly) OSAMCPlatform *ios __attribute__((swift_name("ios")));
-+ (OSAMCKotlinArray<OSAMCPlatform *> *)values __attribute__((swift_name("values()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Rating")))
-@interface OSAMCRating : OSAMCBase
-- (instancetype)initWithId:(int32_t)id appId:(int32_t)appId packageName:(NSString *)packageName platform:(OSAMCPlatform *)platform minutes:(int32_t)minutes numAperture:(int32_t)numAperture message:(OSAMCText *)message __attribute__((swift_name("init(id:appId:packageName:platform:minutes:numAperture:message:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCRatingCompanion *companion __attribute__((swift_name("companion")));
-- (int32_t)component1 __attribute__((swift_name("component1()")));
-- (int32_t)component2 __attribute__((swift_name("component2()")));
-- (NSString *)component3 __attribute__((swift_name("component3()")));
-- (OSAMCPlatform *)component4 __attribute__((swift_name("component4()")));
-- (int32_t)component5 __attribute__((swift_name("component5()")));
-- (int32_t)component6 __attribute__((swift_name("component6()")));
-- (OSAMCText *)component7 __attribute__((swift_name("component7()")));
-- (OSAMCRating *)doCopyId:(int32_t)id appId:(int32_t)appId packageName:(NSString *)packageName platform:(OSAMCPlatform *)platform minutes:(int32_t)minutes numAperture:(int32_t)numAperture message:(OSAMCText *)message __attribute__((swift_name("doCopy(id:appId:packageName:platform:minutes:numAperture:message:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) int32_t appId __attribute__((swift_name("appId")));
-@property (readonly) OSAMCText *cancel __attribute__((swift_name("cancel")));
-@property (readonly) int32_t id __attribute__((swift_name("id")));
-@property (readonly) OSAMCText *message __attribute__((swift_name("message")));
-@property (readonly) int32_t minutes __attribute__((swift_name("minutes")));
-@property (readonly) OSAMCText *neutral __attribute__((swift_name("neutral")));
-@property (readonly) int32_t numAperture __attribute__((swift_name("numAperture")));
-@property (readonly) OSAMCText *ok __attribute__((swift_name("ok")));
-@property (readonly) NSString *packageName __attribute__((swift_name("packageName")));
-@property (readonly) OSAMCPlatform *platform __attribute__((swift_name("platform")));
-@property (readonly) OSAMCText *title __attribute__((swift_name("title")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Rating.Companion")))
-@interface OSAMCRatingCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCRatingCompanion *shared __attribute__((swift_name("shared")));
-- (id<OSAMCKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("RatingResponse")))
-@interface OSAMCRatingResponse : OSAMCBase
-- (instancetype)initWithData:(OSAMCRating *)data __attribute__((swift_name("init(data:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCRatingResponseCompanion *companion __attribute__((swift_name("companion")));
-- (OSAMCRating *)component1 __attribute__((swift_name("component1()")));
-- (OSAMCRatingResponse *)doCopyData:(OSAMCRating *)data __attribute__((swift_name("doCopy(data:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) OSAMCRating *data __attribute__((swift_name("data")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("RatingResponse.Companion")))
-@interface OSAMCRatingResponseCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCRatingResponseCompanion *shared __attribute__((swift_name("shared")));
-- (id<OSAMCKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Success")))
 @interface OSAMCSuccess : OSAMCBase
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)success __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) OSAMCSuccess *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Text")))
-@interface OSAMCText : OSAMCBase
-- (instancetype)initWithEs:(NSString *)es en:(NSString *)en ca:(NSString *)ca __attribute__((swift_name("init(es:en:ca:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCTextCompanion *companion __attribute__((swift_name("companion")));
-- (NSString *)component1 __attribute__((swift_name("component1()")));
-- (NSString *)component2 __attribute__((swift_name("component2()")));
-- (NSString *)component3 __attribute__((swift_name("component3()")));
-- (OSAMCText *)doCopyEs:(NSString *)es en:(NSString *)en ca:(NSString *)ca __attribute__((swift_name("doCopy(es:en:ca:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *ca __attribute__((swift_name("ca")));
-@property (readonly) NSString *en __attribute__((swift_name("en")));
-@property (readonly) NSString *es __attribute__((swift_name("es")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Text.Companion")))
-@interface OSAMCTextCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCTextCompanion *shared __attribute__((swift_name("shared")));
-- (id<OSAMCKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Version")))
-@interface OSAMCVersion : OSAMCBase
-- (instancetype)initWithId:(int32_t)id appId:(int32_t)appId packageName:(NSString *)packageName versionCode:(int64_t)versionCode versionName:(NSString *)versionName platform:(OSAMCPlatform *)platform comparisonMode:(OSAMCVersionComparisonMode *)comparisonMode title:(OSAMCText *)title message:(OSAMCText *)message ok:(OSAMCText *)ok cancel:(OSAMCText *)cancel url:(NSString *)url __attribute__((swift_name("init(id:appId:packageName:versionCode:versionName:platform:comparisonMode:title:message:ok:cancel:url:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCVersionCompanion *companion __attribute__((swift_name("companion")));
-- (int32_t)component1 __attribute__((swift_name("component1()")));
-- (OSAMCText *)component10 __attribute__((swift_name("component10()")));
-- (OSAMCText *)component11 __attribute__((swift_name("component11()")));
-- (NSString *)component12 __attribute__((swift_name("component12()")));
-- (int32_t)component2 __attribute__((swift_name("component2()")));
-- (NSString *)component3 __attribute__((swift_name("component3()")));
-- (int64_t)component4 __attribute__((swift_name("component4()")));
-- (NSString *)component5 __attribute__((swift_name("component5()")));
-- (OSAMCPlatform *)component6 __attribute__((swift_name("component6()")));
-- (OSAMCVersionComparisonMode *)component7 __attribute__((swift_name("component7()")));
-- (OSAMCText *)component8 __attribute__((swift_name("component8()")));
-- (OSAMCText *)component9 __attribute__((swift_name("component9()")));
-- (OSAMCVersion *)doCopyId:(int32_t)id appId:(int32_t)appId packageName:(NSString *)packageName versionCode:(int64_t)versionCode versionName:(NSString *)versionName platform:(OSAMCPlatform *)platform comparisonMode:(OSAMCVersionComparisonMode *)comparisonMode title:(OSAMCText *)title message:(OSAMCText *)message ok:(OSAMCText *)ok cancel:(OSAMCText *)cancel url:(NSString *)url __attribute__((swift_name("doCopy(id:appId:packageName:versionCode:versionName:platform:comparisonMode:title:message:ok:cancel:url:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) int32_t appId __attribute__((swift_name("appId")));
-@property (readonly) OSAMCText *cancel __attribute__((swift_name("cancel")));
-@property (readonly) OSAMCVersionComparisonMode *comparisonMode __attribute__((swift_name("comparisonMode")));
-@property (readonly) int32_t id __attribute__((swift_name("id")));
-@property (readonly) OSAMCText *message __attribute__((swift_name("message")));
-@property (readonly) OSAMCText *ok __attribute__((swift_name("ok")));
-@property (readonly) NSString *packageName __attribute__((swift_name("packageName")));
-@property (readonly) OSAMCPlatform *platform __attribute__((swift_name("platform")));
-@property (readonly) OSAMCText *title __attribute__((swift_name("title")));
-@property (readonly) NSString *url __attribute__((swift_name("url")));
-@property (readonly) int64_t versionCode __attribute__((swift_name("versionCode")));
-@property (readonly) NSString *versionName __attribute__((swift_name("versionName")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Version.Companion")))
-@interface OSAMCVersionCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCVersionCompanion *shared __attribute__((swift_name("shared")));
-- (id<OSAMCKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Version.ComparisonMode")))
-@interface OSAMCVersionComparisonMode : OSAMCKotlinEnum<OSAMCVersionComparisonMode *>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly) OSAMCVersionComparisonMode *force __attribute__((swift_name("force")));
-@property (class, readonly) OSAMCVersionComparisonMode *lazy __attribute__((swift_name("lazy")));
-@property (class, readonly) OSAMCVersionComparisonMode *info __attribute__((swift_name("info")));
-@property (class, readonly) OSAMCVersionComparisonMode *none __attribute__((swift_name("none")));
-+ (OSAMCKotlinArray<OSAMCVersionComparisonMode *> *)values __attribute__((swift_name("values()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("VersionResponse")))
-@interface OSAMCVersionResponse : OSAMCBase
-- (instancetype)initWithData:(OSAMCVersion *)data __attribute__((swift_name("init(data:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCVersionResponseCompanion *companion __attribute__((swift_name("companion")));
-- (OSAMCVersion *)component1 __attribute__((swift_name("component1()")));
-- (OSAMCVersionResponse *)doCopyData:(OSAMCVersion *)data __attribute__((swift_name("doCopy(data:)")));
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) OSAMCVersion *data __attribute__((swift_name("data")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("VersionResponse.Companion")))
-@interface OSAMCVersionResponseCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCVersionResponseCompanion *shared __attribute__((swift_name("shared")));
-- (id<OSAMCKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -515,176 +334,18 @@ __attribute__((swift_name("Settings")))
 - (void)setStringKey:(NSString *)key value:(NSString *)value __attribute__((swift_name("setString(key:value:)")));
 @end;
 
-__attribute__((swift_name("Preferences")))
-@protocol OSAMCPreferences
-@required
-- (void)clear __attribute__((swift_name("clear()")));
-- (BOOL)getDontShowAgain __attribute__((swift_name("getDontShowAgain()")));
-- (int64_t)getLastDatetime __attribute__((swift_name("getLastDatetime()")));
-- (int32_t)getNumApertures __attribute__((swift_name("getNumApertures()")));
-- (NSString *)getRatingControlMessageCa __attribute__((swift_name("getRatingControlMessageCa()")));
-- (NSString *)getRatingControlMessageEn __attribute__((swift_name("getRatingControlMessageEn()")));
-- (NSString *)getRatingControlMessageEs __attribute__((swift_name("getRatingControlMessageEs()")));
-- (int32_t)getRatingDateInterval __attribute__((swift_name("getRatingDateInterval()")));
-- (int32_t)getRatingNumApertures __attribute__((swift_name("getRatingNumApertures()")));
-- (NSString *)getVersionControlCancelCa __attribute__((swift_name("getVersionControlCancelCa()")));
-- (NSString *)getVersionControlCancelEn __attribute__((swift_name("getVersionControlCancelEn()")));
-- (NSString *)getVersionControlCancelEs __attribute__((swift_name("getVersionControlCancelEs()")));
-- (OSAMCVersionComparisonMode *)getVersionControlComparisionMode __attribute__((swift_name("getVersionControlComparisionMode()")));
-- (NSString *)getVersionControlMessageCa __attribute__((swift_name("getVersionControlMessageCa()")));
-- (NSString *)getVersionControlMessageEn __attribute__((swift_name("getVersionControlMessageEn()")));
-- (NSString *)getVersionControlMessageEs __attribute__((swift_name("getVersionControlMessageEs()")));
-- (NSString *)getVersionControlOkCa __attribute__((swift_name("getVersionControlOkCa()")));
-- (NSString *)getVersionControlOkEn __attribute__((swift_name("getVersionControlOkEn()")));
-- (NSString *)getVersionControlOkEs __attribute__((swift_name("getVersionControlOkEs()")));
-- (NSString *)getVersionControlTitleCa __attribute__((swift_name("getVersionControlTitleCa()")));
-- (NSString *)getVersionControlTitleEn __attribute__((swift_name("getVersionControlTitleEn()")));
-- (NSString *)getVersionControlTitleEs __attribute__((swift_name("getVersionControlTitleEs()")));
-- (NSString *)getVersionControlUrl __attribute__((swift_name("getVersionControlUrl()")));
-- (BOOL)hasDontShowAgain __attribute__((swift_name("hasDontShowAgain()")));
-- (BOOL)hasLastDatetime __attribute__((swift_name("hasLastDatetime()")));
-- (BOOL)hasNumApertures __attribute__((swift_name("hasNumApertures()")));
-- (BOOL)hasRatingDateInterval __attribute__((swift_name("hasRatingDateInterval()")));
-- (BOOL)hasRatingNumApertures __attribute__((swift_name("hasRatingNumApertures()")));
-- (void)setDontShowAgainValue:(BOOL)value __attribute__((swift_name("setDontShowAgain(value:)")));
-- (void)setLastDatetimeValue:(int64_t)value __attribute__((swift_name("setLastDatetime(value:)")));
-- (void)setNumAperturesValue:(int32_t)value __attribute__((swift_name("setNumApertures(value:)")));
-- (void)setRatingControlMessageCaValue:(NSString *)value __attribute__((swift_name("setRatingControlMessageCa(value:)")));
-- (void)setRatingControlMessageEnValue:(NSString *)value __attribute__((swift_name("setRatingControlMessageEn(value:)")));
-- (void)setRatingControlMessageEsValue:(NSString *)value __attribute__((swift_name("setRatingControlMessageEs(value:)")));
-- (void)setRatingDateIntervalValue:(int32_t)value __attribute__((swift_name("setRatingDateInterval(value:)")));
-- (void)setRatingNumAperturesValue:(int32_t)value __attribute__((swift_name("setRatingNumApertures(value:)")));
-- (void)setVersionControlCancelCaValue:(NSString *)value __attribute__((swift_name("setVersionControlCancelCa(value:)")));
-- (void)setVersionControlCancelEnValue:(NSString *)value __attribute__((swift_name("setVersionControlCancelEn(value:)")));
-- (void)setVersionControlCancelEsValue:(NSString *)value __attribute__((swift_name("setVersionControlCancelEs(value:)")));
-- (void)setVersionControlComparisionModeValue:(OSAMCVersionComparisonMode *)value __attribute__((swift_name("setVersionControlComparisionMode(value:)")));
-- (void)setVersionControlMessageCaValue:(NSString *)value __attribute__((swift_name("setVersionControlMessageCa(value:)")));
-- (void)setVersionControlMessageEnValue:(NSString *)value __attribute__((swift_name("setVersionControlMessageEn(value:)")));
-- (void)setVersionControlMessageEsValue:(NSString *)value __attribute__((swift_name("setVersionControlMessageEs(value:)")));
-- (void)setVersionControlOkCaValue:(NSString *)value __attribute__((swift_name("setVersionControlOkCa(value:)")));
-- (void)setVersionControlOkEnValue:(NSString *)value __attribute__((swift_name("setVersionControlOkEn(value:)")));
-- (void)setVersionControlOkEsValue:(NSString *)value __attribute__((swift_name("setVersionControlOkEs(value:)")));
-- (void)setVersionControlTitleCaValue:(NSString *)value __attribute__((swift_name("setVersionControlTitleCa(value:)")));
-- (void)setVersionControlTitleEnValue:(NSString *)value __attribute__((swift_name("setVersionControlTitleEn(value:)")));
-- (void)setVersionControlTitleEsValue:(NSString *)value __attribute__((swift_name("setVersionControlTitleEs(value:)")));
-- (void)setVersionControlUrlValue:(NSString *)value __attribute__((swift_name("setVersionControlUrl(value:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonPreferences")))
-@interface OSAMCCommonPreferences : OSAMCBase <OSAMCPreferences>
-- (instancetype)initWithSettings:(OSAMCSettings *)settings __attribute__((swift_name("init(settings:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) OSAMCCommonPreferencesCompanion *companion __attribute__((swift_name("companion")));
-- (void)clear __attribute__((swift_name("clear()")));
-- (BOOL)getDontShowAgain __attribute__((swift_name("getDontShowAgain()")));
-- (int64_t)getLastDatetime __attribute__((swift_name("getLastDatetime()")));
-- (int32_t)getNumApertures __attribute__((swift_name("getNumApertures()")));
-- (NSString *)getRatingControlMessageCa __attribute__((swift_name("getRatingControlMessageCa()")));
-- (NSString *)getRatingControlMessageEn __attribute__((swift_name("getRatingControlMessageEn()")));
-- (NSString *)getRatingControlMessageEs __attribute__((swift_name("getRatingControlMessageEs()")));
-- (int32_t)getRatingDateInterval __attribute__((swift_name("getRatingDateInterval()")));
-- (int32_t)getRatingNumApertures __attribute__((swift_name("getRatingNumApertures()")));
-- (NSString *)getVersionControlCancelCa __attribute__((swift_name("getVersionControlCancelCa()")));
-- (NSString *)getVersionControlCancelEn __attribute__((swift_name("getVersionControlCancelEn()")));
-- (NSString *)getVersionControlCancelEs __attribute__((swift_name("getVersionControlCancelEs()")));
-- (OSAMCVersionComparisonMode *)getVersionControlComparisionMode __attribute__((swift_name("getVersionControlComparisionMode()")));
-- (NSString *)getVersionControlMessageCa __attribute__((swift_name("getVersionControlMessageCa()")));
-- (NSString *)getVersionControlMessageEn __attribute__((swift_name("getVersionControlMessageEn()")));
-- (NSString *)getVersionControlMessageEs __attribute__((swift_name("getVersionControlMessageEs()")));
-- (NSString *)getVersionControlOkCa __attribute__((swift_name("getVersionControlOkCa()")));
-- (NSString *)getVersionControlOkEn __attribute__((swift_name("getVersionControlOkEn()")));
-- (NSString *)getVersionControlOkEs __attribute__((swift_name("getVersionControlOkEs()")));
-- (NSString *)getVersionControlTitleCa __attribute__((swift_name("getVersionControlTitleCa()")));
-- (NSString *)getVersionControlTitleEn __attribute__((swift_name("getVersionControlTitleEn()")));
-- (NSString *)getVersionControlTitleEs __attribute__((swift_name("getVersionControlTitleEs()")));
-- (NSString *)getVersionControlUrl __attribute__((swift_name("getVersionControlUrl()")));
-- (BOOL)hasDontShowAgain __attribute__((swift_name("hasDontShowAgain()")));
-- (BOOL)hasLastDatetime __attribute__((swift_name("hasLastDatetime()")));
-- (BOOL)hasNumApertures __attribute__((swift_name("hasNumApertures()")));
-- (BOOL)hasRatingDateInterval __attribute__((swift_name("hasRatingDateInterval()")));
-- (BOOL)hasRatingNumApertures __attribute__((swift_name("hasRatingNumApertures()")));
-- (void)setDontShowAgainValue:(BOOL)value __attribute__((swift_name("setDontShowAgain(value:)")));
-- (void)setLastDatetimeValue:(int64_t)value __attribute__((swift_name("setLastDatetime(value:)")));
-- (void)setNumAperturesValue:(int32_t)value __attribute__((swift_name("setNumApertures(value:)")));
-- (void)setRatingControlMessageCaValue:(NSString *)value __attribute__((swift_name("setRatingControlMessageCa(value:)")));
-- (void)setRatingControlMessageEnValue:(NSString *)value __attribute__((swift_name("setRatingControlMessageEn(value:)")));
-- (void)setRatingControlMessageEsValue:(NSString *)value __attribute__((swift_name("setRatingControlMessageEs(value:)")));
-- (void)setRatingDateIntervalValue:(int32_t)value __attribute__((swift_name("setRatingDateInterval(value:)")));
-- (void)setRatingNumAperturesValue:(int32_t)value __attribute__((swift_name("setRatingNumApertures(value:)")));
-- (void)setVersionControlCancelCaValue:(NSString *)value __attribute__((swift_name("setVersionControlCancelCa(value:)")));
-- (void)setVersionControlCancelEnValue:(NSString *)value __attribute__((swift_name("setVersionControlCancelEn(value:)")));
-- (void)setVersionControlCancelEsValue:(NSString *)value __attribute__((swift_name("setVersionControlCancelEs(value:)")));
-- (void)setVersionControlComparisionModeValue:(OSAMCVersionComparisonMode *)value __attribute__((swift_name("setVersionControlComparisionMode(value:)")));
-- (void)setVersionControlMessageCaValue:(NSString *)value __attribute__((swift_name("setVersionControlMessageCa(value:)")));
-- (void)setVersionControlMessageEnValue:(NSString *)value __attribute__((swift_name("setVersionControlMessageEn(value:)")));
-- (void)setVersionControlMessageEsValue:(NSString *)value __attribute__((swift_name("setVersionControlMessageEs(value:)")));
-- (void)setVersionControlOkCaValue:(NSString *)value __attribute__((swift_name("setVersionControlOkCa(value:)")));
-- (void)setVersionControlOkEnValue:(NSString *)value __attribute__((swift_name("setVersionControlOkEn(value:)")));
-- (void)setVersionControlOkEsValue:(NSString *)value __attribute__((swift_name("setVersionControlOkEs(value:)")));
-- (void)setVersionControlTitleCaValue:(NSString *)value __attribute__((swift_name("setVersionControlTitleCa(value:)")));
-- (void)setVersionControlTitleEnValue:(NSString *)value __attribute__((swift_name("setVersionControlTitleEn(value:)")));
-- (void)setVersionControlTitleEsValue:(NSString *)value __attribute__((swift_name("setVersionControlTitleEs(value:)")));
-- (void)setVersionControlUrlValue:(NSString *)value __attribute__((swift_name("setVersionControlUrl(value:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonPreferences.Companion")))
-@interface OSAMCCommonPreferencesCompanion : OSAMCBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCCommonPreferencesCompanion *shared __attribute__((swift_name("shared")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("TokenFeature")))
-@interface OSAMCTokenFeature : OSAMCBase
-@property (class, readonly, getter=companion) OSAMCTokenFeatureFeature *companion __attribute__((swift_name("companion")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("TokenFeature.Config")))
-@interface OSAMCTokenFeatureConfig : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (OSAMCTokenFeature *)build __attribute__((swift_name("build()")));
-@property id<OSAMCPreferences> _Nullable tokenProvider __attribute__((swift_name("tokenProvider")));
-@end;
-
-__attribute__((swift_name("Ktor_client_coreHttpClientFeature")))
-@protocol OSAMCKtor_client_coreHttpClientFeature
-@required
-- (void)installFeature:(id)feature scope:(OSAMCKtor_client_coreHttpClient *)scope __attribute__((swift_name("install(feature:scope:)")));
-- (id)prepareBlock:(void (^)(id))block __attribute__((swift_name("prepare(block:)")));
-@property (readonly) OSAMCKtor_utilsAttributeKey<id> *key __attribute__((swift_name("key")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("TokenFeature.Feature")))
-@interface OSAMCTokenFeatureFeature : OSAMCBase <OSAMCKtor_client_coreHttpClientFeature>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)feature __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCTokenFeatureFeature *shared __attribute__((swift_name("shared")));
-- (void)installFeature:(OSAMCTokenFeature *)feature scope:(OSAMCKtor_client_coreHttpClient *)scope __attribute__((swift_name("install(feature:scope:)")));
-- (OSAMCTokenFeature *)prepareBlock:(void (^)(OSAMCTokenFeatureConfig *))block __attribute__((swift_name("prepare(block:)")));
-@property (readonly) OSAMCKtor_utilsAttributeKey<OSAMCTokenFeature *> *key __attribute__((swift_name("key")));
-@end;
-
 __attribute__((swift_name("CrashlyticsWrapper")))
 @protocol OSAMCCrashlyticsWrapper
 @required
 - (void)recordExceptionClassName:(NSString *)className stackTrace:(NSString *)stackTrace __attribute__((swift_name("recordException(className:stackTrace:)")));
 @end;
 
-@interface OSAMCText (Extensions)
-- (NSString *)localizeLanguage:(OSAMCLanguage *)language __attribute__((swift_name("localize(language:)")));
-@end;
-
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommonExtensionsKt")))
-@interface OSAMCCommonExtensionsKt : OSAMCBase
-+ (OSAMCKotlinEnum *)getEnumFromNameName:(NSString *)name default:(OSAMCKotlinEnum *)default_ __attribute__((swift_name("getEnumFromName(name:default:)")));
+__attribute__((swift_name("IOSExtensionsKt")))
+@interface OSAMCIOSExtensionsKt : OSAMCBase
++ (int64_t)getCurrentDate __attribute__((swift_name("getCurrentDate()")));
++ (int64_t)getMilliseconds:(NSDate *)receiver __attribute__((swift_name("getMilliseconds(_:)")));
+@property (class, readonly) BOOL isDebug __attribute__((swift_name("isDebug")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -781,25 +442,6 @@ __attribute__((swift_name("KotlinSuspendFunction1")))
 - (void)invokeP1:(id _Nullable)p1 completionHandler:(void (^)(id _Nullable_result, NSError * _Nullable))completionHandler __attribute__((swift_name("invoke(p1:completionHandler:)")));
 @end;
 
-__attribute__((swift_name("Kotlinx_serialization_coreSerializationStrategy")))
-@protocol OSAMCKotlinx_serialization_coreSerializationStrategy
-@required
-- (void)serializeEncoder:(id<OSAMCKotlinx_serialization_coreEncoder>)encoder value:(id _Nullable)value __attribute__((swift_name("serialize(encoder:value:)")));
-@property (readonly) id<OSAMCKotlinx_serialization_coreSerialDescriptor> descriptor __attribute__((swift_name("descriptor")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreDeserializationStrategy")))
-@protocol OSAMCKotlinx_serialization_coreDeserializationStrategy
-@required
-- (id _Nullable)deserializeDecoder:(id<OSAMCKotlinx_serialization_coreDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
-@property (readonly) id<OSAMCKotlinx_serialization_coreSerialDescriptor> descriptor __attribute__((swift_name("descriptor")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreKSerializer")))
-@protocol OSAMCKotlinx_serialization_coreKSerializer <OSAMCKotlinx_serialization_coreSerializationStrategy, OSAMCKotlinx_serialization_coreDeserializationStrategy>
-@required
-@end;
-
 __attribute__((swift_name("Kotlinx_coroutines_coreCoroutineScope")))
 @protocol OSAMCKotlinx_coroutines_coreCoroutineScope
 @required
@@ -838,14 +480,6 @@ __attribute__((swift_name("Ktor_client_coreHttpClient")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_utilsAttributeKey")))
-@interface OSAMCKtor_utilsAttributeKey<T> : OSAMCBase
-- (instancetype)initWithName:(NSString *)name __attribute__((swift_name("init(name:)"))) __attribute__((objc_designated_initializer));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSString *name __attribute__((swift_name("name")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_client_coreHttpClientConfig")))
 @interface OSAMCKtor_client_coreHttpClientConfig<T> : OSAMCBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
@@ -867,67 +501,6 @@ __attribute__((swift_name("KotlinIterator")))
 @required
 - (BOOL)hasNext __attribute__((swift_name("hasNext()")));
 - (id _Nullable)next __attribute__((swift_name("next()")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreEncoder")))
-@protocol OSAMCKotlinx_serialization_coreEncoder
-@required
-- (id<OSAMCKotlinx_serialization_coreCompositeEncoder>)beginCollectionDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor collectionSize:(int32_t)collectionSize __attribute__((swift_name("beginCollection(descriptor:collectionSize:)")));
-- (id<OSAMCKotlinx_serialization_coreCompositeEncoder>)beginStructureDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("beginStructure(descriptor:)")));
-- (void)encodeBooleanValue:(BOOL)value __attribute__((swift_name("encodeBoolean(value:)")));
-- (void)encodeByteValue:(int8_t)value __attribute__((swift_name("encodeByte(value:)")));
-- (void)encodeCharValue:(unichar)value __attribute__((swift_name("encodeChar(value:)")));
-- (void)encodeDoubleValue:(double)value __attribute__((swift_name("encodeDouble(value:)")));
-- (void)encodeEnumEnumDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)enumDescriptor index:(int32_t)index __attribute__((swift_name("encodeEnum(enumDescriptor:index:)")));
-- (void)encodeFloatValue:(float)value __attribute__((swift_name("encodeFloat(value:)")));
-- (id<OSAMCKotlinx_serialization_coreEncoder>)encodeInlineInlineDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)inlineDescriptor __attribute__((swift_name("encodeInline(inlineDescriptor:)")));
-- (void)encodeIntValue:(int32_t)value __attribute__((swift_name("encodeInt(value:)")));
-- (void)encodeLongValue:(int64_t)value __attribute__((swift_name("encodeLong(value:)")));
-- (void)encodeNotNullMark __attribute__((swift_name("encodeNotNullMark()")));
-- (void)encodeNull __attribute__((swift_name("encodeNull()")));
-- (void)encodeNullableSerializableValueSerializer:(id<OSAMCKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableValue(serializer:value:)")));
-- (void)encodeSerializableValueSerializer:(id<OSAMCKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeSerializableValue(serializer:value:)")));
-- (void)encodeShortValue:(int16_t)value __attribute__((swift_name("encodeShort(value:)")));
-- (void)encodeStringValue:(NSString *)value __attribute__((swift_name("encodeString(value:)")));
-@property (readonly) OSAMCKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreSerialDescriptor")))
-@protocol OSAMCKotlinx_serialization_coreSerialDescriptor
-@required
-- (NSArray<id<OSAMCKotlinAnnotation>> *)getElementAnnotationsIndex:(int32_t)index __attribute__((swift_name("getElementAnnotations(index:)")));
-- (id<OSAMCKotlinx_serialization_coreSerialDescriptor>)getElementDescriptorIndex:(int32_t)index __attribute__((swift_name("getElementDescriptor(index:)")));
-- (int32_t)getElementIndexName:(NSString *)name __attribute__((swift_name("getElementIndex(name:)")));
-- (NSString *)getElementNameIndex:(int32_t)index __attribute__((swift_name("getElementName(index:)")));
-- (BOOL)isElementOptionalIndex:(int32_t)index __attribute__((swift_name("isElementOptional(index:)")));
-@property (readonly) NSArray<id<OSAMCKotlinAnnotation>> *annotations __attribute__((swift_name("annotations")));
-@property (readonly) int32_t elementsCount __attribute__((swift_name("elementsCount")));
-@property (readonly) BOOL isInline __attribute__((swift_name("isInline")));
-@property (readonly) BOOL isNullable __attribute__((swift_name("isNullable")));
-@property (readonly) OSAMCKotlinx_serialization_coreSerialKind *kind __attribute__((swift_name("kind")));
-@property (readonly) NSString *serialName __attribute__((swift_name("serialName")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreDecoder")))
-@protocol OSAMCKotlinx_serialization_coreDecoder
-@required
-- (id<OSAMCKotlinx_serialization_coreCompositeDecoder>)beginStructureDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("beginStructure(descriptor:)")));
-- (BOOL)decodeBoolean __attribute__((swift_name("decodeBoolean()")));
-- (int8_t)decodeByte __attribute__((swift_name("decodeByte()")));
-- (unichar)decodeChar __attribute__((swift_name("decodeChar()")));
-- (double)decodeDouble __attribute__((swift_name("decodeDouble()")));
-- (int32_t)decodeEnumEnumDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)enumDescriptor __attribute__((swift_name("decodeEnum(enumDescriptor:)")));
-- (float)decodeFloat __attribute__((swift_name("decodeFloat()")));
-- (id<OSAMCKotlinx_serialization_coreDecoder>)decodeInlineInlineDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)inlineDescriptor __attribute__((swift_name("decodeInline(inlineDescriptor:)")));
-- (int32_t)decodeInt __attribute__((swift_name("decodeInt()")));
-- (int64_t)decodeLong __attribute__((swift_name("decodeLong()")));
-- (BOOL)decodeNotNullMark __attribute__((swift_name("decodeNotNullMark()")));
-- (OSAMCKotlinNothing * _Nullable)decodeNull __attribute__((swift_name("decodeNull()")));
-- (id _Nullable)decodeNullableSerializableValueDeserializer:(id<OSAMCKotlinx_serialization_coreDeserializationStrategy>)deserializer __attribute__((swift_name("decodeNullableSerializableValue(deserializer:)")));
-- (id _Nullable)decodeSerializableValueDeserializer:(id<OSAMCKotlinx_serialization_coreDeserializationStrategy>)deserializer __attribute__((swift_name("decodeSerializableValue(deserializer:)")));
-- (int16_t)decodeShort __attribute__((swift_name("decodeShort()")));
-- (NSString *)decodeString __attribute__((swift_name("decodeString()")));
-@property (readonly) OSAMCKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
 @end;
 
 __attribute__((swift_name("KotlinCoroutineContext")))
@@ -1137,74 +710,12 @@ __attribute__((swift_name("Ktor_client_coreHttpSendPipeline")))
 @property (readonly) BOOL developmentMode __attribute__((swift_name("developmentMode")));
 @end;
 
-__attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
-@protocol OSAMCKotlinx_serialization_coreCompositeEncoder
+__attribute__((swift_name("Ktor_client_coreHttpClientFeature")))
+@protocol OSAMCKtor_client_coreHttpClientFeature
 @required
-- (void)encodeBooleanElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(BOOL)value __attribute__((swift_name("encodeBooleanElement(descriptor:index:value:)")));
-- (void)encodeByteElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int8_t)value __attribute__((swift_name("encodeByteElement(descriptor:index:value:)")));
-- (void)encodeCharElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(unichar)value __attribute__((swift_name("encodeCharElement(descriptor:index:value:)")));
-- (void)encodeDoubleElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(double)value __attribute__((swift_name("encodeDoubleElement(descriptor:index:value:)")));
-- (void)encodeFloatElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(float)value __attribute__((swift_name("encodeFloatElement(descriptor:index:value:)")));
-- (id<OSAMCKotlinx_serialization_coreEncoder>)encodeInlineElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("encodeInlineElement(descriptor:index:)")));
-- (void)encodeIntElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int32_t)value __attribute__((swift_name("encodeIntElement(descriptor:index:value:)")));
-- (void)encodeLongElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int64_t)value __attribute__((swift_name("encodeLongElement(descriptor:index:value:)")));
-- (void)encodeNullableSerializableElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index serializer:(id<OSAMCKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableElement(descriptor:index:serializer:value:)")));
-- (void)encodeSerializableElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index serializer:(id<OSAMCKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeSerializableElement(descriptor:index:serializer:value:)")));
-- (void)encodeShortElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int16_t)value __attribute__((swift_name("encodeShortElement(descriptor:index:value:)")));
-- (void)encodeStringElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(NSString *)value __attribute__((swift_name("encodeStringElement(descriptor:index:value:)")));
-- (void)endStructureDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("endStructure(descriptor:)")));
-- (BOOL)shouldEncodeElementDefaultDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("shouldEncodeElementDefault(descriptor:index:)")));
-@property (readonly) OSAMCKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreSerializersModule")))
-@interface OSAMCKotlinx_serialization_coreSerializersModule : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (void)dumpToCollector:(id<OSAMCKotlinx_serialization_coreSerializersModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
-- (id<OSAMCKotlinx_serialization_coreKSerializer> _Nullable)getContextualKClass:(id<OSAMCKotlinKClass>)kClass typeArgumentsSerializers:(NSArray<id<OSAMCKotlinx_serialization_coreKSerializer>> *)typeArgumentsSerializers __attribute__((swift_name("getContextual(kClass:typeArgumentsSerializers:)")));
-- (id<OSAMCKotlinx_serialization_coreSerializationStrategy> _Nullable)getPolymorphicBaseClass:(id<OSAMCKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
-- (id<OSAMCKotlinx_serialization_coreDeserializationStrategy> _Nullable)getPolymorphicBaseClass:(id<OSAMCKotlinKClass>)baseClass serializedClassName:(NSString * _Nullable)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
-@end;
-
-__attribute__((swift_name("KotlinAnnotation")))
-@protocol OSAMCKotlinAnnotation
-@required
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreSerialKind")))
-@interface OSAMCKotlinx_serialization_coreSerialKind : OSAMCBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreCompositeDecoder")))
-@protocol OSAMCKotlinx_serialization_coreCompositeDecoder
-@required
-- (BOOL)decodeBooleanElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeBooleanElement(descriptor:index:)")));
-- (int8_t)decodeByteElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeByteElement(descriptor:index:)")));
-- (unichar)decodeCharElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeCharElement(descriptor:index:)")));
-- (int32_t)decodeCollectionSizeDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("decodeCollectionSize(descriptor:)")));
-- (double)decodeDoubleElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeDoubleElement(descriptor:index:)")));
-- (int32_t)decodeElementIndexDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("decodeElementIndex(descriptor:)")));
-- (float)decodeFloatElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeFloatElement(descriptor:index:)")));
-- (id<OSAMCKotlinx_serialization_coreDecoder>)decodeInlineElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeInlineElement(descriptor:index:)")));
-- (int32_t)decodeIntElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeIntElement(descriptor:index:)")));
-- (int64_t)decodeLongElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeLongElement(descriptor:index:)")));
-- (id _Nullable)decodeNullableSerializableElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index deserializer:(id<OSAMCKotlinx_serialization_coreDeserializationStrategy>)deserializer previousValue:(id _Nullable)previousValue __attribute__((swift_name("decodeNullableSerializableElement(descriptor:index:deserializer:previousValue:)")));
-- (BOOL)decodeSequentially __attribute__((swift_name("decodeSequentially()")));
-- (id _Nullable)decodeSerializableElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index deserializer:(id<OSAMCKotlinx_serialization_coreDeserializationStrategy>)deserializer previousValue:(id _Nullable)previousValue __attribute__((swift_name("decodeSerializableElement(descriptor:index:deserializer:previousValue:)")));
-- (int16_t)decodeShortElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeShortElement(descriptor:index:)")));
-- (NSString *)decodeStringElementDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeStringElement(descriptor:index:)")));
-- (void)endStructureDescriptor:(id<OSAMCKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("endStructure(descriptor:)")));
-@property (readonly) OSAMCKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KotlinNothing")))
-@interface OSAMCKotlinNothing : OSAMCBase
+- (void)installFeature:(id)feature scope:(OSAMCKtor_client_coreHttpClient *)scope __attribute__((swift_name("install(feature:scope:)")));
+- (id)prepareBlock:(void (^)(id))block __attribute__((swift_name("prepare(block:)")));
+@property (readonly) OSAMCKtor_utilsAttributeKey<id> *key __attribute__((swift_name("key")));
 @end;
 
 __attribute__((swift_name("KotlinCoroutineContextKey")))
@@ -1246,6 +757,11 @@ __attribute__((swift_name("Ktor_client_coreProxyConfig")))
 - (instancetype)initWithUrl:(OSAMCKtor_httpUrl *)url __attribute__((swift_name("init(url:)"))) __attribute__((objc_designated_initializer));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) OSAMCKtor_httpUrl *url __attribute__((swift_name("url")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinNothing")))
+@interface OSAMCKotlinNothing : OSAMCBase
 @end;
 
 __attribute__((swift_name("Ktor_utilsStringValuesBuilder")))
@@ -1559,6 +1075,14 @@ __attribute__((swift_name("Ktor_client_coreHttpResponse")))
 @property (readonly) OSAMCKtor_httpHttpProtocolVersion *version __attribute__((swift_name("version")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ktor_utilsAttributeKey")))
+@interface OSAMCKtor_utilsAttributeKey<T> : OSAMCBase
+- (instancetype)initWithName:(NSString *)name __attribute__((swift_name("init(name:)"))) __attribute__((objc_designated_initializer));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *name __attribute__((swift_name("name")));
+@end;
+
 __attribute__((swift_name("KotlinContinuation")))
 @protocol OSAMCKotlinContinuation
 @required
@@ -1673,40 +1197,6 @@ __attribute__((swift_name("Ktor_client_coreHttpSendPipeline.Phases")))
 @property (readonly) OSAMCKtor_utilsPipelinePhase *Monitoring __attribute__((swift_name("Monitoring")));
 @property (readonly) OSAMCKtor_utilsPipelinePhase *Receive __attribute__((swift_name("Receive")));
 @property (readonly) OSAMCKtor_utilsPipelinePhase *State __attribute__((swift_name("State")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreSerializersModuleCollector")))
-@protocol OSAMCKotlinx_serialization_coreSerializersModuleCollector
-@required
-- (void)contextualKClass:(id<OSAMCKotlinKClass>)kClass provider:(id<OSAMCKotlinx_serialization_coreKSerializer> (^)(NSArray<id<OSAMCKotlinx_serialization_coreKSerializer>> *))provider __attribute__((swift_name("contextual(kClass:provider:)")));
-- (void)contextualKClass:(id<OSAMCKotlinKClass>)kClass serializer:(id<OSAMCKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("contextual(kClass:serializer:)")));
-- (void)polymorphicBaseClass:(id<OSAMCKotlinKClass>)baseClass actualClass:(id<OSAMCKotlinKClass>)actualClass actualSerializer:(id<OSAMCKotlinx_serialization_coreKSerializer>)actualSerializer __attribute__((swift_name("polymorphic(baseClass:actualClass:actualSerializer:)")));
-- (void)polymorphicDefaultBaseClass:(id<OSAMCKotlinKClass>)baseClass defaultDeserializerProvider:(id<OSAMCKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultDeserializerProvider __attribute__((swift_name("polymorphicDefault(baseClass:defaultDeserializerProvider:)")));
-- (void)polymorphicDefaultDeserializerBaseClass:(id<OSAMCKotlinKClass>)baseClass defaultDeserializerProvider:(id<OSAMCKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultDeserializerProvider __attribute__((swift_name("polymorphicDefaultDeserializer(baseClass:defaultDeserializerProvider:)")));
-- (void)polymorphicDefaultSerializerBaseClass:(id<OSAMCKotlinKClass>)baseClass defaultSerializerProvider:(id<OSAMCKotlinx_serialization_coreSerializationStrategy> _Nullable (^)(id))defaultSerializerProvider __attribute__((swift_name("polymorphicDefaultSerializer(baseClass:defaultSerializerProvider:)")));
-@end;
-
-__attribute__((swift_name("KotlinKDeclarationContainer")))
-@protocol OSAMCKotlinKDeclarationContainer
-@required
-@end;
-
-__attribute__((swift_name("KotlinKAnnotatedElement")))
-@protocol OSAMCKotlinKAnnotatedElement
-@required
-@end;
-
-__attribute__((swift_name("KotlinKClassifier")))
-@protocol OSAMCKotlinKClassifier
-@required
-@end;
-
-__attribute__((swift_name("KotlinKClass")))
-@protocol OSAMCKotlinKClass <OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement, OSAMCKotlinKClassifier>
-@required
-- (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
-@property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
-@property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2147,6 +1637,29 @@ __attribute__((swift_name("KotlinKType")))
 @property (readonly) NSArray<OSAMCKotlinKTypeProjection *> *arguments __attribute__((swift_name("arguments")));
 @property (readonly) id<OSAMCKotlinKClassifier> _Nullable classifier __attribute__((swift_name("classifier")));
 @property (readonly) BOOL isMarkedNullable __attribute__((swift_name("isMarkedNullable")));
+@end;
+
+__attribute__((swift_name("KotlinKDeclarationContainer")))
+@protocol OSAMCKotlinKDeclarationContainer
+@required
+@end;
+
+__attribute__((swift_name("KotlinKAnnotatedElement")))
+@protocol OSAMCKotlinKAnnotatedElement
+@required
+@end;
+
+__attribute__((swift_name("KotlinKClassifier")))
+@protocol OSAMCKotlinKClassifier
+@required
+@end;
+
+__attribute__((swift_name("KotlinKClass")))
+@protocol OSAMCKotlinKClass <OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement, OSAMCKotlinKClassifier>
+@required
+- (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
+@property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
+@property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
 @end;
 
 __attribute__((swift_name("Ktor_httpParameters")))
