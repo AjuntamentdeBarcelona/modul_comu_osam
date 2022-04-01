@@ -10,7 +10,6 @@ import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.extensions.getCurrentDate
-import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.platform.PlatformAction
 import cat.bcn.commonmodule.platform.PlatformInformation
@@ -142,20 +141,14 @@ internal class OSAMCommonsInternal(
                                 alertWrapper.showRating(
                                     rating = rating,
                                     language = language,
-                                    onPositiveClick = {
-                                        f(RatingControlResponse.ACCEPTED)
-                                        // As in iOS the rating dialog is native, only in Android it's necessary to open the store
-                                        if (platformInformation.getPlatform() == Platform.ANDROID) {
-                                            platformAction.openUrl(platformInformation.getAppsStoreUrl())
+                                    onRatingPopupShown = {
+                                        preferences.setLastDatetime(getCurrentDate())
+                                        if (preferences.getNumApertures() >= rating.numAperture) {
+                                            preferences.setNumApertures(0)
                                         }
-                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.ACCEPTED)
+                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.SHOWN)
                                     },
                                 )
-                                preferences.setLastDatetime(getCurrentDate())
-                                if (preferences.getNumApertures() >= rating.numAperture) {
-                                    preferences.setNumApertures(0)
-                                }
-                                analytics.logRatingPopUp(CommonAnalytics.RatingAction.SHOWN)
                             } else {
                                 f(RatingControlResponse.LATER)
                             }

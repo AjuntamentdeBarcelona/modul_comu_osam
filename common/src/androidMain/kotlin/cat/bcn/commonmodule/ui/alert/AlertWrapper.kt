@@ -53,7 +53,7 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     actual fun showRating(
         rating: Rating,
         language: Language,
-        onPositiveClick: () -> Unit
+        onRatingPopupShown: () -> Unit
     ) {
         val activity = weakRefActivity.get()
 
@@ -65,7 +65,7 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
                     val reviewInfo = task.result
                     val flow = manager.launchReviewFlow(currentActivity, reviewInfo)
                     flow.addOnCompleteListener {
-                        onPositiveClick()
+                        onRatingPopupShown()
                     }
                 }
             }
