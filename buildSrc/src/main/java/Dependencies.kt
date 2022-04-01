@@ -10,7 +10,7 @@ const val google_play_core_ktx_version = "1.8.1"
 
 object App {
     const val applicationId = "cat.bcn.commonmodule"
-    const val minSdkVersion = 19
+    const val minSdkVersion = 21
     const val targetSdkVersion = 31
     const val versionCode = 2021050000
     const val versionName = "1.0.0"
