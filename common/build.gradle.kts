@@ -53,6 +53,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Common.Android.ktorClientCore)
+                implementation(Dependencies.Common.Android.googlePlayCore)
+                implementation(Dependencies.Common.Android.googlePlayCoreKtx)
             }
         }
 
