@@ -52,9 +52,6 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         rating: Rating,
         language: Language,
         onPositiveClick: () -> Unit,
-        onNegativeClick: () -> Unit,
-        onNeutralClick: () -> Unit,
-        onDismissClick: () -> Unit
     ) {
         SKStoreReviewController.requestReview()
         onPositiveClick()
