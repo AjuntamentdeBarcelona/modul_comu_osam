@@ -51,10 +51,10 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     actual fun showRating(
         rating: Rating,
         language: Language,
-        onPositiveClick: () -> Unit,
+        onRatingPopupShown: () -> Unit,
     ) {
         SKStoreReviewController.requestReview()
-        onPositiveClick()
+        onRatingPopupShown()
     }
 
     actual fun isVersionControlShowing(): Boolean =

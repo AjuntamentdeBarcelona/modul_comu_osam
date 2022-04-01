@@ -30,7 +30,7 @@ internal expect class AlertWrapper {
     fun showRating(
         rating: Rating,
         language: Language,
-        onPositiveClick: () -> Unit
+        onRatingPopupShown: () -> Unit
     )
 
     fun isVersionControlShowing(): Boolean

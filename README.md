@@ -424,8 +424,8 @@ aquest punt la casuistica.
     - Obligatori
     - Especifica la quantitat de vegades que s'ha d'obrir l'app perquè surti el popup
 - **message**
-    - Obligatori
-    - Missatge de l'alerta en cas que s'hagi de mostrar.
+    - Obsolet
+    - A partir de la versió 2.0.0, aquest paràmetre ja no es fa servir
 
 ## Com funciona el mòdul de control de versions
 
@@ -449,6 +449,4 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
   popup i el comptador es reinicia independentment de la resposta de l’usuari.*
 - La operativa no es veu modificada si hi ha un canvi de versió (és a dir, es mantenen els valors de
   comptatge de dies i de nº de apertures).
-- El text que es mostra al popup és configurable des del servei
-
-*En iOS es crida al SKStoreReviewController i la mateixa llibreria s'encarrega de quan mostrar-se
+- En cas de què s'hagi de mostrar el popup, a Android es crida a llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
