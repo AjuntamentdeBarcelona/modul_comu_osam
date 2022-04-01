@@ -1,5 +1,6 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
+import android.app.Activity
 import android.content.Context
 import cat.bcn.commonmodule.analytics.AnalyticsWrapper
 import cat.bcn.commonmodule.crashlytics.CrashlyticsWrapper
@@ -11,6 +12,7 @@ import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
 
 actual class OSAMCommons constructor(
+    activity: Activity,
     context: Context,
     backendEndpoint: String,
     crashlyticsWrapper: CrashlyticsWrapper,
@@ -21,7 +23,7 @@ actual class OSAMCommons constructor(
         backendEndpoint = backendEndpoint,
         executor = Executor(),
         settings = Settings("default", context),
-        alertWrapper = AlertWrapper(context),
+        alertWrapper = AlertWrapper(activity, context),
         platformAction = PlatformAction(context),
         platformInformation = PlatformInformation(context),
         internalCrashlyticsWrapper = InternalCrashlyticsWrapperImplementation(crashlyticsWrapper),

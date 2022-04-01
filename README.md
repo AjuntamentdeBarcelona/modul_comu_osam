@@ -97,7 +97,8 @@ Inicialitzarem el mòdul comú de la següent manera:
 ```kotlin
 private val osamCommons by lazy {
     OSAMCommons(
-        this,
+        activity = this,
+        context = this,
         backendEndpoint = getString(R.string.common_module_endpoint),
         crashlyticsWrapper = CrashlyticsWrapperAndroid(),
         analyticsWrapper = AnalyticsWrapperAndroid()

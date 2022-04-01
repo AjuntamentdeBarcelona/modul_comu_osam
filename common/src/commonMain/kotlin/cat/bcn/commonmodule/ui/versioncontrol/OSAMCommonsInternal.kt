@@ -150,18 +150,6 @@ internal class OSAMCommonsInternal(
                                         }
                                         analytics.logRatingPopUp(CommonAnalytics.RatingAction.ACCEPTED)
                                     },
-                                    onNegativeClick = {
-                                        f(RatingControlResponse.CANCELLED)
-                                        preferences.setDontShowAgain(true)
-                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.CANCELLED)
-                                    },
-                                    onNeutralClick = {
-                                        f(RatingControlResponse.LATER)
-                                        analytics.logRatingPopUp(CommonAnalytics.RatingAction.LATER)
-                                    },
-                                    onDismissClick = {
-                                        f(RatingControlResponse.DISMISSED)
-                                    }
                                 )
                                 preferences.setLastDatetime(getCurrentDate())
                                 if (preferences.getNumApertures() >= rating.numAperture) {

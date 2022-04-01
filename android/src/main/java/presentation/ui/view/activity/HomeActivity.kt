@@ -19,6 +19,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val osamCommons by lazy {
         OSAMCommons(
+            activity = this,
             context = this,
             backendEndpoint = getString(R.string.common_module_endpoint),
             crashlyticsWrapper = CrashlyticsWrapperAndroid(),
