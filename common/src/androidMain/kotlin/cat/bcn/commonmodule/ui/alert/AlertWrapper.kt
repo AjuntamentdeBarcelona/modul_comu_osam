@@ -1,12 +1,17 @@
 package cat.bcn.commonmodule.ui.alert
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.ui.versioncontrol.Language
+import com.google.android.play.core.review.ReviewManagerFactory
+import java.lang.ref.WeakReference
 
-internal actual class AlertWrapper(private val context: Context) {
+internal actual class AlertWrapper(activity: Activity, private val context: Context) {
+
+    private val weakRefActivity: WeakReference<Activity> = WeakReference(activity)
 
     private var versionControlAlert: AlertDialog? = null
     private var ratingAlert: AlertDialog? = null
@@ -48,21 +53,23 @@ internal actual class AlertWrapper(private val context: Context) {
     actual fun showRating(
         rating: Rating,
         language: Language,
-        onPositiveClick: () -> Unit,
-        onNegativeClick: () -> Unit,
-        onNeutralClick: () -> Unit,
-        onDismissClick: () -> Unit
+        onRatingPopupShown: () -> Unit
     ) {
-        val dialogRatingTitle = rating.title.localize(language)
-        val appLabel = context.applicationInfo.loadLabel(context.packageManager)
-        ratingAlert = AlertDialog.Builder(context)
-            .setTitle("$dialogRatingTitle $appLabel")
-            .setMessage(rating.message.localize(language))
-            .setPositiveButton(rating.ok.localize(language)) { _, _ -> onPositiveClick() }
-            .setNegativeButton(rating.cancel.localize(language)) { _, _ -> onNegativeClick() }
-            .setNeutralButton(rating.neutral.localize(language)) { _, _ -> onNeutralClick() }
-            .setOnCancelListener { onDismissClick() }
-            .show()
+        val activity = weakRefActivity.get()
+
+        activity?.let { currentActivity ->
+            val manager = ReviewManagerFactory.create(context)
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val reviewInfo = task.result
+                    val flow = manager.launchReviewFlow(currentActivity, reviewInfo)
+                    flow.addOnCompleteListener {
+                        onRatingPopupShown()
+                    }
+                }
+            }
+        }
     }
 
     actual fun isVersionControlShowing(): Boolean = versionControlAlert?.isShowing ?: false

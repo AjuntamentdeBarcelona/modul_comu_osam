@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "1.1.0"
+val libVersionName = "2.0.0"
 group = libGroup
 version = libVersionName
 
@@ -53,6 +53,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Common.Android.ktorClientCore)
+                implementation(Dependencies.Common.Android.googlePlayCore)
+                implementation(Dependencies.Common.Android.googlePlayCoreKtx)
             }
         }
 
