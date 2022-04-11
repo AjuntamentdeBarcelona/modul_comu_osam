@@ -241,8 +241,6 @@ __attribute__((swift_name("RatingControlResponse")))
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly) OSAMCRatingControlResponse *accepted __attribute__((swift_name("accepted")));
 @property (class, readonly) OSAMCRatingControlResponse *dismissed __attribute__((swift_name("dismissed")));
-@property (class, readonly) OSAMCRatingControlResponse *cancelled __attribute__((swift_name("cancelled")));
-@property (class, readonly) OSAMCRatingControlResponse *later __attribute__((swift_name("later")));
 @property (class, readonly) OSAMCRatingControlResponse *error __attribute__((swift_name("error")));
 + (OSAMCKotlinArray<OSAMCRatingControlResponse *> *)values __attribute__((swift_name("values()")));
 @end;
