@@ -147,10 +147,14 @@ internal class OSAMCommonsInternal(
                                             preferences.setNumApertures(0)
                                         }
                                         analytics.logRatingPopUp(CommonAnalytics.RatingAction.SHOWN)
+                                        f(RatingControlResponse.ACCEPTED)
+                                    },
+                                    onRatingPopupError = {
+                                        f(RatingControlResponse.ERROR)
                                     },
                                 )
                             } else {
-                                f(RatingControlResponse.LATER)
+                                f(RatingControlResponse.DISMISSED)
                             }
                         }
                     )

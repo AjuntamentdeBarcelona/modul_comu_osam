@@ -53,22 +53,29 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     actual fun showRating(
         rating: Rating,
         language: Language,
-        onRatingPopupShown: () -> Unit
+        onRatingPopupShown: () -> Unit,
+        onRatingPopupError: () -> Unit
     ) {
         val activity = weakRefActivity.get()
 
-        activity?.let { currentActivity ->
+        if (activity != null) {
             val manager = ReviewManagerFactory.create(context)
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val reviewInfo = task.result
-                    val flow = manager.launchReviewFlow(currentActivity, reviewInfo)
+                    val flow = manager.launchReviewFlow(activity, reviewInfo)
                     flow.addOnCompleteListener {
                         onRatingPopupShown()
+                    }.addOnFailureListener() {
+                        onRatingPopupError()
                     }
+                } else {
+                    onRatingPopupError()
                 }
             }
+        } else {
+            onRatingPopupError()
         }
     }
 

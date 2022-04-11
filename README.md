@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.0'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.1'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.0'
+pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.1'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -251,16 +251,15 @@ part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funciona
 l'aplicació. Lo que revem en el callback es l'objecte `RatingControlResponse`. Aquest objecte pot
 arrivar amb quatre valors possibles:
 
-- **ACCEPTED**: si l'usuari ha escollit el botó d'acceptar/ok
-- **DISMISSED**: si l'usuari ha tret el popup o no compleix les condicions per mostrar-li a l'usuari
-- **CANCELLED**: si l'usuari ha escollit el botó de cancel·lar
-- **LATER**: si l'usuari ha escollit que se li recordi "més tard"
+- **ACCEPTED**: s'ha sol·licitat que surti el popup natiu de valoració de Android: Google In-App Review
+- **DISMISSED**: el popup no compleix les condicions per mostrar-li a l'usuari
 - **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria o al mostrar el
   popup
 
-Per exemple: Si l'usuari cancel·la el popup, al callback rebriem
-l'objecte `RatingControlResponse.CANCELLED`. Si en el cas de que volgués fer alguna acció diferent
-si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica.
+Per exemple: Si l'usuari treu el popup, al callback rebriem
+l'objecte `RatingControlResponse.DISMISSED`. Si en el cas de que volgués fer alguna acció diferent
+si l'usuari ha tret el popup o aquest no compleix les condicions per sortir, es podria definir en
+aquest punt la casuistica.
 
 ### iOS
 
