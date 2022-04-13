@@ -55,14 +55,11 @@ Tindrem tres diferents tipus d'alerta:
 
 Pel que respecta al control de valoracions, la seva funcionalitat és mostrar periòdicament una popup
 que convida a l’usuari a deixar un comentari sobre l'app al market place corresponent (Google Play o
-AppStore). Per a Android, el popup té tres botons:
+AppStore). 
 
-- **Positiu** (“VALORAR ARA”): El sistema obre la web de l’app client en el market, i l’usuari només
-  haurà de fer ‘new review’ i deixar el seu comentari i valoració sobre l’app.
-- **Negatiu** (“NO, GRÀCIES”): El popup es tanca i no tornarà a aparèixer.
-- **Neutre** (“MÉS TARD”): El popup es tanca i tornarà a aparèixer en un futur.
+A Android s'utilitza la [llibreria de Google Play Core](https://developer.android.com/guide/playcore/in-app-review/kotlin-java)
 
-En canvi, per a iOS s'utilitza la llibreria nativa:
+A iOS s'utilitza la llibreria nativa:
 
 ```kotlin
 SKStoreReviewController.requestReview()
@@ -448,4 +445,4 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
   popup i el comptador es reinicia independentment de la resposta de l’usuari.*
 - La operativa no es veu modificada si hi ha un canvi de versió (és a dir, es mantenen els valors de
   comptatge de dies i de nº de apertures).
-- En cas de què s'hagi de mostrar el popup, a Android es crida a llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
+- En cas de què s'hagi de mostrar el popup, a Android es crida a la llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
