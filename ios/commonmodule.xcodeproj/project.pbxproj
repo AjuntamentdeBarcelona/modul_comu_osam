@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F3D885228E6ECC40006D367 /* OsUtilImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D885128E6ECC40006D367 /* OsUtilImpl.swift */; };
 		491DDC1A247D57E300748032 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491DDC19247D57E300748032 /* AppDelegate.swift */; };
 		491DDC1C247D57E300748032 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491DDC1B247D57E300748032 /* SceneDelegate.swift */; };
 		491DDC1E247D57E300748032 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491DDC1D247D57E300748032 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		13CB564D223594A534C3F28B /* Pods-commonmodule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-commonmodule.debug.xcconfig"; path = "Target Support Files/Pods-commonmodule/Pods-commonmodule.debug.xcconfig"; sourceTree = "<group>"; };
+		2F3D885128E6ECC40006D367 /* OsUtilImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OsUtilImpl.swift; sourceTree = "<group>"; };
 		491DDC16247D57E300748032 /* commonmodule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = commonmodule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		491DDC19247D57E300748032 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		491DDC1B247D57E300748032 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				491DDC22247D57E600748032 /* Assets.xcassets */,
 				491DDC24247D57E600748032 /* LaunchScreen.storyboard */,
 				491DDC27247D57E600748032 /* Info.plist */,
+				2F3D885128E6ECC40006D367 /* OsUtilImpl.swift */,
 			);
 			path = commonmodule;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76CC459327A04CF900EA163B /* AnalyticsWrapperIOS.swift in Sources */,
+				2F3D885228E6ECC40006D367 /* OsUtilImpl.swift in Sources */,
 				76CC459527A04D0600EA163B /* CrashlyticsWrapperIOS.swift in Sources */,
 				491DDC1E247D57E300748032 /* ViewController.swift in Sources */,
 				491DDC1A247D57E300748032 /* AppDelegate.swift in Sources */,

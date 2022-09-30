@@ -10,6 +10,7 @@ import cat.bcn.commonmodule.platform.PlatformAction
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
+import cat.bcn.commonmodule.platform.OsUtil
 
 actual class OSAMCommons constructor(
     activity: Activity,
@@ -17,6 +18,7 @@ actual class OSAMCommons constructor(
     backendEndpoint: String,
     crashlyticsWrapper: CrashlyticsWrapper,
     analyticsWrapper: AnalyticsWrapper,
+    osUtil: OsUtil,
 ) {
 
     private val internal = OSAMCommonsInternal(
@@ -27,7 +29,8 @@ actual class OSAMCommons constructor(
         platformAction = PlatformAction(context),
         platformInformation = PlatformInformation(context),
         internalCrashlyticsWrapper = InternalCrashlyticsWrapperImplementation(crashlyticsWrapper),
-        analyticsWrapper = analyticsWrapper
+        analyticsWrapper = analyticsWrapper,
+        osUtil = osUtil
     )
 
     actual fun versionControl(

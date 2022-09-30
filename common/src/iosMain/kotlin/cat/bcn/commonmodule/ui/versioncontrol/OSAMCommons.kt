@@ -9,12 +9,14 @@ import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
 import platform.UIKit.UIViewController
+import cat.bcn.commonmodule.platform.OsUtil
 
 actual class OSAMCommons constructor(
     vc: UIViewController,
     backendEndpoint: String,
     crashlyticsWrapper: CrashlyticsWrapper,
     analyticsWrapper: AnalyticsWrapper,
+    osUtil: OsUtil,
 ) {
 
     private val internal = OSAMCommonsInternal(
@@ -25,7 +27,8 @@ actual class OSAMCommons constructor(
         platformAction = PlatformAction(),
         platformInformation = PlatformInformation(),
         internalCrashlyticsWrapper = InternalCrashlyticsWrapperImplementation(crashlyticsWrapper),
-        analyticsWrapper = analyticsWrapper
+        analyticsWrapper = analyticsWrapper,
+        osUtil = osUtil
     )
 
     actual fun versionControl(

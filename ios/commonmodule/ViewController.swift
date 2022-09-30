@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var checkVersionControl: UIButton!
     
-    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint, crashlyticsWrapper: CrashlyticsWrapperIOS(), analyticsWrapper: AnalyticsWrapperIOS())
+    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint, crashlyticsWrapper: CrashlyticsWrapperIOS(), analyticsWrapper: AnalyticsWrapperIOS(), osUtil: OsUtilImpl())
     
     private var backendEndpoint: String {
         get {

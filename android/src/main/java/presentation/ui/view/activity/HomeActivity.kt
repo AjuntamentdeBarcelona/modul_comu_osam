@@ -4,6 +4,8 @@ import analytics.AnalyticsWrapperAndroid
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import cat.bcn.commonmodule.platform.OsUtil
+import cat.bcn.commonmodule.platform.OsUtilImpl
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
 import com.app.app.R
@@ -23,7 +25,8 @@ class HomeActivity : AppCompatActivity() {
             context = this,
             backendEndpoint = getString(R.string.common_module_endpoint),
             crashlyticsWrapper = CrashlyticsWrapperAndroid(),
-            analyticsWrapper = AnalyticsWrapperAndroid(this)
+            analyticsWrapper = AnalyticsWrapperAndroid(this),
+            osUtil = OsUtilImpl(this)
         )
     }
 
