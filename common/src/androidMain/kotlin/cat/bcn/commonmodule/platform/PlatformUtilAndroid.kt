@@ -3,10 +3,9 @@ package cat.bcn.commonmodule.platform
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 
-class OsUtilImpl(private val context: Context) : OsUtil {
+class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
     override fun encodeUrl(url: String): String? {
         return url
     }
