@@ -17,7 +17,7 @@ enum class VersionControlResponse {
 }
 
 enum class RatingControlResponse {
-    ACCEPTED, DISMISSED, CANCELLED, LATER, ERROR
+    ACCEPTED, DISMISSED, ERROR
 }
 
 enum class Language {

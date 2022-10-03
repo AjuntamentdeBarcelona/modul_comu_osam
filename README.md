@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.0'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.2'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.0'
+pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.2'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -55,14 +55,11 @@ Tindrem tres diferents tipus d'alerta:
 
 Pel que respecta al control de valoracions, la seva funcionalitat és mostrar periòdicament una popup
 que convida a l’usuari a deixar un comentari sobre l'app al market place corresponent (Google Play o
-AppStore). Per a Android, el popup té tres botons:
+AppStore). 
 
-- **Positiu** (“VALORAR ARA”): El sistema obre la web de l’app client en el market, i l’usuari només
-  haurà de fer ‘new review’ i deixar el seu comentari i valoració sobre l’app.
-- **Negatiu** (“NO, GRÀCIES”): El popup es tanca i no tornarà a aparèixer.
-- **Neutre** (“MÉS TARD”): El popup es tanca i tornarà a aparèixer en un futur.
+A Android s'utilitza la [llibreria de Google Play Core](https://developer.android.com/guide/playcore/in-app-review/kotlin-java)
 
-En canvi, per a iOS s'utilitza la llibreria nativa:
+A iOS s'utilitza la llibreria nativa:
 
 ```kotlin
 SKStoreReviewController.requestReview()
@@ -101,12 +98,13 @@ private val osamCommons by lazy {
         context = this,
         backendEndpoint = getString(R.string.common_module_endpoint),
         crashlyticsWrapper = CrashlyticsWrapperAndroid(),
-        analyticsWrapper = AnalyticsWrapperAndroid()
+        analyticsWrapper = AnalyticsWrapperAndroid(),
+        platformUtil = platformUtilAndroid()
     )
 }
 ```
 
-A continuació s'indiquen les implementacions del wrapper de crashlytics i analytics:
+A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics i platform util:
 
 ```kotlin
 class CrashlyticsWrapperAndroid : CrashlyticsWrapper {
@@ -130,6 +128,19 @@ class AnalyticsWrapperAndroid(context: Context) : AnalyticsWrapper {
             }
         }
 }
+
+class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
+  override fun encodeUrl(url: String): String? {
+    return url
+  }
+
+  override fun openUrl(url: String): Boolean {
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.data = Uri.parse(url)
+    ContextCompat.startActivity(context, intent, null)
+    return true
+  }
+}
 ```
 
 ### iOS
@@ -140,7 +151,8 @@ Inicialitzarem el mòdul comú de la següent manera:
 lazy var osamCommons = OSAMCommons(
     vc: self, backendEndpoint: <url_endpoint_modul_comu>,
     crashlyticsWrapper: CrashlyticsWrapperIOS(),
-    analyticsWrapper: AnalyticsWrapperIOS()
+    analyticsWrapper: AnalyticsWrapperIOS(),
+    platformUtil: PlatformUtilIOS()
   )
 ```
 
@@ -157,6 +169,22 @@ class CrashlyticsWrapperIOS: CrashlyticsWrapper {
 class AnalyticsWrapperIOS: AnalyticsWrapper {
     func logEvent(name: String, parameters: [String : String]) {
         Analytics.logEvent(name, parameters: parameters)
+    }
+}
+
+class PlatformUtilIOS : PlatformUtil {
+    func encodeUrl(url: String) -> String? {
+        let urlString: String? = url.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+        return urlString
+    }
+    
+    func openUrl(url: String) -> Bool {
+        if let urlObj = URL(string: url) {
+            UIApplication.shared.open(urlObj)
+            return true
+        } else {
+            return false
+        }
     }
 }
 ```
@@ -251,16 +279,15 @@ part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funciona
 l'aplicació. Lo que revem en el callback es l'objecte `RatingControlResponse`. Aquest objecte pot
 arrivar amb quatre valors possibles:
 
-- **ACCEPTED**: si l'usuari ha escollit el botó d'acceptar/ok
-- **DISMISSED**: si l'usuari ha tret el popup o no compleix les condicions per mostrar-li a l'usuari
-- **CANCELLED**: si l'usuari ha escollit el botó de cancel·lar
-- **LATER**: si l'usuari ha escollit que se li recordi "més tard"
+- **ACCEPTED**: s'ha sol·licitat que surti el popup natiu de valoració de Android: Google In-App Review
+- **DISMISSED**: el popup no compleix les condicions per mostrar-li a l'usuari
 - **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria o al mostrar el
   popup
 
-Per exemple: Si l'usuari cancel·la el popup, al callback rebriem
-l'objecte `RatingControlResponse.CANCELLED`. Si en el cas de que volgués fer alguna acció diferent
-si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica.
+Per exemple: Si l'usuari treu el popup, al callback rebriem
+l'objecte `RatingControlResponse.DISMISSED`. Si en el cas de que volgués fer alguna acció diferent
+si l'usuari ha tret el popup o aquest no compleix les condicions per sortir, es podria definir en
+aquest punt la casuistica.
 
 ### iOS
 
@@ -449,4 +476,4 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
   popup i el comptador es reinicia independentment de la resposta de l’usuari.*
 - La operativa no es veu modificada si hi ha un canvi de versió (és a dir, es mantenen els valors de
   comptatge de dies i de nº de apertures).
-- En cas de què s'hagi de mostrar el popup, a Android es crida a llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
+- En cas de què s'hagi de mostrar el popup, a Android es crida a la llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.

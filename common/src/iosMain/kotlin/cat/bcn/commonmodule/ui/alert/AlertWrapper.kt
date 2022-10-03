@@ -52,6 +52,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         rating: Rating,
         language: Language,
         onRatingPopupShown: () -> Unit,
+        onRatingPopupError: () -> Unit
     ) {
         SKStoreReviewController.requestReview()
         onRatingPopupShown()
