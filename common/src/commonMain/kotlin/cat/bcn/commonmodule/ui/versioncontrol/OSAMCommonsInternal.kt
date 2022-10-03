@@ -11,7 +11,7 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.Version
-import cat.bcn.commonmodule.platform.PlatformAction
+import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
@@ -24,10 +24,10 @@ internal class OSAMCommonsInternal(
     private val executor: Executor,
     settings: Settings,
     private val alertWrapper: AlertWrapper,
-    private val platformAction: PlatformAction,
     private val platformInformation: PlatformInformation,
     private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
     analyticsWrapper: AnalyticsWrapper,
+    private val platformUtil: PlatformUtil,
 ) {
     private val preferences: Preferences by lazy { CommonPreferences(settings) }
     private val analytics: CommonAnalytics by lazy { CommonAnalytics(analyticsWrapper) }
@@ -60,7 +60,7 @@ internal class OSAMCommonsInternal(
                                         language = language,
                                         onPositiveClick = {
                                             f(VersionControlResponse.ACCEPTED)
-                                            platformAction.openUrl(version.url)
+                                            platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                                             analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
                                         }
                                     )
@@ -69,7 +69,7 @@ internal class OSAMCommonsInternal(
                                         language = language,
                                         onPositiveClick = {
                                             f(VersionControlResponse.ACCEPTED)
-                                            platformAction.openUrl(version.url)
+                                            platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                                             analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
                                         },
                                         onNegativeClick = {

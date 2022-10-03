@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.1'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.2'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.1'
+pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.2'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -98,12 +98,13 @@ private val osamCommons by lazy {
         context = this,
         backendEndpoint = getString(R.string.common_module_endpoint),
         crashlyticsWrapper = CrashlyticsWrapperAndroid(),
-        analyticsWrapper = AnalyticsWrapperAndroid()
+        analyticsWrapper = AnalyticsWrapperAndroid(),
+        platformUtil = platformUtilAndroid()
     )
 }
 ```
 
-A continuació s'indiquen les implementacions del wrapper de crashlytics i analytics:
+A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics i platform util:
 
 ```kotlin
 class CrashlyticsWrapperAndroid : CrashlyticsWrapper {
@@ -127,6 +128,19 @@ class AnalyticsWrapperAndroid(context: Context) : AnalyticsWrapper {
             }
         }
 }
+
+class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
+  override fun encodeUrl(url: String): String? {
+    return url
+  }
+
+  override fun openUrl(url: String): Boolean {
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.data = Uri.parse(url)
+    ContextCompat.startActivity(context, intent, null)
+    return true
+  }
+}
 ```
 
 ### iOS
@@ -137,7 +151,8 @@ Inicialitzarem el mòdul comú de la següent manera:
 lazy var osamCommons = OSAMCommons(
     vc: self, backendEndpoint: <url_endpoint_modul_comu>,
     crashlyticsWrapper: CrashlyticsWrapperIOS(),
-    analyticsWrapper: AnalyticsWrapperIOS()
+    analyticsWrapper: AnalyticsWrapperIOS(),
+    platformUtil: PlatformUtilIOS()
   )
 ```
 
@@ -154,6 +169,22 @@ class CrashlyticsWrapperIOS: CrashlyticsWrapper {
 class AnalyticsWrapperIOS: AnalyticsWrapper {
     func logEvent(name: String, parameters: [String : String]) {
         Analytics.logEvent(name, parameters: parameters)
+    }
+}
+
+class PlatformUtilIOS : PlatformUtil {
+    func encodeUrl(url: String) -> String? {
+        let urlString: String? = url.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+        return urlString
+    }
+    
+    func openUrl(url: String) -> Bool {
+        if let urlObj = URL(string: url) {
+            UIApplication.shared.open(urlObj)
+            return true
+        } else {
+            return false
+        }
     }
 }
 ```
