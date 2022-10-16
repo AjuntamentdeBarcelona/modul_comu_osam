@@ -104,6 +104,15 @@ private val osamCommons by lazy {
 }
 ```
 
+La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_module_endpoint". El fixer quedaria de la següent manera:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_module_endpoint" translatable="false">https://dev-osam-modul-comu.dtibcn.cat/</string>
+</resources>
+```
+
 A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics i platform util:
 
 ```kotlin
@@ -154,6 +163,19 @@ lazy var osamCommons = OSAMCommons(
     analyticsWrapper: AnalyticsWrapperIOS(),
     platformUtil: PlatformUtilIOS()
   )
+```
+
+La URL del backend s'ha de declarar en el config_keys.plist amb el nom "common_module_endpoint". El fixer quedaria de la següent manera:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>common_module_endpoint</key>
+  <string>https://dev-osam-modul-comu.dtibcn.cat/</string>
+</dict>
+</plist>
 ```
 
 A continuació s'indiquen les implementacions del wrapper de Crashlytics i Analytics:
