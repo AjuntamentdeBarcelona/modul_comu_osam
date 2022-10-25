@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     @IBAction func onDeviceInformationClick(_ sender: Any) {
         osamCommons.deviceInformation(
             f: { deviceInformationResponse, deviceInformation in
-                self.showToast2(message: "deviceInformation: \(deviceInformationResponse.name), platformName: \(deviceInformation?.platformName), platformVersion: \(deviceInformation?.platformVersion), platformModel: \(deviceInformation?.platformModel)")
+                self.showToast2(message: "deviceInformation: \(deviceInformationResponse.name), platformName: \(deviceInformation!.platformName), platformVersion: \(deviceInformation!.platformVersion), platformModel: \(deviceInformation!.platformModel)")
             }
         )
     }
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     @IBAction func onAppInformationClick(_ sender: Any) {
         osamCommons.appInformation(
             f: { appInformationResponse, appInformation in
-                self.showToast2(message: "\(appInformationResponse.name), \(appInformation?.appVersionName), \(appInformation?.appVersionCode)")
+                self.showToast2(message: "\(appInformationResponse.name), \(appInformation!.appName), \(appInformation!.appVersionName), \(appInformation!.appVersionCode)")
             }
         )
     }
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
         toastLabel.layer.cornerRadius = 10;
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 8.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()

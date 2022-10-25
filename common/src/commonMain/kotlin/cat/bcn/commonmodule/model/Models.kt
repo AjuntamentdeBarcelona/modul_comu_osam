@@ -94,11 +94,12 @@ data class DeviceInformation(
 }
 
 data class AppInformation(
+    val appName: String,
     val appVersionName: String,
     val appVersionCode: String
 ) {
     override fun toString(): String {
-        return "appVersionName: ${appVersionName}, appVersionCode: ${appVersionCode}"
+        return "appName: ${appName}, appVersionName: ${appVersionName}, appVersionCode: ${appVersionCode}"
     }
 }
 

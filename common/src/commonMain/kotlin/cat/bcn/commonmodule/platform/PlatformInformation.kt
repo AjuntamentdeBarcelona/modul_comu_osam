@@ -10,6 +10,7 @@ internal expect class PlatformInformation {
     fun getPackageName(): String
     fun getVersionCode(): Long
     fun getVersionName(): String
+    fun getAppName(): String
     fun getAppsStoreUrl(): String
     fun isOnline(): Boolean
 }

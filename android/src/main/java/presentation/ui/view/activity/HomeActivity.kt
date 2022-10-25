@@ -61,7 +61,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.appInformationButton.setOnClickListener {
             osamCommons.appInformation { appInformationResponse, appInformation ->
-                Toast.makeText(this, "$appInformationResponse, ${appInformation?.appVersionName}, ${appInformation?.appVersionCode}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "$appInformationResponse, ${appInformation?.appName}, ${appInformation?.appVersionName}, ${appInformation?.appVersionCode}", Toast.LENGTH_LONG).show()
             }
         }
     }

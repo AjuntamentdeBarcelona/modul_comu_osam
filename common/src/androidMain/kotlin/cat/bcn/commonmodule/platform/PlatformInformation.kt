@@ -23,6 +23,8 @@ internal actual class PlatformInformation(private val context: Context) {
 
     actual fun getVersionName(): String = getPackageInfo().versionName
 
+    actual fun getAppName(): String = context.applicationInfo.loadLabel(context.packageManager).toString()
+
     actual fun getAppsStoreUrl(): String =
         "https://play.google.com/store/apps/details?id=${getPackageName()}"
 

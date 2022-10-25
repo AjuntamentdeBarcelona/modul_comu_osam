@@ -22,7 +22,9 @@ internal actual class PlatformInformation {
         (NSBundle.mainBundle.infoDictionary!!["CFBundleVersion"] as String).toLong()
 
     actual fun getVersionName(): String =
-        NSBundle.mainBundle.infoDictionary!!["CFBundleName"] as String
+        NSBundle.mainBundle.infoDictionary!!["CFBundleShortVersionString"] as String
+
+    actual fun getAppName(): String = NSBundle.mainBundle.infoDictionary!!["CFBundleName"] as String
 
     actual fun getAppsStoreUrl(): String = "itms-apps://itunes.apple.com/app/$appsStoreId"
 

@@ -116,6 +116,7 @@ internal class CommonRepository(
 
     suspend fun getAppInformation(): Either<CommonError, AppInformation> {
         val appInformation = AppInformation(
+            appName = platformInformation.getAppName(),
             appVersionName = platformInformation.getVersionName(),
             appVersionCode = platformInformation.getVersionCode().toString()
         )
