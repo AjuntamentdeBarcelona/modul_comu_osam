@@ -11,11 +11,19 @@ internal actual class PlatformInformation(private val context: Context) {
 
     actual fun getPlatform(): Platform = Platform.ANDROID
 
+    actual fun getPlatformName(): String = "android"
+
+    actual fun getPlatformVersion(): String = Build.VERSION.RELEASE
+
+    actual fun getPlatformModel(): String = Build.BRAND + " " + Build.MANUFACTURER + " " + Build.MODEL
+
     actual fun getPackageName(): String = context.packageName
 
     actual fun getVersionCode(): Long = getPackageInfo().versionCode.toLong()
 
     actual fun getVersionName(): String = getPackageInfo().versionName
+
+    actual fun getAppName(): String = context.applicationInfo.loadLabel(context.packageManager).toString()
 
     actual fun getAppsStoreUrl(): String =
         "https://play.google.com/store/apps/details?id=${getPackageName()}"

@@ -104,4 +104,22 @@ internal class CommonRepository(
         }
         return Either.Right(rating)
     }
+
+    suspend fun getDeviceInformation(): Either<CommonError, DeviceInformation> {
+        val deviceInformation = DeviceInformation(
+            platformName = platformInformation.getPlatformName(),
+            platformVersion = platformInformation.getPlatformVersion(),
+            platformModel = platformInformation.getPlatformModel(),
+        )
+        return Either.Right(deviceInformation)
+    }
+
+    suspend fun getAppInformation(): Either<CommonError, AppInformation> {
+        val appInformation = AppInformation(
+            appName = platformInformation.getAppName(),
+            appVersionName = platformInformation.getVersionName(),
+            appVersionCode = platformInformation.getVersionCode().toString()
+        )
+        return Either.Right(appInformation)
+    }
 }

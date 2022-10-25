@@ -47,6 +47,22 @@ class ViewController: UIViewController {
         )
     }
     
+    @IBAction func onDeviceInformationClick(_ sender: Any) {
+        osamCommons.deviceInformation(
+            f: { deviceInformationResponse, deviceInformation in
+                self.showToast2(message: "deviceInformation: \(deviceInformationResponse.name), platformName: \(deviceInformation!.platformName), platformVersion: \(deviceInformation!.platformVersion), platformModel: \(deviceInformation!.platformModel)")
+            }
+        )
+    }
+    
+    @IBAction func onAppInformationClick(_ sender: Any) {
+        osamCommons.appInformation(
+            f: { appInformationResponse, appInformation in
+                self.showToast2(message: "\(appInformationResponse.name), \(appInformation!.appName), \(appInformation!.appVersionName), \(appInformation!.appVersionCode)")
+            }
+        )
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -58,12 +74,34 @@ class ViewController: UIViewController {
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
         toastLabel.textAlignment = .center;
+        toastLabel.lineBreakMode = .byWordWrapping
+        toastLabel.numberOfLines = 0
         toastLabel.text = message
         toastLabel.alpha = 1.0
         toastLabel.layer.cornerRadius = 10;
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+    
+    private func showToast2(message : String, font: UIFont = .systemFont(ofSize: 12.0)) {
+        let toastLabel = UILabel(frame: CGRect(x: 20, y: self.view.frame.size.height-200, width: self.view.frame.size.width-40, height: 100))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.lineBreakMode = .byWordWrapping
+        toastLabel.numberOfLines = 0
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 8.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()

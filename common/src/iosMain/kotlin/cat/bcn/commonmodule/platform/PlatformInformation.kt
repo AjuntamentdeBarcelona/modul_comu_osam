@@ -2,6 +2,7 @@ package cat.bcn.commonmodule.platform
 
 import cat.bcn.commonmodule.model.Platform
 import platform.Foundation.NSBundle
+import platform.UIKit.UIDevice
 
 internal actual class PlatformInformation {
 
@@ -9,13 +10,21 @@ internal actual class PlatformInformation {
 
     actual fun getPlatform(): Platform = Platform.IOS
 
+    actual fun getPlatformName(): String = UIDevice.currentDevice.systemName()
+
+    actual fun getPlatformVersion(): String = UIDevice.currentDevice.systemVersion()
+
+    actual fun getPlatformModel(): String = UIDevice.currentDevice.model()
+
     actual fun getPackageName(): String = NSBundle.mainBundle.bundleIdentifier!!
 
     actual fun getVersionCode(): Long =
         (NSBundle.mainBundle.infoDictionary!!["CFBundleVersion"] as String).toLong()
 
     actual fun getVersionName(): String =
-        NSBundle.mainBundle.infoDictionary!!["CFBundleName"] as String
+        NSBundle.mainBundle.infoDictionary!!["CFBundleShortVersionString"] as String
+
+    actual fun getAppName(): String = NSBundle.mainBundle.infoDictionary!!["CFBundleName"] as String
 
     actual fun getAppsStoreUrl(): String = "itms-apps://itunes.apple.com/app/$appsStoreId"
 

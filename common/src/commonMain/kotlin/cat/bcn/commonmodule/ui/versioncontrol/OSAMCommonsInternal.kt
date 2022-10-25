@@ -10,6 +10,8 @@ import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.extensions.getCurrentDate
+import cat.bcn.commonmodule.model.AppInformation
+import cat.bcn.commonmodule.model.DeviceInformation
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.platform.PlatformInformation
@@ -164,6 +166,48 @@ internal class OSAMCommonsInternal(
                 }
             } else {
                 f(RatingControlResponse.ERROR)
+            }
+        }
+    }
+
+    fun deviceInformation(
+        f: (DeviceInformationResponse, DeviceInformation?) -> Unit
+    ) {
+        GlobalScope.launch(executor.main) {
+            try {
+                withContext(executor.bg) { commonRepository.getDeviceInformation() }.fold(
+                    error = { commonError ->
+                        internalCrashlyticsWrapper.recordException(commonError.exception)
+                        f(DeviceInformationResponse.ERROR, null)
+                    },
+                    success = { deviceInformation ->
+                        f(DeviceInformationResponse.ACCEPTED, deviceInformation)
+                    }
+                )
+            } catch (e: Exception) {
+                internalCrashlyticsWrapper.recordException(e)
+                f(DeviceInformationResponse.ERROR, null)
+            }
+        }
+    }
+
+    fun appInformation(
+        f: (AppInformationResponse, AppInformation?) -> Unit
+    ) {
+        GlobalScope.launch(executor.main) {
+            try {
+                withContext(executor.bg) { commonRepository.getAppInformation() }.fold(
+                    error = { commonError ->
+                        internalCrashlyticsWrapper.recordException(commonError.exception)
+                        f(AppInformationResponse.ERROR, null)
+                    },
+                    success = { appInformation ->
+                        f(AppInformationResponse.ACCEPTED, appInformation)
+                    }
+                )
+            } catch (e: Exception) {
+                internalCrashlyticsWrapper.recordException(e)
+                f(AppInformationResponse.ERROR, null)
             }
         }
     }
