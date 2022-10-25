@@ -6,6 +6,8 @@ import cat.bcn.commonmodule.analytics.AnalyticsWrapper
 import cat.bcn.commonmodule.crashlytics.CrashlyticsWrapper
 import cat.bcn.commonmodule.crashlytics.InternalCrashlyticsWrapperImplementation
 import cat.bcn.commonmodule.data.datasource.settings.Settings
+import cat.bcn.commonmodule.model.AppInformation
+import cat.bcn.commonmodule.model.DeviceInformation
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
@@ -40,4 +42,12 @@ actual class OSAMCommons constructor(
         language: Language,
         f: (RatingControlResponse) -> Unit
     ) = internal.rating(language, f)
+
+    actual fun deviceInformation(
+        f: (DeviceInformationResponse, DeviceInformation?) -> Unit
+    ) = internal.deviceInformation(f)
+
+    actual fun appInformation(
+        f: (AppInformationResponse, AppInformation?) -> Unit
+    ) = internal.appInformation(f)
 }

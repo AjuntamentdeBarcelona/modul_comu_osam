@@ -2,12 +2,19 @@ package cat.bcn.commonmodule.platform
 
 import cat.bcn.commonmodule.model.Platform
 import platform.Foundation.NSBundle
+import platform.UIKit.UIDevice
 
 internal actual class PlatformInformation {
 
     private val appsStoreId = "" // TODO not necessary for the moment
 
     actual fun getPlatform(): Platform = Platform.IOS
+
+    actual fun getPlatformName(): String = UIDevice.currentDevice.systemName()
+
+    actual fun getPlatformVersion(): String = UIDevice.currentDevice.systemVersion()
+
+    actual fun getPlatformModel(): String = UIDevice.currentDevice.model()
 
     actual fun getPackageName(): String = NSBundle.mainBundle.bundleIdentifier!!
 

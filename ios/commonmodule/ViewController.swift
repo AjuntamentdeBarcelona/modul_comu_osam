@@ -47,6 +47,25 @@ class ViewController: UIViewController {
         )
     }
     
+    @IBAction func onDeviceInformationClick(_ sender: Any) {
+        osamCommons.deviceInformation(
+            f: { deviceInformationResponse, deviceInformation in
+                self.showToast(message: "deviceInformation: \(deviceInformationResponse.name)")
+                self.showToast(message: "platformName: \(deviceInformation?.platformName)")
+                self.showToast(message: "platformVersion: \(deviceInformation?.platformVersion)")
+                self.showToast(message: "platformModel: \(deviceInformation?.platformModel)")
+            }
+        )
+    }
+    
+    @IBAction func onAppInformationClick(_ sender: Any) {
+        osamCommons.appInformation(
+            f: { appInformationResponse, appInformation in
+                self.showToast(message: "\(appInformationResponse.name), \(appInformation?.appVersionName), \(appInformation?.appVersionCode)")
+            }
+        )
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
