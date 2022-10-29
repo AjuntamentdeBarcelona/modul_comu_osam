@@ -49,6 +49,21 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.deviceInformationButton.setOnClickListener {
+            osamCommons.deviceInformation { deviceInformationResponse, deviceInformation ->
+                Toast.makeText(this, "deviceInformation: $deviceInformationResponse", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "platformName: ${deviceInformation?.platformName}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "platformVersion: ${deviceInformation?.platformVersion}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "platformModel: ${deviceInformation?.platformModel}", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        binding.appInformationButton.setOnClickListener {
+            osamCommons.appInformation { appInformationResponse, appInformation ->
+                Toast.makeText(this, "$appInformationResponse, ${appInformation?.appName}, ${appInformation?.appVersionName}, ${appInformation?.appVersionCode}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroy() {

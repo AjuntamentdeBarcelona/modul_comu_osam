@@ -82,3 +82,24 @@ internal data class Text(
     }
 
 }
+
+data class DeviceInformation(
+    val platformName: String,
+    val platformVersion: String,
+    val platformModel: String,
+) {
+    override fun toString(): String {
+        return "platformName: ${platformName}, platformVersion: ${platformVersion}, platformModel: ${platformModel}"
+    }
+}
+
+data class AppInformation(
+    val appName: String,
+    val appVersionName: String,
+    val appVersionCode: String
+) {
+    override fun toString(): String {
+        return "appName: ${appName}, appVersionName: ${appVersionName}, appVersionCode: ${appVersionCode}"
+    }
+}
+

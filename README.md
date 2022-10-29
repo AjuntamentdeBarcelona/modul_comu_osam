@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.2'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.3'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.2'
+pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.3'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -103,7 +103,6 @@ private val osamCommons by lazy {
     )
 }
 ```
-
 La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_module_endpoint". El fixer quedaria de la següent manera:
 
 ```xml
@@ -286,9 +285,9 @@ variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```kotlin
 osamCommons.rating(
-    language = Language.CA
+  language = Language.CA
 ) {
-    // Do something...
+  // Do something...
 }
 ```
 
@@ -343,6 +342,90 @@ Per exemple: Si l'usuari treu el popup, al callback rebriem
 l'objecte `RatingControlResponse.DISMISSED`. Si en el cas de que volgués fer alguna acció diferent
 si l'usuari ha tret el popup o aquest no compleix les condicions per sortir, es podria definir en
 aquest punt la casuistica.
+
+## Implementació per obtenir informació de la plataforma
+
+### Android
+
+Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
+i versió de l'app.
+
+```kotlin
+osamCommons.deviceInformation { deviceInformationResponse, deviceInformation ->
+  // Do something...
+}
+```
+
+Per obtenir l'informació només cal executar la funció `deviceInformation()`. Com a extra, se li ha afegit un
+callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
+part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
+l'aplicació. Lo que revem en el callback es l'objecte `DeviceInformationResponse`. Aquest objecte pot
+arrivar amb 2 valors possibles:
+
+- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
+- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
+
+### iOS
+
+Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
+i versió de l'app.
+
+```swift
+osamCommons.deviceInformation(
+  f: {deviceInformationResponse, deviceInformation in }
+)
+```
+
+Per obtenir l'informació només cal executar la funció `deviceInformation()`. Com a extra, se li ha afegit un
+callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
+part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
+l'aplicació. Lo que revem en el callback es l'objecte `DeviceInformationResponse`. Aquest objecte pot
+arrivar amb 2 valors possibles:
+
+- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
+- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
+
+## Implementació per obtenir informació de l'app
+
+### Android
+
+Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
+i versió de l'app.
+
+```kotlin
+osamCommons.appInformation { appInformationResponse, appInformation ->
+  // Do something...
+}
+```
+
+Per obtenir l'informació només cal executar la funció `appInformation()`. Com a extra, se li ha afegit un
+callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
+part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
+l'aplicació. Lo que revem en el callback es l'objecte `AppInformationResponse`. Aquest objecte pot
+arrivar amb 2 valors possibles:
+
+- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
+- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
+
+### iOS
+
+Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
+i versió de l'app.
+
+```swift
+osamCommons.appInformation(
+  f: { appInformationResponse, appInformation in }
+)
+```
+
+Per obtenir l'informació només cal executar la funció `appInformation()`. Com a extra, se li ha afegit un
+callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
+part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
+l'aplicació. Lo que revem en el callback es l'objecte `AppInformationResponse`. Aquest objecte pot
+arrivar amb 2 valors possibles:
+
+- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
+- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
 
 ## Format JSONs
 
