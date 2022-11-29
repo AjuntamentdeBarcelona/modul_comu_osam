@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.0.3"
+val libVersionName = "2.0.5"
 group = libGroup
 version = libVersionName
 
