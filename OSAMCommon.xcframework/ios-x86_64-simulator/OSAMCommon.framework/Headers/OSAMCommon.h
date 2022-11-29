@@ -6,7 +6,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCLanguage, UIViewController, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCKotlinException, OSAMCCommonError, OSAMCEither<L, R>, OSAMCSuccess, NSDate, OSAMCKtor_client_coreHttpClient, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpClientCall, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKotlinNothing, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKtor_utilsAttributeKey<T>, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
+@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCAppInformationResponse, OSAMCDeviceInformationResponse, OSAMCLanguage, UIViewController, OSAMCAppInformation, OSAMCDeviceInformation, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCKotlinException, OSAMCCommonError, OSAMCEither<L, R>, OSAMCSuccess, NSDate, OSAMCKtor_client_coreHttpClient, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpClientCall, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKotlinNothing, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKtor_utilsAttributeKey<T>, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
 
 @protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCCrashlyticsWrapper, OSAMCPlatformUtil, OSAMCKotlinSuspendFunction1, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKtor_client_coreHttpClientFeature, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKtor_httpHttpMessageBuilder, OSAMCKotlinx_coroutines_coreJob, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKotlinSuspendFunction2, OSAMCKtor_httpHeaders, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKotlinKClass, OSAMCKtor_httpHttpMessage, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinSuspendFunction0, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput, OSAMCKotlinKClassifier, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement;
 
@@ -221,6 +221,29 @@ __attribute__((swift_name("CommonAnalytics.VersionControlAction")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("AppInformationResponse")))
+@interface OSAMCAppInformationResponse : OSAMCKotlinEnum<OSAMCAppInformationResponse *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) OSAMCAppInformationResponse *accepted __attribute__((swift_name("accepted")));
+@property (class, readonly) OSAMCAppInformationResponse *dismissed __attribute__((swift_name("dismissed")));
+@property (class, readonly) OSAMCAppInformationResponse *error __attribute__((swift_name("error")));
++ (OSAMCKotlinArray<OSAMCAppInformationResponse *> *)values __attribute__((swift_name("values()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DeviceInformationResponse")))
+@interface OSAMCDeviceInformationResponse : OSAMCKotlinEnum<OSAMCDeviceInformationResponse *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) OSAMCDeviceInformationResponse *accepted __attribute__((swift_name("accepted")));
+@property (class, readonly) OSAMCDeviceInformationResponse *error __attribute__((swift_name("error")));
++ (OSAMCKotlinArray<OSAMCDeviceInformationResponse *> *)values __attribute__((swift_name("values()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Language")))
 @interface OSAMCLanguage : OSAMCKotlinEnum<OSAMCLanguage *>
 + (instancetype)alloc __attribute__((unavailable));
@@ -236,6 +259,8 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("OSAMCommons")))
 @interface OSAMCOSAMCommons : OSAMCBase
 - (instancetype)initWithVc:(UIViewController *)vc backendEndpoint:(NSString *)backendEndpoint crashlyticsWrapper:(id<OSAMCCrashlyticsWrapper>)crashlyticsWrapper analyticsWrapper:(id<OSAMCAnalyticsWrapper>)analyticsWrapper platformUtil:(id<OSAMCPlatformUtil>)platformUtil __attribute__((swift_name("init(vc:backendEndpoint:crashlyticsWrapper:analyticsWrapper:platformUtil:)"))) __attribute__((objc_designated_initializer));
+- (void)appInformationF:(void (^)(OSAMCAppInformationResponse *, OSAMCAppInformation * _Nullable))f __attribute__((swift_name("appInformation(f:)")));
+- (void)deviceInformationF:(void (^)(OSAMCDeviceInformationResponse *, OSAMCDeviceInformation * _Nullable))f __attribute__((swift_name("deviceInformation(f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:f:)")));
 - (void)versionControlLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCVersionControlResponse *))f __attribute__((swift_name("versionControl(language:f:)")));
 @end;
@@ -266,6 +291,22 @@ __attribute__((swift_name("VersionControlResponse")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("AppInformation")))
+@interface OSAMCAppInformation : OSAMCBase
+- (instancetype)initWithAppName:(NSString *)appName appVersionName:(NSString *)appVersionName appVersionCode:(NSString *)appVersionCode __attribute__((swift_name("init(appName:appVersionName:appVersionCode:)"))) __attribute__((objc_designated_initializer));
+- (NSString *)component1 __attribute__((swift_name("component1()")));
+- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (NSString *)component3 __attribute__((swift_name("component3()")));
+- (OSAMCAppInformation *)doCopyAppName:(NSString *)appName appVersionName:(NSString *)appVersionName appVersionCode:(NSString *)appVersionCode __attribute__((swift_name("doCopy(appName:appVersionName:appVersionCode:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *appName __attribute__((swift_name("appName")));
+@property (readonly) NSString *appVersionCode __attribute__((swift_name("appVersionCode")));
+@property (readonly) NSString *appVersionName __attribute__((swift_name("appVersionName")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("CommonError")))
 @interface OSAMCCommonError : OSAMCBase
 - (instancetype)initWithException:(OSAMCKotlinException *)exception __attribute__((swift_name("init(exception:)"))) __attribute__((objc_designated_initializer));
@@ -275,6 +316,22 @@ __attribute__((swift_name("CommonError")))
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) OSAMCKotlinException *exception __attribute__((swift_name("exception")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DeviceInformation")))
+@interface OSAMCDeviceInformation : OSAMCBase
+- (instancetype)initWithPlatformName:(NSString *)platformName platformVersion:(NSString *)platformVersion platformModel:(NSString *)platformModel __attribute__((swift_name("init(platformName:platformVersion:platformModel:)"))) __attribute__((objc_designated_initializer));
+- (NSString *)component1 __attribute__((swift_name("component1()")));
+- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (NSString *)component3 __attribute__((swift_name("component3()")));
+- (OSAMCDeviceInformation *)doCopyPlatformName:(NSString *)platformName platformVersion:(NSString *)platformVersion platformModel:(NSString *)platformModel __attribute__((swift_name("doCopy(platformName:platformVersion:platformModel:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *platformModel __attribute__((swift_name("platformModel")));
+@property (readonly) NSString *platformName __attribute__((swift_name("platformName")));
+@property (readonly) NSString *platformVersion __attribute__((swift_name("platformVersion")));
 @end;
 
 __attribute__((swift_name("Either")))
