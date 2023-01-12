@@ -15,7 +15,7 @@ internal actual class PlatformInformation(private val context: Context) {
 
     actual fun getPlatformVersion(): String = Build.VERSION.RELEASE
 
-    actual fun getPlatformModel(): String = Build.BRAND + " " + Build.MANUFACTURER + " " + Build.MODEL
+    actual fun getPlatformModel(platformUtil: PlatformUtil): String = Build.BRAND + " " + Build.MANUFACTURER + " " + Build.MODEL
 
     actual fun getPackageName(): String = context.packageName
 

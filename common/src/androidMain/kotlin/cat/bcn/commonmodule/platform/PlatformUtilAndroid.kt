@@ -16,4 +16,8 @@ class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
         ContextCompat.startActivity(context, intent, null)
         return true
     }
+
+    override fun getDeviceModelIdentifier(): String {
+        return ""
+    }
 }

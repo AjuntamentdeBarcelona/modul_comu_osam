@@ -38,7 +38,8 @@ internal class OSAMCommonsInternal(
         CommonRepository(
             remote,
             preferences,
-            platformInformation
+            platformInformation,
+            platformUtil
         )
     }
 

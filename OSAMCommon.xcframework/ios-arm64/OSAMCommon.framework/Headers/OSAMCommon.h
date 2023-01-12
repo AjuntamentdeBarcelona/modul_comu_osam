@@ -148,6 +148,7 @@ __attribute__((swift_name("PlatformUtil")))
 @protocol OSAMCPlatformUtil
 @required
 - (NSString * _Nullable)encodeUrlUrl:(NSString *)url __attribute__((swift_name("encodeUrl(url:)")));
+- (NSString *)getDeviceModelIdentifier __attribute__((swift_name("getDeviceModelIdentifier()")));
 - (BOOL)openUrlUrl:(NSString *)url __attribute__((swift_name("openUrl(url:)")));
 @end;
 
