@@ -14,7 +14,9 @@ internal actual class PlatformInformation {
 
     actual fun getPlatformVersion(): String = UIDevice.currentDevice.systemVersion()
 
-    actual fun getPlatformModel(): String = UIDevice.currentDevice.model()
+    actual fun getPlatformModel(platformUtil: PlatformUtil): String {
+        return platformUtil.getDeviceModelIdentifier()
+    }
 
     actual fun getPackageName(): String = NSBundle.mainBundle.bundleIdentifier!!
 
