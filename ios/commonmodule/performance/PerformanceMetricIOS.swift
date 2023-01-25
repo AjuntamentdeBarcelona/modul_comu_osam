@@ -1,32 +1,49 @@
 import Foundation
 import OSAMCommon
+import FirebasePerformance
 
 class PerformanceMetricIOS: PerformanceMetric {
-    fun start() {
-        // TODO
+    
+    let metric: HTTPMetric
+    
+    init(metric: HTTPMetric) {
+        self.metric = metric
     }
-    fun setRequestPayloadSize(bytesLongInString: String) {
-        // TODO
+    
+    func start() {
+        print("PerformanceMetricIOS start")
+        metric.start()
     }
-    fun markRequestComplete() {
-        // TODO
+    func setRequestPayloadSize(bytes: Int64) {
+        print("PerformanceMetricIOS setRequestPayloadSize")
+        metric.requestPayloadSize = Int(bytes)
     }
-    fun markResponseStart() {
-        // TODO
+    func markRequestComplete() {
+        print("PerformanceMetricIOS markRequestComplete")
+        // not used for iOs
     }
-    fun setResponseContentType(contentType: String) {
-        // TODO
+    func markResponseStart() {
+        print("PerformanceMetricIOS markResponseStart")
+        // not used for iOs
     }
-    fun setHttpResponseCode(responseCode: Int) {
-        // TODO
+    func setResponseContentType(contentType: String) {
+        print("PerformanceMetricIOS setResponseContentType")
+        metric.responseContentType = contentType
     }
-    fun setResponsePayloadSize(bytesLongInString: String) {
-        // TODO
+    func setHttpResponseCode(responseCode: Int32) {
+        print("PerformanceMetricIOS setHttpResponseCode")
+        metric.responseCode = Int(responseCode)
+    }
+    func setResponsePayloadSize(bytes: Int64) {
+        print("PerformanceMetricIOS setResponsePayloadSize")
+        metric.responsePayloadSize = Int(bytes)
     }
     func putAttribute(attribute: String, value: String) {
-        // TODO
+        print("PerformanceMetricIOS putAttribute")
+        metric.setValue(value, forAttribute: attribute)
     }
-    fun stop() {
-        // TODO
+    func stop() {
+        print("PerformanceMetricIOS stop")
+        metric.stop()
     }
 }

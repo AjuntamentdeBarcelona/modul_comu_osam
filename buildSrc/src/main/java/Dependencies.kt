@@ -12,8 +12,8 @@ object App {
     const val applicationId = "cat.bcn.commonmodule"
     const val minSdkVersion = 21
     const val targetSdkVersion = 31
-    const val versionCode = 2021050000
-    const val versionName = "1.0.0"
+    const val versionCode = 2021050001
+    const val versionName = "1.0.1"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 }
 

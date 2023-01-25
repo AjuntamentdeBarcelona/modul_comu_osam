@@ -10,11 +10,9 @@ class PerformanceMetricAndroid(val metric: HttpMetric) : PerformanceMetric {
         metric.start()
     }
 
-    override fun setRequestPayloadSize(bytesLongInString: String) {
-        Log.d("PerformanceMetric", "${object {}.javaClass.enclosingMethod?.name} bytesLongInString: $bytesLongInString")
-        bytesLongInString.toLongOrNull()?.also { bytes ->
-            metric.setRequestPayloadSize(bytes)
-        }
+    override fun setRequestPayloadSize(bytes: Long) {
+        Log.d("PerformanceMetric", "${object {}.javaClass.enclosingMethod?.name} bytes: $bytes")
+        metric.setRequestPayloadSize(bytes)
     }
 
     override fun markRequestComplete() {
@@ -37,11 +35,9 @@ class PerformanceMetricAndroid(val metric: HttpMetric) : PerformanceMetric {
         metric.setHttpResponseCode(responseCode)
     }
 
-    override fun setResponsePayloadSize(bytesLongInString: String) {
-        Log.d("PerformanceMetric", "${object {}.javaClass.enclosingMethod?.name} bytesLongInString: $bytesLongInString")
-        bytesLongInString.toLongOrNull()?.also { bytes ->
-            metric.setResponsePayloadSize(bytes)
-        }
+    override fun setResponsePayloadSize(bytes: Long) {
+        Log.d("PerformanceMetric", "${object {}.javaClass.enclosingMethod?.name} bytes: $bytes")
+        metric.setResponsePayloadSize(bytes)
     }
 
     override fun putAttribute(attribute: String, value: String) {

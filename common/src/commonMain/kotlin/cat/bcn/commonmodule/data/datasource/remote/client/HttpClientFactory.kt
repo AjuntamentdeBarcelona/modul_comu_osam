@@ -78,10 +78,10 @@ fun buildClient(
             metric?.setResponseContentType("${contentTypeResponse.contentType}/${contentTypeResponse.contentSubtype}")
         }
         contentLengthRequest?.also { contentLengthRequest ->
-            metric?.setRequestPayloadSize("$contentLengthRequest")
+            metric?.setRequestPayloadSize(contentLengthRequest)
         }
         contentLengthResponse?.also { contentLengthResponse ->
-            metric?.setResponsePayloadSize("$contentLengthResponse")
+            metric?.setResponsePayloadSize(contentLengthResponse)
         }
         context.request.headers.entries().forEach { entry ->
             metric?.putAttribute("requestHeaderKey:${entry.key}", "requestHeaderValue:${entry.value}")
