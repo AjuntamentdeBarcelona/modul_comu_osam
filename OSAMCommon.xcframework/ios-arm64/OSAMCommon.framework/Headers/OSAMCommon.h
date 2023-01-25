@@ -8,7 +8,7 @@
 
 @class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCAppInformationResponse, OSAMCDeviceInformationResponse, OSAMCLanguage, UIViewController, OSAMCAppInformation, OSAMCDeviceInformation, OSAMCRatingControlResponse, OSAMCVersionControlResponse, OSAMCKotlinException, OSAMCCommonError, OSAMCEither<L, R>, OSAMCSuccess, NSDate, OSAMCKtor_client_coreHttpClient, OSAMCKtor_client_coreHttpClientConfig<T>, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpClientCall, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKtor_client_coreProxyConfig, OSAMCKotlinNothing, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_httpHttpMethod, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_client_coreTypeInfo, OSAMCKtor_client_coreHttpResponse, OSAMCKtor_utilsAttributeKey<T>, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpParametersBuilder, OSAMCKtor_httpURLBuilderCompanion, OSAMCKotlinCancellationException, OSAMCKotlinUnit, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_ioMemory, OSAMCKtor_ioIoBuffer, OSAMCKotlinByteArray, OSAMCKtor_ioByteReadPacket, OSAMCKtor_ioByteOrder, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpContentType, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpUrlEncodingOption, OSAMCKtor_ioMemoryCompanion, OSAMCKtor_ioBufferCompanion, OSAMCKtor_ioBuffer, OSAMCKtor_ioChunkBuffer, OSAMCKtor_ioChunkBufferCompanion, OSAMCKotlinCharArray, OSAMCKtor_ioIoBufferCompanion, OSAMCKotlinByteIterator, OSAMCKtor_ioAbstractInputCompanion, OSAMCKtor_ioAbstractInput, OSAMCKtor_ioByteReadPacketBaseCompanion, OSAMCKtor_ioByteReadPacketBase, OSAMCKtor_ioByteReadPacketPlatformBase, OSAMCKtor_ioByteReadPacketCompanion, OSAMCKtor_ioByteOrderCompanion, OSAMCKotlinKTypeProjection, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinx_coroutines_coreAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, OSAMCKotlinCharIterator, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinx_coroutines_coreAtomicOp<__contravariant T>, OSAMCKotlinx_coroutines_coreOpDescriptor, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNode, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, OSAMCKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
 
-@protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCCrashlyticsWrapper, OSAMCPlatformUtil, OSAMCKotlinSuspendFunction1, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKtor_client_coreHttpClientFeature, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKtor_httpHttpMessageBuilder, OSAMCKotlinx_coroutines_coreJob, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKotlinSuspendFunction2, OSAMCKtor_httpHeaders, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKotlinKClass, OSAMCKtor_httpHttpMessage, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinSuspendFunction0, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput, OSAMCKotlinKClassifier, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement;
+@protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCPerformanceMetric, OSAMCCrashlyticsWrapper, OSAMCPerformanceWrapper, OSAMCPlatformUtil, OSAMCKotlinSuspendFunction1, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKtor_client_coreHttpClientFeature, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKtor_httpHttpMessageBuilder, OSAMCKotlinx_coroutines_coreJob, OSAMCKtor_ioByteReadChannel, OSAMCKtor_utilsTypeInfo, OSAMCKtor_client_coreHttpRequest, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKotlinSuspendFunction2, OSAMCKtor_httpHeaders, OSAMCKtor_utilsStringValues, OSAMCKotlinMapEntry, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKtor_ioReadSession, OSAMCKotlinAppendable, OSAMCKotlinKType, OSAMCKotlinKClass, OSAMCKtor_httpHttpMessage, OSAMCKtor_httpParameters, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinSuspendFunction0, OSAMCKtor_ioObjectPool, OSAMCKtor_ioInput, OSAMCKtor_ioOutput, OSAMCKotlinKClassifier, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -221,6 +221,26 @@ __attribute__((swift_name("CommonAnalytics.VersionControlAction")))
 - (NSString *)toEventString __attribute__((swift_name("toEventString()")));
 @end;
 
+__attribute__((swift_name("PerformanceMetric")))
+@protocol OSAMCPerformanceMetric
+@required
+- (void)markRequestComplete __attribute__((swift_name("markRequestComplete()")));
+- (void)markResponseStart __attribute__((swift_name("markResponseStart()")));
+- (void)putAttributeAttribute:(NSString *)attribute value:(NSString *)value __attribute__((swift_name("putAttribute(attribute:value:)")));
+- (void)setHttpResponseCodeResponseCode:(int32_t)responseCode __attribute__((swift_name("setHttpResponseCode(responseCode:)")));
+- (void)setRequestPayloadSizeBytes:(int64_t)bytes __attribute__((swift_name("setRequestPayloadSize(bytes:)")));
+- (void)setResponseContentTypeContentType:(NSString *)contentType __attribute__((swift_name("setResponseContentType(contentType:)")));
+- (void)setResponsePayloadSizeBytes:(int64_t)bytes __attribute__((swift_name("setResponsePayloadSize(bytes:)")));
+- (void)start __attribute__((swift_name("start()")));
+- (void)stop __attribute__((swift_name("stop()")));
+@end;
+
+__attribute__((swift_name("PerformanceWrapper")))
+@protocol OSAMCPerformanceWrapper
+@required
+- (id<OSAMCPerformanceMetric>)createMetricUrl:(NSString *)url httpMethod:(NSString *)httpMethod __attribute__((swift_name("createMetric(url:httpMethod:)")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("AppInformationResponse")))
 @interface OSAMCAppInformationResponse : OSAMCKotlinEnum<OSAMCAppInformationResponse *>
@@ -259,7 +279,7 @@ __attribute__((swift_name("Language")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("OSAMCommons")))
 @interface OSAMCOSAMCommons : OSAMCBase
-- (instancetype)initWithVc:(UIViewController *)vc backendEndpoint:(NSString *)backendEndpoint crashlyticsWrapper:(id<OSAMCCrashlyticsWrapper>)crashlyticsWrapper analyticsWrapper:(id<OSAMCAnalyticsWrapper>)analyticsWrapper platformUtil:(id<OSAMCPlatformUtil>)platformUtil __attribute__((swift_name("init(vc:backendEndpoint:crashlyticsWrapper:analyticsWrapper:platformUtil:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithVc:(UIViewController *)vc backendEndpoint:(NSString *)backendEndpoint crashlyticsWrapper:(id<OSAMCCrashlyticsWrapper>)crashlyticsWrapper performanceWrapper:(id<OSAMCPerformanceWrapper>)performanceWrapper analyticsWrapper:(id<OSAMCAnalyticsWrapper>)analyticsWrapper platformUtil:(id<OSAMCPlatformUtil>)platformUtil __attribute__((swift_name("init(vc:backendEndpoint:crashlyticsWrapper:performanceWrapper:analyticsWrapper:platformUtil:)"))) __attribute__((objc_designated_initializer));
 - (void)appInformationF:(void (^)(OSAMCAppInformationResponse *, OSAMCAppInformation * _Nullable))f __attribute__((swift_name("appInformation(f:)")));
 - (void)deviceInformationF:(void (^)(OSAMCDeviceInformationResponse *, OSAMCDeviceInformation * _Nullable))f __attribute__((swift_name("deviceInformation(f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:f:)")));
@@ -414,7 +434,7 @@ __attribute__((swift_name("IOSExtensionsKt")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("HttpClientFactoryKt")))
 @interface OSAMCHttpClientFactoryKt : OSAMCBase
-+ (OSAMCKtor_client_coreHttpClient *)buildClientEndpoint:(NSString *)endpoint block:(void (^)(OSAMCKtor_client_coreHttpClientConfig<id> *))block __attribute__((swift_name("buildClient(endpoint:block:)")));
++ (OSAMCKtor_client_coreHttpClient *)buildClientEndpoint:(NSString *)endpoint metricCreator:(id<OSAMCPerformanceMetric> (^)(NSString *, NSString *))metricCreator block:(void (^)(OSAMCKtor_client_coreHttpClientConfig<id> *))block __attribute__((swift_name("buildClient(endpoint:metricCreator:block:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -909,7 +929,7 @@ __attribute__((swift_name("Kotlinx_coroutines_coreJob")))
 */
 - (void)joinWithCompletionHandler:(void (^)(OSAMCKotlinUnit * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("join(completionHandler:)")));
 - (id<OSAMCKotlinx_coroutines_coreJob>)plusOther_:(id<OSAMCKotlinx_coroutines_coreJob>)other __attribute__((swift_name("plus(other_:)"))) __attribute__((unavailable("Operator '+' on two Job objects is meaningless. Job is a coroutine context element and `+` is a set-sum operator for coroutine contexts. The job to the right of `+` just replaces the job the left of `+`.")));
-- (BOOL)start __attribute__((swift_name("start()")));
+- (BOOL)start_ __attribute__((swift_name("start_()")));
 @property (readonly) id<OSAMCKotlinSequence> children __attribute__((swift_name("children")));
 @property (readonly) BOOL isActive __attribute__((swift_name("isActive")));
 @property (readonly) BOOL isCancelled __attribute__((swift_name("isCancelled")));
