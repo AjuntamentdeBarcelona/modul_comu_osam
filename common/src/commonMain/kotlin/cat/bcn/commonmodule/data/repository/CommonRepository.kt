@@ -4,6 +4,7 @@ import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.*
+import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.ui.versioncontrol.Language
@@ -12,7 +13,8 @@ internal class CommonRepository(
     private val remote: Remote,
     private val preferences: Preferences,
     private val platformInformation: PlatformInformation,
-    private val platformUtil: PlatformUtil
+    private val platformUtil: PlatformUtil,
+    private val internalPerformanceWrapper: InternalPerformanceWrapper
 ) {
 
     suspend fun getVersion(): Either<CommonError, Version> {
@@ -50,6 +52,7 @@ internal class CommonRepository(
         if (platformInformation.isOnline()) {
             try {
                 version = remote.getVersion(
+                    internalPerformanceWrapper,
                     platformInformation.getPackageName(),
                     platformInformation.getPlatform(),
                     platformInformation.getVersionCode()
@@ -92,6 +95,7 @@ internal class CommonRepository(
         if (platformInformation.isOnline()) {
             try {
                 rating = remote.getRating(
+                    internalPerformanceWrapper,
                     platformInformation.getPackageName(),
                     platformInformation.getPlatform()
                 )

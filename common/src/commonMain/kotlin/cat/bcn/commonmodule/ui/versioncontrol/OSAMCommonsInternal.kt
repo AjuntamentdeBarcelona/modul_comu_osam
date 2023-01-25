@@ -13,6 +13,7 @@ import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
@@ -28,6 +29,7 @@ internal class OSAMCommonsInternal(
     private val alertWrapper: AlertWrapper,
     private val platformInformation: PlatformInformation,
     private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
+    private val internalPerformanceWrapper: InternalPerformanceWrapper,
     analyticsWrapper: AnalyticsWrapper,
     private val platformUtil: PlatformUtil,
 ) {
@@ -39,7 +41,8 @@ internal class OSAMCommonsInternal(
             remote,
             preferences,
             platformInformation,
-            platformUtil
+            platformUtil,
+            internalPerformanceWrapper
         )
     }
 

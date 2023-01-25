@@ -7,6 +7,8 @@ import cat.bcn.commonmodule.data.mapper.dto.toModel
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
+import cat.bcn.commonmodule.performance.PerformanceMetric
 import io.ktor.client.request.*
 import io.ktor.utils.io.core.*
 
@@ -19,15 +21,19 @@ internal class CommonRemote(
         const val ratingRoute = "api/rating"
     }
 
-    override suspend fun getVersion(appId: String, platform: Platform, versionCode: Long): Version =
-        buildClient(backendEndpoint).use {
+    override suspend fun getVersion(performance: InternalPerformanceWrapper, appId: String, platform: Platform, versionCode: Long): Version =
+        buildClient(backendEndpoint, createMetricCreator(performance)).use {
             it.get<VersionResponseDto>("${versionRoute}/$appId/$platform/$versionCode")
         }.data.toModel()
 
-    override suspend fun getRating(appId: String, platform: Platform): Rating =
-        buildClient(backendEndpoint).use {
+    override suspend fun getRating(performance: InternalPerformanceWrapper, appId: String, platform: Platform): Rating =
+        buildClient(backendEndpoint, createMetricCreator(performance)).use {
             it.get<RatingResponseDto>("${ratingRoute}/$appId/$platform")
         }.data.toModel()
+
+    private fun createMetricCreator(performance: InternalPerformanceWrapper): (url: String, httpMethod: String) -> PerformanceMetric {
+        return { url, httpMethod -> performance.createMetric(url, httpMethod)}
+    }
 
 }
 
