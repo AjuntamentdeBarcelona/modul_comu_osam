@@ -10,6 +10,7 @@ import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
 import com.app.app.R
 import com.app.app.databinding.ActivityHomeBinding
 import crashlytics.CrashlyticsWrapperAndroid
+import performance.PerformanceWrapperAndroid
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,6 +25,7 @@ class HomeActivity : AppCompatActivity() {
             context = this,
             backendEndpoint = getString(R.string.common_module_endpoint),
             crashlyticsWrapper = CrashlyticsWrapperAndroid(),
+            performanceWrapper = PerformanceWrapperAndroid(),
             analyticsWrapper = AnalyticsWrapperAndroid(this),
             platformUtil = PlatformUtilAndroid(this)
         )

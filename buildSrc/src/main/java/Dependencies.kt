@@ -54,6 +54,8 @@ object Dependencies {
         const val googleServices = "com.google.gms:google-services:4.3.10"
         const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
         const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        const val firebasePerformance = "com.google.firebase:perf-plugin:1.4.2"
+
     }
 
     object Common {

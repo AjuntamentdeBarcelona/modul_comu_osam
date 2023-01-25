@@ -11,6 +11,7 @@ plugins {
     kotlin("android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {

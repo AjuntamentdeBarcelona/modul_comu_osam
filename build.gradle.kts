@@ -9,6 +9,7 @@ buildscript {
         classpath(Dependencies.Root.googleServices)
         classpath(Dependencies.Root.serialization)
         classpath(Dependencies.Root.firebaseCrashlytics)
+        classpath(Dependencies.Root.firebasePerformance)
 
         classpath(kotlin("gradle-plugin", kotlin_version))
     }

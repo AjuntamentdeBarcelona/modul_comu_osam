@@ -6,16 +6,19 @@ import cat.bcn.commonmodule.crashlytics.InternalCrashlyticsWrapperImplementation
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.performance.InternalPerformanceWrapperImplementation
+import cat.bcn.commonmodule.performance.PerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformInformation
+import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
 import platform.UIKit.UIViewController
-import cat.bcn.commonmodule.platform.PlatformUtil
 
 actual class OSAMCommons constructor(
     vc: UIViewController,
     backendEndpoint: String,
     crashlyticsWrapper: CrashlyticsWrapper,
+    performanceWrapper: PerformanceWrapper,
     analyticsWrapper: AnalyticsWrapper,
     platformUtil: PlatformUtil,
 ) {
@@ -27,6 +30,7 @@ actual class OSAMCommons constructor(
         alertWrapper = AlertWrapper(vc),
         platformInformation = PlatformInformation(),
         internalCrashlyticsWrapper = InternalCrashlyticsWrapperImplementation(crashlyticsWrapper),
+        internalPerformanceWrapper = InternalPerformanceWrapperImplementation(performanceWrapper),
         analyticsWrapper = analyticsWrapper,
         platformUtil = platformUtil
     )
