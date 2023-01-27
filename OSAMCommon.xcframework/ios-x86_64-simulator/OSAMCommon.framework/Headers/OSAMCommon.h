@@ -434,7 +434,7 @@ __attribute__((swift_name("IOSExtensionsKt")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("HttpClientFactoryKt")))
 @interface OSAMCHttpClientFactoryKt : OSAMCBase
-+ (OSAMCKtor_client_coreHttpClient *)buildClientEndpoint:(NSString *)endpoint metricCreator:(id<OSAMCPerformanceMetric> (^)(NSString *, NSString *))metricCreator block:(void (^)(OSAMCKtor_client_coreHttpClientConfig<id> *))block __attribute__((swift_name("buildClient(endpoint:metricCreator:block:)")));
++ (OSAMCKtor_client_coreHttpClient *)buildClientEndpoint:(NSString *)endpoint metric:(id<OSAMCPerformanceMetric>)metric block:(void (^)(OSAMCKtor_client_coreHttpClientConfig<id> *))block __attribute__((swift_name("buildClient(endpoint:metric:block:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))

@@ -21,18 +21,26 @@ internal class CommonRemote(
         const val ratingRoute = "api/rating"
     }
 
-    override suspend fun getVersion(performance: InternalPerformanceWrapper, appId: String, platform: Platform, versionCode: Long): Version =
-        buildClient(backendEndpoint, createMetricCreator(performance)).use {
-            it.get<VersionResponseDto>("${versionRoute}/$appId/$platform/$versionCode")
+    override suspend fun getVersion(performance: InternalPerformanceWrapper, appId: String, platform: Platform, versionCode: Long): Version {
+        val path = "${versionRoute}/$appId/$platform/$versionCode"
+        val url = backendEndpoint.let { if(it.endsWith("/")) it else "$it/" } + path.let { if(path.startsWith("/") && path.length > 1) path.substring(1) else path }
+        val httpMethod = "get"
+        return buildClient(backendEndpoint, createMetricCreator(performance, url, httpMethod)).use {
+            it.get<VersionResponseDto>(path)
         }.data.toModel()
+    }
 
-    override suspend fun getRating(performance: InternalPerformanceWrapper, appId: String, platform: Platform): Rating =
-        buildClient(backendEndpoint, createMetricCreator(performance)).use {
-            it.get<RatingResponseDto>("${ratingRoute}/$appId/$platform")
+    override suspend fun getRating(performance: InternalPerformanceWrapper, appId: String, platform: Platform): Rating {
+        val path = "${ratingRoute}/$appId/$platform"
+        val httpMethod = "get"
+        val url = backendEndpoint.let { if(it.endsWith("/")) it else "$it/" } + path.let { if(path.startsWith("/") && path.length > 1) path.substring(1) else path }
+        return buildClient(backendEndpoint, createMetricCreator(performance, url, httpMethod)).use {
+            it.get<RatingResponseDto>(path)
         }.data.toModel()
+    }
 
-    private fun createMetricCreator(performance: InternalPerformanceWrapper): (url: String, httpMethod: String) -> PerformanceMetric {
-        return { url, httpMethod -> performance.createMetric(url, httpMethod)}
+    private fun createMetricCreator(performance: InternalPerformanceWrapper, url: String, httpMethod: String): PerformanceMetric {
+        return performance.createMetric(url, httpMethod)
     }
 
 }
