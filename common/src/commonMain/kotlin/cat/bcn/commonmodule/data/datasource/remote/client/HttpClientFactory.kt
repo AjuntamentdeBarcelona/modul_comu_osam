@@ -13,7 +13,7 @@ import io.ktor.http.*
 
 fun buildClient(
     endpoint: String,
-    metricCreator: (url: String, httpMethod: String) -> PerformanceMetric,
+    metric: PerformanceMetric,
     block: HttpClientConfig<*>.() -> Unit = {}
 ): HttpClient {
     val client = HttpClient {
@@ -39,21 +39,18 @@ fun buildClient(
         }
         block(this)
     }
-    var metric: PerformanceMetric? = null
-
     client.sendPipeline.intercept(HttpSendPipeline.Before) {
         val url = context.url.buildString()
         val httpMethod = context.method.value
-        metric = metricCreator(url, httpMethod)
-        metric?.start()
+        metric.start()
         proceed()
     }
     client.sendPipeline.intercept(HttpSendPipeline.Engine) {
-        metric?.markRequestComplete()
+        metric.markRequestComplete()
         proceed()
     }
     client.receivePipeline.intercept(HttpReceivePipeline.Before) {
-        metric?.markResponseStart()
+        metric.markResponseStart()
         proceed()
     }
 
@@ -75,22 +72,22 @@ fun buildClient(
         }
         val httpStatusResponse = context.response.status.value
         contentTypeResponse?.also { contentTypeResponse ->
-            metric?.setResponseContentType("${contentTypeResponse.contentType}/${contentTypeResponse.contentSubtype}")
+            metric.setResponseContentType("${contentTypeResponse.contentType}/${contentTypeResponse.contentSubtype}")
         }
         contentLengthRequest?.also { contentLengthRequest ->
-            metric?.setRequestPayloadSize(contentLengthRequest)
+            metric.setRequestPayloadSize(contentLengthRequest)
         }
         contentLengthResponse?.also { contentLengthResponse ->
-            metric?.setResponsePayloadSize(contentLengthResponse)
+            metric.setResponsePayloadSize(contentLengthResponse)
         }
         context.request.headers.entries().forEach { entry ->
-            metric?.putAttribute("requestHeaderKey:${entry.key}", "requestHeaderValue:${entry.value}")
+            metric.putAttribute("requestHeaderKey:${entry.key}", "requestHeaderValue:${entry.value}")
         }
         context.response.headers.entries().forEach { entry ->
-            metric?.putAttribute("responseHeaderKey:${entry.key}", "responseHeaderValue:${entry.value}")
+            metric.putAttribute("responseHeaderKey:${entry.key}", "responseHeaderValue:${entry.value}")
         }
-        metric?.setHttpResponseCode(httpStatusResponse)
-        metric?.stop()
+        metric.setHttpResponseCode(httpStatusResponse)
+        metric.stop()
         proceed()
     }
 
