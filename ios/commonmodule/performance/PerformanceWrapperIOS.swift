@@ -4,7 +4,6 @@ import FirebasePerformance
 
 class PerformanceWrapperIOS: PerformanceWrapper {
     func createMetric(url: String, httpMethod: String) -> PerformanceMetric {
-        print("PerformanceWrapperIOS createMetric")
         
         let httpMethodType: HTTPMethod
         
@@ -29,6 +28,7 @@ class PerformanceWrapperIOS: PerformanceWrapper {
             httpMethodType = HTTPMethod.get
         }
         
+        print("PerformanceWrapperIOS createMetric url: \(url), httpMethod: \(httpMethod)")
         return PerformanceMetricIOS(
             metric: HTTPMetric.init(
                 url:
