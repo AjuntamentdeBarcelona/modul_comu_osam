@@ -83,6 +83,8 @@ següents paràmetres:
   qualsevol altre llibreria)
 - **analyticsWrapper**: implementació del wrapper de analytics que hem de implementar (o de
   qualsevol altre llibreria)
+- **performanceWrapper**: implementació del wrapper de performance que hem de implementar (o de
+  qualsevol altre llibreria)
 
 A continuació, es detalla per cada plataforma, com es realitza aquesta inicialització. Per a més
 detalls de com integrar el mòdul comú amb la CI de la OSAM, consultar el manual de la CI.
@@ -98,8 +100,9 @@ private val osamCommons by lazy {
         context = this,
         backendEndpoint = getString(R.string.common_module_endpoint),
         crashlyticsWrapper = CrashlyticsWrapperAndroid(),
-        analyticsWrapper = AnalyticsWrapperAndroid(),
-        platformUtil = platformUtilAndroid()
+        performanceWrapper = PerformanceWrapperAndroid(),
+        analyticsWrapper = AnalyticsWrapperAndroid(this),
+        platformUtil = PlatformUtilAndroid(this)
     )
 }
 ```
@@ -112,29 +115,35 @@ La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_mod
 </resources>
 ```
 
-A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics i platform util:
+A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics, performance i platform util:
 
 ```kotlin
 class CrashlyticsWrapperAndroid : CrashlyticsWrapper {
-    override fun recordException(exception: Exception) {
-        FirebaseCrashlytics.getInstance().recordException(exception)
-    }
+  override fun recordException(exception: Exception) {
+    FirebaseCrashlytics.getInstance().recordException(exception)
+  }
 }
 
 class AnalyticsWrapperAndroid(context: Context) : AnalyticsWrapper {
 
-    private val analytics = FirebaseAnalytics.getInstance(context)
+  private val analytics = FirebaseAnalytics.getInstance(context)
 
-    override fun logEvent(name: String, parameters: Map<String, String>) {
-        analytics.logEvent(name, parameters.toBundle())
+  override fun logEvent(name: String, parameters: Map<String, String>) {
+    analytics.logEvent(name, parameters.toBundle())
+  }
+
+  private fun Map<String, String>.toBundle(): Bundle =
+    Bundle().apply {
+      this@toBundle.forEach {
+        putString(it.key, it.value)
+      }
     }
+}
 
-    private fun Map<String, String>.toBundle(): Bundle =
-        Bundle().apply {
-            this@toBundle.forEach {
-                putString(it.key, it.value)
-            }
-        }
+class PerformanceWrapperAndroid : PerformanceWrapper {
+  override fun createMetric(url: String, httpMethod: String): PerformanceMetric {
+    return PerformanceMetricAndroid(FirebasePerformance.getInstance().newHttpMetric(url, httpMethod))
+  }
 }
 
 class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
@@ -148,6 +157,10 @@ class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
     ContextCompat.startActivity(context, intent, null)
     return true
   }
+
+  override fun getDeviceModelIdentifier(): String {
+    return ""
+  }
 }
 ```
 
@@ -157,8 +170,10 @@ Inicialitzarem el mòdul comú de la següent manera:
 
 ```swift
 lazy var osamCommons = OSAMCommons(
-    vc: self, backendEndpoint: <url_endpoint_modul_comu>,
+    vc: self,
+    backendEndpoint: <url_endpoint_modul_comu>,
     crashlyticsWrapper: CrashlyticsWrapperIOS(),
+    performanceWrapper: PerformanceWrapperIOS(),
     analyticsWrapper: AnalyticsWrapperIOS(),
     platformUtil: PlatformUtilIOS()
   )
@@ -177,13 +192,45 @@ La URL del backend s'ha de declarar en el config_keys.plist amb el nom "common_m
 </plist>
 ```
 
-A continuació s'indiquen les implementacions del wrapper de Crashlytics i Analytics:
+A continuació s'indiquen les implementacions del wrapper de Crashlytics, Performance i Analytics:
 
 ```swift
 class CrashlyticsWrapperIOS: CrashlyticsWrapper {
     func recordException(className: String, stackTrace: String) {
         let exception = ExceptionModel(name: className, reason: stackTrace)
         Crashlytics.crashlytics().record(exceptionModel: exception)
+    }
+}
+
+class PerformanceWrapperIOS: PerformanceWrapper {
+    func createMetric(url: String, httpMethod: String) -> PerformanceMetric {
+        
+        let httpMethodType: HTTPMethod
+        
+        switch httpMethod.lowercased() {
+        case "put":
+            httpMethodType = HTTPMethod.put
+        case "post":
+            httpMethodType = HTTPMethod.post
+        case "delete":
+            httpMethodType = HTTPMethod.delete
+        case "head":
+            httpMethodType = HTTPMethod.head
+        case "patch":
+            httpMethodType = HTTPMethod.patch
+        case "options":
+            httpMethodType = HTTPMethod.options
+        case "trace":
+            httpMethodType = HTTPMethod.trace
+        case "connect":
+            httpMethodType = HTTPMethod.connect
+        default:
+            httpMethodType = HTTPMethod.get
+        }
+        
+        return PerformanceMetricIOS(
+            metric: HTTPMetric.init(url: URL(string: url)!, httpMethod: httpMethodType)!
+        )
     }
 }
 
@@ -206,6 +253,30 @@ class PlatformUtilIOS : PlatformUtil {
         } else {
             return false
         }
+    }
+    
+    func getDeviceModelIdentifier() -> String {
+        var modelName: String {
+            var systemInfo = utsname()
+            uname(&systemInfo)
+            let machineMirror = Mirror(reflecting: systemInfo.machine)
+            let identifier = machineMirror.children.reduce("") { identifier, element in
+                guard let value = element.value as? Int8, value != 0 else { return identifier }
+                return identifier + String(UnicodeScalar(UInt8(value)))
+            }
+            
+            switch identifier {
+            /*case "iPhone11,6": return "iPhone XR"
+            case "iPhone11,4", "iPhone11,2": return "iPhone XS Max"
+            case "iPhone11,8": return "iPhone XS"
+            case "iPhone12,1": return "iPhone 11"
+            case "iPhone12,3": return "iPhone 11 Pro"
+            case "iPhone12,5": return "iPhone 11 Pro Max"*/
+            //Add more cases for other devices as needed
+            default: return identifier
+            }
+        }
+        return modelName
     }
 }
 ```
