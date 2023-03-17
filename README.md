@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://common-module-mobile:gswQ6sy_xuiy231GV3-r@gitlab.dtibcn.cat/osam_pm/common_module_mobile.git', :tag => '2.0.3'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.0.12'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
