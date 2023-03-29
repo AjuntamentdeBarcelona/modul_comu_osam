@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.12'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.0.14'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.0.12'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.0.14'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -55,7 +55,7 @@ Tindrem tres diferents tipus d'alerta:
 
 Pel que respecta al control de valoracions, la seva funcionalitat és mostrar periòdicament una popup
 que convida a l’usuari a deixar un comentari sobre l'app al market place corresponent (Google Play o
-AppStore).
+AppStore). 
 
 A Android s'utilitza la [llibreria de Google Play Core](https://developer.android.com/guide/playcore/in-app-review/kotlin-java)
 
@@ -543,50 +543,50 @@ arrivar amb 2 valors possibles:
 #### Paràmetres
 
 - **packageName**
-  - Obligatori
-  - Especifica el ApplicationID o BundleID de l'app que afecta
+    - Obligatori
+    - Especifica el ApplicationID o BundleID de l'app que afecta
 - **versionCode**
-  - Obligatori
-  - Especifica la versió a la que afecta el control de versions
+    - Obligatori
+    - Especifica la versió a la que afecta el control de versions
 - **startDate**
-  - Opcional
-  - Data des de quan s'ha de començar a mostrar el pop-up del control de versions, expressada
-    amb *timestamp* (milisegons des del 01/01/1970). Si no arriba informada, es considerarà com si
-    fos el 0.
+    - Opcional
+    - Data des de quan s'ha de començar a mostrar el pop-up del control de versions, expressada
+      amb *timestamp* (milisegons des del 01/01/1970). Si no arriba informada, es considerarà com si
+      fos el 0.
 - **endDate**
-  - Opcional
-  - Data fins quan s'ha de mostrar el pop-up del control de versions, expressada amb *timestamp* (
-    milisegons des del 01/01/1970). Si no arriba informada, es considerara com si fos
-    9223372036854775807 (el valor màxim possible del Long).
+    - Opcional
+    - Data fins quan s'ha de mostrar el pop-up del control de versions, expressada amb *timestamp* (
+      milisegons des del 01/01/1970). Si no arriba informada, es considerara com si fos
+      9223372036854775807 (el valor màxim possible del Long).
 - **serverDate**
-  - Obligatori
-  - Data actual proporcionada per el servidor. Serà la que s'utilitzi per comparar amb `startDate`
-    y `endDate`.
+    - Obligatori
+    - Data actual proporcionada per el servidor. Serà la que s'utilitzi per comparar amb `startDate`
+      y `endDate`.
 - **platform**
-  - Obligatori
-  - Especifica per a quina plataforma (ANDROID o IOS) afecta
+    - Obligatori
+    - Especifica per a quina plataforma (ANDROID o IOS) afecta
 - **comparisonMode**
-  - Obligatori
-  - Especifica la manera de comparació de la versió de l'app amb el mòdul
+    - Obligatori
+    - Especifica la manera de comparació de la versió de l'app amb el mòdul
 - **title**
-  - Obligatori
-  - Títol de l'alerta en el cas que s'hagi de mostrar.
+    - Obligatori
+    - Títol de l'alerta en el cas que s'hagi de mostrar.
 - **message**
-  - Obligatori
-  - Missatge de l'alerta en cas que s'hagi de mostrar.
+    - Obligatori
+    - Missatge de l'alerta en cas que s'hagi de mostrar.
 - **ok**
-  - Opcional
-  - Títol del botó d'acceptar.
-  - Si es rep aquest paràmetre juntament amb el paràmetre okButtonActionURL, es mostrarà en
-    l'alerta un botó d'acceptar que obrirà el link que s'ha especificat en el paràmetre
-    okButtonActionURL.
+    - Opcional
+    - Títol del botó d'acceptar.
+    - Si es rep aquest paràmetre juntament amb el paràmetre okButtonActionURL, es mostrarà en
+      l'alerta un botó d'acceptar que obrirà el link que s'ha especificat en el paràmetre
+      okButtonActionURL.
 - **cancel**
-  - Opcional
-  - Títol del botó de cancel·lar
+    - Opcional
+    - Títol del botó de cancel·lar
 - **url**
-  - Opcional
-  - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
-    versió de l'aplicació a l'App Store / Google Play.
+    - Opcional
+    - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
+      versió de l'aplicació a l'App Store / Google Play.
 
 ### Control de Valoracions
 
@@ -612,23 +612,23 @@ arrivar amb 2 valors possibles:
 #### Paràmetres
 
 - **appStoreIdentifier**
-  - Obligatori
-  - Especifica el id de l'app al AppStore per poder valorar-la
+    - Obligatori
+    - Especifica el id de l'app al AppStore per poder valorar-la
 - **packageName**
-  - Obligatori
-  - Especifica el ApplicationID o BundleID de l'app que afecta
+    - Obligatori
+    - Especifica el ApplicationID o BundleID de l'app que afecta
 - **platform**
-  - Obligatori
-  - Especifica per a quina plataforma (ANDROID o IOS) afecta
+    - Obligatori
+    - Especifica per a quina plataforma (ANDROID o IOS) afecta
 - **minutes**
-  - Obligatori
-  - Especifica el temps (en minuts) que ha de passar perquè surti el popup
+    - Obligatori
+    - Especifica el temps (en minuts) que ha de passar perquè surti el popup
 - **numAperture**
-  - Obligatori
-  - Especifica la quantitat de vegades que s'ha d'obrir l'app perquè surti el popup
+    - Obligatori
+    - Especifica la quantitat de vegades que s'ha d'obrir l'app perquè surti el popup
 - **message**
-  - Obsolet
-  - A partir de la versió 2.0.0, aquest paràmetre ja no es fa servir
+    - Obsolet
+    - A partir de la versió 2.0.0, aquest paràmetre ja no es fa servir
 
 ## Com funciona el mòdul de control de versions
 
