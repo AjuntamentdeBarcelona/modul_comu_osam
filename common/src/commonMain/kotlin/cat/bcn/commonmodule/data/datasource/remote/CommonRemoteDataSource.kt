@@ -39,7 +39,7 @@ internal class CommonRemote(
         }.data.toModel()
     }
 
-    private fun createMetricCreator(performance: InternalPerformanceWrapper, url: String, httpMethod: String): PerformanceMetric {
+    private fun createMetricCreator(performance: InternalPerformanceWrapper, url: String, httpMethod: String): PerformanceMetric? {
         return performance.createMetric(url, httpMethod)
     }
 
