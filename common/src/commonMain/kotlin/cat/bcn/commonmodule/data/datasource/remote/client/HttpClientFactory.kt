@@ -3,13 +3,14 @@ package cat.bcn.commonmodule.data.datasource.remote.client
 import cat.bcn.commonmodule.extensions.isDebug
 import cat.bcn.commonmodule.performance.PerformanceMetric
 import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 
 fun buildClient(
     endpoint: String,
@@ -32,10 +33,14 @@ fun buildClient(
                 level = LogLevel.ALL
             }
         }
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+        install(ContentNegotiation) {
+            val jsonCustom = Json {
+                isLenient = true
                 ignoreUnknownKeys = true
-            })
+                allowSpecialFloatingPointValues = true
+                useArrayPolymorphism = true
+            }
+            json(jsonCustom)
         }
         block(this)
     }
@@ -54,23 +59,23 @@ fun buildClient(
         proceed()
     }
 
-    client.receivePipeline.intercept(HttpReceivePipeline.After) {
+    client.receivePipeline.intercept(HttpReceivePipeline.After) { response ->
         val contentTypeResponse = try {
-            context.response.contentType()
+            response.contentType()
         } catch (t: Throwable) {
             null
         }
         val contentLengthRequest = try {
-            context.request.contentLength()
+            response.request.contentLength()
         } catch (t: Throwable) {
             null
         }
         val contentLengthResponse = try {
-            context.response.contentLength()
+            response.contentLength()
         } catch (t: Throwable) {
             null
         }
-        val httpStatusResponse = context.response.status.value
+        val httpStatusResponse = response.status.value
         contentTypeResponse?.also { contentTypeResponse ->
             metric?.setResponseContentType("${contentTypeResponse.contentType}/${contentTypeResponse.contentSubtype}")
         }
@@ -80,10 +85,10 @@ fun buildClient(
         contentLengthResponse?.also { contentLengthResponse ->
             metric?.setResponsePayloadSize(contentLengthResponse)
         }
-        context.request.headers.entries().forEach { entry ->
+        response.request.headers.entries().forEach { entry ->
             metric?.putAttribute("requestHeaderKey:${entry.key}", "requestHeaderValue:${entry.value}")
         }
-        context.response.headers.entries().forEach { entry ->
+        response.headers.entries().forEach { entry ->
             metric?.putAttribute("responseHeaderKey:${entry.key}", "responseHeaderValue:${entry.value}")
         }
         metric?.setHttpResponseCode(httpStatusResponse)

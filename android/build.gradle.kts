@@ -16,6 +16,7 @@ plugins {
 
 android {
     compileSdk = App.targetSdkVersion
+    namespace = App.applicationId
 
     defaultConfig {
         minSdk = App.minSdkVersion
