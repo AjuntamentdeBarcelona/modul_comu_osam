@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.0.16"
+val libVersionName = "2.1.2"
 group = libGroup
 version = libVersionName
 
@@ -36,6 +36,8 @@ kotlin {
                 implementation(Dependencies.Common.Main.coroutines)
                 implementation(Dependencies.Common.Main.serialization)
                 implementation(Dependencies.Common.Main.ktorClientCore)
+                implementation(Dependencies.Common.Main.ktorContentNegotiation)
+                implementation(Dependencies.Common.Main.ktorSerializationJson)
                 implementation(Dependencies.Common.Main.ktorClientJson)
                 implementation(Dependencies.Common.Main.ktorSerialization)
                 implementation(Dependencies.Common.Main.ktorClientAuth)
@@ -156,13 +158,18 @@ kotlin {
 
 android {
     compileSdk = Common.targetSdkVersion
+    namespace = App.applicationId
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = Common.minSdkVersion
         targetSdk = Common.targetSdkVersion
         testInstrumentationRunner = Common.testInstrumentationRunner
-
         consumerProguardFile("proguard-rules.pro")
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
