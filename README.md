@@ -146,6 +146,44 @@ class PerformanceWrapperAndroid : PerformanceWrapper {
   }
 }
 
+class PerformanceMetricAndroid(val metric: HttpMetric?) : PerformanceMetric {
+    override fun start() {
+        metric?.start()
+    }
+
+    override fun setRequestPayloadSize(bytes: Long) {
+        metric?.setRequestPayloadSize(bytes)
+    }
+
+    override fun markRequestComplete() {
+        metric?.markRequestComplete()
+    }
+
+    override fun markResponseStart() {
+        metric?.markResponseStart()
+    }
+
+    override fun setResponseContentType(contentType: String) {
+        metric?.setResponseContentType(contentType)
+    }
+
+    override fun setHttpResponseCode(responseCode: Int) {
+        metric?.setHttpResponseCode(responseCode)
+    }
+
+    override fun setResponsePayloadSize(bytes: Long) {
+        metric?.setResponsePayloadSize(bytes)
+    }
+
+    override fun putAttribute(attribute: String, value: String) {
+        metric?.putAttribute(attribute, value)
+    }
+
+    override fun stop() {
+        metric?.stop()
+    }
+}
+
 class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
   override fun encodeUrl(url: String): String? {
     return url
@@ -231,6 +269,43 @@ class PerformanceWrapperIOS: PerformanceWrapper {
         return PerformanceMetricIOS(
             metric: HTTPMetric.init(url: URL(string: url)!, httpMethod: httpMethodType)!
         )
+    }
+}
+
+class PerformanceMetricIOS: PerformanceMetric {
+    
+    let metric: HTTPMetric?
+    
+    init(metric: HTTPMetric?) {
+        self.metric = metric
+    }
+    
+    func start() {
+        metric?.start()
+    }
+    func setRequestPayloadSize(bytes: Int64) {
+        metric?.requestPayloadSize = Int(bytes)
+    }
+    func markRequestComplete() {
+        // not used for iOs
+    }
+    func markResponseStart() {
+        // not used for iOs
+    }
+    func setResponseContentType(contentType: String) {
+        metric?.responseContentType = contentType
+    }
+    func setHttpResponseCode(responseCode: Int32) {
+        metric?.responseCode = Int(responseCode)
+    }
+    func setResponsePayloadSize(bytes: Int64) {
+        metric?.responsePayloadSize = Int(bytes)
+    }
+    func putAttribute(attribute: String, value: String) {
+        metric?.setValue(value, forAttribute: attribute)
+    }
+    func stop() {
+        metric?.stop()
     }
 }
 
