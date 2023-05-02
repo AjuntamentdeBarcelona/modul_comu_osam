@@ -22,9 +22,11 @@ kotlin {
     val xcFramework = XCFramework(libName)
     ios {
         binaries.framework {
+            this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
             baseName = libName
         }
         binaries.framework(libName) {
+            this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
             xcFramework.add(this)
         }
     }
