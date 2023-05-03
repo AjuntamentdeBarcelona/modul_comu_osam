@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name                     = 'OSAMCommon'
-    s.version                  = '2.1.3'
+    s.version                  = '2.1.4'
     s.summary                  = 'Common library for the osam version and rating app control'
     s.homepage                 = 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam'
     s.license                  = 'BSD'
