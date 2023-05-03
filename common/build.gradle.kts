@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.1.4"
+val libVersionName = "2.1.5"
 group = libGroup
 version = libVersionName
 
@@ -86,6 +86,16 @@ kotlin {
                 project.exec {
                     workingDir = File("$rootDir")
                     commandLine("git", "checkout", "master").standardOutput
+                }
+            }
+        }
+
+        register("createFramework") {
+            dependsOn("assemble${libName}ReleaseXCFramework")
+            doLast {
+                copy {
+                    from("$buildDir/XCFrameworks/release")
+                    into("$rootDir")
                 }
             }
         }
