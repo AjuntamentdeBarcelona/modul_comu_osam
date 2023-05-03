@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.1.3'
+implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.1.4'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.1.3'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.1.4'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
