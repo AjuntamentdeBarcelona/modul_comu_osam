@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona:modul_comu_osam:2.1.5'
+implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.1.5'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
