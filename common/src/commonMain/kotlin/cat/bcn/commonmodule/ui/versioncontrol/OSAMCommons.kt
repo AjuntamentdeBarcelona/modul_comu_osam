@@ -40,5 +40,16 @@ enum class AppInformationResponse {
 }
 
 enum class Language {
-    CA, ES, EN
+    CA, ES, EN;
+
+    companion object {
+        val DEFAULT = EN
+        fun parse(value: String, defaultIfNotFound: Language = DEFAULT): Language {
+            Language.values()
+                .forEach {
+                    if (it.toString().lowercase() == value.lowercase()) return it
+                }
+            return defaultIfNotFound
+        }
+    }
 }
