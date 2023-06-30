@@ -728,3 +728,7 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
 - La operativa no es veu modificada si hi ha un canvi de versió (és a dir, es mantenen els valors de
   comptatge de dies i de nº de apertures).
 - En cas de què s'hagi de mostrar el popup, a Android es crida a la llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
+
+# Idioma per "default", s'ha d'utilitzar Language.parse(...) en comptes de valueOf(...)
+
+- S'ha d'utilitzar: Language.parse(...) si es vol obtenir un idioma "default". Així no genera l'error a l'utilitzar valueOf(...) de l'enum de Language.
