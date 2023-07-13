@@ -17,7 +17,7 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
         private const val VERSION_OK_CA = "VERSION_OK_CA"
         private const val VERSION_CANCEL_ES = "VERSION_CANCEL_ES"
         private const val VERSION_CANCEL_EN = "VERSION_CANCEL_EN"
-        private const val VERSION_CANCEL_CA = "VERSION_OK_CA"
+        private const val VERSION_CANCEL_CA = "VERSION_CANCEL_CA"
         private const val VERSION_URL = "VERSION_URL"
         private const val VERSION_COMPARISON_MODE = "VERSION_COMPARISON_MODE"
         private const val VERSION_START_DATE = "VERSION_START_DATE"
