@@ -13,7 +13,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.1.7'
+implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.1.8'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -32,7 +32,7 @@ allprojects {
   repositori:
 
 ```
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.1.7'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.1.8'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -114,6 +114,9 @@ La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_mod
     <string name="common_module_endpoint" translatable="false">https://dev-osam-modul-comu.dtibcn.cat/</string>
 </resources>
 ```
+
+Per accedir a aquesta url durant el desenvolupament es requereix indicar usuari i contrasenya, informació que es pot obtenir consultant amb el Cap de Projecte de l'OSAM asignat al projecte.
+
 
 A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics, performance i platform util:
 
