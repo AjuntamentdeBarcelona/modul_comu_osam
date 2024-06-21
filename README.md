@@ -115,6 +115,9 @@ La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_mod
 </resources>
 ```
 
+Per accedir a aquesta url durant el desenvolupament es requereix indicar usuari i contrasenya, informació que es pot obtenir consultant amb el Cap de Projecte de l'OSAM asignat al projecte.
+
+
 A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics, performance i platform util:
 
 ```kotlin
