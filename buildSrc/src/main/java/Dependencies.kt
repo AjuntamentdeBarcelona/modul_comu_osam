@@ -4,14 +4,13 @@ const val coroutines_version = "1.6.0-native-mt"
 const val serialization_version = "1.3.2"
 const val ktor_version = "1.6.5"
 const val kotlin_version = "1.6.10"
-const val google_play_core_version = "1.10.3"
-const val google_play_core_ktx_version = "1.8.1"
-
+const val google_play_review_version = "2.0.1"
+const val google_play_review_ktx_version = "2.0.1"
 
 object App {
     const val applicationId = "cat.bcn.commonmodule"
     const val minSdkVersion = 21
-    const val targetSdkVersion = 31
+    const val targetSdkVersion = 34
     const val versionCode = 2021050001
     const val versionName = "1.0.1"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -76,8 +75,10 @@ object Dependencies {
             const val serialization =
                 "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
             const val ktorClientCore = "io.ktor:ktor-client-okhttp:$ktor_version"
-            const val googlePlayCore = "com.google.android.play:core:$google_play_core_version"
-            const val googlePlayCoreKtx = "com.google.android.play:core-ktx:$google_play_core_ktx_version"
+            const val androidPlayReview =
+                "com.google.android.play:review:$google_play_review_version"
+            const val androidPlayReviewKtx =
+                "com.google.android.play:review-ktx:$google_play_review_ktx_version"
         }
 
         object Native {

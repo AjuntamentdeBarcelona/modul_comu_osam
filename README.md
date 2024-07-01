@@ -1,10 +1,8 @@
 # modul_comu_osam
 
-[![](https://jitpack.io/v/AjuntamentdeBarcelona/modul_comu_osam.svg)](https://jitpack.io/#AjuntamentdeBarcelona/modul_comu_osam)
+[![Jitpack version](https://jitpack.io/v/AjuntamentdeBarcelona/modul_comu_osam.svg)](https://jitpack.io/#AjuntamentdeBarcelona/modul_comu_osam)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-
-# README
 
 ## Com es fa servir?
 
@@ -13,7 +11,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.1.7'
+implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.1.8'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -31,7 +29,7 @@ allprojects {
 - Per utilitzar el mòdul de control de versions, cal afegir l'arxiu Podfile la ubicació del
   repositori:
 
-```
+```pod
 pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.1.7'
 ```
 
@@ -55,7 +53,7 @@ Tindrem tres diferents tipus d'alerta:
 
 Pel que respecta al control de valoracions, la seva funcionalitat és mostrar periòdicament una popup
 que convida a l’usuari a deixar un comentari sobre l'app al market place corresponent (Google Play o
-AppStore). 
+AppStore).
 
 A Android s'utilitza la [llibreria de Google Play Core](https://developer.android.com/guide/playcore/in-app-review/kotlin-java)
 
@@ -106,6 +104,7 @@ private val osamCommons by lazy {
     )
 }
 ```
+
 La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_module_endpoint". El fixer quedaria de la següent manera:
 
 ```xml
@@ -114,6 +113,7 @@ La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_mod
     <string name="common_module_endpoint" translatable="false">https://dev-osam-modul-comu.dtibcn.cat/</string>
 </resources>
 ```
+
 Per accedir a aquesta url durant el desenvolupament es requereix indicar usuari i contrasenya, informació que es pot obtenir consultant amb el Cap de Projecte de l'OSAM asignat al projecte.
 
 A continuació s'indiquen les implementacions del wrapper de crashlytics, analytics, performance i platform util:
@@ -730,6 +730,6 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
   comptatge de dies i de nº de apertures).
 - En cas de què s'hagi de mostrar el popup, a Android es crida a la llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
 
-# Idioma per "default", s'ha d'utilitzar Language.parse(...) en comptes de valueOf(...)
+> **Idioma per "default", s'ha d'utilitzar Language.parse(...) en comptes de valueOf(...)**
 
 - S'ha d'utilitzar: Language.parse(...) si es vol obtenir un idioma "default". Així no genera l'error a l'utilitzar valueOf(...) de l'enum de Language.
