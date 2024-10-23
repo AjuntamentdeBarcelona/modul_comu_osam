@@ -1,0 +1,64 @@
+[versions]
+kotlin = "2.0.20"
+android = "8.5.1"
+
+appCompat = "1.7.0"
+
+constraintLayout = "2.1.4"
+recycler = "1.3.2"
+multidex = "2.0.1"
+firebaseBoM = "29.0.4"
+coroutines = "1.8.1"
+
+junit = "4.13.2"
+junitRunner = "1.0.2"
+
+googleServices = "4.3.10"
+firebaseCrashlytics = "3.0.2"
+firebasePerformance = "1.4.2"
+serialization = "1.3.2"
+
+google_play_review_version = "2.0.2"
+
+ktor = "2.3.9"
+
+[libraries]
+# Android
+
+appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+constraintLayout =  { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+recycler =  { module = "androidx.recyclerview:recyclerview", version.ref = "recycler" }
+multidex =  { module = "androidx.multidex:multidex", version.ref = "multidex" }
+
+# Firebase
+analytics =  { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebaseBoM" }
+firebasePerf =  { module = "com.google.firebase:firebase-perf-ktx", version.ref = "firebaseBoM" }
+firebaseCrashlytics =  { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebaseBoM" }
+
+# Coroutines
+coroutinesAndroid =  { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutinesPlayServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
+
+junit = { module =  "junit:junit", version.ref = "junit" }
+junitRunner = { module = "com.android.support.test:runner", version.ref = "junitRunner"}
+
+ktorClientCore = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktorClientJson = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
+ktorSerialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktorClientAuth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
+ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+
+ktorClientOkhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+androidPlayReview = { module = "com.google.android.play:review", version.ref = "google_play_review_version" }
+androidPlayReviewKtx = { module = "com.google.android.play:review-ktx", version.ref = "google_play_review_version" }
+ktorClientIos = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
+
+[plugins]
+androidApp = { id =  "com.android.application", version.ref = "android"}
+androidLibrary = { id =  "com.android.library", version.ref = "android"}
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+googleServices = { id =  "com.google.gms:google-services", version.ref = "googleServices"}
+firebaseCrashlytics = { id =  "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics"}
+serialization = { id =  "org.jetbrains.kotlin:kotlin-serialization", version.ref = "serialization"}
+firebasePerformance = { id =  "com.google.firebase.firebase-perf", version.ref = "firebasePerformance"}
