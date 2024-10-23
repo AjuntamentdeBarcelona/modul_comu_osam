@@ -45,6 +45,7 @@ kotlin {
             implementation(libs.serialization)
             implementation(libs.ktorClientCore)
             implementation(libs.ktorClientJson)
+            implementation(libs.contentNegotiation)
             implementation(libs.ktorSerialization)
             implementation(libs.ktorClientAuth)
             implementation(libs.ktorLogging)
@@ -156,14 +157,19 @@ kotlin {
 
 android {
     compileSdk = Common.targetSdkVersion
-    namespace = libGroup
+    namespace = "cat.bcn.commonmodule"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
     defaultConfig {
         minSdk = Common.minSdkVersion
-        targetSdk = Common.targetSdkVersion
         testInstrumentationRunner = Common.testInstrumentationRunner
 
         consumerProguardFile("proguard-rules.pro")
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 

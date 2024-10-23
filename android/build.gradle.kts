@@ -15,7 +15,7 @@ plugins {
 
 android {
     compileSdk = App.targetSdkVersion
-    namespace = App.applicationId
+    namespace = "com.app.app"
 
     defaultConfig {
         minSdk = App.minSdkVersion
@@ -64,6 +64,7 @@ dependencies {
 
     implementation(libs.multidex)
 
+    implementation(platform(libs.firebaseBom))
     implementation(libs.analytics)
     implementation(libs.firebasePerf)
     implementation(libs.firebaseCrashlytics)
