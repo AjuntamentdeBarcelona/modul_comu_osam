@@ -3,6 +3,7 @@ package cat.bcn.commonmodule.data.datasource.remote.client
 import cat.bcn.commonmodule.extensions.isDebug
 import cat.bcn.commonmodule.performance.PerformanceMetric
 import io.ktor.client.*
+import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -20,7 +21,7 @@ fun buildClient(
     metric: PerformanceMetric?,
     block: HttpClientConfig<*>.() -> Unit = {}
 ): HttpClient {
-    val client = HttpClient {
+    val client = HttpClient(CIO) {
         defaultRequest {
             val endpointUrlBuilder = URLBuilder(endpoint)
             url {

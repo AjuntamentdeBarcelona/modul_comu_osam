@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.coroutinesCore)
             implementation(libs.serialization)
             implementation(libs.ktorClientCore)
+            implementation(libs.ktorEngineCio)
             implementation(libs.ktorClientJson)
             implementation(libs.contentNegotiation)
             implementation(libs.ktorSerialization)
@@ -176,4 +177,5 @@ android {
 dependencies {
     implementation(Dependencies.Android.coroutinesPlayServices)
     implementation(Dependencies.Android.appCompat)
+    implementation(libs.multidex)
 }

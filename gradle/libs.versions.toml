@@ -53,6 +53,7 @@ contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", versi
 ktorSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktorClientAuth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktorEngineCio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 ktorClientOkhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 androidPlayReview = { module = "com.google.android.play:review", version.ref = "google_play_review_version" }
