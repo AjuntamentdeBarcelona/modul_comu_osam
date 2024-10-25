@@ -4,6 +4,7 @@ import com.android.build.api.dsl.ApplicationProductFlavor
 import com.android.build.api.variant.ApplicationVariant
 import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
+import java.util.Locale
 
 plugins {
     alias(libs.plugins.androidApp)
@@ -76,11 +77,12 @@ dependencies {
 }
 
 fun NamedDomainObjectContainer<ApplicationProductFlavor>.createProductFlavor(appFlavor: AppFlavor) =
-    create(appFlavor.name.toLowerCase()) {
+    create(appFlavor.name.lowercase(Locale.getDefault())) {
         applicationId = appFlavor.appId
     }
 
-fun NamedDomainObjectContainer<out ApkSigningConfig>.createSignInConfig(appFlavor: AppFlavor) = create(appFlavor.signInName) {
+fun NamedDomainObjectContainer<out ApkSigningConfig>.createSignInConfig(appFlavor: AppFlavor) =
+    create(appFlavor.signInName) {
         val path = "${rootDir.absolutePath}/$propertiesDir"
         storeFile = getSignFile(rootDir.absolutePath, "$path/${appFlavor.signInFile}")
         storePassword = getSignFilePassword("$path/${appFlavor.signInFile}")
@@ -94,7 +96,7 @@ fun NamedDomainObjectContainer<ApplicationBuildType>.createBuildType(
     flavors: NamedDomainObjectContainer<ProductFlavor>,
     signingConfigs: NamedDomainObjectContainer<SigningConfig>,
     proguardFile: File
-) = getByName(buildType.name.toLowerCase()) {
+) = getByName(buildType.name.lowercase(Locale.getDefault())) {
     isMinifyEnabled = buildType.minified
     isDebuggable = buildType.debuggable
     applicationIdSuffix = buildType.idSuffix
@@ -115,13 +117,19 @@ fun NamedDomainObjectContainer<ApplicationBuildType>.createBuildType(
 }
 
 fun com.android.build.gradle.api.ApplicationVariant.applyProperties() {
-    val properties = VariantProperties(name.capitalize())
+    val properties = VariantProperties(name.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+        else it.toString()
+    })
     // resValue("string", "PROPERTY_NAME", properties.PROPERTY_NAME)
     // buildConfigField("String", "PROPERTY_NAME", properties.PROPERTY_NAME)
 }
 
 fun ApplicationVariant.applyProperties() {
-    val properties = VariantProperties(name.capitalize())
+    val properties = VariantProperties(name.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+        else it.toString()
+    })
 
     // resValues.put(makeResValueKey("string", "PROPERTY_NAME"), ResValue(properties.PROPERTY_NAME))
     // buildConfigFields.put("PROPERTY_NAME", BuildConfigField("String", properties.PROPERTY_NAME, null))
