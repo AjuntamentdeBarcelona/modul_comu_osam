@@ -58,9 +58,9 @@ kotlin {
         }
 
         androidMain.dependencies {
-                implementation(libs.ktorClientCore)
-                implementation(libs.androidPlayReview)
-                implementation(libs.androidPlayReviewKtx)
+            implementation(libs.ktorClientCore)
+            implementation(libs.androidPlayReview)
+            implementation(libs.androidPlayReviewKtx)
         }
 
         iosMain.dependencies {
