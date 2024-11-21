@@ -21,7 +21,7 @@ internal actual class PlatformInformation(private val context: Context) {
 
     actual fun getVersionCode(): Long = getPackageInfo().versionCode.toLong()
 
-    actual fun getVersionName(): String = getPackageInfo().versionName
+    actual fun getVersionName(): String = getPackageInfo().versionName ?: "unknown"
 
     actual fun getAppName(): String = context.applicationInfo.loadLabel(context.packageManager).toString()
 

@@ -19,3 +19,4 @@
 ios/Build/
 ios/commonmodule.xcworkspace/xcuserdata
 ios/commonmodule.xcodeproj/xcuserdata
+.kotlin
