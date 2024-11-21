@@ -3,6 +3,4 @@ framework module OSAMCommon {
 
     export *
     module * { export * }
-
-    use Foundation
 }

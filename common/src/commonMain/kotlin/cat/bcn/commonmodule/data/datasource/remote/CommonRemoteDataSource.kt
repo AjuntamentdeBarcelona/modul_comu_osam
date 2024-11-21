@@ -9,7 +9,6 @@ import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.performance.PerformanceMetric
-import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.utils.io.core.*
 
@@ -24,21 +23,19 @@ internal class CommonRemote(
 
     override suspend fun getVersion(performance: InternalPerformanceWrapper, appId: String, platform: Platform, versionCode: Long): Version {
         val path = "${versionRoute}/$appId/$platform/$versionCode"
-        val url =
-            backendEndpoint.let { if (it.endsWith("/")) it else "$it/" } + path.let { if (path.startsWith("/") && path.length > 1) path.substring(1) else path }
+        val url = backendEndpoint.let { if(it.endsWith("/")) it else "$it/" } + path.let { if(path.startsWith("/") && path.length > 1) path.substring(1) else path }
         val httpMethod = "get"
         return buildClient(backendEndpoint, createMetricCreator(performance, url, httpMethod)).use {
-            it.get(path).body<VersionResponseDto>()
+            it.get<VersionResponseDto>(path)
         }.data.toModel()
     }
 
     override suspend fun getRating(performance: InternalPerformanceWrapper, appId: String, platform: Platform): Rating {
         val path = "${ratingRoute}/$appId/$platform"
         val httpMethod = "get"
-        val url =
-            backendEndpoint.let { if (it.endsWith("/")) it else "$it/" } + path.let { if (path.startsWith("/") && path.length > 1) path.substring(1) else path }
+        val url = backendEndpoint.let { if(it.endsWith("/")) it else "$it/" } + path.let { if(path.startsWith("/") && path.length > 1) path.substring(1) else path }
         return buildClient(backendEndpoint, createMetricCreator(performance, url, httpMethod)).use {
-            it.get(path).body<RatingResponseDto>()
+            it.get<RatingResponseDto>(path)
         }.data.toModel()
     }
 

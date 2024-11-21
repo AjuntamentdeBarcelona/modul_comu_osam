@@ -10,13 +10,13 @@
 		2F3D885228E6ECC40006D367 /* PlatformUtilIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D885128E6ECC40006D367 /* PlatformUtilIOS.swift */; };
 		2FB60E8629817AB0002F6B6A /* PerformanceWrapperIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB60E8429817AB0002F6B6A /* PerformanceWrapperIOS.swift */; };
 		2FB60E8729817AB0002F6B6A /* PerformanceMetricIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB60E8529817AB0002F6B6A /* PerformanceMetricIOS.swift */; };
-		406576189C2D08FEC086DA38 /* Pods_commonmodule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D207405D45FC7FE847EDBF41 /* Pods_commonmodule.framework */; };
 		491DDC1A247D57E300748032 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491DDC19247D57E300748032 /* AppDelegate.swift */; };
 		491DDC1C247D57E300748032 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491DDC1B247D57E300748032 /* SceneDelegate.swift */; };
 		491DDC1E247D57E300748032 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491DDC1D247D57E300748032 /* ViewController.swift */; };
 		491DDC21247D57E300748032 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491DDC1F247D57E300748032 /* Main.storyboard */; };
 		491DDC23247D57E600748032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491DDC22247D57E600748032 /* Assets.xcassets */; };
 		491DDC26247D57E600748032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491DDC24247D57E600748032 /* LaunchScreen.storyboard */; };
+		5615A6B717918F9D58B8E76A /* Pods_commonmodule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A915E74B12797AE0E0F34E /* Pods_commonmodule.framework */; };
 		5ECD129927908C25008FBD49 /* config_keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ECD129827908C25008FBD49 /* config_keys.plist */; };
 		76CC459327A04CF900EA163B /* AnalyticsWrapperIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC459227A04CF900EA163B /* AnalyticsWrapperIOS.swift */; };
 		76CC459527A04D0600EA163B /* CrashlyticsWrapperIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC459427A04D0600EA163B /* CrashlyticsWrapperIOS.swift */; };
@@ -36,12 +36,12 @@
 		491DDC25247D57E600748032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		491DDC27247D57E600748032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5ECD129827908C25008FBD49 /* config_keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config_keys.plist; sourceTree = "<group>"; };
-		65FD71E6A5BAE50622DDB6DC /* Pods-commonmodule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-commonmodule.release.xcconfig"; path = "Target Support Files/Pods-commonmodule/Pods-commonmodule.release.xcconfig"; sourceTree = "<group>"; };
 		76CC459227A04CF900EA163B /* AnalyticsWrapperIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsWrapperIOS.swift; sourceTree = "<group>"; };
 		76CC459427A04D0600EA163B /* CrashlyticsWrapperIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsWrapperIOS.swift; sourceTree = "<group>"; };
 		7B2BBF2425F62BBD00933316 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		D207405D45FC7FE847EDBF41 /* Pods_commonmodule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_commonmodule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F1EFE3C85BC91FABFF090290 /* Pods-commonmodule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-commonmodule.debug.xcconfig"; path = "Target Support Files/Pods-commonmodule/Pods-commonmodule.debug.xcconfig"; sourceTree = "<group>"; };
+		87B86DA4ACC1D09594B0AC62 /* Pods-commonmodule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-commonmodule.debug.xcconfig"; path = "Target Support Files/Pods-commonmodule/Pods-commonmodule.debug.xcconfig"; sourceTree = "<group>"; };
+		91A915E74B12797AE0E0F34E /* Pods_commonmodule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_commonmodule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCDB12354B74DB5DBAB810EF /* Pods-commonmodule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-commonmodule.release.xcconfig"; path = "Target Support Files/Pods-commonmodule/Pods-commonmodule.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				406576189C2D08FEC086DA38 /* Pods_commonmodule.framework in Frameworks */,
+				5615A6B717918F9D58B8E76A /* Pods_commonmodule.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,7 @@
 				491DDC18247D57E300748032 /* commonmodule */,
 				491DDC17247D57E300748032 /* Products */,
 				667D209CE1C07D3ED124ADA6 /* Pods */,
-				C4474D8AB429F4CC2CE64072 /* Frameworks */,
+				73F0FA90B7D2554CA3E6159A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,10 +131,18 @@
 		667D209CE1C07D3ED124ADA6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F1EFE3C85BC91FABFF090290 /* Pods-commonmodule.debug.xcconfig */,
-				65FD71E6A5BAE50622DDB6DC /* Pods-commonmodule.release.xcconfig */,
+				87B86DA4ACC1D09594B0AC62 /* Pods-commonmodule.debug.xcconfig */,
+				FCDB12354B74DB5DBAB810EF /* Pods-commonmodule.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		73F0FA90B7D2554CA3E6159A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91A915E74B12797AE0E0F34E /* Pods_commonmodule.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		76CC459027A04CD300EA163B /* analytics */ = {
@@ -153,14 +161,6 @@
 			path = crashlytics;
 			sourceTree = "<group>";
 		};
-		C4474D8AB429F4CC2CE64072 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D207405D45FC7FE847EDBF41 /* Pods_commonmodule.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,13 +168,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 491DDC2A247D57E600748032 /* Build configuration list for PBXNativeTarget "commonmodule" */;
 			buildPhases = (
-				FFFB18719C82FA5C790DDB0F /* [CP] Check Pods Manifest.lock */,
+				D230B0FD84F1CA9F50FD1C46 /* [CP] Check Pods Manifest.lock */,
 				76E01BD727A1A49F001C985C /* Build kotlin common module */,
 				491DDC12247D57E300748032 /* Sources */,
 				491DDC13247D57E300748032 /* Frameworks */,
 				491DDC14247D57E300748032 /* Resources */,
 				7B8CBE3026945C2300B97F79 /* ShellScript */,
-				7FC9C6AF9F35054BB3106C4C /* [CP] Embed Pods Frameworks */,
+				8879EC08FFAA7B78C948D7EC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -271,7 +271,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		7FC9C6AF9F35054BB3106C4C /* [CP] Embed Pods Frameworks */ = {
+		8879EC08FFAA7B78C948D7EC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -288,7 +288,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-commonmodule/Pods-commonmodule-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFFB18719C82FA5C790DDB0F /* [CP] Check Pods Manifest.lock */ = {
+		D230B0FD84F1CA9F50FD1C46 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -466,14 +466,15 @@
 		};
 		491DDC2B247D57E600748032 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1EFE3C85BC91FABFF090290 /* Pods-commonmodule.debug.xcconfig */;
+			baseConfigurationReference = 87B86DA4ACC1D09594B0AC62 /* Pods-commonmodule.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2023041700;
+				CURRENT_PROJECT_VERSION = 2021050000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 58NG96TYLK;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
@@ -495,7 +496,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -547,14 +548,15 @@
 		};
 		491DDC2C247D57E600748032 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65FD71E6A5BAE50622DDB6DC /* Pods-commonmodule.release.xcconfig */;
+			baseConfigurationReference = FCDB12354B74DB5DBAB810EF /* Pods-commonmodule.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2023041700;
+				CURRENT_PROJECT_VERSION = 2021050000;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 58NG96TYLK;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
@@ -576,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

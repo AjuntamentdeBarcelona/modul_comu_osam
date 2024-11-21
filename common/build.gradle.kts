@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.1.2"
+val libVersionName = "2.1.8"
 group = libGroup
 version = libVersionName
 
@@ -22,9 +22,11 @@ kotlin {
     val xcFramework = XCFramework(libName)
     ios {
         binaries.framework {
+            this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
             baseName = libName
         }
         binaries.framework(libName) {
+            this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
             xcFramework.add(this)
         }
     }
@@ -36,8 +38,6 @@ kotlin {
                 implementation(Dependencies.Common.Main.coroutines)
                 implementation(Dependencies.Common.Main.serialization)
                 implementation(Dependencies.Common.Main.ktorClientCore)
-                implementation(Dependencies.Common.Main.ktorContentNegotiation)
-                implementation(Dependencies.Common.Main.ktorSerializationJson)
                 implementation(Dependencies.Common.Main.ktorClientJson)
                 implementation(Dependencies.Common.Main.ktorSerialization)
                 implementation(Dependencies.Common.Main.ktorClientAuth)
@@ -55,8 +55,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Common.Android.ktorClientCore)
-                implementation(Dependencies.Common.Android.googlePlayCore)
-                implementation(Dependencies.Common.Android.googlePlayCoreKtx)
+                implementation(Dependencies.Common.Android.androidPlayReview)
+                implementation(Dependencies.Common.Android.androidPlayReviewKtx)
             }
         }
 
@@ -86,6 +86,16 @@ kotlin {
                 project.exec {
                     workingDir = File("$rootDir")
                     commandLine("git", "checkout", "master").standardOutput
+                }
+            }
+        }
+
+        register("createFramework") {
+            dependsOn("assemble${libName}ReleaseXCFramework")
+            doLast {
+                copy {
+                    from("$buildDir/XCFrameworks/release")
+                    into("$rootDir")
                 }
             }
         }
@@ -158,18 +168,13 @@ kotlin {
 
 android {
     compileSdk = Common.targetSdkVersion
-    namespace = App.applicationId
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = Common.minSdkVersion
         targetSdk = Common.targetSdkVersion
         testInstrumentationRunner = Common.testInstrumentationRunner
-        consumerProguardFile("proguard-rules.pro")
-    }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        consumerProguardFile("proguard-rules.pro")
     }
 }
 

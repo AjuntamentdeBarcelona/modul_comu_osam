@@ -4,11 +4,11 @@ import analytics.AnalyticsWrapperAndroid
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import cat.bcn.commonmodule.R
-import cat.bcn.commonmodule.databinding.ActivityHomeBinding
 import cat.bcn.commonmodule.platform.PlatformUtilAndroid
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
+import com.app.app.R
+import com.app.app.databinding.ActivityHomeBinding
 import crashlytics.CrashlyticsWrapperAndroid
 import performance.PerformanceWrapperAndroid
 
@@ -63,11 +63,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.appInformationButton.setOnClickListener {
             osamCommons.appInformation { appInformationResponse, appInformation ->
-                Toast.makeText(
-                    this,
-                    "$appInformationResponse, ${appInformation?.appName}, ${appInformation?.appVersionName}, ${appInformation?.appVersionCode}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this, "$appInformationResponse, ${appInformation?.appName}, ${appInformation?.appVersionName}, ${appInformation?.appVersionCode}", Toast.LENGTH_LONG).show()
             }
         }
     }
