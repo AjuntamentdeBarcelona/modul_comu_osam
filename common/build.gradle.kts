@@ -44,7 +44,6 @@ kotlin {
             implementation(libs.coroutinesCore)
             implementation(libs.serialization)
             implementation(libs.ktorClientCore)
-            implementation(libs.ktorEngineCio)
             implementation(libs.ktorClientJson)
             implementation(libs.contentNegotiation)
             implementation(libs.ktorSerialization)
@@ -61,10 +60,12 @@ kotlin {
             implementation(libs.ktorClientCore)
             implementation(libs.androidPlayReview)
             implementation(libs.androidPlayReviewKtx)
+            implementation(libs.ktorClientOkhttp)
         }
 
         iosMain.dependencies {
             implementation(libs.ktorClientCore)
+            implementation(libs.ktorClientDarwin)
         }
 
     }
