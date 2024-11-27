@@ -85,7 +85,7 @@ kotlin {
             dependsOn("assemble${libName}ReleaseXCFramework")
             doLast {
                 copy {
-                    from("$buildDir/XCFrameworks/release")
+                    from("${layout.buildDirectory}/XCFrameworks/release")
                     into("$rootDir")
                 }
             }
@@ -103,7 +103,7 @@ kotlin {
 
             doLast {
                 copy {
-                    from("$buildDir/XCFrameworks/release")
+                    from("${layout.buildDirectory}/XCFrameworks/release")
                     into("$rootDir")
                 }
 
