@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.2.0"
+val libVersionName = "2.2.1"
 
 group = libGroup
 version = libVersionName
@@ -44,7 +44,6 @@ kotlin {
             implementation(libs.coroutinesCore)
             implementation(libs.serialization)
             implementation(libs.ktorClientCore)
-            implementation(libs.ktorEngineCio)
             implementation(libs.ktorClientJson)
             implementation(libs.contentNegotiation)
             implementation(libs.ktorSerialization)
@@ -61,10 +60,12 @@ kotlin {
             implementation(libs.ktorClientCore)
             implementation(libs.androidPlayReview)
             implementation(libs.androidPlayReviewKtx)
+            implementation(libs.ktorClientOkhttp)
         }
 
         iosMain.dependencies {
             implementation(libs.ktorClientCore)
+            implementation(libs.ktorClientDarwin)
         }
 
     }
@@ -84,7 +85,7 @@ kotlin {
             dependsOn("assemble${libName}ReleaseXCFramework")
             doLast {
                 copy {
-                    from("$buildDir/XCFrameworks/release")
+                    from("${layout.buildDirectory}/XCFrameworks/release")
                     into("$rootDir")
                 }
             }
@@ -102,7 +103,7 @@ kotlin {
 
             doLast {
                 copy {
-                    from("$buildDir/XCFrameworks/release")
+                    from("${layout.buildDirectory}/XCFrameworks/release")
                     into("$rootDir")
                 }
 

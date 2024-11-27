@@ -2,17 +2,21 @@ package cat.bcn.commonmodule.data.datasource.remote.client
 
 import cat.bcn.commonmodule.extensions.isDebug
 import cat.bcn.commonmodule.performance.PerformanceMetric
-import io.ktor.client.*
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.request.HttpSendPipeline
+import io.ktor.client.request.header
+import io.ktor.client.statement.HttpReceivePipeline
+import io.ktor.client.statement.request
+import io.ktor.http.URLBuilder
+import io.ktor.http.contentLength
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -21,7 +25,7 @@ fun buildClient(
     metric: PerformanceMetric?,
     block: HttpClientConfig<*>.() -> Unit = {}
 ): HttpClient {
-    val client = HttpClient(CIO) {
+    val client = HttpClient {
         defaultRequest {
             val endpointUrlBuilder = URLBuilder(endpoint)
             url {
@@ -86,10 +90,16 @@ fun buildClient(
             metric?.setResponsePayloadSize(contentLengthResponse)
         }
         phase.request.headers.entries().forEach { entry ->
-            metric?.putAttribute("requestHeaderKey:${entry.key}", "requestHeaderValue:${entry.value}")
+            metric?.putAttribute(
+                "requestHeaderKey:${entry.key}",
+                "requestHeaderValue:${entry.value}"
+            )
         }
         phase.headers.entries().forEach { entry ->
-            metric?.putAttribute("responseHeaderKey:${entry.key}", "responseHeaderValue:${entry.value}")
+            metric?.putAttribute(
+                "responseHeaderKey:${entry.key}",
+                "responseHeaderValue:${entry.value}"
+            )
         }
         metric?.setHttpResponseCode(httpStatusResponse)
         metric?.stop()
