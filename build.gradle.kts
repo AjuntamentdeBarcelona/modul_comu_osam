@@ -1,29 +1,14 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(Dependencies.Root.android)
-        classpath(Dependencies.Root.googleServices)
-        classpath(Dependencies.Root.serialization)
-        classpath(Dependencies.Root.firebaseCrashlytics)
-        classpath(Dependencies.Root.firebasePerformance)
-
-        classpath(kotlin("gradle-plugin", kotlin_version))
-    }
-}
-
-allprojects {
-
-    repositories {
-        google()
-        mavenCentral()
-        maven(url = "https://jitpack.io")
-    }
+plugins {
+    alias(libs.plugins.androidApp) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.googleServices) apply false
+    alias(libs.plugins.kotlin) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.firebaseCrashlytics) apply false
+    alias(libs.plugins.serialization) apply false
+    alias(libs.plugins.firebasePerformance) apply false
 }
 
 tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }

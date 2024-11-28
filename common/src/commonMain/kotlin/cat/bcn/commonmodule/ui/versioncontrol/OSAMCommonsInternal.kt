@@ -1,3 +1,5 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package cat.bcn.commonmodule.ui.versioncontrol
 
 import cat.bcn.commonmodule.analytics.AnalyticsWrapper
@@ -18,6 +20,7 @@ import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,6 +49,7 @@ internal class OSAMCommonsInternal(
         )
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun versionControl(
         language: Language,
         f: (VersionControlResponse) -> Unit

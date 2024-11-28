@@ -10,7 +10,7 @@ const val google_play_review_ktx_version = "2.0.1"
 object App {
     const val applicationId = "cat.bcn.commonmodule"
     const val minSdkVersion = 21
-    const val targetSdkVersion = 34
+    const val targetSdkVersion = 35
     const val versionCode = 2021050001
     const val versionName = "1.0.1"
     const val testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"

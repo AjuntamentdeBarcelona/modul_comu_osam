@@ -1,31 +1,38 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    id("com.android.library")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.serialization)
     id("maven-publish")
 }
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.1.8"
+val libVersionName = "2.2.1"
+
 group = libGroup
 version = libVersionName
 
 kotlin {
-    android()
-    android {
+    applyDefaultHierarchyTemplate()
+
+    androidTarget {
         publishLibraryVariants("release", "debug")
     }
 
     val xcFramework = XCFramework(libName)
-    ios {
-        binaries.framework {
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+
+        iosTarget.binaries.framework {
             this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
             baseName = libName
         }
-        binaries.framework(libName) {
+        iosTarget.binaries.framework(libName) {
             this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
             xcFramework.add(this)
         }
@@ -33,50 +40,34 @@ kotlin {
 
     sourceSets {
 
-        val commonMain by getting {
-            dependencies {
-                implementation(Dependencies.Common.Main.coroutines)
-                implementation(Dependencies.Common.Main.serialization)
-                implementation(Dependencies.Common.Main.ktorClientCore)
-                implementation(Dependencies.Common.Main.ktorClientJson)
-                implementation(Dependencies.Common.Main.ktorSerialization)
-                implementation(Dependencies.Common.Main.ktorClientAuth)
-                implementation(Dependencies.Common.Main.ktorLogging)
-            }
+        commonMain.dependencies {
+            implementation(libs.coroutinesCore)
+            implementation(libs.serialization)
+            implementation(libs.ktorClientCore)
+            implementation(libs.ktorClientJson)
+            implementation(libs.contentNegotiation)
+            implementation(libs.ktorSerialization)
+            implementation(libs.ktorClientAuth)
+            implementation(libs.ktorLogging)
         }
 
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
         }
 
-        val androidMain by getting {
-            dependencies {
-                implementation(Dependencies.Common.Android.ktorClientCore)
-                implementation(Dependencies.Common.Android.androidPlayReview)
-                implementation(Dependencies.Common.Android.androidPlayReviewKtx)
-            }
+        androidMain.dependencies {
+            implementation(libs.ktorClientCore)
+            implementation(libs.androidPlayReview)
+            implementation(libs.androidPlayReviewKtx)
+            implementation(libs.ktorClientOkhttp)
         }
 
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-            }
+        iosMain.dependencies {
+            implementation(libs.ktorClientCore)
+            implementation(libs.ktorClientDarwin)
         }
 
-        val iosMain by getting {
-            dependencies {
-                implementation(Dependencies.Common.Native.ktorClientCore)
-            }
-        }
-
-        val iosTest by getting {
-            dependencies {
-            }
-        }
     }
 
     tasks {
@@ -94,7 +85,7 @@ kotlin {
             dependsOn("assemble${libName}ReleaseXCFramework")
             doLast {
                 copy {
-                    from("$buildDir/XCFrameworks/release")
+                    from("${layout.buildDirectory}/XCFrameworks/release")
                     into("$rootDir")
                 }
             }
@@ -112,7 +103,7 @@ kotlin {
 
             doLast {
                 copy {
-                    from("$buildDir/XCFrameworks/release")
+                    from("${layout.buildDirectory}/XCFrameworks/release")
                     into("$rootDir")
                 }
 
@@ -168,17 +159,24 @@ kotlin {
 
 android {
     compileSdk = Common.targetSdkVersion
+    namespace = "cat.bcn.commonmodule"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
     defaultConfig {
         minSdk = Common.minSdkVersion
-        targetSdk = Common.targetSdkVersion
         testInstrumentationRunner = Common.testInstrumentationRunner
 
         consumerProguardFile("proguard-rules.pro")
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
     implementation(Dependencies.Android.coroutinesPlayServices)
     implementation(Dependencies.Android.appCompat)
+    implementation(libs.multidex)
 }

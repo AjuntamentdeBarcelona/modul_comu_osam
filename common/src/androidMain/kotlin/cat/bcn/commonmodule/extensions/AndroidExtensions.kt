@@ -1,6 +1,6 @@
 package cat.bcn.commonmodule.extensions
 
-import cat.bcn.commonmodule.BuildConfig
+import androidx.multidex.BuildConfig
 import java.util.*
 
 actual val isDebug = BuildConfig.DEBUG
