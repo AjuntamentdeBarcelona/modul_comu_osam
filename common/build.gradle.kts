@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.2.1"
+val libVersionName = "2.2.2"
 
 group = libGroup
 version = libVersionName
@@ -71,42 +71,35 @@ kotlin {
     }
 
     tasks {
+        register<Delete>("deleteXCFramework") {
+            println("Remove XCFramework from root dir")
+            delete(File("$rootDir/OSAMCommon.xcframework"))
+        }
 
-        register("moveToMasterBranch") {
-            doLast {
-                project.exec {
-                    workingDir = File("$rootDir")
-                    commandLine("git", "checkout", "master").standardOutput
-                }
-            }
+        register<Copy>("copyFiles") {
+            println("Copy new XCFramework to root dir")
+            from(layout.buildDirectory.dir("XCFrameworks/release"))
+            into(layout.buildDirectory.dir("$rootDir"))
         }
 
         register("createFramework") {
+            println("Generate the new XCFramework")
             dependsOn("assemble${libName}ReleaseXCFramework")
-            doLast {
-                copy {
-                    from("${layout.buildDirectory}/XCFrameworks/release")
-                    into("$rootDir")
-                }
-            }
+            dependsOn("copyFiles")
+            named("copyFiles").get().mustRunAfter("assemble${libName}ReleaseXCFramework")
         }
 
         register("publishFramework") {
             description = "Publish iOs framework to the Cocoa Repo"
             group = "Publishing"
 
-            dependsOn("moveToMasterBranch")
             // Create Release Framework for Xcode
-            dependsOn("assemble${libName}ReleaseXCFramework")
+            dependsOn("deleteXCFramework")
+            dependsOn("createFramework")
+            named("createFramework").get().mustRunAfter("deleteXCFramework")
 
-            named("assemble${libName}ReleaseXCFramework").get().mustRunAfter("moveToMasterBranch")
 
             doLast {
-                copy {
-                    from("${layout.buildDirectory}/XCFrameworks/release")
-                    into("$rootDir")
-                }
-
                 val dir = File("$rootDir/$libName.podspec")
                 val tempFile = File("$rootDir/$libName.podspec.new")
 
@@ -123,35 +116,7 @@ kotlin {
                 }
                 writer.close()
                 reader.close()
-                val successful = tempFile.renameTo(dir)
-
-                if (successful) {
-
-                    project.exec {
-                        workingDir = File("$rootDir")
-                        commandLine("git", "add", ".").standardOutput
-                    }
-
-                    project.exec {
-                        workingDir = File("$rootDir")
-                        commandLine(
-                            "git",
-                            "commit",
-                            "-m",
-                            "\"New release: ${libVersionName}\""
-                        ).standardOutput
-                    }
-
-                    project.exec {
-                        workingDir = File("$rootDir")
-                        commandLine("git", "tag", libVersionName).standardOutput
-                    }
-
-                    project.exec {
-                        workingDir = File("$rootDir")
-                        commandLine("git", "push", "origin", "master", "--tags").standardOutput
-                    }
-                }
+                tempFile.renameTo(dir)
             }
         }
     }
