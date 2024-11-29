@@ -1,0 +1,8 @@
+framework module "OSAMCommon" {
+    umbrella header "OSAMCommon.h"
+
+    export *
+    module * { export * }
+
+    use Foundation
+}
