@@ -11,7 +11,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.2.1'
+implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.2.3'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -30,7 +30,7 @@ allprojects {
   repositori:
 
 ```pod
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.2.1'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.2.3'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -45,11 +45,10 @@ l'app. Aquesta alerta la podem mostrar amb un missatge amb botons de confirmaci�
 Tindrem tres diferents tipus d'alerta:
 
 1. **Informativa**: Alerta amb un missatge i / o un títol informatiu, amb un botó d ' "ok" per
-   confirmar que s'ha llegit.
+   confirmar que s'ha llegit. No obre cap enllaç.
 2. **Restrictiva**: Alerta amb un missatge i / o un títol, amb botó d ' "ok" que un cop fet clic
    redirigirà l'usuari a una url.
-3. **Permisiva**: Alerta amb un missatge i / o un títol, amb botons de "ok" i "cancel". Si fem clic
-   al botó de cancel·lar l'alerta desapareixerà, i si ho fem al de confirmar s'obrirà una url.
+3. **Permisiva**: Alerta amb un missatge i / o un títol, amb botons de "ok" i "cancel". Si fem clic al botó de cancel·lar l'alerta desapareixerà, i si ho fem al de confirmar s'obrirà una url.
 
 Pel que respecta al control de valoracions, la seva funcionalitat és mostrar periòdicament una popup
 que convida a l’usuari a deixar un comentari sobre l'app al market place corresponent (Google Play o
@@ -662,7 +661,7 @@ arrivar amb 2 valors possibles:
 - **url**
     - Opcional
     - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
-      versió de l'aplicació a l'App Store / Google Play.
+      versió de l'aplicació a l'App Store / Google Play. Si el `comparisonMode` és del tipus INFO, el botó no redirigirà a aquesta URL.
 
 ### Control de Valoracions
 
@@ -716,7 +715,7 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
 - **FORCE**: Mostra l'alerta i no es pot treure. Actualització obligatoria
 - **LAZY**: Mostra l'alerta amb l'opció d'actualitzar l'app o seguir utilitzant l'actual.
   Actualització voluntaria
-- **INFO**: Mostra l'alerta amb un missatge informatiu. Deixa seguir utilitzant l'app amb normalitat
+- **INFO**: Mostra l'alerta amb un missatge informatiu. El botó no obre cap URL, deixa seguir utilitzant l'app amb normalitat.
 - **NONE**: no es mostra el popup
 
 ## Com funciona el control de valoracions

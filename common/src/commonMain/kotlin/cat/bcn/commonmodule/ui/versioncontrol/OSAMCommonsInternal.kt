@@ -94,7 +94,7 @@ internal class OSAMCommonsInternal(
                                         version = version,
                                         language = language,
                                         onPositiveClick = {
-                                            f(VersionControlResponse.ACCEPTED)
+                                            f(VersionControlResponse.DISMISSED)
                                             analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
                                         },
                                         onDismissClick = {
