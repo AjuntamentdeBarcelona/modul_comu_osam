@@ -31,6 +31,9 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
         private const val RATING_MESSAGE_EN = "RATING_MESSAGE_EN"
         private const val RATING_MESSAGE_CA = "RATING_MESSAGE_CA"
         private const val DONT_SHOW_AGAIN = "DONT_SHOW_AGAIN"
+
+        private const val VERSION_CONTROL_VERSION_CODE = "VERSION_CONTROL_VERSION_CODE"
+
     }
 
     override fun clear() {
@@ -103,4 +106,7 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
     override fun setDontShowAgain(value: Boolean) = settings.setBoolean(DONT_SHOW_AGAIN, value)
     override fun hasDontShowAgain(): Boolean = settings.has(DONT_SHOW_AGAIN)
     override fun getDontShowAgain(): Boolean = settings.getBoolean(DONT_SHOW_AGAIN)
+
+    override fun setVersionControlVersionCode(value: Long) = settings.setLong(VERSION_CONTROL_VERSION_CODE, value)
+    override fun getVersionControlVersionCode(): Long = settings.getLong(VERSION_CONTROL_VERSION_CODE, 0L)
 }
