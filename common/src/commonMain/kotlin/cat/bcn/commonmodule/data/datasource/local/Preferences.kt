@@ -72,4 +72,7 @@ internal interface Preferences {
     fun setDontShowAgain(value: Boolean)
     fun hasDontShowAgain(): Boolean
     fun getDontShowAgain(): Boolean
+
+    fun setVersionControlVersionCode(value: Long)
+    fun getVersionControlVersionCode(): Long
 }
