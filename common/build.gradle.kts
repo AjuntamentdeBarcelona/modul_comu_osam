@@ -9,7 +9,7 @@ plugins {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.2.3"
+val libVersionName = "2.2.4"
 
 group = libGroup
 version = libVersionName
@@ -34,6 +34,7 @@ kotlin {
         }
         iosTarget.binaries.framework(libName) {
             this.embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.DISABLE)
+            linkerOpts("-framework", "SystemConfiguration")
             xcFramework.add(this)
         }
     }
