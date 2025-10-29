@@ -18,40 +18,9 @@ internal class CommonRepository(
 ) {
 
     suspend fun getVersion(): Either<CommonError, Version> {
-        var version = Version(
-            packageName = platformInformation.getPackageName(),
-            versionCode = platformInformation.getVersionCode(),
-            versionName = platformInformation.getVersionName(),
-            platform = platformInformation.getPlatform(),
-            comparisonMode = preferences.getVersionControlComparisonMode(),
-            startDate = preferences.getVersionStartDate(),
-            endDate = preferences.getVersionEndDate(),
-            serverDate = getCurrentDate(),
-            title = Text(
-                es = preferences.getVersionControlTitleEs(),
-                en = preferences.getVersionControlTitleEn(),
-                ca = preferences.getVersionControlTitleCa()
-            ),
-            message = Text(
-                es = preferences.getVersionControlMessageEs(),
-                en = preferences.getVersionControlMessageEn(),
-                ca = preferences.getVersionControlMessageCa()
-            ),
-            ok = Text(
-                es = preferences.getVersionControlOkEs(),
-                en = preferences.getVersionControlOkEn(),
-                ca = preferences.getVersionControlOkCa()
-            ),
-            cancel = Text(
-                es = preferences.getVersionControlCancelEs(),
-                en = preferences.getVersionControlCancelEn(),
-                ca = preferences.getVersionControlCancelCa(),
-            ),
-            url = preferences.getVersionControlUrl()
-        )
         if (platformInformation.isOnline()) {
-            try {
-                version = remote.getVersion(
+            val versionResult = try {
+                remote.getVersion(
                     internalPerformanceWrapper,
                     platformInformation.getPackageName(),
                     platformInformation.getPlatform(),
@@ -60,24 +29,70 @@ internal class CommonRepository(
             } catch (e: Exception) {
                 return Either.Left(CommonError(e))
             }
-            preferences.setVersionControlTitleEs(version.title.localize(Language.ES))
-            preferences.setVersionControlTitleEn(version.title.localize(Language.EN))
-            preferences.setVersionControlTitleCa(version.title.localize(Language.CA))
-            preferences.setVersionControlMessageEs(version.message.localize(Language.ES))
-            preferences.setVersionControlMessageEn(version.message.localize(Language.EN))
-            preferences.setVersionControlMessageCa(version.message.localize(Language.CA))
-            preferences.setVersionControlOkEs(version.ok.localize(Language.ES))
-            preferences.setVersionControlOkEn(version.ok.localize(Language.EN))
-            preferences.setVersionControlOkCa(version.ok.localize(Language.CA))
-            preferences.setVersionControlCancelEs(version.cancel.localize(Language.ES))
-            preferences.setVersionControlCancelEn(version.cancel.localize(Language.EN))
-            preferences.setVersionControlCancelCa(version.cancel.localize(Language.CA))
-            preferences.setVersionControlUrl(version.url)
-            preferences.setVersionControlComparisonMode(version.comparisonMode)
-            preferences.setVersionStartDate(version.startDate)
-            preferences.setVersionEndDate(version.endDate)
+
+            preferences.setVersionControlTitleEs(versionResult.title.localize(Language.ES))
+            preferences.setVersionControlTitleEn(versionResult.title.localize(Language.EN))
+            preferences.setVersionControlTitleCa(versionResult.title.localize(Language.CA))
+            preferences.setVersionControlMessageEs(versionResult.message.localize(Language.ES))
+            preferences.setVersionControlMessageEn(versionResult.message.localize(Language.EN))
+            preferences.setVersionControlMessageCa(versionResult.message.localize(Language.CA))
+            preferences.setVersionControlOkEs(versionResult.ok.localize(Language.ES))
+            preferences.setVersionControlOkEn(versionResult.ok.localize(Language.EN))
+            preferences.setVersionControlOkCa(versionResult.ok.localize(Language.CA))
+            preferences.setVersionControlCancelEs(versionResult.cancel.localize(Language.ES))
+            preferences.setVersionControlCancelEn(versionResult.cancel.localize(Language.EN))
+            preferences.setVersionControlCancelCa(versionResult.cancel.localize(Language.CA))
+            preferences.setVersionControlUrl(versionResult.url)
+            preferences.setVersionControlComparisonMode(versionResult.comparisonMode)
+            preferences.setVersionStartDate(versionResult.startDate)
+            preferences.setVersionEndDate(versionResult.endDate)
+            preferences.setVersionControlVersionCode(platformInformation.getVersionCode())
+
+            return Either.Right(versionResult)
+
+        } else {
+            val storedVersionCode = preferences.getVersionControlVersionCode()
+            val currentVersionCode = platformInformation.getVersionCode()
+
+            val cachedVersion = Version(
+                packageName = platformInformation.getPackageName(),
+                versionCode = currentVersionCode,
+                versionName = platformInformation.getVersionName(),
+                platform = platformInformation.getPlatform(),
+                comparisonMode = preferences.getVersionControlComparisonMode(),
+                startDate = preferences.getVersionStartDate(),
+                endDate = preferences.getVersionEndDate(),
+                serverDate = getCurrentDate(),
+                title = Text(
+                    es = preferences.getVersionControlTitleEs(),
+                    en = preferences.getVersionControlTitleEn(),
+                    ca = preferences.getVersionControlTitleCa()
+                ),
+                message = Text(
+                    es = preferences.getVersionControlMessageEs(),
+                    en = preferences.getVersionControlMessageEn(),
+                    ca = preferences.getVersionControlMessageCa()
+                ),
+                ok = Text(
+                    es = preferences.getVersionControlOkEs(),
+                    en = preferences.getVersionControlOkEn(),
+                    ca = preferences.getVersionControlOkCa()
+                ),
+                cancel = Text(
+                    es = preferences.getVersionControlCancelEs(),
+                    en = preferences.getVersionControlCancelEn(),
+                    ca = preferences.getVersionControlCancelCa(),
+                ),
+                url = preferences.getVersionControlUrl()
+            )
+
+            if (storedVersionCode == 0L || storedVersionCode != currentVersionCode) {
+                val emptyVersion = cachedVersion.copy(comparisonMode = Version.ComparisonMode.NONE)
+                return Either.Right(emptyVersion)
+            }
+
+            return Either.Right(cachedVersion)
         }
-        return Either.Right(version)
     }
 
     suspend fun getRating(): Either<CommonError, Rating> {
