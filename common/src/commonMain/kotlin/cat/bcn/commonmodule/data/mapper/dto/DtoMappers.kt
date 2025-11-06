@@ -3,6 +3,7 @@ package cat.bcn.commonmodule.data.mapper.dto
 import cat.bcn.commonmodule.data.datasource.models.dto.RatingDto
 import cat.bcn.commonmodule.data.datasource.models.dto.TextDto
 import cat.bcn.commonmodule.data.datasource.models.dto.VersionDto
+import cat.bcn.commonmodule.model.CheckBoxDontShowAgain
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Text
 import cat.bcn.commonmodule.model.Version
@@ -21,6 +22,7 @@ internal fun VersionDto.toModel(): Version = Version(
     ok = ok.toModel(),
     cancel = cancel.toModel(),
     url = url,
+    checkBoxDontShowAgain = CheckBoxDontShowAgain(isCheckBoxVisible = isCheckBoxVisible)
 )
 
 internal fun RatingDto.toModel(): Rating = Rating(

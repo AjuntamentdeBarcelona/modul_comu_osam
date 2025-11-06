@@ -22,6 +22,7 @@ internal data class Version(
     val ok: Text,
     val cancel: Text,
     val url: String,
+    val checkBoxDontShowAgain: CheckBoxDontShowAgain = CheckBoxDontShowAgain()
 ) {
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE
@@ -36,6 +37,11 @@ internal data class Version(
         return serverDate in startDate..endDate
     }
 }
+
+internal data class CheckBoxDontShowAgain(
+    val isCheckBoxVisible: Boolean = false,
+    val text: Text = Text(es = "", en = "", ca = "")
+)
 
 internal data class Rating(
     val packageName: String,
