@@ -3,6 +3,10 @@ package cat.bcn.commonmodule.ui.alert
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.view.LayoutInflater
+import android.widget.CheckBox
+import android.widget.TextView
+import cat.bcn.commonmodule.R
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.ui.versioncontrol.Language
@@ -19,9 +23,12 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     actual fun showVersionControlForce(
         version: Version,
         language: Language,
-        onPositiveClick: () -> Unit
+        onPositiveClick: () -> Unit,
     ) {
-        versionControlAlert = buildCommonVersionAlert(version, language, onPositiveClick)
+        versionControlAlert = AlertDialog.Builder(context)
+            .setTitle(version.title.localize(language))
+            .setMessage(version.message.localize(language))
+            .setPositiveButton(version.ok.localize(language)) { _, _ -> onPositiveClick() }
             .setCancelable(false)
             .show()
     }
@@ -29,11 +36,17 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     actual fun showVersionControlLazy(
         version: Version,
         language: Language,
-        onPositiveClick: () -> Unit,
+        onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: () -> Unit,
-        onDismissClick: () -> Unit
+        onDismissClick: () -> Unit,
     ) {
-        versionControlAlert = buildCommonVersionAlert(version, language, onPositiveClick)
+        val builder = buildCommonVersionAlert(version, language)
+        val checkbox = setupDialogView(builder, version, language)
+
+        versionControlAlert = builder
+            .setPositiveButton(version.ok.localize(language)) { _, _ ->
+                onPositiveClick(checkbox?.isChecked ?: false)
+            }
             .setNegativeButton(version.cancel.localize(language)) { _, _ -> onNegativeClick() }
             .setOnCancelListener { onDismissClick() }
             .show()
@@ -42,10 +55,16 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     actual fun showVersionControlInfo(
         version: Version,
         language: Language,
-        onPositiveClick: () -> Unit,
-        onDismissClick: () -> Unit
+        onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
+        onDismissClick: () -> Unit,
     ) {
-        versionControlAlert = buildCommonVersionAlert(version, language, onPositiveClick)
+        val builder = buildCommonVersionAlert(version, language)
+        val checkbox = setupDialogView(builder, version, language)
+
+        versionControlAlert = builder
+            .setPositiveButton(version.ok.localize(language)) { _, _ ->
+                onPositiveClick(checkbox?.isChecked ?: false)
+            }
             .setOnCancelListener { onDismissClick() }
             .show()
     }
@@ -87,11 +106,34 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     private fun buildCommonVersionAlert(
         version: Version,
         language: Language,
-        onPositiveClick: () -> Unit
     ): AlertDialog.Builder =
         AlertDialog.Builder(context)
             .setTitle(version.title.localize(language))
-            .setMessage(version.message.localize(language))
-            .setPositiveButton(version.ok.localize(language)) { _, _ -> onPositiveClick() }
+
+    private fun setupDialogView(
+        builder: AlertDialog.Builder,
+        version: Version,
+        language: Language
+    ): CheckBox? {
+        // If the checkbox should not be visible, just set the message and return null.
+        if (!version.checkBoxDontShowAgain.isCheckBoxVisible) {
+            builder.setMessage(version.message.localize(language))
+            return null
+        }
+
+        // Otherwise, inflate the custom view.
+        val customView = LayoutInflater.from(context).inflate(R.layout.dialog_version_control_view, null)
+        val checkbox = customView.findViewById<CheckBox>(R.id.dialog_checkbox)
+        val messageText = customView.findViewById<TextView>(R.id.dialog_message)
+
+        // Configure the views
+        messageText.text = version.message.localize(language)
+        checkbox.text = version.checkBoxDontShowAgain.text.localize(language)
+
+        // Set the custom view on the dialog and nullify the default message view.
+        builder.setView(customView).setMessage(null)
+
+        return checkbox
+    }
 
 }

@@ -74,33 +74,43 @@ internal class OSAMCommonsInternal(
                                             analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
                                         }
                                     )
-                                    Version.ComparisonMode.LAZY -> alertWrapper.showVersionControlLazy(
-                                        version = version,
-                                        language = language,
-                                        onPositiveClick = {
-                                            f(VersionControlResponse.ACCEPTED)
-                                            platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
-                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                        },
-                                        onNegativeClick = {
-                                            f(VersionControlResponse.CANCELLED)
-                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
-                                        },
-                                        onDismissClick = {
-                                            f(VersionControlResponse.DISMISSED)
+                                    Version.ComparisonMode.LAZY ->
+                                        if(preferences.getCheckBoxDontShowAgainActive()){
+                                            alertWrapper.showVersionControlLazy(
+                                                version = version,
+                                                language = language,
+                                                onPositiveClick = { isCheckBoxChecked ->
+                                                    println("VersionControl - CheckBox checked: $isCheckBoxChecked")
+                                                    preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
+                                                    f(VersionControlResponse.ACCEPTED)
+                                                    platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
+                                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                                },
+                                                onNegativeClick = {
+                                                    f(VersionControlResponse.CANCELLED)
+                                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
+                                                },
+                                                onDismissClick = {
+                                                    f(VersionControlResponse.DISMISSED)
+                                                }
+                                            )
                                         }
-                                    )
-                                    Version.ComparisonMode.INFO -> alertWrapper.showVersionControlInfo(
-                                        version = version,
-                                        language = language,
-                                        onPositiveClick = {
-                                            f(VersionControlResponse.DISMISSED)
-                                            analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-                                        },
-                                        onDismissClick = {
-                                            f(VersionControlResponse.DISMISSED)
+                                    Version.ComparisonMode.INFO -> {
+                                        if(preferences.getCheckBoxDontShowAgainActive()){
+                                            alertWrapper.showVersionControlInfo(
+                                                version = version,
+                                                language = language,
+                                                onPositiveClick = { isCheckBoxChecked ->
+                                                    preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
+                                                    f(VersionControlResponse.DISMISSED)
+                                                    analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
+                                                },
+                                                onDismissClick = {
+                                                    f(VersionControlResponse.DISMISSED)
+                                                }
+                                            )
                                         }
-                                    )
+                                    }
                                     Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
                                 }
                                 if (version.comparisonMode != Version.ComparisonMode.NONE) {
