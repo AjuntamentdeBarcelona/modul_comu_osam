@@ -6,7 +6,7 @@
 
 ## Com es fa servir?
 
-### Android
+### Android 
 
 - Afegeix aquesta dependència en el teu projecte:
 
