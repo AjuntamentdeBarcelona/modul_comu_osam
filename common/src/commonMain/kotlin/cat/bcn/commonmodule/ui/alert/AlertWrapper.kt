@@ -15,7 +15,7 @@ internal expect class AlertWrapper {
     fun showVersionControlLazy(
         version: Version,
         language: Language,
-        onPositiveClick: () -> Unit,
+        onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit,
     )
@@ -23,7 +23,7 @@ internal expect class AlertWrapper {
     fun showVersionControlInfo(
         version: Version,
         language: Language,
-        onPositiveClick: () -> Unit,
+        onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit
     )
 

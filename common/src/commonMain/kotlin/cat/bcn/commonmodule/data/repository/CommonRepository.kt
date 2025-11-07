@@ -2,8 +2,14 @@ package cat.bcn.commonmodule.data.repository
 
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.Remote
-import cat.bcn.commonmodule.extensions.getCurrentDate
-import cat.bcn.commonmodule.model.*
+import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
+import cat.bcn.commonmodule.model.AppInformation
+import cat.bcn.commonmodule.model.CommonError
+import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.model.Either
+import cat.bcn.commonmodule.model.Rating
+import cat.bcn.commonmodule.model.Text
+import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.platform.PlatformUtil
@@ -14,39 +20,16 @@ internal class CommonRepository(
     private val preferences: Preferences,
     private val platformInformation: PlatformInformation,
     private val platformUtil: PlatformUtil,
-    private val internalPerformanceWrapper: InternalPerformanceWrapper
+    private val internalPerformanceWrapper: InternalPerformanceWrapper,
 ) {
 
     suspend fun getVersion(): Either<CommonError, Version> {
         if (platformInformation.isOnline()) {
             val versionResult = try {
-                remote.getVersion(
-                    internalPerformanceWrapper,
-                    platformInformation.getPackageName(),
-                    platformInformation.getPlatform(),
-                    platformInformation.getVersionCode()
-                )
+                CommonRepositoryUtils.getRemoteVersion(remote, internalPerformanceWrapper, platformInformation, preferences)
             } catch (e: Exception) {
                 return Either.Left(CommonError(e))
             }
-
-            preferences.setVersionControlTitleEs(versionResult.title.localize(Language.ES))
-            preferences.setVersionControlTitleEn(versionResult.title.localize(Language.EN))
-            preferences.setVersionControlTitleCa(versionResult.title.localize(Language.CA))
-            preferences.setVersionControlMessageEs(versionResult.message.localize(Language.ES))
-            preferences.setVersionControlMessageEn(versionResult.message.localize(Language.EN))
-            preferences.setVersionControlMessageCa(versionResult.message.localize(Language.CA))
-            preferences.setVersionControlOkEs(versionResult.ok.localize(Language.ES))
-            preferences.setVersionControlOkEn(versionResult.ok.localize(Language.EN))
-            preferences.setVersionControlOkCa(versionResult.ok.localize(Language.CA))
-            preferences.setVersionControlCancelEs(versionResult.cancel.localize(Language.ES))
-            preferences.setVersionControlCancelEn(versionResult.cancel.localize(Language.EN))
-            preferences.setVersionControlCancelCa(versionResult.cancel.localize(Language.CA))
-            preferences.setVersionControlUrl(versionResult.url)
-            preferences.setVersionControlComparisonMode(versionResult.comparisonMode)
-            preferences.setVersionStartDate(versionResult.startDate)
-            preferences.setVersionEndDate(versionResult.endDate)
-            preferences.setVersionControlVersionCode(platformInformation.getVersionCode())
 
             return Either.Right(versionResult)
 
@@ -54,37 +37,7 @@ internal class CommonRepository(
             val storedVersionCode = preferences.getVersionControlVersionCode()
             val currentVersionCode = platformInformation.getVersionCode()
 
-            val cachedVersion = Version(
-                packageName = platformInformation.getPackageName(),
-                versionCode = currentVersionCode,
-                versionName = platformInformation.getVersionName(),
-                platform = platformInformation.getPlatform(),
-                comparisonMode = preferences.getVersionControlComparisonMode(),
-                startDate = preferences.getVersionStartDate(),
-                endDate = preferences.getVersionEndDate(),
-                serverDate = getCurrentDate(),
-                title = Text(
-                    es = preferences.getVersionControlTitleEs(),
-                    en = preferences.getVersionControlTitleEn(),
-                    ca = preferences.getVersionControlTitleCa()
-                ),
-                message = Text(
-                    es = preferences.getVersionControlMessageEs(),
-                    en = preferences.getVersionControlMessageEn(),
-                    ca = preferences.getVersionControlMessageCa()
-                ),
-                ok = Text(
-                    es = preferences.getVersionControlOkEs(),
-                    en = preferences.getVersionControlOkEn(),
-                    ca = preferences.getVersionControlOkCa()
-                ),
-                cancel = Text(
-                    es = preferences.getVersionControlCancelEs(),
-                    en = preferences.getVersionControlCancelEn(),
-                    ca = preferences.getVersionControlCancelCa(),
-                ),
-                url = preferences.getVersionControlUrl()
-            )
+            val cachedVersion = CommonRepositoryUtils.getCachedVersion(platformInformation, preferences)
 
             if (storedVersionCode == 0L || storedVersionCode != currentVersionCode) {
                 val emptyVersion = cachedVersion.copy(comparisonMode = Version.ComparisonMode.NONE)
