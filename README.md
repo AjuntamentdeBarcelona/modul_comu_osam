@@ -11,7 +11,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.2.4'
+implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:2.3.0'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -30,7 +30,7 @@ allprojects {
   repositori:
 
 ```pod
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.2.4'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '2.3.0'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -610,7 +610,8 @@ arrivar amb 2 valors possibles:
       "en": "Cancel",
       "ca": "Cancel.lar"
     },
-    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca"
+    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca",
+    "checkBoxDontShowAgain": true
   }
 }
 ```
@@ -662,6 +663,9 @@ arrivar amb 2 valors possibles:
     - Opcional
     - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
       versió de l'aplicació a l'App Store / Google Play. Si el `comparisonMode` és del tipus INFO, el botó no redirigirà a aquesta URL.
+- **checkBoxDontShowAgain**
+  - Opcional (default_value=True)
+  - Als modes INFO i LAZY hi ha una casella de selecció "No ho mostris més" si l'usuari no vol actualitzar l'app i no vol tornar a veure el pop-up.
 
 ### Control de Valoracions
 
