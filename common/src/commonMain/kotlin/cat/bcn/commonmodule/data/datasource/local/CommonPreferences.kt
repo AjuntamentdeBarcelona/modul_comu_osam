@@ -37,7 +37,9 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
 
         private const val CHECKBOX_DONT_SHOW_AGAIN_VISIBLE = "CHECKBOX_DONT_SHOW_AGAIN_VISIBLE"
         private const val CHECKBOX_DONT_SHOW_AGAIN_ACTIVE = "CHECKBOX_DONT_SHOW_AGAIN_ACTIVE"
-        private const val CHECKBOX_DONT_SHOW_AGAIN_CHANGED = "CHECKBOX_DONT_SHOW_AGAIN_CHANGED"
+
+        private const val DIALOG_DISPLAY_DURATION = "DIALOG_DISPLAY_DURATION"
+        private const val LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON = "LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON"
     }
 
     override fun clear() {
@@ -120,4 +122,9 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
     override fun getCheckBoxDontShowAgainVisible(): Boolean = settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE,false)
     override fun setCheckBoxDontShowAgainActive(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE, value)
     override fun getCheckBoxDontShowAgainActive(): Boolean =  settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE,false)
+
+    override fun getLastTimeUserClickedOnAcceptButton(): Long = settings.getLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, 0)
+    override fun setLastTimeUserClickedOnAcceptButton(value: Long) = settings.setLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, value)
+    override fun getDialogDisplayDuration(): Long = settings.getLong(DIALOG_DISPLAY_DURATION, 0)
+    override fun setDialogDisplayDuration(value: Long) = settings.setLong(DIALOG_DISPLAY_DURATION, value)
 }

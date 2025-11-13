@@ -83,4 +83,8 @@ internal interface Preferences {
     fun setCheckBoxDontShowAgainActive(value: Boolean)
     fun getCheckBoxDontShowAgainActive(): Boolean
 
+    fun getLastTimeUserClickedOnAcceptButton(): Long
+    fun setLastTimeUserClickedOnAcceptButton(value: Long)
+    fun getDialogDisplayDuration(): Long
+    fun setDialogDisplayDuration(value: Long)
 }

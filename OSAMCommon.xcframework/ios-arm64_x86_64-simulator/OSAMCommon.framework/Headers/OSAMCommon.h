@@ -246,6 +246,7 @@ __attribute__((swift_name("CommonRepositoryUtils")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)commonRepositoryUtils __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) OSAMCCommonRepositoryUtils *shared __attribute__((swift_name("shared")));
+- (BOOL)isDialogDurationOverLastTimeUserClickedOnButton:(int64_t)lastTimeUserClickedOnButton dialogDisplayDuration:(int64_t)dialogDisplayDuration __attribute__((swift_name("isDialogDurationOver(lastTimeUserClickedOnButton:dialogDisplayDuration:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))

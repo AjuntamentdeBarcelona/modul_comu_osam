@@ -9,6 +9,7 @@ import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.versioncontrol.Language
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Utility object for common operations related to version control in the repository.
@@ -48,6 +49,7 @@ object CommonRepositoryUtils {
         val isCheckBoxChanged = hasVersionChanged(cachedVersion, remoteVersion, preferences)
         println("CommonRepositoryUtils - isCheckBoxChanged: $isCheckBoxChanged")
         if(isCheckBoxChanged){
+            preferences.setLastTimeUserClickedOnAcceptButton(0)
             preferences.setCheckBoxDontShowAgainActive(true)
         }
         val remoteFinalVersion = remoteVersion.copy(checkBoxDontShowAgain = updatedCheckbox)
@@ -97,7 +99,8 @@ object CommonRepositoryUtils {
             checkBoxDontShowAgain = CheckBoxDontShowAgain(
                 isCheckBoxVisible = preferences.getCheckBoxDontShowAgainVisible(),
                 text = setCheckBoxText()
-            )
+            ),
+            dialogDisplayDuration = preferences.getDialogDisplayDuration()
         )
         return cachedVersion
     }
@@ -106,9 +109,11 @@ object CommonRepositoryUtils {
      * Stores the given version data in the Preferences as the new cached version.
      * Localizes text resources for different languages before saving.
      */
-    internal fun setCachedVersion(preferences: Preferences,
-                                  versionResult: Version,
-                                  platformInformation: PlatformInformation) {
+    internal fun setCachedVersion(
+        preferences: Preferences,
+        versionResult: Version,
+        platformInformation: PlatformInformation,
+    ) {
         preferences.setVersionControlTitleEs(versionResult.title.localize(Language.ES))
         preferences.setVersionControlTitleEn(versionResult.title.localize(Language.EN))
         preferences.setVersionControlTitleCa(versionResult.title.localize(Language.CA))
@@ -128,6 +133,7 @@ object CommonRepositoryUtils {
         preferences.setVersionControlVersionCode(platformInformation.getVersionCode())
         preferences.setVersionControlRemoteVersionCode(versionResult.versionCode)
         preferences.setCheckBoxDontShowAgainVisible(versionResult.checkBoxDontShowAgain.isCheckBoxVisible)
+        preferences.setDialogDisplayDuration(versionResult.dialogDisplayDuration)
     }
 
     /**
@@ -192,8 +198,17 @@ object CommonRepositoryUtils {
             println("Version changed: isCheckBoxVisible (cached=${cachedVersion.checkBoxDontShowAgain.isCheckBoxVisible}, remote=${remoteVersion.checkBoxDontShowAgain.isCheckBoxVisible})")
             return true
         }
+        if (cachedVersion.dialogDisplayDuration != remoteVersion.dialogDisplayDuration) {
+            println("Version changed: dialogDisplayDuration (cached=${cachedVersion.dialogDisplayDuration}, remote=${remoteVersion.dialogDisplayDuration})")
+            return true
+        }
 
         println("Version has not changed.")
         return false
     }
+
+    fun isDialogDurationOver(lastTimeUserClickedOnButton: Long, dialogDisplayDuration: Long): Boolean {
+        return (getCurrentDate() - lastTimeUserClickedOnButton) >= (dialogDisplayDuration.seconds.inWholeMilliseconds)
+    }
+
 }
