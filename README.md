@@ -611,7 +611,8 @@ arrivar amb 2 valors possibles:
       "ca": "Cancel.lar"
     },
     "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca",
-    "checkBoxDontShowAgain": true
+    "checkBoxDontShowAgain": true,
+    "dialogDisplayDuration": 3600
   }
 }
 ```
@@ -666,6 +667,10 @@ arrivar amb 2 valors possibles:
 - **checkBoxDontShowAgain**
   - Opcional (default_value=True)
   - Als modes INFO i LAZY hi ha una casella de selecció "No ho mostris més" si l'usuari no vol actualitzar l'app i no vol tornar a veure el pop-up.
+- **dialogDisplayDuration**
+    - Opcional (default_value=3600seconds)
+    - Per als modes INFO i LAZY, quan l’usuari obre el control de versions i accepta, ara existeix un camp que defineix el temps perquè torni a aparèixer aquest popup.
+
 
 ### Control de Valoracions
 

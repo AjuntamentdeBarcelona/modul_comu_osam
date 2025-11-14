@@ -22,7 +22,8 @@ internal fun VersionDto.toModel(): Version = Version(
     ok = ok.toModel(),
     cancel = cancel.toModel(),
     url = url,
-    checkBoxDontShowAgain = CheckBoxDontShowAgain(isCheckBoxVisible = isCheckBoxVisible)
+    checkBoxDontShowAgain = CheckBoxDontShowAgain(isCheckBoxVisible = isCheckBoxVisible),
+    dialogDisplayDuration = dialogDisplayDuration
 )
 
 internal fun RatingDto.toModel(): Rating = Rating(
