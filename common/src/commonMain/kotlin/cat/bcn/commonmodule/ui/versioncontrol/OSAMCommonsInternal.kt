@@ -11,6 +11,7 @@ import cat.bcn.commonmodule.data.datasource.remote.CommonRemote
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
+import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
@@ -63,6 +64,12 @@ internal class OSAMCommonsInternal(
                             f(VersionControlResponse.ERROR)
                         },
                         success = { version ->
+
+                            val checkIfDialogIsShown = CommonRepositoryUtils.isDialogDurationOver(
+                                preferences.getLastTimeUserClickedOnAcceptButton(),
+                                version.dialogDisplayDuration
+                            )
+
                             if (version.isInTimeRange()) {
                                 when (version.comparisonMode) {
                                     Version.ComparisonMode.FORCE -> alertWrapper.showVersionControlForce(
@@ -75,13 +82,13 @@ internal class OSAMCommonsInternal(
                                         }
                                     )
                                     Version.ComparisonMode.LAZY ->
-                                        if(preferences.getCheckBoxDontShowAgainActive()){
+                                        if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
                                             alertWrapper.showVersionControlLazy(
                                                 version = version,
                                                 language = language,
                                                 onPositiveClick = { isCheckBoxChecked ->
-                                                    println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                                                     preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
+                                                    preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                                                     f(VersionControlResponse.ACCEPTED)
                                                     platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                                                     analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
@@ -96,11 +103,12 @@ internal class OSAMCommonsInternal(
                                             )
                                         }
                                     Version.ComparisonMode.INFO -> {
-                                        if(preferences.getCheckBoxDontShowAgainActive()){
+                                        if(preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown){
                                             alertWrapper.showVersionControlInfo(
                                                 version = version,
                                                 language = language,
                                                 onPositiveClick = { isCheckBoxChecked ->
+                                                    preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                                                     preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                                                     f(VersionControlResponse.DISMISSED)
                                                     analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)

@@ -22,7 +22,8 @@ internal data class Version(
     val ok: Text,
     val cancel: Text,
     val url: String,
-    val checkBoxDontShowAgain: CheckBoxDontShowAgain = CheckBoxDontShowAgain()
+    val checkBoxDontShowAgain: CheckBoxDontShowAgain = CheckBoxDontShowAgain(),
+    val dialogDisplayDuration: Long = 3600
 ) {
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE

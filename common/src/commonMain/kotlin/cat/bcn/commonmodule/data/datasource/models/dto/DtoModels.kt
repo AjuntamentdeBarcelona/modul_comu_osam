@@ -26,6 +26,7 @@ internal data class VersionDto(
     @SerialName(value = "cancel") val cancel: TextDto,
     @SerialName(value = "url") val url: String,
     @SerialName(value = "checkBoxDontShowAgain") val isCheckBoxVisible: Boolean,
+    @SerialName(value = "dialogDisplayDuration") val dialogDisplayDuration: Long,
 )
 
 @Serializable
