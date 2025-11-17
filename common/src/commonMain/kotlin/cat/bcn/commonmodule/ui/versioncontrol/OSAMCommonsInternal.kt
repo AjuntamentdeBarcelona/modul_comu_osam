@@ -244,42 +244,24 @@ internal class OSAMCommonsInternal(
         }
     }
 
-    fun languageInformation(
-        f: (AppLanguageInformationResponse, LanguageInformation?) -> Unit
-    ) {
-        GlobalScope.launch(executor.main) {
-            try {
-                withContext(executor.bg) { commonRepository.getLanguageInformation() }.fold(
-                    error = { commonError ->
-                        internalCrashlyticsWrapper.recordException(commonError.exception)
-                        f(AppLanguageInformationResponse.ERROR, null)
-                    },
-                    success = { languageInformation ->
-                        f(AppLanguageInformationResponse.ACCEPTED, languageInformation)
-                    }
-                )
-            } catch (e: Exception) {
-                internalCrashlyticsWrapper.recordException(e)
-                f(AppLanguageInformationResponse.ERROR, null)
-            }
+    private fun checkForLanguages(newLanguage: Language) {
+        val oldSelectedLanguage = preferences.getSelectedLanguage()
+        val oldPreviousLanguage = preferences.getPreviousLanguage()
+
+        if (oldSelectedLanguage != newLanguage.name || oldPreviousLanguage == "") {
+
+            val languageForLog = if (oldPreviousLanguage == "") newLanguage.name else oldSelectedLanguage
+
+            preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
+            preferences.setSelectedLanguage(newLanguage.name)
+            preferences.setPreviousLanguage(oldSelectedLanguage)
+
+            analytics.logLanguageChange(
+                previousLanguage = languageForLog,
+                selectedLanguage = newLanguage.name,
+                languageDisplay = preferences.getDisplayedLanguage(),
+            )
         }
     }
 
-    private fun checkForLanguages(language: Language) {
-        preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
-        if (preferences.getPreviousLanguage() == "") {
-            preferences.setPreviousLanguage(Language.DEFAULT.name)
-        } else {
-            if (preferences.getSelectedLanguage() != language.name) {
-                preferences.setPreviousLanguage(preferences.getSelectedLanguage())
-                preferences.setSelectedLanguage(language.name)
-
-                analytics.logLanguageChange(
-                    preferences.getPreviousLanguage(),
-                    preferences.getSelectedLanguage(),
-                    preferences.getDisplayedLanguage(),
-                )
-            }
-        }
-    }
 }

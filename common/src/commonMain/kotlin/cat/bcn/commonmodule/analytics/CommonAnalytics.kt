@@ -64,6 +64,7 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
         trackActionWithWrapper(
             EVENT_NAME_LANGUAGE_CHANGE,
             mapOf(
+                ITEM_ID_KEY to ITEM_ID_VALUE,
                 PARAM_PREVIOUS_LANGUAGE to previousLanguage,
                 PARAM_SELECTED_LANGUAGE to selectedLanguage,
                 PARAM_DISPLAYED_LANGUAGE to languageDisplay

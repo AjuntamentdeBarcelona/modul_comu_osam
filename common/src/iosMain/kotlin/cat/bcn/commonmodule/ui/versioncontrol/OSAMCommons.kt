@@ -52,8 +52,4 @@ actual class OSAMCommons constructor(
         f: (AppInformationResponse, AppInformation?) -> Unit
     ) = internal.appInformation(f)
 
-    actual fun languageInformation(
-        f: (AppLanguageInformationResponse, LanguageInformation?) -> Unit
-    ) = internal.languageInformation(f)
-
 }

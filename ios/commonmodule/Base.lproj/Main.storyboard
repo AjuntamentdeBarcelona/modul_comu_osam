@@ -45,13 +45,6 @@
                                     <action selector="onRatingClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TM1-Dx-7SQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7C-3M-2PD" userLabel="Check lang information">
-                                <rect key="frame" x="127.5" y="392" width="159" height="30"/>
-                                <state key="normal" title="Check lang information"/>
-                                <connections>
-                                    <action selector="onAppLanguageClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g4E-Er-LQi"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -59,9 +52,7 @@
                             <constraint firstItem="1re-oB-OuU" firstAttribute="top" secondItem="iCp-oR-amZ" secondAttribute="bottom" constant="32" id="1fL-t1-Tia"/>
                             <constraint firstItem="iCp-oR-amZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UEv-jE-aoz"/>
                             <constraint firstItem="EPd-B6-VSp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UYj-bj-cUc"/>
-                            <constraint firstItem="M7C-3M-2PD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cHi-2L-dny"/>
                             <constraint firstItem="iCp-oR-amZ" firstAttribute="top" secondItem="EPd-B6-VSp" secondAttribute="bottom" constant="32" id="fuf-iz-J0U"/>
-                            <constraint firstItem="M7C-3M-2PD" firstAttribute="top" secondItem="nTK-d7-PhL" secondAttribute="bottom" constant="32" id="pQG-L0-qkN"/>
                             <constraint firstItem="nTK-d7-PhL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qNG-MF-Dn2"/>
                             <constraint firstItem="EPd-B6-VSp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="48" id="rD7-sB-v6r"/>
                             <constraint firstItem="nTK-d7-PhL" firstAttribute="top" secondItem="1re-oB-OuU" secondAttribute="bottom" constant="32" id="sjs-nS-ZeT"/>
