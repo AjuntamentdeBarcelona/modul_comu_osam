@@ -15,6 +15,7 @@ import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.model.LanguageInformation
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformUtil
@@ -35,7 +36,7 @@ internal class OSAMCommonsInternal(
     private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
     private val internalPerformanceWrapper: InternalPerformanceWrapper,
     analyticsWrapper: AnalyticsWrapper,
-    private val platformUtil: PlatformUtil,
+    private val platformUtil: PlatformUtil
 ) {
     private val preferences: Preferences by lazy { CommonPreferences(settings) }
     private val analytics: CommonAnalytics by lazy { CommonAnalytics(analyticsWrapper) }
@@ -55,6 +56,7 @@ internal class OSAMCommonsInternal(
         language: Language,
         f: (VersionControlResponse) -> Unit
     ) {
+        checkForLanguages(language)
         GlobalScope.launch(executor.main) {
             if (!alertWrapper.isVersionControlShowing()) {
                 try {
@@ -81,12 +83,14 @@ internal class OSAMCommonsInternal(
                                             analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
                                         }
                                     )
+
                                     Version.ComparisonMode.LAZY ->
                                         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
                                             alertWrapper.showVersionControlLazy(
                                                 version = version,
                                                 language = language,
                                                 onPositiveClick = { isCheckBoxChecked ->
+                                                    println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                                                     preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                                                     preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                                                     f(VersionControlResponse.ACCEPTED)
@@ -102,6 +106,7 @@ internal class OSAMCommonsInternal(
                                                 }
                                             )
                                         }
+
                                     Version.ComparisonMode.INFO -> {
                                         if(preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown){
                                             alertWrapper.showVersionControlInfo(
@@ -119,6 +124,7 @@ internal class OSAMCommonsInternal(
                                             )
                                         }
                                     }
+
                                     Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
                                 }
                                 if (version.comparisonMode != Version.ComparisonMode.NONE) {
@@ -234,6 +240,45 @@ internal class OSAMCommonsInternal(
             } catch (e: Exception) {
                 internalCrashlyticsWrapper.recordException(e)
                 f(AppInformationResponse.ERROR, null)
+            }
+        }
+    }
+
+    fun languageInformation(
+        f: (AppLanguageInformationResponse, LanguageInformation?) -> Unit
+    ) {
+        GlobalScope.launch(executor.main) {
+            try {
+                withContext(executor.bg) { commonRepository.getLanguageInformation() }.fold(
+                    error = { commonError ->
+                        internalCrashlyticsWrapper.recordException(commonError.exception)
+                        f(AppLanguageInformationResponse.ERROR, null)
+                    },
+                    success = { languageInformation ->
+                        f(AppLanguageInformationResponse.ACCEPTED, languageInformation)
+                    }
+                )
+            } catch (e: Exception) {
+                internalCrashlyticsWrapper.recordException(e)
+                f(AppLanguageInformationResponse.ERROR, null)
+            }
+        }
+    }
+
+    private fun checkForLanguages(language: Language) {
+        preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
+        if (preferences.getPreviousLanguage() == "") {
+            preferences.setPreviousLanguage(Language.DEFAULT.name)
+        } else {
+            if (preferences.getSelectedLanguage() != language.name) {
+                preferences.setPreviousLanguage(preferences.getSelectedLanguage())
+                preferences.setSelectedLanguage(language.name)
+
+                analytics.logLanguageChange(
+                    preferences.getPreviousLanguage(),
+                    preferences.getSelectedLanguage(),
+                    preferences.getDisplayedLanguage(),
+                )
             }
         }
     }

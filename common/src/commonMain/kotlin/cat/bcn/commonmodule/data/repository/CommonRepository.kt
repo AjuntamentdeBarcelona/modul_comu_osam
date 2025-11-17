@@ -7,6 +7,7 @@ import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.DeviceInformation
 import cat.bcn.commonmodule.model.Either
+import cat.bcn.commonmodule.model.LanguageInformation
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Text
 import cat.bcn.commonmodule.model.Version
@@ -20,7 +21,7 @@ internal class CommonRepository(
     private val preferences: Preferences,
     private val platformInformation: PlatformInformation,
     private val platformUtil: PlatformUtil,
-    private val internalPerformanceWrapper: InternalPerformanceWrapper,
+    private val internalPerformanceWrapper: InternalPerformanceWrapper
 ) {
 
     suspend fun getVersion(): Either<CommonError, Version> {
@@ -95,5 +96,14 @@ internal class CommonRepository(
             appVersionCode = platformInformation.getVersionCode().toString()
         )
         return Either.Right(appInformation)
+    }
+
+    fun getLanguageInformation(): Either<CommonError, LanguageInformation>{
+        val languageInformation = LanguageInformation(
+            previousLanguage = preferences.getPreviousLanguage(),
+            selectedLanguage = preferences.getSelectedLanguage(),
+            displayedLanguage = preferences.getDisplayedLanguage()
+        )
+        return Either.Right(languageInformation)
     }
 }

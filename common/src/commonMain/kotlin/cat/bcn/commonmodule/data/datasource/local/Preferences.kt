@@ -87,4 +87,11 @@ internal interface Preferences {
     fun setLastTimeUserClickedOnAcceptButton(value: Long)
     fun getDialogDisplayDuration(): Long
     fun setDialogDisplayDuration(value: Long)
+
+    fun getPreviousLanguage(): String
+    fun setPreviousLanguage(value: String)
+    fun getSelectedLanguage(): String
+    fun setSelectedLanguage(value: String)
+    fun getDisplayedLanguage(): String
+    fun setDisplayedLanguage(value: String)
 }

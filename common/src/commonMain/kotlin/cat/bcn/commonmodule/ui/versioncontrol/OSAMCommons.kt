@@ -2,6 +2,7 @@ package cat.bcn.commonmodule.ui.versioncontrol
 
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.model.LanguageInformation
 
 expect class OSAMCommons {
     fun versionControl(
@@ -21,6 +22,10 @@ expect class OSAMCommons {
     fun appInformation(
         f: (AppInformationResponse, AppInformation?) -> Unit
     )
+
+    fun languageInformation(
+        f: (AppLanguageInformationResponse, LanguageInformation?) -> Unit
+    )
 }
 
 enum class VersionControlResponse {
@@ -37,6 +42,10 @@ enum class DeviceInformationResponse {
 
 enum class AppInformationResponse {
     ACCEPTED, DISMISSED, ERROR
+}
+
+enum class AppLanguageInformationResponse {
+    ACCEPTED, ERROR
 }
 
 enum class Language {
