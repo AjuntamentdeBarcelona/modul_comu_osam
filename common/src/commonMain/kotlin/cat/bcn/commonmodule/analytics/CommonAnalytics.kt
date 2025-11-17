@@ -5,11 +5,16 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
     companion object {
         private const val EVENT_NAME_VERSION_CONTROL = "osam_commons"
         private const val EVENT_NAME_RATING = "osam_commons"
+        private const val EVENT_NAME_LANGUAGE_CHANGE = "osam_commons"
 
         private const val ITEM_ID_KEY = "item_id"
         private const val ITEM_ID_VALUE = "osam_commons"
 
         private const val EVENT_ID_KEY = "event_id"
+
+        private const val PARAM_PREVIOUS_LANGUAGE = "previous_language"
+        private const val PARAM_SELECTED_LANGUAGE = "selected_language"
+        private const val PARAM_DISPLAYED_LANGUAGE = "language_disp"
     }
 
     enum class RatingAction {
@@ -51,7 +56,27 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
         )
     }
 
+    fun logLanguageChange(
+        previousLanguage: String,
+        selectedLanguage: String,
+        languageDisplay: String
+    ) {
+        trackActionWithWrapper(
+            EVENT_NAME_LANGUAGE_CHANGE,
+            mapOf(
+                ITEM_ID_KEY to ITEM_ID_VALUE,
+                PARAM_PREVIOUS_LANGUAGE to previousLanguage,
+                PARAM_SELECTED_LANGUAGE to selectedLanguage,
+                PARAM_DISPLAYED_LANGUAGE to languageDisplay
+            )
+        )
+    }
+
     private fun trackActionWithWrapper(eventName: String, params: Map<String, String>) {
+        val paramsString = params.map { "KEY: ${it.key}, VALUE: ${it.value}" }.joinToString(separator = "; ")
+
+        println("Analytics Event: $eventName, Parameters: { $paramsString }")
+
         wrapper.logEvent(
             eventName.adaptedToFirebaseKey(),
             params.map {

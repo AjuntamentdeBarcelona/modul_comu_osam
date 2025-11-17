@@ -15,6 +15,7 @@ import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.model.LanguageInformation
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformUtil
@@ -35,7 +36,7 @@ internal class OSAMCommonsInternal(
     private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
     private val internalPerformanceWrapper: InternalPerformanceWrapper,
     analyticsWrapper: AnalyticsWrapper,
-    private val platformUtil: PlatformUtil,
+    private val platformUtil: PlatformUtil
 ) {
     private val preferences: Preferences by lazy { CommonPreferences(settings) }
     private val analytics: CommonAnalytics by lazy { CommonAnalytics(analyticsWrapper) }
@@ -55,6 +56,7 @@ internal class OSAMCommonsInternal(
         language: Language,
         f: (VersionControlResponse) -> Unit
     ) {
+        checkForLanguages(language)
         GlobalScope.launch(executor.main) {
             if (!alertWrapper.isVersionControlShowing()) {
                 try {
@@ -81,12 +83,14 @@ internal class OSAMCommonsInternal(
                                             analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
                                         }
                                     )
+
                                     Version.ComparisonMode.LAZY ->
                                         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
                                             alertWrapper.showVersionControlLazy(
                                                 version = version,
                                                 language = language,
                                                 onPositiveClick = { isCheckBoxChecked ->
+                                                    println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                                                     preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                                                     preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                                                     f(VersionControlResponse.ACCEPTED)
@@ -102,6 +106,10 @@ internal class OSAMCommonsInternal(
                                                 }
                                             )
                                         }
+                                        else {
+                                            f(VersionControlResponse.DISMISSED)
+                                        }
+
                                     Version.ComparisonMode.INFO -> {
                                         if(preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown){
                                             alertWrapper.showVersionControlInfo(
@@ -118,7 +126,11 @@ internal class OSAMCommonsInternal(
                                                 }
                                             )
                                         }
+                                        else {
+                                            f(VersionControlResponse.DISMISSED)
+                                        }
                                     }
+
                                     Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
                                 }
                                 if (version.comparisonMode != Version.ComparisonMode.NONE) {
@@ -237,4 +249,25 @@ internal class OSAMCommonsInternal(
             }
         }
     }
+
+    private fun checkForLanguages(newLanguage: Language) {
+        val oldSelectedLanguage = preferences.getSelectedLanguage()
+        val oldPreviousLanguage = preferences.getPreviousLanguage()
+
+        if (oldSelectedLanguage != newLanguage.name || oldPreviousLanguage == "") {
+
+            val languageForLog = if (oldPreviousLanguage == "") newLanguage.name else oldSelectedLanguage
+
+            preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
+            preferences.setSelectedLanguage(newLanguage.name)
+            preferences.setPreviousLanguage(oldSelectedLanguage)
+
+            analytics.logLanguageChange(
+                previousLanguage = languageForLog,
+                selectedLanguage = newLanguage.name,
+                languageDisplay = preferences.getDisplayedLanguage(),
+            )
+        }
+    }
+
 }

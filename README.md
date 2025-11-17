@@ -741,3 +741,12 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
 > **Idioma per "default", s'ha d'utilitzar Language.parse(...) en comptes de valueOf(...)**
 
 - S'ha d'utilitzar: Language.parse(...) si es vol obtenir un idioma "default". Així no genera l'error a l'utilitzar valueOf(...) de l'enum de Language.
+
+## Com funciona el sistema d'anàlisi de l'esdeveniment del canvi d'idioma
+
+- S'ha creat una anàlisi amb el nom language_change que consta de 3 paràmetres: previous_language, selected_language i language_disp.
+- Aquests 3 paràmetres són: l'idioma del dispositiu, l'idioma de l'aplicació i l'idioma anterior en cas que l'idioma s'hagi canviat dins de l'aplicació.
+- La part de la lògica actual es comparteix per android i iOS per igual des del mòdul comú i és llançada dins del mètode que revisa si hi ha hagut un canvi de versió.
+- L'analítica només es llançarà quan l'usuari canviï l'idioma de l'app i la següent vegada obriu l'aplicació.
+- Els paràmetres d'idioma de l'aplicació i l'idioma anterior poden tenir el valor de CA, ÉS O EN però l'idioma del dispositiu pot tenir qualsevol abreviatura de l'idioma mateix (ex FR).
+- La primera vegada que l'analítica s'envia, l'idioma anterior tindrà el valor de les aplicacions per defecte (CA).

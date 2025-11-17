@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,31 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPd-B6-VSp">
-                                <rect key="frame" x="133" y="341" width="149" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPd-B6-VSp">
+                                <rect key="frame" x="132.5" y="144" width="149" height="30"/>
                                 <state key="normal" title="Check version control"/>
                                 <connections>
                                     <action selector="onVersionControlClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="smg-pv-0qS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1re-oB-OuU" userLabel="Check device information">
-                                <rect key="frame" x="120" y="518" width="175" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1re-oB-OuU" userLabel="Check device information">
+                                <rect key="frame" x="119.5" y="268" width="175" height="30"/>
                                 <state key="normal" title="Check device information"/>
                                 <connections>
                                     <action selector="onDeviceInformationClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fG8-Ts-QYG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTK-d7-PhL">
-                                <rect key="frame" x="129" y="582" width="156" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTK-d7-PhL">
+                                <rect key="frame" x="129" y="330" width="156" height="30"/>
                                 <state key="normal" title="Check app information"/>
                                 <connections>
                                     <action selector="onAppInformationClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssv-0y-cQs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCp-oR-amZ">
-                                <rect key="frame" x="163" y="403" width="88" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCp-oR-amZ">
+                                <rect key="frame" x="163" y="206" width="88" height="30"/>
                                 <state key="normal" title="Check rating"/>
                                 <connections>
                                     <action selector="onRatingClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TM1-Dx-7SQ"/>
@@ -51,10 +49,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="EPd-B6-VSp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="0AB-iP-MEZ"/>
-                            <constraint firstItem="EPd-B6-VSp" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="1xl-zE-JGf"/>
-                            <constraint firstItem="iCp-oR-amZ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="fqp-qb-h8i"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iCp-oR-amZ" secondAttribute="trailing" constant="20" id="xkf-Ed-076"/>
+                            <constraint firstItem="1re-oB-OuU" firstAttribute="top" secondItem="iCp-oR-amZ" secondAttribute="bottom" constant="32" id="1fL-t1-Tia"/>
+                            <constraint firstItem="iCp-oR-amZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UEv-jE-aoz"/>
+                            <constraint firstItem="EPd-B6-VSp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UYj-bj-cUc"/>
+                            <constraint firstItem="iCp-oR-amZ" firstAttribute="top" secondItem="EPd-B6-VSp" secondAttribute="bottom" constant="32" id="fuf-iz-J0U"/>
+                            <constraint firstItem="nTK-d7-PhL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qNG-MF-Dn2"/>
+                            <constraint firstItem="EPd-B6-VSp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="48" id="rD7-sB-v6r"/>
+                            <constraint firstItem="nTK-d7-PhL" firstAttribute="top" secondItem="1re-oB-OuU" secondAttribute="bottom" constant="32" id="sjs-nS-ZeT"/>
+                            <constraint firstItem="1re-oB-OuU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tzR-i8-Yto"/>
                         </constraints>
                     </view>
                     <connections>

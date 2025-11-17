@@ -18,6 +18,10 @@ import platform.SystemConfiguration.kSCNetworkReachabilityFlagsReachable
 import platform.posix.AF_INET
 import platform.posix.sockaddr_in
 
+import platform.Foundation.NSLocale
+import platform.Foundation.currentLocale
+import platform.Foundation.languageCode
+
 
 @OptIn(ExperimentalForeignApi::class)
 internal actual class PlatformInformation {
@@ -52,8 +56,9 @@ internal actual class PlatformInformation {
             address.sin_len = sizeOf<sockaddr_in>().toUByte()
             address.sin_family = AF_INET.toUByte()
 
-            val reachability = SCNetworkReachabilityCreateWithAddress(null, address.ptr.reinterpret())
-                ?: return@memScoped false
+            val reachability =
+                SCNetworkReachabilityCreateWithAddress(null, address.ptr.reinterpret())
+                    ?: return@memScoped false
 
             val flags = alloc<SCNetworkReachabilityFlagsVar>()
             if (!SCNetworkReachabilityGetFlags(reachability, flags.ptr)) {
@@ -61,11 +66,16 @@ internal actual class PlatformInformation {
             }
 
             val isReachable = flags.value.and(kSCNetworkReachabilityFlagsReachable) != 0u
-            val needsConnection = flags.value.and(kSCNetworkReachabilityFlagsConnectionRequired) != 0u
+            val needsConnection =
+                flags.value.and(kSCNetworkReachabilityFlagsConnectionRequired) != 0u
 
             // A network is available if it's reachable and doesn't require a new connection
             // (e.g., a captive portal that needs a login).
             isReachable && !needsConnection
         }
+    }
+
+    actual fun getDeviceLanguage(): String {
+        return NSLocale.currentLocale.languageCode.uppercase()
     }
 }

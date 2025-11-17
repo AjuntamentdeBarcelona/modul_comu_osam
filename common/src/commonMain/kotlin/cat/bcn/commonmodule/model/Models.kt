@@ -110,3 +110,13 @@ data class AppInformation(
     }
 }
 
+data class LanguageInformation(
+    val previousLanguage: String,
+    val selectedLanguage: String,
+    val displayedLanguage: String
+) {
+    override fun toString(): String {
+        return "previousLanguage: ${previousLanguage}, selectedLanguage: ${selectedLanguage}, displayedLanguage: $displayedLanguage"
+    }
+}
+

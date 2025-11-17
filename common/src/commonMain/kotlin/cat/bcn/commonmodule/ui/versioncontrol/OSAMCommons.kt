@@ -2,6 +2,7 @@ package cat.bcn.commonmodule.ui.versioncontrol
 
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.model.LanguageInformation
 
 expect class OSAMCommons {
     fun versionControl(
