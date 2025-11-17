@@ -106,6 +106,9 @@ internal class OSAMCommonsInternal(
                                                 }
                                             )
                                         }
+                                        else {
+                                            f(VersionControlResponse.DISMISSED)
+                                        }
 
                                     Version.ComparisonMode.INFO -> {
                                         if(preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown){
@@ -122,6 +125,9 @@ internal class OSAMCommonsInternal(
                                                     f(VersionControlResponse.DISMISSED)
                                                 }
                                             )
+                                        }
+                                        else {
+                                            f(VersionControlResponse.DISMISSED)
                                         }
                                     }
 
