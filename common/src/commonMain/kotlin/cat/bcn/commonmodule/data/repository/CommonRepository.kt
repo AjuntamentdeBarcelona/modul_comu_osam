@@ -24,10 +24,16 @@ internal class CommonRepository(
     private val internalPerformanceWrapper: InternalPerformanceWrapper
 ) {
 
-    suspend fun getVersion(): Either<CommonError, Version> {
+    suspend fun getVersion(language: Language): Either<CommonError, Version> {
         if (platformInformation.isOnline()) {
             val versionResult = try {
-                CommonRepositoryUtils.getRemoteVersion(remote, internalPerformanceWrapper, platformInformation, preferences)
+                CommonRepositoryUtils.getRemoteVersion(
+                    remote,
+                    internalPerformanceWrapper,
+                    platformInformation,
+                    preferences,
+                    language
+                )
             } catch (e: Exception) {
                 return Either.Left(CommonError(e))
             }
@@ -106,4 +112,7 @@ internal class CommonRepository(
         )
         return Either.Right(languageInformation)
     }
+
+
+
 }

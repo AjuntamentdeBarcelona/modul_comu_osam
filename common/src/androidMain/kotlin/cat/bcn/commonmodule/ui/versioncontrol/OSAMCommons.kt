@@ -56,4 +56,8 @@ actual class OSAMCommons constructor(
         f: (AppInformationResponse, AppInformation?) -> Unit
     ) = internal.appInformation(f)
 
+    actual fun changeLanguageEvent(
+        language: Language,
+        f: (AppLanguageResponse) -> Unit
+    ) = internal.changeLanguageEvent(language, f)
 }

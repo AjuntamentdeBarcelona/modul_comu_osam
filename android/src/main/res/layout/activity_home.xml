@@ -34,4 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="Check app information" />
+
+    <Button
+        android:id="@+id/appLanguageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Check language information" />
 </LinearLayout>

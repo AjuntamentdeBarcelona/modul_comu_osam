@@ -45,6 +45,15 @@
                                     <action selector="onRatingClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TM1-Dx-7SQ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0r-fY-fe1">
+                                <rect key="frame" x="120" y="394" width="193" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Check language information"/>
+                                <connections>
+                                    <action selector="onAppInformationClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5qx-pq-24U"/>
+                                    <action selector="onLanguageInformationClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dmF-BT-MHA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

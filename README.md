@@ -573,6 +573,53 @@ arrivar amb 2 valors possibles:
 - **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
 - **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
 
+## Implementació per enviar l'esdeveniment de canvi d'idioma a l'aplicació
+
+### Android
+
+Aquest esdeveniment recull la informació de l'idioma anterior al canvi, l'idioma recent seleccionat i l'idioma
+del dispositiu mòbil
+
+```kotlin
+osamCommons.changeLanguageEvent(
+    language = Language.CA
+) {
+    // Do something...
+}
+```
+
+Per obtenir la informació només cal executar la funció `changeLanguageEvent()`. Com a extra, se li ha afegit un
+callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
+part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
+l'aplicació. El que reviem callback és l'objecte `AppLanguageResponse`. Aquest objecte pot
+arribar amb 3 valors possibles:
+
+- **SENT**: l'analítica s'ha enviat correctament
+- **NOT_SENT**: l'analitica no s'ha enviat perqu l'idioma no ha canviat
+- **ERROR**: hi ha hagut un error enviant l'analitica
+
+### iOS
+
+Aquest esdeveniment recull la informació de l'idioma anterior al canvi, l'idioma recent seleccionat i l'idioma
+del dispositiu mòbil
+
+```swift
+osamCommons.changeLanguageEvent(
+    language: Language.es,
+    f: {_ in }
+)
+```
+
+Per obtenir la informació només cal executar la funció `changeLanguageEvent()`. Com a extra, se li ha afegit un
+callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
+part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
+l'aplicació. El que reviem callback és l'objecte `AppLanguageResponse`. Aquest objecte pot
+arribar amb 3 valors possibles:
+
+- **SENT**: l'analítica s'ha enviat correctament
+- **NOT_SENT**: l'analitica no s'ha enviat perqu l'idioma no ha canviat
+- **ERROR**: hi ha hagut un error enviant l'analitica
+
 ## Format JSONs
 
 ### Control de Versions
@@ -746,7 +793,7 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
 
 - S'ha creat una anàlisi amb el nom language_change que consta de 3 paràmetres: previous_language, selected_language i language_disp.
 - Aquests 3 paràmetres són: l'idioma del dispositiu, l'idioma de l'aplicació i l'idioma anterior en cas que l'idioma s'hagi canviat dins de l'aplicació.
-- La part de la lògica actual es comparteix per android i iOS per igual des del mòdul comú i és llançada dins del mètode que revisa si hi ha hagut un canvi de versió.
-- L'analítica només es llançarà quan l'usuari canviï l'idioma de l'app i la següent vegada obriu l'aplicació.
+- La part de la lògica actual es comparteix per android i iOS igual des del mòdul comú.
+- L'analítica només s'enviarà a firebase immediatament quan l'usuari canviï l'idioma de l'app.
 - Els paràmetres d'idioma de l'aplicació i l'idioma anterior poden tenir el valor de CA, ÉS O EN però l'idioma del dispositiu pot tenir qualsevol abreviatura de l'idioma mateix (ex FR).
 - La primera vegada que l'analítica s'envia, l'idioma anterior tindrà el valor de les aplicacions per defecte (CA).

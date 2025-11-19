@@ -41,6 +41,7 @@ internal class OSAMCommonsInternal(
     private val preferences: Preferences by lazy { CommonPreferences(settings) }
     private val analytics: CommonAnalytics by lazy { CommonAnalytics(analyticsWrapper) }
     private val remote: Remote by lazy { CommonRemote(backendEndpoint) }
+    private var currentLanguage: Language = Language.DEFAULT
     private val commonRepository: CommonRepository by lazy {
         CommonRepository(
             remote,
@@ -56,11 +57,11 @@ internal class OSAMCommonsInternal(
         language: Language,
         f: (VersionControlResponse) -> Unit
     ) {
-        checkForLanguages(language)
+        currentLanguage = language
         GlobalScope.launch(executor.main) {
             if (!alertWrapper.isVersionControlShowing()) {
                 try {
-                    withContext(executor.bg) { commonRepository.getVersion() }.fold(
+                    withContext(executor.bg) { commonRepository.getVersion(language) }.fold(
                         error = { commonError ->
                             internalCrashlyticsWrapper.recordException(commonError.exception)
                             f(VersionControlResponse.ERROR)
@@ -250,23 +251,30 @@ internal class OSAMCommonsInternal(
         }
     }
 
-    private fun checkForLanguages(newLanguage: Language) {
-        val oldSelectedLanguage = preferences.getSelectedLanguage()
-        val oldPreviousLanguage = preferences.getPreviousLanguage()
+    fun changeLanguageEvent(
+        language: Language,
+        f: (AppLanguageResponse) -> Unit
+    ) {
+        try {
+            val oldSelectedLanguage = preferences.getSelectedLanguage()
 
-        if (oldSelectedLanguage != newLanguage.name || oldPreviousLanguage == "") {
+            if (oldSelectedLanguage == language.name) {
+                f(AppLanguageResponse.NOT_SENT)
+            } else {
+                preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
+                preferences.setSelectedLanguage(language.name)
+                preferences.setPreviousLanguage(oldSelectedLanguage)
 
-            val languageForLog = if (oldPreviousLanguage == "") newLanguage.name else oldSelectedLanguage
-
-            preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
-            preferences.setSelectedLanguage(newLanguage.name)
-            preferences.setPreviousLanguage(oldSelectedLanguage)
-
-            analytics.logLanguageChange(
-                previousLanguage = languageForLog,
-                selectedLanguage = newLanguage.name,
-                languageDisplay = preferences.getDisplayedLanguage(),
-            )
+                analytics.logLanguageChange(
+                    previousLanguage = preferences.getPreviousLanguage(),
+                    selectedLanguage = language.name,
+                    languageDisplay = preferences.getDisplayedLanguage(),
+                )
+                f(AppLanguageResponse.SENT)
+            }
+        } catch (e: Exception) {
+            internalCrashlyticsWrapper.recordException(e)
+            f(AppLanguageResponse.ERROR)
         }
     }
 

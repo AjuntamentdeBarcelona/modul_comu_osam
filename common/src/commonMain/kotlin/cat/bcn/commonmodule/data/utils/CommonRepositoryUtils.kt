@@ -29,7 +29,9 @@ object CommonRepositoryUtils {
         internalPerformanceWrapper: InternalPerformanceWrapper,
         platformInformation: PlatformInformation,
         preferences: Preferences,
+        language: Language
     ): Version {
+        checkForPreviousLanguage(preferences, language)
         val remoteVersion = remote.getVersion(
             internalPerformanceWrapper,
             platformInformation.getPackageName(),
@@ -53,7 +55,7 @@ object CommonRepositoryUtils {
             preferences.setCheckBoxDontShowAgainActive(true)
         }
         val remoteFinalVersion = remoteVersion.copy(checkBoxDontShowAgain = updatedCheckbox)
-        setCachedVersion(preferences, remoteFinalVersion, platformInformation)
+        setCachedVersion(preferences, remoteFinalVersion, platformInformation, )
 
         return remoteFinalVersion
     }
@@ -211,4 +213,9 @@ object CommonRepositoryUtils {
         return (getCurrentDate() - lastTimeUserClickedOnButton) >= (dialogDisplayDuration.seconds.inWholeMilliseconds)
     }
 
+    internal fun checkForPreviousLanguage(preferences: Preferences, language: Language){
+        if(preferences.getPreviousLanguage().isEmpty()){
+            preferences.setPreviousLanguage(language.name)
+        }
+    }
 }

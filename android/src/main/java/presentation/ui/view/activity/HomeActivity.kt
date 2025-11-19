@@ -66,6 +66,14 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, "$appInformationResponse, ${appInformation?.appName}, ${appInformation?.appVersionName}, ${appInformation?.appVersionCode}", Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.appLanguageButton.setOnClickListener {
+            osamCommons.changeLanguageEvent(
+                language = Language.CA
+            ) {
+                Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroy() {

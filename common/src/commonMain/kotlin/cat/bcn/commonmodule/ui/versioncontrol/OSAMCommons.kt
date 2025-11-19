@@ -22,6 +22,11 @@ expect class OSAMCommons {
     fun appInformation(
         f: (AppInformationResponse, AppInformation?) -> Unit
     )
+
+    fun changeLanguageEvent(
+        language: Language,
+        f: (AppLanguageResponse) -> Unit
+    )
 }
 
 enum class VersionControlResponse {
@@ -38,6 +43,10 @@ enum class DeviceInformationResponse {
 
 enum class AppInformationResponse {
     ACCEPTED, DISMISSED, ERROR
+}
+
+enum class AppLanguageResponse {
+    SENT, NOT_SENT, ERROR
 }
 
 enum class Language {
