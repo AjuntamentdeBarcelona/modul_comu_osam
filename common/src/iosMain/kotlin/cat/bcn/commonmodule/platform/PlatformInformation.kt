@@ -78,4 +78,10 @@ internal actual class PlatformInformation {
     actual fun getDeviceLanguage(): String {
         return NSLocale.currentLocale.languageCode.uppercase()
     }
+
+    actual fun getSmallPackageName(): String {
+        val bundleIdentifier = NSBundle.mainBundle.bundleIdentifier ?: return "unknown"
+        return bundleIdentifier.split(".").lastOrNull() ?: bundleIdentifier
+    }
+
 }

@@ -77,7 +77,10 @@ internal interface Preferences {
     fun getVersionControlVersionCode(): Long
     fun setVersionControlRemoteVersionCode(value: Long)
     fun getVersionControlRemoteVersionCode(): Long
-
+    fun setVersionControlVersionName(value: String)
+    fun getVersionControlVersionName(): String
+    fun setVersionControlVersionNamePrevious(value: String)
+    fun getVersionControlVersionNamePrevious(): String
     fun setCheckBoxDontShowAgainVisible(value: Boolean)
     fun getCheckBoxDontShowAgainVisible(): Boolean
     fun setCheckBoxDontShowAgainActive(value: Boolean)

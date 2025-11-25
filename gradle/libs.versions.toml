@@ -37,6 +37,7 @@ firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "fire
 analytics = { module = "com.google.firebase:firebase-analytics" }
 firebasePerf = { module = "com.google.firebase:firebase-perf" }
 firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebaseMessaging = { module = "com.google.firebase:firebase-messaging-ktx" }
 
 # Coroutines
 coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

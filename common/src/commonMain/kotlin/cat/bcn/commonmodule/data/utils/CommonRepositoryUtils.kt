@@ -31,7 +31,7 @@ object CommonRepositoryUtils {
         preferences: Preferences,
         language: Language
     ): Version {
-        checkForPreviousLanguage(preferences, language)
+        checkForSelectedLanguages(preferences, language)
         val remoteVersion = remote.getVersion(
             internalPerformanceWrapper,
             platformInformation.getPackageName(),
@@ -134,6 +134,7 @@ object CommonRepositoryUtils {
         preferences.setVersionEndDate(versionResult.endDate)
         preferences.setVersionControlVersionCode(platformInformation.getVersionCode())
         preferences.setVersionControlRemoteVersionCode(versionResult.versionCode)
+        preferences.setVersionControlVersionName(versionResult.versionName)
         preferences.setCheckBoxDontShowAgainVisible(versionResult.checkBoxDontShowAgain.isCheckBoxVisible)
         preferences.setDialogDisplayDuration(versionResult.dialogDisplayDuration)
     }
@@ -162,6 +163,11 @@ object CommonRepositoryUtils {
         if (cachedVersion.versionCode != remoteVersion.versionCode &&
             preferences.getVersionControlRemoteVersionCode() != remoteVersion.versionCode) {
             println("Version changed: versionCode (cached=${cachedVersion.versionCode}, remote=${remoteVersion.versionCode})")
+            return true
+        }
+        if (cachedVersion.versionName != remoteVersion.versionName &&
+            preferences.getVersionControlVersionName() != remoteVersion.versionName) {
+            println("Version changed: versionCode (cached=${cachedVersion.versionName}, remote=${remoteVersion.versionName})")
             return true
         }
         if (cachedVersion.comparisonMode != remoteVersion.comparisonMode) {
@@ -213,9 +219,9 @@ object CommonRepositoryUtils {
         return (getCurrentDate() - lastTimeUserClickedOnButton) >= (dialogDisplayDuration.seconds.inWholeMilliseconds)
     }
 
-    internal fun checkForPreviousLanguage(preferences: Preferences, language: Language){
-        if(preferences.getPreviousLanguage().isEmpty()){
-            preferences.setPreviousLanguage(language.name)
+    internal fun checkForSelectedLanguages(preferences: Preferences, language: Language){
+        if(preferences.getSelectedLanguage().isEmpty()){
+            preferences.setSelectedLanguage(language.name)
         }
     }
 }

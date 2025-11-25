@@ -34,6 +34,8 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
 
         private const val VERSION_CONTROL_VERSION_CODE = "VERSION_CONTROL_VERSION_CODE"
         private const val VERSION_CONTROL_REMOTE_VERSION_CODE = "VERSION_CONTROL_REMOTE_VERSION_CODE"
+        private const val VERSION_CONTROL_VERSION_NAME = "VERSION_CONTROL_VERSION_NAME"
+        private const val VERSION_CONTROL_VERSION_NAME_PREVIOUS = "VERSION_CONTROL_VERSION_NAME_PREVIOUS"
 
         private const val CHECKBOX_DONT_SHOW_AGAIN_VISIBLE = "CHECKBOX_DONT_SHOW_AGAIN_VISIBLE"
         private const val CHECKBOX_DONT_SHOW_AGAIN_ACTIVE = "CHECKBOX_DONT_SHOW_AGAIN_ACTIVE"
@@ -121,6 +123,10 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
     override fun getVersionControlVersionCode(): Long = settings.getLong(VERSION_CONTROL_VERSION_CODE, 0L)
     override fun setVersionControlRemoteVersionCode(value: Long) = settings.setLong(VERSION_CONTROL_REMOTE_VERSION_CODE, value)
     override fun getVersionControlRemoteVersionCode(): Long = settings.getLong(VERSION_CONTROL_REMOTE_VERSION_CODE, 0L)
+    override fun setVersionControlVersionName(value: String) = settings.setString(VERSION_CONTROL_VERSION_NAME, value)
+    override fun getVersionControlVersionName(): String = settings.getString(VERSION_CONTROL_VERSION_NAME, "")
+    override fun setVersionControlVersionNamePrevious(value: String) = settings.setString(VERSION_CONTROL_VERSION_NAME_PREVIOUS, value)
+    override fun getVersionControlVersionNamePrevious(): String = settings.getString(VERSION_CONTROL_VERSION_NAME_PREVIOUS, "")
 
     override fun setCheckBoxDontShowAgainVisible(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE, value)
     override fun getCheckBoxDontShowAgainVisible(): Boolean = settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE,false)

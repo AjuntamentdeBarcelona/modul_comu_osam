@@ -36,9 +36,30 @@
         android:text="Check app information" />
 
     <Button
-        android:id="@+id/appLanguageButton"
+        android:id="@+id/checkLanguageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Check language information" />
+        android:text="Check language change event" />
+
+    <Button
+        android:id="@+id/checkFirstTimeOrUpdateEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Check first time or update event" />
+
+    <Button
+        android:id="@+id/subscribeToCustomTopic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Subscribe to custom topic" />
+
+    <Button
+        android:id="@+id/unSubscribeToCustomTopic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Unsubscribe to custom topic" />
 </LinearLayout>
