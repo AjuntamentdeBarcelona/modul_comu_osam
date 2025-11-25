@@ -14,4 +14,5 @@ internal expect class PlatformInformation {
     fun getAppsStoreUrl(): String
     fun isOnline(): Boolean
     fun getDeviceLanguage(): String
+    fun getSmallPackageName(): String
 }

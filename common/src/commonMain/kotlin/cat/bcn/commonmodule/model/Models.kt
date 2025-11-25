@@ -39,6 +39,13 @@ internal data class Version(
     }
 }
 
+internal data class Topic(
+    val appName: String,
+    val versionName: String,
+    val versionCode: Long,
+    val languageCode: String
+)
+
 internal data class CheckBoxDontShowAgain(
     val isCheckBoxVisible: Boolean = false,
     val text: Text = Text(es = "", en = "", ca = "")

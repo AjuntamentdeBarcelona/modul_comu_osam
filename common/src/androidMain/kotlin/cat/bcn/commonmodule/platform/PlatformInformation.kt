@@ -53,4 +53,9 @@ internal actual class PlatformInformation(private val context: Context) {
     actual fun getDeviceLanguage(): String {
         return Locale.getDefault().language.uppercase(Locale.ROOT)
     }
+
+    actual fun getSmallPackageName(): String {
+        val packageName = context.packageName
+        return packageName.split(".").last()
+    }
 }

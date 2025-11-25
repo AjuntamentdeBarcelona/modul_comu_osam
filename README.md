@@ -82,6 +82,8 @@ següents paràmetres:
   qualsevol altre llibreria)
 - **performanceWrapper**: implementació del wrapper de performance que hem de implementar (o de
   qualsevol altre llibreria)
+- **messagingWrapper**: implementació del wrapper de messaging que hem de implementar (o de
+  qualsevol altre llibreria)
 
 A continuació, es detalla per cada plataforma, com es realitza aquesta inicialització. Per a més
 detalls de com integrar el mòdul comú amb la CI de la OSAM, consultar el manual de la CI.
@@ -99,7 +101,8 @@ private val osamCommons by lazy {
         crashlyticsWrapper = CrashlyticsWrapperAndroid(),
         performanceWrapper = PerformanceWrapperAndroid(),
         analyticsWrapper = AnalyticsWrapperAndroid(this),
-        platformUtil = PlatformUtilAndroid(this)
+        platformUtil = PlatformUtilAndroid(this),
+        messagingWrapper = MessagingWrapperAndroid()
     )
 }
 ```
@@ -200,6 +203,19 @@ class PlatformUtilAndroid(private val context: Context) : PlatformUtil {
     return ""
   }
 }
+
+class MessagingWrapperAndroid : MessagingWrapper {
+
+    private val firebaseMessaging = FirebaseMessaging.getInstance()
+
+    override suspend fun subscribeToTopic(topic: String) {
+        firebaseMessaging.subscribeToTopic(topic)
+    }
+
+    override suspend fun unsubscribeFromTopic(topic: String) {
+        firebaseMessaging.unsubscribeFromTopic(topic)
+    }
+}
 ```
 
 ### iOS
@@ -213,7 +229,8 @@ lazy var osamCommons = OSAMCommons(
     crashlyticsWrapper: CrashlyticsWrapperIOS(),
     performanceWrapper: PerformanceWrapperIOS(),
     analyticsWrapper: AnalyticsWrapperIOS(),
-    platformUtil: PlatformUtilIOS()
+    platformUtil: PlatformUtilIOS(),
+    messagingWrapper: MessagingWrapperIOS()
   )
 ```
 
@@ -352,6 +369,18 @@ class PlatformUtilIOS : PlatformUtil {
             }
         }
         return modelName
+    }
+}
+
+class MessagingWrapperIOS: MessagingWrapper {
+
+    func subscribeToTopic(topic: String) async throws {
+        // The Firebase iOS SDK provides modern async/await functions.
+        try await Messaging.messaging().subscribe(toTopic: topic)
+    }
+
+    func unsubscribeFromTopic(topic: String) async throws {
+        try await Messaging.messaging().unsubscribe(fromTopic: topic)
     }
 }
 ```
@@ -577,14 +606,13 @@ arrivar amb 2 valors possibles:
 
 ### Android
 
-Aquest esdeveniment recull la informació de l'idioma anterior al canvi, l'idioma recent seleccionat i l'idioma
-del dispositiu mòbil
+Per executar l'esdeveniment, cal cridar la funció `changeLanguageEvent`, passant el nou Language i un callback per gestionar la resposta.
 
 ```kotlin
 osamCommons.changeLanguageEvent(
     language = Language.CA
-) {
-    // Do something...
+) { response ->
+    // Do something
 }
 ```
 
@@ -594,9 +622,11 @@ part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funciona
 l'aplicació. El que reviem callback és l'objecte `AppLanguageResponse`. Aquest objecte pot
 arribar amb 3 valors possibles:
 
-- **SENT**: l'analítica s'ha enviat correctament
-- **NOT_SENT**: l'analitica no s'ha enviat perqu l'idioma no ha canviat
-- **ERROR**: hi ha hagut un error enviant l'analitica
+- **SUCCESS**: La part síncrona de l'esdeveniment 
+- (actualització de preferències i registre d'analítiques) 
+- s'ha completat correctament i s'ha enviat la sol·licitud asíncrona per actualitzar la subscripció al topic.
+- **UNCHANGED**: No s'ha realitzat cap acció perquè l'idioma seleccionat era el mateix que l'actual.
+- **ERROR**: S'ha produït un error en intentar actualitzar les preferències locals o registrar l'esdeveniment d'analítica.
 
 ### iOS
 
@@ -619,6 +649,116 @@ arribar amb 3 valors possibles:
 - **SENT**: l'analítica s'ha enviat correctament
 - **NOT_SENT**: l'analitica no s'ha enviat perqu l'idioma no ha canviat
 - **ERROR**: hi ha hagut un error enviant l'analitica
+
+## Implementació de l'esdeveniment d'inici o actualització de l'app
+
+### Android
+
+Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateAppEvent`, passant l'idioma actual i un callback per gestionar la resposta.
+```kotlin
+osamCommons.firstTimeOrUpdateAppEvent(language = Language.CA){ response ->
+    // Do something
+}
+```
+
+Aquesta funció s'encarrega de tota la lògica de fons.
+S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte AppLanguageResponse pot arribar amb 3 valors possibles:
+
+- **SUCCESS**: La subscripció al topic s'ha realitzat o actualitzat correctament.
+- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
+- **ERROR**: S'ha produït un error durant el procés de subscripció.
+
+### iOS
+
+Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateAppEvent`,
+passant l'idioma actual i un completion handler per processar la resposta.
+
+```swift
+osamCommons.firstTimeOrUpdateAppEvent(
+    language: Language.es,
+    f: {_ in }
+)
+```
+
+La funció inclou un callback que retorna un objecte `AppLanguageResponse`,
+permetent a l'aplicació reaccionar al resultat de l'operació.
+Aquest objecte pot tenir un dels tres valors possibles:
+
+- **SUCCESS**: La subscripció al topic s'ha realitzat o actualitzat correctament.
+- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
+- **ERROR**: S'ha produït un error durant el procés de subscripció.
+
+
+## Implementació de la subscripció a un topic personalitzat
+
+### Android
+
+Per executar l'esdeveniment, cal cridar la funció `subscribeToCustomTopic`, passant el nom del topic i un callback per gestionar la resposta.
+```kotlin
+osamCommons.subscribeToCustomTopic(topic = "NOM_DEL_TOPIC") { response ->
+    {
+        // Do something 
+    }
+}
+```
+
+Aquesta funció s'encarrega de tota la lògica de fons. 
+S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte AppLanguageResponse pot arribar amb 3 valors possibles:
+
+- **SUCCESS**: La subscripció al topic s'ha realitzat o actualitzat correctament.
+- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
+- **ERROR**: S'ha produït un error durant el procés de subscripció.
+
+### iOS
+
+Per executar l'esdeveniment, cal cridar la funció `subscribeToCustomTopic`, 
+passant el nom del topic i un completion handler per processar la resposta.
+
+```swift
+osamCommons.subscribeToCustomTopic(topic: "NOM_DEL_TOPIC")
+```
+
+La funció inclou un callback que retorna un objecte `SubscriptionResponse`, permetent a l'aplicació reaccionar 
+al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possibles:
+
+- **SUCCESS**: La subscripció al topic s'ha realitzat correctament
+- **ERROR**: S'ha produït un error durant el procés de subscripció.
+
+## Implementació de la desubscripció d'un topic personalitzat
+
+### Android
+
+Per executar l'esdeveniment, cal cridar la funció `unsubscribeToCustomTopic`, passant el nom del topic i un callback per gestionar la resposta.
+```kotlin
+osamCommons.unsubscribeToCustomTopic(topic = "NOM_DEL_TOPIC") { response ->
+    {
+        // Do something
+    }
+}
+```
+
+Aquesta funció s'encarrega de tota la lògica de fons.
+S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte AppLanguageResponse pot arribar amb 3 valors possibles:
+
+- **SUCCESS**: La unsubscripció al topic s'ha realitzat o actualitzat correctament.
+- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
+- **ERROR**: S'ha produït un error durant el procés de unsubscripció.
+
+### iOS
+
+Per executar l'esdeveniment, cal cridar la funció `unsubscribeToCustomTopic`,
+passant el nom del topic i un completion handler per processar la resposta.
+
+```swift
+osamCommons.unsubscribeToCustomTopic(topic: "NOM_DEL_TOPIC")
+```
+
+La funció inclou un callback que retorna un objecte `SubscriptionResponse`, permetent a l'aplicació reaccionar
+al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possibles:
+
+- **SUCCESS**: La unsubscripció al topic s'ha realitzat correctament
+- **ERROR**: S'ha produït un error durant el procés de unsubscripció.
+
 
 ## Format JSONs
 
@@ -789,11 +929,41 @@ compararà la versió instal·lada amb la qual rebem del json, en funció de tre
 
 - S'ha d'utilitzar: Language.parse(...) si es vol obtenir un idioma "default". Així no genera l'error a l'utilitzar valueOf(...) de l'enum de Language.
 
-## Com funciona el sistema d'anàlisi de l'esdeveniment del canvi d'idioma
+## Com funciona el event d'anàlisi de l'esdeveniment del canvi d'idioma a l'aplicació
 
-- S'ha creat una anàlisi amb el nom language_change que consta de 3 paràmetres: previous_language, selected_language i language_disp.
-- Aquests 3 paràmetres són: l'idioma del dispositiu, l'idioma de l'aplicació i l'idioma anterior en cas que l'idioma s'hagi canviat dins de l'aplicació.
-- La part de la lògica actual es comparteix per android i iOS igual des del mòdul comú.
-- L'analítica només s'enviarà a firebase immediatament quan l'usuari canviï l'idioma de l'app.
-- Els paràmetres d'idioma de l'aplicació i l'idioma anterior poden tenir el valor de CA, ÉS O EN però l'idioma del dispositiu pot tenir qualsevol abreviatura de l'idioma mateix (ex FR).
-- La primera vegada que l'analítica s'envia, l'idioma anterior tindrà el valor de les aplicacions per defecte (CA).
+Gestiona tota la lògica associada al canvi d'idioma de l'aplicació. Aquesta funció és el punt d'entrada principal per processar un canvi d'idioma. Orquestra diverses accions clau per assegurar que l'estat de l'aplicació s'actualitzi correctament:
+
+1. Actualitza les preferències locals: Desa a l'emmagatzematge local del dispositiu tant l'idioma nou seleccionat com l'idioma anterior.
+2. Envia un esdeveniment d'analítica: Registra un esdeveniment language_change a Firebase Analytics, capturant l'idioma previ, el nou idioma i l'idioma de visualització del dispositiu.
+3. Actualitza la subscripció al topic de notificacions: Actualitza de manera asíncrona la subscripció de l'app als topics de Firebase Cloud Messaging. Això garanteix que l'usuari rebi les notificacions push dirigides al seu nou idioma seleccionat.
+
+## Com funciona el event del'esdeveniment d'inici o actualització de l'app
+
+Gestiona la subscripció inicial o l'actualització del topic de notificacions de l'aplicació. Aquesta funció s'ha de cridar un cop l'aplicació s'inicia per assegurar que el dispositiu estigui subscrit al topic correcte de Firebase Cloud Messaging.
+
+Orquestra les següents accions:
+
+1. Recupera la informació del darrer topic al qual l'app estava subscrita (si existeix).
+2. Construeix el nom del nou topic basant-se en la versió actual de l'app i l'idioma del dispositiu.
+3. Actualitza la subscripció a Firebase, donant de baixa l'antic topic i subscrivint-se al nou.
+4. Desa localment la informació de la nova versió per a la propera execució de l'app.
+
+## Com funciona el event de la subscripció a un topic personalitzat
+
+Aquesta funció permet subscriure l'aplicació a un topic de
+notificacions de Firebase amb un nom específic i personalitzat.
+
+És útil per a campanyes de màrqueting o per segmentar usuaris en
+grups que no depenen de la versió de l'app o de l'idioma.
+La funció s'encarrega de gestionar la comunicació amb Firebase
+per realitzar la subscripció de manera asíncrona.
+
+## Com funciona el event de la desubscripció a un topic personalitzat
+
+Aquesta funció permet desubscriure l'aplicació d'un topic de
+notificacions de Firebase amb un nom específic i personalitzat.
+
+És l'operació inversa a subscribeToCustomTopic i és útil per
+aturar la recepció de notificacions d'una campanya concreta o per
+netejar subscripcions quan ja no són necessàries.
+La funció s'encarrega de gestionar la comunicació amb Firebase per realitzar la desubscripció de manera asíncrona.

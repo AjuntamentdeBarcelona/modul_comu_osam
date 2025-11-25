@@ -13,15 +13,17 @@ import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
+import cat.bcn.commonmodule.messaging.MessagingWrapper
+import cat.bcn.commonmodule.messaging.TopicSubscriptionManager
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
-import cat.bcn.commonmodule.model.LanguageInformation
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
+import cat.bcn.commonmodule.ui.logic.event.Event
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,7 +38,8 @@ internal class OSAMCommonsInternal(
     private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
     private val internalPerformanceWrapper: InternalPerformanceWrapper,
     analyticsWrapper: AnalyticsWrapper,
-    private val platformUtil: PlatformUtil
+    private val platformUtil: PlatformUtil,
+    private val messagingWrapper: MessagingWrapper,
 ) {
     private val preferences: Preferences by lazy { CommonPreferences(settings) }
     private val analytics: CommonAnalytics by lazy { CommonAnalytics(analyticsWrapper) }
@@ -51,11 +54,14 @@ internal class OSAMCommonsInternal(
             internalPerformanceWrapper
         )
     }
+    private val topicSubscriptionManager: TopicSubscriptionManager by lazy { TopicSubscriptionManager(messagingWrapper) }
+    private val event by lazy { Event(topicSubscriptionManager, preferences, platformInformation, analytics, internalCrashlyticsWrapper, executor) }
+
 
     @OptIn(DelicateCoroutinesApi::class)
     fun versionControl(
         language: Language,
-        f: (VersionControlResponse) -> Unit
+        f: (VersionControlResponse) -> Unit,
     ) {
         currentLanguage = language
         GlobalScope.launch(executor.main) {
@@ -210,7 +216,7 @@ internal class OSAMCommonsInternal(
     }
 
     fun deviceInformation(
-        f: (DeviceInformationResponse, DeviceInformation?) -> Unit
+        f: (DeviceInformationResponse, DeviceInformation?) -> Unit,
     ) {
         GlobalScope.launch(executor.main) {
             try {
@@ -251,31 +257,55 @@ internal class OSAMCommonsInternal(
         }
     }
 
-    fun changeLanguageEvent(
-        language: Language,
-        f: (AppLanguageResponse) -> Unit
-    ) {
-        try {
-            val oldSelectedLanguage = preferences.getSelectedLanguage()
+    /**
+     * Handles all logic associated with a user changing the application language.
+     *
+     * This function orchestrates several actions:
+     * 1. Updates local preferences to reflect the new language selection.
+     * 2. Sends an analytics event to track the language change.
+     * 3. Asynchronously updates the Firebase Messaging topic subscription to ensure
+     *    the device receives notifications for the newly selected language.
+     *
+     * @param language The new [Language] selected by the user.
+     * @param f A callback that returns the result of the operation, indicating
+     *          whether the event was processed.
+     */
+    fun changeLanguageEvent(language: Language, f: (AppLanguageResponse) -> Unit, ) = event.changeLanguageEvent(language, f)
 
-            if (oldSelectedLanguage == language.name) {
-                f(AppLanguageResponse.NOT_SENT)
-            } else {
-                preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
-                preferences.setSelectedLanguage(language.name)
-                preferences.setPreviousLanguage(oldSelectedLanguage)
+    /**
+     * Manages the Firebase topic subscription when the app starts or is updated.
+     *
+     * This function should be called once on application startup. It determines the
+     * correct Firebase Messaging topic based on the current app version and language,
+     * compares it to the previously subscribed topic, and performs an update if
+     * necessary. This ensures the device is always subscribed to the correct topic
+     * for receiving version- and language-specific notifications.
+     *
+     * @param language The current language of the application, used to construct the topic name.
+     * @param f A callback that returns the result of the subscription operation.
+     */
+    fun firstTimeOrUpdateEvent(language: Language, f: (AppLanguageResponse) -> Unit, ) = event.firstTimeOrUpdateAppEvent(language, f)
 
-                analytics.logLanguageChange(
-                    previousLanguage = preferences.getPreviousLanguage(),
-                    selectedLanguage = language.name,
-                    languageDisplay = preferences.getDisplayedLanguage(),
-                )
-                f(AppLanguageResponse.SENT)
-            }
-        } catch (e: Exception) {
-            internalCrashlyticsWrapper.recordException(e)
-            f(AppLanguageResponse.ERROR)
-        }
-    }
+    /**
+     * Subscribes the client to a custom-named Firebase Messaging topic.
+     *
+     * This is useful for targeted campaigns or segmenting users into groups that are
+     * independent of app version or language. The operation is performed asynchronously.
+     *
+     * @param topic The exact name of the topic to subscribe to.
+     * @param f A callback that returns the result of the subscription attempt.
+     */
+    fun subscribeToCustomTopic(topic: String, f: (SubscriptionResponse) -> Unit) = event.subscribeToCustomTopic(topic, f)
 
+    /**
+     * Unsubscribes the client from a custom-named Firebase Messaging topic.
+     *
+     * This function is the inverse of `subscribeToCustomTopic` and is used to stop
+     * receiving notifications for a specific campaign or to clean up subscriptions.
+     * The operation is performed asynchronously.
+     *
+     * @param topic The exact name of the topic to unsubscribe from.
+     * @param f A callback that returns the result of the unsubscription attempt.
+     */
+    fun unsubscribeToCustomTopic(topic: String, f: (SubscriptionResponse) -> Unit) = event.unsubscribeToCustomTopic(topic, f)
 }

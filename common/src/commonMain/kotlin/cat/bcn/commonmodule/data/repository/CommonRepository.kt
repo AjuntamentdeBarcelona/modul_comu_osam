@@ -103,16 +103,4 @@ internal class CommonRepository(
         )
         return Either.Right(appInformation)
     }
-
-    fun getLanguageInformation(): Either<CommonError, LanguageInformation>{
-        val languageInformation = LanguageInformation(
-            previousLanguage = preferences.getPreviousLanguage(),
-            selectedLanguage = preferences.getSelectedLanguage(),
-            displayedLanguage = preferences.getDisplayedLanguage()
-        )
-        return Either.Right(languageInformation)
-    }
-
-
-
 }
