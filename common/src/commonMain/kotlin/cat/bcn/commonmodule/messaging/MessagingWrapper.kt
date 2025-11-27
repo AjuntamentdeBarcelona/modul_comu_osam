@@ -19,4 +19,12 @@ interface MessagingWrapper {
      * @throws Exception if the unsubscription fails.
      */
     suspend fun unsubscribeFromTopic(topic: String)
+
+    /**
+     * Asynchronously retrieves the current Firebase Cloud Messaging (FCM) registration token.
+     *
+     * @return The current FCM token as a String.
+     * @throws Exception if the token cannot be retrieved.
+     */
+    suspend fun getToken(): String
 }

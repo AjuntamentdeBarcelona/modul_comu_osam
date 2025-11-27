@@ -215,6 +215,10 @@ class MessagingWrapperAndroid : MessagingWrapper {
     override suspend fun unsubscribeFromTopic(topic: String) {
         firebaseMessaging.unsubscribeFromTopic(topic)
     }
+
+    override suspend fun getToken(): String {
+        return firebaseMessaging.token.await()
+    }
 }
 ```
 
@@ -381,6 +385,11 @@ class MessagingWrapperIOS: MessagingWrapper {
 
     func unsubscribeFromTopic(topic: String) async throws {
         try await Messaging.messaging().unsubscribe(fromTopic: topic)
+    }
+
+    func getToken() async throws -> String {
+        // The async version of token() can be awaited and will throw on failure.
+        return try await Messaging.messaging().token()
     }
 }
 ```
@@ -759,6 +768,59 @@ al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possible
 - **SUCCESS**: La unsubscripció al topic s'ha realitzat correctament
 - **ERROR**: S'ha produït un error durant el procés de unsubscripció.
 
+## Implementació per obtenir el token de Firebase (FCM)
+
+### Android
+
+Per obtenir el token, cal cridar la funció `getFCMToken` i gestionar el resultat mitjançant un callback.
+```kotlin
+osamCommons.getFCMToken { response ->
+    when (response) {
+        is TokenResponse.Success -> {
+            val token = response.token
+            // El token s'ha obtingut correctament.
+            // Pots utilitzar el 'token' aquí.
+            Log.d("MyApp", "Token FCM: $token")
+        }
+        is TokenResponse.Error -> {
+            // S'ha produït un error en obtenir el token.
+            val exception = response.error.exception
+            Log.e("MyApp", "Error en obtenir el token", exception)
+        }
+    }
+}
+```
+
+La funció inclou un callback que retorna un objecte `TokenResponse`, permetent a l'aplicació reaccionar al resultat de l'operació. Aquest objecte pot tenir un dels dos estats possibles:
+
+- **SUCCESS**: L'operació s'ha completat correctament. Aquest objecte conté una propietat token amb el String del token FCM.
+- **ERROR**: S'ha produït un error durant el procés d'obtenció del token. Aquest objecte conté una propietat error amb els detalls de l'excepció.
+
+### iOS
+
+Per obtenir el token, cal cridar la funció `getFCMToken` i gestionar el resultat mitjançant un completion handler.
+
+```swift
+osamCommons.getFCMToken { response in
+    // Aquest callback s'executa sempre en el fil principal (main thread).
+    switch response {
+    case let success as TokenResponse.Success:
+        let token = success.token
+        print("Token FCM obtingut: \(token)")
+    case let error as TokenResponse.Error:
+        let errorMessage = error.error.exception.message ?? "Error desconegut"
+        print("S'ha produït un error en obtenir el token: \(errorMessage)")
+    default:
+        print("Resposta desconeguda")
+    }
+}
+```
+
+La funció inclou un callback que retorna un objecte `TokenResponse`, permetent a l'aplicació reaccionar al resultat de l'operació. 
+Aquest objecte pot tenir un dels dos estats possibles:
+
+- **SUCCESS**: L'operació s'ha completat correctament. Aquest objecte conté una propietat token amb el String del token FCM.
+- **ERROR**: S'ha produït un error durant el procés d'obtenció del token. Aquest objecte conté una propietat error amb els detalls de l'excepció.
 
 ## Format JSONs
 
@@ -967,3 +1029,9 @@ notificacions de Firebase amb un nom específic i personalitzat.
 aturar la recepció de notificacions d'una campanya concreta o per
 netejar subscripcions quan ja no són necessàries.
 La funció s'encarrega de gestionar la comunicació amb Firebase per realitzar la desubscripció de manera asíncrona.
+
+## Com funciona el event per obtenir el token de Firebase
+
+Aquesta funció permet obtenir el token de registre de Firebase Cloud Messaging (FCM) del dispositiu.
+Aquest token és un identificador únic que s'utilitza per enviar notificacions push directament a un 
+dispositiu específic. L'operació es realitza de manera asíncrona.

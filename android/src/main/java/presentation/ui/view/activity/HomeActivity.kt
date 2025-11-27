@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import cat.bcn.commonmodule.platform.PlatformUtilAndroid
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.OSAMCommons
+import cat.bcn.commonmodule.ui.versioncontrol.TokenResponse
 import com.app.app.R
 import com.app.app.databinding.ActivityHomeBinding
 import crashlytics.CrashlyticsWrapperAndroid
@@ -112,6 +113,22 @@ class HomeActivity : AppCompatActivity() {
         binding.unSubscribeToCustomTopic.setOnClickListener {
             osamCommons.unsubscribeToCustomTopic(topic) {
                 Toast.makeText(this, "${it}, topic: $topic", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        binding.getFCMToken.setOnClickListener {
+            osamCommons.getFCMToken { tokenResponse ->
+                when (tokenResponse) {
+                    is TokenResponse.Success -> {
+                        // Access the token string from the Success data class
+                        val token = tokenResponse.token
+                        Toast.makeText(this, "FCM Token: $token", Toast.LENGTH_LONG).show()
+                    }
+                    is TokenResponse.Error -> {
+                        val errorMessage = tokenResponse.error.message ?: "Unknown error"
+                        Toast.makeText(this, "Error getting token: $errorMessage", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
     }

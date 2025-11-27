@@ -2,6 +2,7 @@ package messaging
 
 import cat.bcn.commonmodule.messaging.MessagingWrapper
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.tasks.await
 
 class MessagingWrapperAndroid : MessagingWrapper {
 
@@ -13,5 +14,9 @@ class MessagingWrapperAndroid : MessagingWrapper {
 
     override suspend fun unsubscribeFromTopic(topic: String) {
         firebaseMessaging.unsubscribeFromTopic(topic)
+    }
+
+    override suspend fun getToken(): String {
+        return firebaseMessaging.token.await()
     }
 }

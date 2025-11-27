@@ -1,6 +1,7 @@
 package cat.bcn.commonmodule.ui.versioncontrol
 
 import cat.bcn.commonmodule.model.AppInformation
+import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.DeviceInformation
 import cat.bcn.commonmodule.model.LanguageInformation
 
@@ -86,6 +87,19 @@ expect class OSAMCommons {
         topic: String,
         f: (SubscriptionResponse) -> Unit
     )
+
+    /**
+     * Asynchronously retrieves the current Firebase Cloud Messaging (FCM) registration token.
+     *
+     * This function performs the token retrieval on a background thread and delivers
+     * the result via a callback on the main thread, making it safe to use for UI updates.
+     * The token can be used to send notifications to this specific device instance.
+     *
+     * @param f A callback that receives a [TokenResponse] object, which will either
+     *          be [TokenResponse.Success] containing the token or [TokenResponse.Error]
+     *          containing the error details.
+     */
+    fun getFCMToken(f: (TokenResponse) -> Unit)
 }
 
 enum class VersionControlResponse {
@@ -110,6 +124,17 @@ enum class AppLanguageResponse {
 
 enum class SubscriptionResponse {
     ACCEPTED, ERROR
+}
+
+/**
+ * Represents the result of a request to fetch the FCM token.
+ *
+ * This sealed class provides a type-safe way to handle both success and failure
+ * cases, where the success case includes the retrieved token.
+ */
+sealed class TokenResponse {
+    data class Success(val token: String) : TokenResponse()
+    data class Error(val error: Exception) : TokenResponse()
 }
 
 enum class Language {

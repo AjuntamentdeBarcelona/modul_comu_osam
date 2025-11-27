@@ -5,12 +5,14 @@ import cat.bcn.commonmodule.crashlytics.InternalCrashlyticsWrapper
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.local.TopicPreferencesUtils
 import cat.bcn.commonmodule.messaging.TopicSubscriptionManager
+import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.Topic
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.executor.Executor
 import cat.bcn.commonmodule.ui.versioncontrol.AppLanguageResponse
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.SubscriptionResponse
+import cat.bcn.commonmodule.ui.versioncontrol.TokenResponse
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,6 +38,8 @@ internal class Event(
 ) {
     companion object {
         private const val ERROR_LOG = "An exception occurred during topic subscription update:"
+        private const val ERROR_TOKEN_LOG = "An exception occurred while fetching the FCM token:"
+        private const val FCM_TOKEN = "FCM Token:"
     }
 
     /**
@@ -221,6 +225,44 @@ internal class Event(
             } catch (e: Exception) {
                 internalCrashlyticsWrapper.recordException(e)
                 f(SubscriptionResponse.ERROR)
+            }
+        }
+    }
+
+    /**
+     * Asynchronously retrieves the current Firebase Cloud Messaging (FCM) registration token.
+     *
+     * This function performs the token retrieval on a background thread and delivers
+     * the result via a callback on the main thread, making it safe to use for UI updates.
+     *
+     * @param f A callback that receives a [TokenResponse] object, which will either
+     *          be [TokenResponse.Success] containing the token or [TokenResponse.Error]
+     *          containing the error details.
+     */
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getFCMToken(f: (TokenResponse) -> Unit) {
+        // Launch a coroutine on the main thread.
+        GlobalScope.launch(executor.main) {
+            try {
+                // Switch to a background thread to perform the network operation.
+                val result = withContext(executor.bg) {
+                    topicSubscriptionManager.getFCMToken()
+                }
+                result.fold(
+                    error = { commonError ->
+                        f(TokenResponse.Error(commonError.exception))
+                    },
+                    success = { token ->
+                        println("$FCM_TOKEN $token")
+                        f(TokenResponse.Success(token))
+                    }
+                )
+
+            } catch (e: Exception) {
+                // If any other exception occurs, deliver it as an error on the main thread.
+                internalCrashlyticsWrapper.recordException(e)
+                println("$ERROR_TOKEN_LOG ${e.message}")
+                f(TokenResponse.Error(e))
             }
         }
     }

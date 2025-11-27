@@ -62,4 +62,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="Unsubscribe to custom topic" />
+
+    <Button
+        android:id="@+id/getFCMToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Get Firebase Messaging Token" />
 </LinearLayout>
