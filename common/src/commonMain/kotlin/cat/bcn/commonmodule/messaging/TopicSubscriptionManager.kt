@@ -150,4 +150,24 @@ internal class TopicSubscriptionManager(private val messagingWrapper: MessagingW
             Either.Left(CommonError(e))
         }
     }
+
+    /**
+     * Retrieves the current Firebase Cloud Messaging (FCM) registration token.
+     *
+     * This function uses the platform-specific [MessagingWrapper] to fetch the token
+     * and wraps the result in an [Either] type for consistent error handling.
+     *
+     * @return An `Either` containing `Right(token)` on success, or `Left(CommonError)`
+     *         if the token could not be retrieved.
+     */
+    suspend fun getFCMToken(): Either<CommonError, String> {
+        return try {
+            val token = messagingWrapper.getToken()
+            Either.Right(token)
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            println("Error fetching FCM token: ${e.message}")
+            Either.Left(CommonError(e))
+        }
+    }
 }

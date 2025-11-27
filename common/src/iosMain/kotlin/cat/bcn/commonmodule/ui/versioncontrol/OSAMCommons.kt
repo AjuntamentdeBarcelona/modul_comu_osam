@@ -117,4 +117,17 @@ actual class OSAMCommons constructor(
         topic: String,
         f: (SubscriptionResponse) -> Unit,
     ) = internal.unsubscribeToCustomTopic(topic, f)
+
+    /**
+     * Asynchronously retrieves the current Firebase Cloud Messaging (FCM) registration token.
+     *
+     * This function performs the token retrieval on a background thread and delivers
+     * the result via a callback on the main thread, making it safe to use for UI updates.
+     * The token can be used to send notifications to this specific device instance.
+     *
+     * @param f A callback that receives a [TokenResponse] object, which will either
+     *          be [TokenResponse.Success] containing the token or [TokenResponse.Error]
+     *          containing the error details.
+     */
+    actual fun getFCMToken(f: (TokenResponse) -> Unit) = internal.getFCMToken(f)
 }

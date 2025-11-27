@@ -101,6 +101,32 @@ class ViewController: UIViewController {
         )
     }
 
+    @IBAction func onGetFCMTokenClick(_ sender: Any) {
+        osamCommons.getFCMToken(
+            f: { tokenResponse in
+                // The callback is guaranteed to be on the main thread,
+                // so it's safe to show a toast.
+                switch tokenResponse {
+                case let success as TokenResponse.Success:
+                    // The token was retrieved successfully.
+                    // Access the token string from the Success object.
+                    let token = success.token
+                    self.showToast2(message: "FCM Token: \(token)")
+
+                case let error as TokenResponse.Error:
+                    // An error occurred.
+                    // Access the error message from the Error object.
+                    let errorMessage = error.error.message ?? "Unknown error"
+                    self.showToast(message: "Error: \(errorMessage)")
+
+                default:
+                    // Handle any other unexpected cases.
+                    self.showToast(message: "Unknown response from getFCMToken")
+                }
+            }
+        )
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

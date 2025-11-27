@@ -19,4 +19,9 @@ class MessagingWrapperIOS: MessagingWrapper {
     func unsubscribeFromTopic(topic: String) async throws {
         try await Messaging.messaging().unsubscribe(fromTopic: topic)
     }
+
+    func getToken() async throws -> String {
+        // The async version of token() can be awaited and will throw on failure.
+        return try await Messaging.messaging().token()
+    }
 }

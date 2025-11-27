@@ -6,7 +6,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCPreferencesUtils, OSAMCCommonRepositoryUtils, OSAMCAppInformation, OSAMCKotlinException, OSAMCCommonError, OSAMCDeviceInformation, OSAMCEither<L, R>, OSAMCLanguageInformation, OSAMCSuccess, OSAMCAppInformationResponse, OSAMCAppLanguageResponse, OSAMCDeviceInformationResponse, OSAMCLanguageCompanion, OSAMCLanguage, UIViewController, OSAMCRatingControlResponse, OSAMCSubscriptionResponse, OSAMCVersionControlResponse, OSAMCKtor_client_coreHttpClient, OSAMCKtor_client_coreHttpClientConfig<T>, NSDate, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_eventsEvents, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreProxyConfig, OSAMCKtor_utilsAttributeKey<T>, OSAMCKtor_eventsEventDefinition<T>, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpResponse, OSAMCKotlinUnit, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpClientCall, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpHttpMethod, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsTypeInfo, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_httpContentType, OSAMCKotlinCancellationException, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_utilsStringValuesBuilderImpl, OSAMCKtor_httpURLBuilderCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinKTypeProjection, OSAMCKotlinByteArray, OSAMCKotlinx_io_coreBuffer, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinByteIterator, OSAMCKotlinx_serialization_coreSerializersModule, OSAMCKotlinx_serialization_coreSerialKind, OSAMCKotlinNothing;
+@class OSAMCCommonAnalyticsCompanion, OSAMCCommonAnalyticsRatingAction, OSAMCCommonAnalyticsVersionControlAction, OSAMCKotlinEnumCompanion, OSAMCKotlinEnum<E>, OSAMCKotlinArray<T>, OSAMCTopicPreferencesUtils, OSAMCCommonRepositoryUtils, OSAMCAppInformation, OSAMCKotlinException, OSAMCCommonError, OSAMCDeviceInformation, OSAMCEither<L, R>, OSAMCLanguageInformation, OSAMCSuccess, OSAMCAppInformationResponse, OSAMCAppLanguageResponse, OSAMCDeviceInformationResponse, OSAMCLanguageCompanion, OSAMCLanguage, UIViewController, OSAMCTokenResponse, OSAMCRatingControlResponse, OSAMCSubscriptionResponse, OSAMCVersionControlResponse, OSAMCTokenResponseError, OSAMCTokenResponseSuccess, OSAMCKtor_client_coreHttpClient, OSAMCKtor_client_coreHttpClientConfig<T>, NSDate, OSAMCKotlinThrowable, OSAMCKotlinRuntimeException, OSAMCKotlinIllegalStateException, OSAMCKtor_client_coreHttpClientEngineConfig, OSAMCKtor_eventsEvents, OSAMCKtor_client_coreHttpReceivePipeline, OSAMCKtor_client_coreHttpRequestPipeline, OSAMCKtor_client_coreHttpResponsePipeline, OSAMCKtor_client_coreHttpSendPipeline, OSAMCKtor_client_coreHttpRequestData, OSAMCKtor_client_coreHttpResponseData, OSAMCKotlinx_coroutines_coreCoroutineDispatcher, OSAMCKtor_client_coreProxyConfig, OSAMCKtor_utilsAttributeKey<T>, OSAMCKtor_eventsEventDefinition<T>, OSAMCKtor_utilsPipelinePhase, OSAMCKtor_utilsPipeline<TSubject, TContext>, OSAMCKtor_client_coreHttpReceivePipelinePhases, OSAMCKtor_client_coreHttpResponse, OSAMCKotlinUnit, OSAMCKtor_client_coreHttpRequestPipelinePhases, OSAMCKtor_client_coreHttpRequestBuilder, OSAMCKtor_client_coreHttpResponsePipelinePhases, OSAMCKtor_client_coreHttpResponseContainer, OSAMCKtor_client_coreHttpClientCall, OSAMCKtor_client_coreHttpSendPipelinePhases, OSAMCKtor_httpUrl, OSAMCKtor_httpHttpMethod, OSAMCKtor_httpOutgoingContent, OSAMCKtor_httpHttpStatusCode, OSAMCKtor_utilsGMTDate, OSAMCKtor_httpHttpProtocolVersion, OSAMCKotlinAbstractCoroutineContextElement, OSAMCKotlinx_coroutines_coreCoroutineDispatcherKey, OSAMCKtor_utilsTypeInfo, OSAMCKtor_httpHeadersBuilder, OSAMCKtor_client_coreHttpRequestBuilderCompanion, OSAMCKtor_httpURLBuilder, OSAMCKtor_client_coreHttpClientCallCompanion, OSAMCKtor_httpUrlCompanion, OSAMCKtor_httpURLProtocol, OSAMCKtor_httpHttpMethodCompanion, OSAMCKtor_httpContentType, OSAMCKotlinCancellationException, OSAMCKtor_httpHttpStatusCodeCompanion, OSAMCKtor_utilsWeekDay, OSAMCKtor_utilsMonth, OSAMCKtor_utilsGMTDateCompanion, OSAMCKtor_httpHttpProtocolVersionCompanion, OSAMCKotlinAbstractCoroutineContextKey<B, E>, OSAMCKtor_utilsStringValuesBuilderImpl, OSAMCKtor_httpURLBuilderCompanion, OSAMCKtor_httpURLProtocolCompanion, OSAMCKtor_httpHeaderValueParam, OSAMCKtor_httpHeaderValueWithParametersCompanion, OSAMCKtor_httpHeaderValueWithParameters, OSAMCKtor_httpContentTypeCompanion, OSAMCKtor_utilsWeekDayCompanion, OSAMCKtor_utilsMonthCompanion, OSAMCKotlinKTypeProjection, OSAMCKotlinByteArray, OSAMCKotlinx_io_coreBuffer, OSAMCKotlinKVariance, OSAMCKotlinKTypeProjectionCompanion, OSAMCKotlinByteIterator, OSAMCKotlinx_serialization_coreSerializersModule, OSAMCKotlinx_serialization_coreSerialKind, OSAMCKotlinNothing;
 
 @protocol OSAMCAnalyticsWrapper, OSAMCKotlinComparable, OSAMCKotlinSuspendFunction1, OSAMCPerformanceMetric, OSAMCCrashlyticsWrapper, OSAMCPerformanceWrapper, OSAMCPlatformUtil, OSAMCMessagingWrapper, OSAMCKotlinIterator, OSAMCKotlinFunction, OSAMCKotlinCoroutineContext, OSAMCKotlinx_coroutines_coreCoroutineScope, OSAMCKtor_ioCloseable, OSAMCKtor_client_coreHttpClientEngine, OSAMCKtor_client_coreHttpClientEngineCapability, OSAMCKtor_utilsAttributes, OSAMCKtor_client_coreHttpClientPlugin, OSAMCKotlinCoroutineContextElement, OSAMCKotlinCoroutineContextKey, OSAMCKotlinx_coroutines_coreDisposableHandle, OSAMCKotlinSuspendFunction2, OSAMCKtor_httpHeaders, OSAMCKotlinx_coroutines_coreJob, OSAMCKotlinContinuation, OSAMCKotlinContinuationInterceptor, OSAMCKotlinx_coroutines_coreRunnable, OSAMCKtor_httpHttpMessage, OSAMCKtor_ioByteReadChannel, OSAMCKtor_httpHttpMessageBuilder, OSAMCKtor_client_coreHttpRequest, OSAMCKtor_httpParameters, OSAMCKotlinMapEntry, OSAMCKtor_utilsStringValues, OSAMCKotlinx_coroutines_coreChildHandle, OSAMCKotlinx_coroutines_coreChildJob, OSAMCKotlinSequence, OSAMCKotlinx_coroutines_coreSelectClause0, OSAMCKotlinKClass, OSAMCKotlinKType, OSAMCKotlinx_io_coreSource, OSAMCKtor_utilsStringValuesBuilder, OSAMCKtor_httpParametersBuilder, OSAMCKotlinx_coroutines_coreParentJob, OSAMCKotlinx_coroutines_coreSelectInstance, OSAMCKotlinx_coroutines_coreSelectClause, OSAMCKotlinx_serialization_coreKSerializer, OSAMCKotlinKDeclarationContainer, OSAMCKotlinKAnnotatedElement, OSAMCKotlinKClassifier, OSAMCKotlinx_io_coreRawSink, OSAMCKotlinAutoCloseable, OSAMCKotlinx_io_coreRawSource, OSAMCKotlinx_serialization_coreEncoder, OSAMCKotlinx_serialization_coreSerialDescriptor, OSAMCKotlinx_serialization_coreSerializationStrategy, OSAMCKotlinx_serialization_coreDecoder, OSAMCKotlinx_serialization_coreDeserializationStrategy, OSAMCKotlinx_io_coreSink, OSAMCKotlinx_serialization_coreCompositeEncoder, OSAMCKotlinAnnotation, OSAMCKotlinx_serialization_coreCompositeDecoder, OSAMCKotlinx_serialization_coreSerializersModuleCollector;
 
@@ -223,12 +223,12 @@ __attribute__((swift_name("CrashlyticsWrapper")))
 @end
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("PreferencesUtils")))
-@interface OSAMCPreferencesUtils : OSAMCBase
+__attribute__((swift_name("TopicPreferencesUtils")))
+@interface OSAMCTopicPreferencesUtils : OSAMCBase
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)preferencesUtils __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) OSAMCPreferencesUtils *shared __attribute__((swift_name("shared")));
++ (instancetype)topicPreferencesUtils __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) OSAMCTopicPreferencesUtils *shared __attribute__((swift_name("shared")));
 @end
 
 __attribute__((objc_subclassing_restricted))
@@ -262,6 +262,12 @@ __attribute__((swift_name("CommonRepositoryUtils")))
 __attribute__((swift_name("MessagingWrapper")))
 @protocol OSAMCMessagingWrapper
 @required
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)getTokenWithCompletionHandler:(void (^)(NSString * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("getToken(completionHandler:)")));
 
 /**
  * @note This method converts instances of CancellationException to errors.
@@ -463,6 +469,7 @@ __attribute__((swift_name("OSAMCommons")))
 - (void)changeLanguageEventLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCAppLanguageResponse *))f __attribute__((swift_name("changeLanguageEvent(language:f:)")));
 - (void)deviceInformationF:(void (^)(OSAMCDeviceInformationResponse *, OSAMCDeviceInformation * _Nullable))f __attribute__((swift_name("deviceInformation(f:)")));
 - (void)firstTimeOrUpdateEventLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCAppLanguageResponse *))f __attribute__((swift_name("firstTimeOrUpdateEvent(language:f:)")));
+- (void)getFCMTokenF:(void (^)(OSAMCTokenResponse *))f __attribute__((swift_name("getFCMToken(f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:f:)")));
 - (void)subscribeToCustomTopicTopic:(NSString *)topic f:(void (^)(OSAMCSubscriptionResponse *))f __attribute__((swift_name("subscribeToCustomTopic(topic:f:)")));
 - (void)unsubscribeToCustomTopicTopic:(NSString *)topic f:(void (^)(OSAMCSubscriptionResponse *))f __attribute__((swift_name("unsubscribeToCustomTopic(topic:f:)")));
@@ -492,6 +499,32 @@ __attribute__((swift_name("SubscriptionResponse")))
 @property (class, readonly) OSAMCSubscriptionResponse *error __attribute__((swift_name("error")));
 + (OSAMCKotlinArray<OSAMCSubscriptionResponse *> *)values __attribute__((swift_name("values()")));
 @property (class, readonly) NSArray<OSAMCSubscriptionResponse *> *entries __attribute__((swift_name("entries")));
+@end
+
+__attribute__((swift_name("TokenResponse")))
+@interface OSAMCTokenResponse : OSAMCBase
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("TokenResponse.Error")))
+@interface OSAMCTokenResponseError : OSAMCTokenResponse
+- (instancetype)initWithError:(OSAMCKotlinException *)error __attribute__((swift_name("init(error:)"))) __attribute__((objc_designated_initializer));
+- (OSAMCTokenResponseError *)doCopyError:(OSAMCKotlinException *)error __attribute__((swift_name("doCopy(error:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) OSAMCKotlinException *error __attribute__((swift_name("error")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("TokenResponse.Success")))
+@interface OSAMCTokenResponseSuccess : OSAMCTokenResponse
+- (instancetype)initWithToken:(NSString *)token __attribute__((swift_name("init(token:)"))) __attribute__((objc_designated_initializer));
+- (OSAMCTokenResponseSuccess *)doCopyToken:(NSString *)token __attribute__((swift_name("doCopy(token:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSString *token __attribute__((swift_name("token")));
 @end
 
 __attribute__((objc_subclassing_restricted))
