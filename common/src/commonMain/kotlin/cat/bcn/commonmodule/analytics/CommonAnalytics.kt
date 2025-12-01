@@ -5,7 +5,7 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
     companion object {
         private const val EVENT_NAME_VERSION_CONTROL = "osam_commons"
         private const val EVENT_NAME_RATING = "osam_commons"
-        private const val EVENT_NAME_LANGUAGE_CHANGE = "osam_commons"
+        private const val EVENT_NAME_LANGUAGE_CHANGE = "language_change"
 
         private const val ITEM_ID_KEY = "item_id"
         private const val ITEM_ID_VALUE = "osam_commons"
