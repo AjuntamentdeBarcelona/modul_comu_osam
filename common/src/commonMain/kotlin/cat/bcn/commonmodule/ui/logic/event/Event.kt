@@ -112,9 +112,10 @@ internal class Event(
         GlobalScope.launch(executor.main) {
             try {
                 var newTopic: Topic? = null
+                var isFirstTime = false
                 withContext(executor.bg) {
                     val oldTopic = TopicPreferencesUtils.getOldTopicWithPreviousVersion(platformInformation, preferences, language)
-
+                    isFirstTime = oldTopic.versionName.isEmpty()
                     // 2. Create it here (on Background Thread)
                     val createdTopic = Topic(
                         appName = platformInformation.getSmallPackageName(),
@@ -129,9 +130,7 @@ internal class Event(
                     topicSubscriptionManager.subscriptionToAppInitializationOrUpdates(
                         newTopic = createdTopic,
                         oldTopic = oldTopic
-                    ){
-                        sendLanguageChangeAnalytic(language, true)
-                    }
+                    )
                 }.fold(
                     error = { commonError ->
                         internalCrashlyticsWrapper.recordException(commonError.exception)
@@ -140,7 +139,7 @@ internal class Event(
                     },
                     success = { wasSuccessful ->
                         if (wasSuccessful) {
-                            // 4. Access it here using !! (Safe because withContext is done)
+                            if(isFirstTime) { sendLanguageChangeAnalytic(language, true) }
                             preferences.setVersionControlVersionNamePrevious(newTopic?.versionName ?: "")
                             f(AppLanguageResponse.SUCCESS)
                         } else {
