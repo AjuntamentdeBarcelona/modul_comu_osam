@@ -3,6 +3,8 @@ package cat.bcn.commonmodule.messaging
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.Either
 import cat.bcn.commonmodule.model.Topic
+import cat.bcn.commonmodule.ui.versioncontrol.AppLanguageResponse
+import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.SubscriptionResponse
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -86,7 +88,7 @@ internal class TopicSubscriptionManager(private val messagingWrapper: MessagingW
      * - `Right(false)` if the topic has not changed and no action was needed.
      * - `Left(CommonError)` if an error occurred during the subscribe or unsubscribe operations.
      */
-    suspend fun subscriptionToAppInitializationOrUpdates(oldTopic: Topic, newTopic: Topic): Either<CommonError, Boolean> {
+    suspend fun subscriptionToAppInitializationOrUpdates(oldTopic: Topic, newTopic: Topic, sendAnalytical: () -> Unit): Either<CommonError, Boolean> {
         // Build the topic names from the data models
         val oldTopicName = "${oldTopic.appName}_${oldTopic.versionName}_${oldTopic.versionCode}_${oldTopic.languageCode}"
         val newTopicName = "${newTopic.appName}_${newTopic.versionName}_${newTopic.versionCode}_${newTopic.languageCode}"
@@ -102,6 +104,8 @@ internal class TopicSubscriptionManager(private val messagingWrapper: MessagingW
             subscribeToCustomTopic(newTopic.languageCode)
             if(oldTopic.versionName.isNotEmpty()){
                 unsubscribeToCustomTopic(oldTopicName)
+            }else{
+                sendAnalytical()
             }
             return Either.Right(true)
         } catch (e: Exception) {

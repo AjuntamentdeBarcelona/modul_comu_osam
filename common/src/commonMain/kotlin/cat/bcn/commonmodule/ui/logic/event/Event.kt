@@ -59,7 +59,7 @@ internal class Event(
         language: Language,
         f: (AppLanguageResponse) -> Unit,
     ) {
-        val response = sendLanguageChangeAnalytic(language, f)
+        val response = sendLanguageChangeAnalytic(language)
         when (response) {
             AppLanguageResponse.UNCHANGED -> f(AppLanguageResponse.UNCHANGED)
             AppLanguageResponse.ERROR -> f(AppLanguageResponse.ERROR)
@@ -104,42 +104,6 @@ internal class Event(
 
     }
 
-    /**
-     * Handles the synchronous part of a language change event, updating preferences
-     * and logging analytics.
-     *
-     * @return `true` if the synchronous operations were successful and the asynchronous
-     * part should continue, `false` otherwise.
-     */
-    private fun sendLanguageChangeAnalytic(
-        language: Language,
-        f: (AppLanguageResponse) -> Unit,
-    ): AppLanguageResponse {
-        val oldSelectedLanguage = preferences.getSelectedLanguage()
-
-        // If the language hasn't changed, do nothing.
-        if (oldSelectedLanguage == language.name) {
-            return AppLanguageResponse.UNCHANGED
-        }
-
-        try {
-            preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
-            preferences.setSelectedLanguage(language.name)
-            preferences.setPreviousLanguage(oldSelectedLanguage)
-
-            analytics.logLanguageChange(
-                previousLanguage = preferences.getPreviousLanguage(),
-                selectedLanguage = language.name,
-                languageDisplay = preferences.getDisplayedLanguage(),
-            )
-        } catch (e: Exception) {
-            internalCrashlyticsWrapper.recordException(e)
-            return AppLanguageResponse.ERROR
-        }
-
-        return AppLanguageResponse.SUCCESS
-    }
-
     @OptIn(DelicateCoroutinesApi::class)
     fun firstTimeOrUpdateAppEvent(
         language: Language,
@@ -165,7 +129,9 @@ internal class Event(
                     topicSubscriptionManager.subscriptionToAppInitializationOrUpdates(
                         newTopic = createdTopic,
                         oldTopic = oldTopic
-                    )
+                    ){
+                        sendLanguageChangeAnalytic(language, true)
+                    }
                 }.fold(
                     error = { commonError ->
                         internalCrashlyticsWrapper.recordException(commonError.exception)
@@ -265,5 +231,43 @@ internal class Event(
                 f(TokenResponse.Error(e))
             }
         }
+    }
+
+    /**
+     * Handles the synchronous part of a language change event, updating preferences
+     * and logging analytics.
+     *
+     * @return `true` if the synchronous operations were successful and the asynchronous
+     * part should continue, `false` otherwise.
+     */
+    private fun sendLanguageChangeAnalytic(
+        language: Language,
+        isFirstTime: Boolean = false,
+    ): AppLanguageResponse {
+        val oldSelectedLanguage = preferences.getSelectedLanguage()
+
+        // If the language hasn't changed, do nothing.
+        if (oldSelectedLanguage == language.name) {
+            return AppLanguageResponse.UNCHANGED
+        }
+
+        try {
+            preferences.setDisplayedLanguage(platformInformation.getDeviceLanguage())
+            preferences.setSelectedLanguage(language.name)
+            preferences.setPreviousLanguage(oldSelectedLanguage)
+
+            val previousLanguage = if(isFirstTime) "" else preferences.getPreviousLanguage()
+
+            analytics.logLanguageChange(
+                previousLanguage = previousLanguage,
+                selectedLanguage = language.name,
+                languageDisplay = preferences.getDisplayedLanguage(),
+            )
+        } catch (e: Exception) {
+            internalCrashlyticsWrapper.recordException(e)
+            return AppLanguageResponse.ERROR
+        }
+
+        return AppLanguageResponse.SUCCESS
     }
 }

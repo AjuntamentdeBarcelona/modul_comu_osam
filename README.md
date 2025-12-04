@@ -531,8 +531,8 @@ aquest punt la casuistica.
 
 ### Android
 
-Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
-i versió de l'app.
+Entre la informació a extreure hi ha: el sistema operatiu, la versió del sistema operatiu 
+i el model del dispositiu.
 
 ```kotlin
 osamCommons.deviceInformation { deviceInformationResponse, deviceInformation ->
@@ -551,8 +551,8 @@ arrivar amb 2 valors possibles:
 
 ### iOS
 
-Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
-i versió de l'app.
+Entre la informació a extreure hi ha: el sistema operatiu, la versió del sistema operatiu
+i el model del dispositiu.
 
 ```swift
 osamCommons.deviceInformation(
@@ -1002,6 +1002,9 @@ Gestiona tota la lògica associada al canvi d'idioma de l'aplicació. Aquesta fu
 ## Com funciona el event del'esdeveniment d'inici o actualització de l'app
 
 Gestiona la subscripció inicial o l'actualització del topic de notificacions de l'aplicació. Aquesta funció s'ha de cridar un cop l'aplicació s'inicia per assegurar que el dispositiu estigui subscrit al topic correcte de Firebase Cloud Messaging.
+
+A més, durant la primera instal·lació també s’executa l’enviament de dades d’analítica inicial, 
+de manera que el sistema pot registrar l’estat de l’usuari i la configuració de l’app des del primer moment.
 
 Orquestra les següents accions:
 
