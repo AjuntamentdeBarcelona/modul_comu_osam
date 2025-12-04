@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 
     @IBAction func onLanguageInformationClick(_ sender: Any) {
         osamCommons.changeLanguageEvent(
-          language: Language.ca,
+          language: Language.en,
             f: { appLanguageResponse in
                 self.showToast(message: appLanguageResponse.name)
             }
