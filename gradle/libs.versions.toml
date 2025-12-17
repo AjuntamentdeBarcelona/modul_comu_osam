@@ -21,6 +21,8 @@ serialization = "1.7.3"
 google_play_review_version = "2.0.2"
 
 ktor = "3.0.0"
+mockk = "1.14.7"
+coroutinesTest = "1.9.0"
 
 
 [libraries]
@@ -43,6 +45,7 @@ firebaseMessaging = { module = "com.google.firebase:firebase-messaging-ktx" }
 coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutinesPlayServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 
 junitRunner = { module = "com.android.support.test:runner", version.ref = "junitRunner" }
 
@@ -58,6 +61,9 @@ ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 androidPlayReview = { module = "com.google.android.play:review", version.ref = "google_play_review_version" }
 androidPlayReviewKtx = { module = "com.google.android.play:review-ktx", version.ref = "google_play_review_version" }
 
+# Test
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
 
 [plugins]
 androidApp = { id = "com.android.application", version.ref = "android" }
@@ -68,3 +74,4 @@ googleServices = { id = "com.google.gms.google-services", version.ref = "googleS
 firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 firebasePerformance = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerformance" }
+kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
