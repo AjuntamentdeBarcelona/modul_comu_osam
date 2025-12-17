@@ -1,0 +1,35 @@
+image: saschpe/android-sdk:35-jdk17.0.12_7
+
+stages:
+  - check
+
+variables:
+  # 1. Define Gradle Home for caching
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+  # 2. Disable Daemon for CI (saves memory/time in ephemeral containers)
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+cache:
+  # 3. Smart Caching: Create a cache key based on gradle files.
+  # If dependencies don't change, all branches share the same cache.
+  key:
+    files:
+      - gradle/wrapper/gradle-wrapper.properties
+      - gradle/libs.versions.toml # Standard path for Version Catalog. Change if yours is different.
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+before_script:
+  - chmod +x ci/setup-android-sdk.sh
+  - ./ci/setup-android-sdk.sh
+  - chmod +x ./gradlew
+
+
+build_and_test:
+  stage: check
+  interruptible: true # If you push a new commit, cancel this running job
+  script:
+    # Run lint, unit tests, and assemble in one go.
+    # --build-cache enables reusing task outputs from the local cache
+    - ./gradlew :common:assembleDebug :common:allTests --build-cache

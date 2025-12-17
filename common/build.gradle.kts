@@ -5,6 +5,13 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
     id("maven-publish")
+    id("dev.mokkery") version "2.5.1"
+    alias(libs.plugins.kotlin.allopen)
+}
+
+allOpen {
+    // Define the annotation that will trigger the 'open' status
+    annotation("cat.bcn.commonmodule.testing.Mockable")
 }
 
 val libName = "OSAMCommon"
@@ -55,6 +62,8 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test-common"))
             implementation(kotlin("test-annotations-common"))
+            implementation(kotlin("test"))
+            implementation(libs.coroutinesTest)
         }
 
         androidMain.dependencies {
@@ -62,6 +71,12 @@ kotlin {
             implementation(libs.androidPlayReview)
             implementation(libs.androidPlayReviewKtx)
             implementation(libs.ktorClientOkhttp)
+        }
+        
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.mockk)
+            }
         }
 
         iosMain.dependencies {
@@ -138,6 +153,14 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    testOptions {
+        unitTests.all {
+            it.testLogging {
+                events("passed", "skipped", "failed")
+            }
+        }
     }
 }
 
