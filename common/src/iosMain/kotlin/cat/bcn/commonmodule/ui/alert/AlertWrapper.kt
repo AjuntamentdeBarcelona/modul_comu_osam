@@ -2,12 +2,14 @@ package cat.bcn.commonmodule.ui.alert
 
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.setValue
 import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
 
+@Mockable
 internal actual class AlertWrapper(private val vc: UIViewController) {
 
     private var versionControlAlert: UIAlertController? = null

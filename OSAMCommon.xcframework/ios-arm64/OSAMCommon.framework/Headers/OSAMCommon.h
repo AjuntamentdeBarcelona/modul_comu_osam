@@ -150,7 +150,6 @@ __attribute__((swift_name("AnalyticsWrapper")))
 - (void)logEventName:(NSString *)name parameters:(NSDictionary<NSString *, NSString *> *)parameters __attribute__((swift_name("logEvent(name:parameters:)")));
 @end
 
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("CommonAnalytics")))
 @interface OSAMCCommonAnalytics : OSAMCBase
 - (instancetype)initWithWrapper:(id<OSAMCAnalyticsWrapper>)wrapper __attribute__((swift_name("init(wrapper:)"))) __attribute__((objc_designated_initializer));

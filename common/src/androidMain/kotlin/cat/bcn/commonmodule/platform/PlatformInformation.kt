@@ -6,8 +6,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.*
 import android.os.Build
 import cat.bcn.commonmodule.model.Platform
+import cat.bcn.commonmodule.testing.Mockable
 import java.util.Locale
 
+@Mockable
 internal actual class PlatformInformation(private val context: Context) {
 
     actual fun getPlatform(): Platform = Platform.ANDROID

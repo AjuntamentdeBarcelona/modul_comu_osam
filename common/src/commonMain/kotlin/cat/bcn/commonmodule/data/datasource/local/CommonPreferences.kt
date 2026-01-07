@@ -2,7 +2,9 @@ package cat.bcn.commonmodule.data.datasource.local
 
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.testing.Mockable
 
+@Mockable
 internal class CommonPreferences(private val settings: Settings) : Preferences {
 
     companion object {

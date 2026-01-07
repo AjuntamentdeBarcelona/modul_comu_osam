@@ -1,7 +1,9 @@
 package cat.bcn.commonmodule.platform
 
 import cat.bcn.commonmodule.model.Platform
+import cat.bcn.commonmodule.testing.Mockable
 
+@Mockable
 internal expect class PlatformInformation {
     fun getPlatform(): Platform
     fun getPlatformName(): String

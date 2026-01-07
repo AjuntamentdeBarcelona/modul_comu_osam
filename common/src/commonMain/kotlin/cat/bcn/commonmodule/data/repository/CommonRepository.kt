@@ -14,8 +14,10 @@ import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.performance.InternalPerformanceWrapper
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.platform.PlatformUtil
+import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 
+@Mockable
 internal class CommonRepository(
     private val remote: Remote,
     private val preferences: Preferences,

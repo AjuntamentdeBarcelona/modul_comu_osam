@@ -9,13 +9,25 @@ import android.widget.TextView
 import cat.bcn.commonmodule.R
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import com.google.android.play.core.review.ReviewManagerFactory
 import java.lang.ref.WeakReference
 
-internal actual class AlertWrapper(activity: Activity, private val context: Context) {
+@Mockable
+internal actual class AlertWrapper(activity: Activity, private val initialContext: Context) {
 
-    private val weakRefActivity: WeakReference<Activity> = WeakReference(activity)
+    private var weakRefActivity: WeakReference<Activity> = WeakReference(activity)
+    // We prefer using the Activity context for dialogs to ensure correct theming
+    private var contextRef: WeakReference<Context> = WeakReference(activity)
+
+    fun updateActivity(activity: Activity) {
+        weakRefActivity = WeakReference(activity)
+        contextRef = WeakReference(activity)
+    }
+
+    private val context: Context
+        get() = contextRef.get() ?: weakRefActivity.get() ?: initialContext
 
     private var versionControlAlert: AlertDialog? = null
     private var ratingAlert: AlertDialog? = null
@@ -77,7 +89,7 @@ internal actual class AlertWrapper(activity: Activity, private val context: Cont
     ) {
         val activity = weakRefActivity.get()
 
-        if (activity != null) {
+        if (activity != null && !activity.isFinishing && !activity.isDestroyed) {
             val manager = ReviewManagerFactory.create(context)
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener { task ->

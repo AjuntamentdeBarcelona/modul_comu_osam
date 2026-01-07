@@ -1,6 +1,7 @@
 package cat.bcn.commonmodule.platform
 
 import cat.bcn.commonmodule.model.Platform
+import cat.bcn.commonmodule.testing.Mockable
 import platform.Foundation.NSBundle
 import platform.UIKit.UIDevice
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -23,6 +24,7 @@ import platform.Foundation.currentLocale
 import platform.Foundation.languageCode
 
 
+@Mockable
 @OptIn(ExperimentalForeignApi::class)
 internal actual class PlatformInformation {
 

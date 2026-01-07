@@ -2,8 +2,10 @@ package cat.bcn.commonmodule.ui.alert
 
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 
+@Mockable
 internal expect class AlertWrapper {
 
     fun showVersionControlForce(
