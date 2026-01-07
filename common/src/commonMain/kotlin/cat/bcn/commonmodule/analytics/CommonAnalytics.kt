@@ -1,5 +1,8 @@
 package cat.bcn.commonmodule.analytics
 
+import cat.bcn.commonmodule.testing.Mockable
+
+@Mockable
 class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
 
     companion object {
