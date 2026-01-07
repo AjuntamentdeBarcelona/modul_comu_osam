@@ -5,7 +5,6 @@ import cat.bcn.commonmodule.crashlytics.InternalCrashlyticsWrapper
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.local.TopicPreferencesUtils
 import cat.bcn.commonmodule.messaging.TopicSubscriptionManager
-import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.Topic
 import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.executor.Executor
@@ -13,6 +12,7 @@ import cat.bcn.commonmodule.ui.versioncontrol.AppLanguageResponse
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.SubscriptionResponse
 import cat.bcn.commonmodule.ui.versioncontrol.TokenResponse
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,7 +28,8 @@ import kotlinx.coroutines.withContext
  * @param internalCrashlyticsWrapper Handles crash reporting.
  * @param executor Provides coroutine dispatchers for main and background threads.
  */
-internal class Event(
+internal class SubscriptionsEvent(
+    private val scope: CoroutineScope,
     private val topicSubscriptionManager: TopicSubscriptionManager,
     private val preferences: Preferences,
     private val platformInformation: PlatformInformation,
@@ -36,7 +37,7 @@ internal class Event(
     private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
     private val executor: Executor,
 ) {
-    companion object {
+    companion object Companion {
         private const val ERROR_LOG = "An exception occurred during topic subscription update:"
         private const val ERROR_TOKEN_LOG = "An exception occurred while fetching the FCM token:"
         private const val FCM_TOKEN = "FCM Token:"
@@ -64,7 +65,7 @@ internal class Event(
             AppLanguageResponse.UNCHANGED -> f(AppLanguageResponse.UNCHANGED)
             AppLanguageResponse.ERROR -> f(AppLanguageResponse.ERROR)
             AppLanguageResponse.SUCCESS -> {
-                GlobalScope.launch(executor.main) {
+                scope.launch(executor.main) {
                     try {
                         withContext(executor.bg) {
                             val oldTopic = TopicPreferencesUtils.getOldTopicWithPreviousLanguage(platformInformation, preferences)
@@ -109,7 +110,7 @@ internal class Event(
         language: Language,
         f: (AppLanguageResponse) -> Unit,
     ) {
-        GlobalScope.launch(executor.main) {
+        scope.launch(executor.main) {
             try {
                 var newTopic: Topic? = null
                 var isFirstTime = false
@@ -158,7 +159,7 @@ internal class Event(
 
     @OptIn(DelicateCoroutinesApi::class)
     fun subscribeToCustomTopic(topic: String, f: (SubscriptionResponse) -> Unit) {
-        GlobalScope.launch(executor.main) {
+        scope.launch(executor.main) {
             try {
                 withContext(executor.bg) { topicSubscriptionManager.subscribeToCustomTopic(topic) }.fold(
                     error = { commonError ->
@@ -177,7 +178,7 @@ internal class Event(
 
     @OptIn(DelicateCoroutinesApi::class)
     fun unsubscribeToCustomTopic(topic: String, f: (SubscriptionResponse) -> Unit) {
-        GlobalScope.launch(executor.main) {
+        scope.launch(executor.main) {
             try {
                 withContext(executor.bg) { topicSubscriptionManager.unsubscribeToCustomTopic(topic) }.fold(
                     error = { commonError ->
@@ -207,7 +208,7 @@ internal class Event(
     @OptIn(DelicateCoroutinesApi::class)
     fun getFCMToken(f: (TokenResponse) -> Unit) {
         // Launch a coroutine on the main thread.
-        GlobalScope.launch(executor.main) {
+        scope.launch(executor.main) {
             try {
                 // Switch to a background thread to perform the network operation.
                 val result = withContext(executor.bg) {

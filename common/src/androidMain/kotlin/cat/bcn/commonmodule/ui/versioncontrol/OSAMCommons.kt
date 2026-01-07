@@ -27,18 +27,24 @@ actual class OSAMCommons constructor(
     messagingWrapper: MessagingWrapper
 ) {
 
+    private val alertWrapper = AlertWrapper(activity, context)
+
     private val internal = OSAMCommonsInternal(
         backendEndpoint = backendEndpoint,
         executor = Executor(),
-        settings = Settings("default", context),
-        alertWrapper = AlertWrapper(activity, context),
-        platformInformation = PlatformInformation(context),
+        settings = Settings("default", context.applicationContext),
+        alertWrapper = alertWrapper,
+        platformInformation = PlatformInformation(context.applicationContext),
         internalCrashlyticsWrapper = InternalCrashlyticsWrapperImplementation(crashlyticsWrapper),
         internalPerformanceWrapper = InternalPerformanceWrapperImplementation(performanceWrapper),
         analyticsWrapper = analyticsWrapper,
         platformUtil = platformUtil,
         messagingWrapper = messagingWrapper
     )
+
+    fun setActivity(activity: Activity) {
+        alertWrapper.updateActivity(activity)
+    }
 
     actual fun versionControl(
         language: Language,

@@ -3,6 +3,7 @@ package cat.bcn.commonmodule.messaging
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.Either
 import cat.bcn.commonmodule.model.Topic
+import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.AppLanguageResponse
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.SubscriptionResponse
@@ -20,6 +21,7 @@ import kotlin.coroutines.cancellation.CancellationException
  * @param messagingWrapper The platform-specific implementation for executing
  *                         FCM subscribe and unsubscribe commands.
  */
+@Mockable
 internal class TopicSubscriptionManager(private val messagingWrapper: MessagingWrapper) {
 
     companion object {
