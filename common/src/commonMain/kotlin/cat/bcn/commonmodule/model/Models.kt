@@ -22,6 +22,8 @@ internal data class Version(
     val ok: Text,
     val cancel: Text,
     val url: String,
+    val checkBoxDontShowAgain: CheckBoxDontShowAgain = CheckBoxDontShowAgain(),
+    val dialogDisplayDuration: Long = 3600
 ) {
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE
@@ -36,6 +38,18 @@ internal data class Version(
         return serverDate in startDate..endDate
     }
 }
+
+internal data class Topic(
+    val appName: String,
+    val versionName: String,
+    val versionCode: Long,
+    val languageCode: String
+)
+
+internal data class CheckBoxDontShowAgain(
+    val isCheckBoxVisible: Boolean = false,
+    val text: Text = Text(es = "", en = "", ca = "")
+)
 
 internal data class Rating(
     val packageName: String,
@@ -100,6 +114,16 @@ data class AppInformation(
 ) {
     override fun toString(): String {
         return "appName: ${appName}, appVersionName: ${appVersionName}, appVersionCode: ${appVersionCode}"
+    }
+}
+
+data class LanguageInformation(
+    val previousLanguage: String,
+    val selectedLanguage: String,
+    val displayedLanguage: String
+) {
+    override fun toString(): String {
+        return "previousLanguage: ${previousLanguage}, selectedLanguage: ${selectedLanguage}, displayedLanguage: $displayedLanguage"
     }
 }
 

@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.*
 import android.os.Build
 import cat.bcn.commonmodule.model.Platform
+import java.util.Locale
 
 internal actual class PlatformInformation(private val context: Context) {
 
@@ -48,4 +49,13 @@ internal actual class PlatformInformation(private val context: Context) {
 
     private fun getPackageInfo(): PackageInfo =
         context.packageManager.getPackageInfo(context.packageName, 0)
+
+    actual fun getDeviceLanguage(): String {
+        return Locale.getDefault().language.uppercase(Locale.ROOT)
+    }
+
+    actual fun getSmallPackageName(): String {
+        val packageName = context.packageName
+        return packageName.split(".").last()
+    }
 }

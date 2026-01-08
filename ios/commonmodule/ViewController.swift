@@ -9,13 +9,16 @@
 import UIKit
 import OSAMCommon
 import StoreKit
+import FirebaseMessaging
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var checkVersionControl: UIButton!
-    
-    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint, crashlyticsWrapper: CrashlyticsWrapperIOS(), performanceWrapper: PerformanceWrapperIOS(), analyticsWrapper: AnalyticsWrapperIOS(), platformUtil: PlatformUtilIOS())
-    
+
+    lazy var osamCommons = OSAMCommons(vc: self, backendEndpoint: backendEndpoint, crashlyticsWrapper: CrashlyticsWrapperIOS(),
+                                       performanceWrapper: PerformanceWrapperIOS(), analyticsWrapper: AnalyticsWrapperIOS(), platformUtil: PlatformUtilIOS(),
+                                       messagingWrapper: MessagingWrapperIOS())
+
     private var backendEndpoint: String {
         get {
             guard let filePath = Bundle.main.path(forResource: "config_keys", ofType: "plist") else {
@@ -28,7 +31,7 @@ class ViewController: UIViewController {
             return value
         }
     }
-    
+
     @IBAction func onVersionControlClick(_ sender: Any) {
         osamCommons.versionControl(
             language: Language.es,
@@ -37,7 +40,7 @@ class ViewController: UIViewController {
             }
         )
     }
-    
+
     @IBAction func onRatingClick(_ sender: Any) {
         osamCommons.rating(
             language: Language.es,
@@ -46,7 +49,7 @@ class ViewController: UIViewController {
             }
         )
     }
-    
+
     @IBAction func onDeviceInformationClick(_ sender: Any) {
         osamCommons.deviceInformation(
             f: { deviceInformationResponse, deviceInformation in
@@ -54,7 +57,7 @@ class ViewController: UIViewController {
             }
         )
     }
-    
+
     @IBAction func onAppInformationClick(_ sender: Any) {
         osamCommons.appInformation(
             f: { appInformationResponse, appInformation in
@@ -62,14 +65,76 @@ class ViewController: UIViewController {
             }
         )
     }
-    
+
+    @IBAction func onLanguageInformationClick(_ sender: Any) {
+        osamCommons.changeLanguageEvent(
+          language: Language.en,
+            f: { appLanguageResponse in
+                self.showToast(message: appLanguageResponse.name)
+            }
+        )
+    }
+
+    @IBAction func onFirstTimeOrUpdateAppEventClick(_ sender: Any) {
+        osamCommons.firstTimeOrUpdateEvent(
+            language: Language.ca,
+            f: { appLanguageResponse in
+                self.showToast(message: appLanguageResponse.name)
+            }
+        )
+    }
+
+    @IBAction func onSubscribeToCustomTopicEventClick(_ sender: Any) {
+        osamCommons.subscribeToCustomTopic(topic: "Test_topic",
+                                           f: { appLanguageResponse in
+                                               self.showToast(message: appLanguageResponse.name)
+                                           }
+        )
+    }
+
+
+    @IBAction func onUnsubscribeToCustomTopicEventClick(_ sender: Any) {
+        osamCommons.unsubscribeToCustomTopic(topic: "Test_topic", // Add 'topic:' label
+                                             f: { appLanguageResponse in
+                                                 self.showToast(message: appLanguageResponse.name)
+                                             }
+        )
+    }
+
+    @IBAction func onGetFCMTokenClick(_ sender: Any) {
+        osamCommons.getFCMToken(
+            f: { tokenResponse in
+                // The callback is guaranteed to be on the main thread,
+                // so it's safe to show a toast.
+                switch tokenResponse {
+                case let success as TokenResponse.Success:
+                    // The token was retrieved successfully.
+                    // Access the token string from the Success object.
+                    let token = success.token
+                    self.showToast2(message: "FCM Token: \(token)")
+
+                case let error as TokenResponse.Error:
+                    // An error occurred.
+                    // Access the error message from the Error object.
+                    let errorMessage = error.error.message ?? "Unknown error"
+                    self.showToast(message: "Error: \(errorMessage)")
+
+                default:
+                    // Handle any other unexpected cases.
+                    self.showToast(message: "Unknown response from getFCMToken")
+                }
+            }
+        )
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    private func showToast(message : String, font: UIFont = .systemFont(ofSize: 12.0)) {
-        
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
+
+    private func showToast(message: String, font: UIFont = .systemFont(ofSize: 12.0)) {
+
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - 75, y: self.view.frame.size.height - 100, width: 150, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
@@ -79,17 +144,17 @@ class ViewController: UIViewController {
         toastLabel.text = message
         toastLabel.alpha = 1.0
         toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
+        toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
+        }, completion: { (isCompleted) in
             toastLabel.removeFromSuperview()
         })
     }
-    
-    private func showToast2(message : String, font: UIFont = .systemFont(ofSize: 12.0)) {
-        let toastLabel = UILabel(frame: CGRect(x: 20, y: self.view.frame.size.height-200, width: self.view.frame.size.width-40, height: 100))
+
+    private func showToast2(message: String, font: UIFont = .systemFont(ofSize: 12.0)) {
+        let toastLabel = UILabel(frame: CGRect(x: 20, y: self.view.frame.size.height - 200, width: self.view.frame.size.width - 40, height: 100))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
@@ -99,14 +164,14 @@ class ViewController: UIViewController {
         toastLabel.text = message
         toastLabel.alpha = 1.0
         toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
+        toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 8.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
+        }, completion: { (isCompleted) in
             toastLabel.removeFromSuperview()
         })
     }
-    
+
 }
 

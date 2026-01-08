@@ -33,7 +33,19 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
         private const val DONT_SHOW_AGAIN = "DONT_SHOW_AGAIN"
 
         private const val VERSION_CONTROL_VERSION_CODE = "VERSION_CONTROL_VERSION_CODE"
+        private const val VERSION_CONTROL_REMOTE_VERSION_CODE = "VERSION_CONTROL_REMOTE_VERSION_CODE"
+        private const val VERSION_CONTROL_VERSION_NAME = "VERSION_CONTROL_VERSION_NAME"
+        private const val VERSION_CONTROL_VERSION_NAME_PREVIOUS = "VERSION_CONTROL_VERSION_NAME_PREVIOUS"
 
+        private const val CHECKBOX_DONT_SHOW_AGAIN_VISIBLE = "CHECKBOX_DONT_SHOW_AGAIN_VISIBLE"
+        private const val CHECKBOX_DONT_SHOW_AGAIN_ACTIVE = "CHECKBOX_DONT_SHOW_AGAIN_ACTIVE"
+
+        private const val DIALOG_DISPLAY_DURATION = "DIALOG_DISPLAY_DURATION"
+        private const val LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON = "LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON"
+
+        private const val PREVIOUS_LANGUAGE = "PREVIOUS_LANGUAGE"
+        private const val SELECTED_LANGUAGE = "SELECTED_LANGUAGE"
+        private const val DISPLAYED_LANGUAGE = "DISPLAYED_LANGUAGE"
     }
 
     override fun clear() {
@@ -109,4 +121,28 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
 
     override fun setVersionControlVersionCode(value: Long) = settings.setLong(VERSION_CONTROL_VERSION_CODE, value)
     override fun getVersionControlVersionCode(): Long = settings.getLong(VERSION_CONTROL_VERSION_CODE, 0L)
+    override fun setVersionControlRemoteVersionCode(value: Long) = settings.setLong(VERSION_CONTROL_REMOTE_VERSION_CODE, value)
+    override fun getVersionControlRemoteVersionCode(): Long = settings.getLong(VERSION_CONTROL_REMOTE_VERSION_CODE, 0L)
+    override fun setVersionControlVersionName(value: String) = settings.setString(VERSION_CONTROL_VERSION_NAME, value)
+    override fun getVersionControlVersionName(): String = settings.getString(VERSION_CONTROL_VERSION_NAME, "")
+    override fun setVersionControlVersionNamePrevious(value: String) = settings.setString(VERSION_CONTROL_VERSION_NAME_PREVIOUS, value)
+    override fun getVersionControlVersionNamePrevious(): String = settings.getString(VERSION_CONTROL_VERSION_NAME_PREVIOUS, "")
+
+    override fun setCheckBoxDontShowAgainVisible(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE, value)
+    override fun getCheckBoxDontShowAgainVisible(): Boolean = settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE,false)
+    override fun setCheckBoxDontShowAgainActive(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE, value)
+    override fun getCheckBoxDontShowAgainActive(): Boolean =  settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE,false)
+
+    override fun getLastTimeUserClickedOnAcceptButton(): Long = settings.getLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, 0)
+    override fun setLastTimeUserClickedOnAcceptButton(value: Long) = settings.setLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, value)
+    override fun getDialogDisplayDuration(): Long = settings.getLong(DIALOG_DISPLAY_DURATION, 0)
+    override fun setDialogDisplayDuration(value: Long) = settings.setLong(DIALOG_DISPLAY_DURATION, value)
+
+    override fun getPreviousLanguage(): String = settings.getString(PREVIOUS_LANGUAGE, "")
+    override fun setPreviousLanguage(value: String) = settings.setString(PREVIOUS_LANGUAGE, value)
+    override fun getSelectedLanguage(): String = settings.getString(SELECTED_LANGUAGE, "")
+    override fun setSelectedLanguage(value: String) = settings.setString(SELECTED_LANGUAGE, value)
+    override fun getDisplayedLanguage(): String = settings.getString(DISPLAYED_LANGUAGE, "")
+    override fun setDisplayedLanguage(value: String) = settings.setString(DISPLAYED_LANGUAGE, value)
+
 }

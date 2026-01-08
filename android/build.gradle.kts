@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.analytics)
     implementation(libs.firebasePerf)
     implementation(libs.firebaseCrashlytics)
+    implementation(libs.firebaseMessaging)
 
     implementation(libs.coroutinesAndroid)
     implementation(libs.coroutinesPlayServices)

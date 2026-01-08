@@ -75,4 +75,26 @@ internal interface Preferences {
 
     fun setVersionControlVersionCode(value: Long)
     fun getVersionControlVersionCode(): Long
+    fun setVersionControlRemoteVersionCode(value: Long)
+    fun getVersionControlRemoteVersionCode(): Long
+    fun setVersionControlVersionName(value: String)
+    fun getVersionControlVersionName(): String
+    fun setVersionControlVersionNamePrevious(value: String)
+    fun getVersionControlVersionNamePrevious(): String
+    fun setCheckBoxDontShowAgainVisible(value: Boolean)
+    fun getCheckBoxDontShowAgainVisible(): Boolean
+    fun setCheckBoxDontShowAgainActive(value: Boolean)
+    fun getCheckBoxDontShowAgainActive(): Boolean
+
+    fun getLastTimeUserClickedOnAcceptButton(): Long
+    fun setLastTimeUserClickedOnAcceptButton(value: Long)
+    fun getDialogDisplayDuration(): Long
+    fun setDialogDisplayDuration(value: Long)
+
+    fun getPreviousLanguage(): String
+    fun setPreviousLanguage(value: String)
+    fun getSelectedLanguage(): String
+    fun setSelectedLanguage(value: String)
+    fun getDisplayedLanguage(): String
+    fun setDisplayedLanguage(value: String)
 }
