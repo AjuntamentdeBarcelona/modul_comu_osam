@@ -1,5 +1,6 @@
 package cat.bcn.commonmodule.platform
 
+import cat.bcn.commonmodule.model.InternetNoConnection
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.testing.Mockable
 
@@ -17,4 +18,5 @@ internal expect class PlatformInformation {
     fun isOnline(): Boolean
     fun getDeviceLanguage(): String
     fun getSmallPackageName(): String
+    fun getNoConnectionType(): InternetNoConnection
 }

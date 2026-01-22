@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.*
 import android.os.Build
+import android.provider.Settings
+import cat.bcn.commonmodule.model.InternetNoConnection
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.testing.Mockable
 import java.util.Locale
@@ -59,5 +61,20 @@ internal actual class PlatformInformation(private val context: Context) {
     actual fun getSmallPackageName(): String {
         val packageName = context.packageName
         return packageName.split(".").last()
+    }
+
+    actual fun getNoConnectionType(): InternetNoConnection {
+        return if (isAirplaneModeOn()) {
+            InternetNoConnection.AIRPLANE_MODE
+        } else {
+            InternetNoConnection.NO_WIFI
+        }
+    }
+
+    private fun isAirplaneModeOn(): Boolean {
+        return Settings.Global.getInt(
+            context.contentResolver,
+            Settings.Global.AIRPLANE_MODE_ON, 0
+        ) != 0
     }
 }
