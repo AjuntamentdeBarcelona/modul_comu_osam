@@ -127,3 +127,7 @@ data class LanguageInformation(
     }
 }
 
+enum class InternetNoConnection(val value: String) {
+    AIRPLANE_MODE("airplane_mode"),
+    NO_WIFI("no_wifi")
+}

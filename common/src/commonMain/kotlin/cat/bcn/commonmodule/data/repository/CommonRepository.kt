@@ -1,8 +1,10 @@
 package cat.bcn.commonmodule.data.repository
 
+import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
+import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils.sendNoConnectionAnalytic
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.DeviceInformation
@@ -19,6 +21,7 @@ import cat.bcn.commonmodule.ui.versioncontrol.Language
 
 @Mockable
 internal class CommonRepository(
+    private val analytics: CommonAnalytics,
     private val remote: Remote,
     private val preferences: Preferences,
     private val platformInformation: PlatformInformation,
@@ -53,6 +56,7 @@ internal class CommonRepository(
                 return Either.Right(emptyVersion)
             }
 
+            sendNoConnectionAnalytic(analytics, platformInformation)
             return Either.Right(cachedVersion)
         }
     }
