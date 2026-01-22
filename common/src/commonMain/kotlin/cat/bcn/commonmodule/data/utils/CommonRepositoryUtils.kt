@@ -1,5 +1,6 @@
 package cat.bcn.commonmodule.data.utils
 
+import cat.bcn.commonmodule.analytics.CommonAnalytics
 import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.datasource.remote.Remote
 import cat.bcn.commonmodule.extensions.getCurrentDate
@@ -19,6 +20,8 @@ object CommonRepositoryUtils {
     private const val DONT_SHOW_AGAIN_ES = "No mostrar de nuevo"
     private const val DONT_SHOW_AGAIN_EN = "Don't show again"
     private const val DONT_SHOW_AGAIN_CA = "No mostrar de nou"
+    private const val MODULE = "common_module"
+    private const val VERSION_ENDPOINT = "/api/version/"
 
     /**
      * Gets the latest version information from a remote source and updates the cached version
@@ -223,5 +226,16 @@ object CommonRepositoryUtils {
         if(preferences.getSelectedLanguage().isEmpty()){
             preferences.setSelectedLanguage(language.name)
         }
+    }
+
+    internal fun sendNoConnectionAnalytic(analytics: CommonAnalytics, platformInformation: PlatformInformation){
+        analytics.logNoConnectionAnalytic(
+            reason = platformInformation.getNoConnectionType().value,
+            endpoint = VERSION_ENDPOINT,
+            operativeSystem = platformInformation.getPlatformName(),
+            operativeSystemVersion = platformInformation.getPlatformVersion(),
+            operativeAppVersion = platformInformation.getVersionName(),
+            module = MODULE
+        )
     }
 }

@@ -1,5 +1,6 @@
 package cat.bcn.commonmodule.platform
 
+import cat.bcn.commonmodule.model.InternetNoConnection
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.testing.Mockable
 import platform.Foundation.NSBundle
@@ -84,6 +85,16 @@ internal actual class PlatformInformation {
     actual fun getSmallPackageName(): String {
         val bundleIdentifier = NSBundle.mainBundle.bundleIdentifier ?: return "unknown"
         return bundleIdentifier.split(".").lastOrNull() ?: bundleIdentifier
+    }
+
+    actual open fun getNoConnectionType(): InternetNoConnection = InternetNoConnection.NO_WIFI
+
+    /**
+     * iOS Does not contain a public API to check if a phone is in airplane mode or not
+     */
+    private fun isAirplaneModeOn(): Boolean
+    {
+        return false
     }
 
 }

@@ -46,6 +46,7 @@ internal class OSAMCommonsInternal(
     private var currentLanguage: Language = Language.DEFAULT
     private val commonRepository: CommonRepository by lazy {
         CommonRepository(
+            analytics,
             remote,
             preferences,
             platformInformation,
