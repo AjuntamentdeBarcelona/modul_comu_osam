@@ -16,7 +16,7 @@ allOpen {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "2.3.0"
+val libVersionName = "3.0.1"
 
 group = libGroup
 version = libVersionName
