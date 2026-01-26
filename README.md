@@ -861,7 +861,9 @@ Aquest objecte pot tenir un dels dos estats possibles:
     },
     "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca",
     "checkBoxDontShowAgain": true,
-    "dialogDisplayDuration": 3600
+    "dialogDisplayDuration": 3600,
+    "osVersionComparisonMode": 0,
+    "osVersion": "2.0.0"
   }
 }
 ```
@@ -919,7 +921,17 @@ Aquest objecte pot tenir un dels dos estats possibles:
 - **dialogDisplayDuration**
     - Opcional (default_value=3600seconds)
     - Per als modes INFO i LAZY, quan l’usuari obre el control de versions i accepta, ara existeix un camp que defineix el temps perquè torni a aparèixer aquest popup.
-
+- **osVersionComparisonMode**
+    - Opcional (default_value=-1)
+    - Especifica la regla de comparació de la versió del sistema operatiu del dispositiu respecte al paràmetre osVersion.
+    - Valors:
+      - -1: Totes les versions (no filtra per SO).
+      - 0: Menor o igual que la versió especificada. 
+      - 1: Exactament la versió especificada. 
+      - 2: Major o igual que la versió especificada.
+- **osVersion**
+  - Opcional
+  - Especifica la versió del sistema operatiu objectiu per a la comparació (ex: "13", "14.2").
 
 ### Control de Valoracions
 

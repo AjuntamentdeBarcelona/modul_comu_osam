@@ -6,10 +6,13 @@ import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.Either
+import cat.bcn.commonmodule.model.OperativeSystemRuleEnum
+import cat.bcn.commonmodule.model.OperativeSystemVersion
 import cat.bcn.commonmodule.model.Platform
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Text
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
@@ -51,6 +54,7 @@ class DialogEventTest {
     private val crashlytics = mock<InternalCrashlyticsWrapper>()
     private val preferences = mock<CommonPreferences>()
     private val platformUtil = mock<PlatformUtil>()
+    private val platformInformation = mock<PlatformInformation>()
 
     private lateinit var dialogEvent: DialogEvent
 
@@ -62,6 +66,8 @@ class DialogEventTest {
         every { executor.main } returns testDispatcher
         every { executor.bg } returns testDispatcher
 
+        every { platformInformation.getPlatformVersion() } returns "12"
+
         dialogEvent = DialogEvent(
             scope = testScope,
             executor = executor,
@@ -71,7 +77,8 @@ class DialogEventTest {
             internalCrashlyticsWrapper = crashlytics,
             preferences = preferences,
             platformUtil = platformUtil,
-            currentLanguage = Language.DEFAULT
+            currentLanguage = Language.DEFAULT,
+            platformInformation = platformInformation
         )
     }
 
@@ -112,7 +119,10 @@ class DialogEventTest {
     fun `versionControl LAZY mode shows lazy dialog if preference allows`() = runTest(testScheduler) {
         // Given
         val language = Language.DEFAULT
-        val version = createVersion(Version.ComparisonMode.LAZY)
+        val version = createVersion(
+            Version.ComparisonMode.LAZY,
+            OperativeSystemVersion(OperativeSystemRuleEnum.LESS_OR_EQUAL_THAN_VERSION, "13")
+        )
 
         every { alertWrapper.isVersionControlShowing() } returns false
         everySuspend { repository.getVersion(language) } returns Either.Right(version)
@@ -271,7 +281,9 @@ class DialogEventTest {
 
     // endregion
 
-    private fun createVersion(mode: Version.ComparisonMode): Version {
+    private fun createVersion(mode: Version.ComparisonMode,
+                              osRule: OperativeSystemVersion = OperativeSystemVersion(OperativeSystemRuleEnum.ALL_VERSIONS, "0")
+                              ): Version {
         return Version(
             packageName = "cat.bcn.test",
             versionCode = 10,
@@ -285,7 +297,8 @@ class DialogEventTest {
             message = Text("Msg", "Msg", "Msg"),
             ok = Text("Ok", "Ok", "Ok"),
             cancel = Text("Cancel", "Cancel", "Cancel"),
-            url = "http://test.com"
+            url = "http://test.com",
+            operativeSystemVersion = osRule // Pass the OS rule
         )
     }
 }

@@ -27,6 +27,8 @@ internal data class VersionDto(
     @SerialName(value = "url") val url: String,
     @SerialName(value = "checkBoxDontShowAgain") val isCheckBoxVisible: Boolean,
     @SerialName(value = "dialogDisplayDuration") val dialogDisplayDuration: Long,
+    @SerialName(value = "osVersionComparisonMode") val osVersionComparisonMode: Int = -1,
+    @SerialName(value = "osVersion") val osVersion: String = ""
 )
 
 @Serializable
