@@ -82,8 +82,12 @@ class OSAMCommonsInternalTest {
         val language = Language.DEFAULT
         val version = initializeVersion(Version.ComparisonMode.FORCE)
         mockkConstructor(CommonRepository::class)
+        mockkConstructor(CommonPreferences::class) // Mock preferences just in case, though not strictly needed for FORCE logic if implemented correctly, but safe to have.
+        
         coEvery { anyConstructed<CommonRepository>().getVersion(language) } returns Either.Right(version)
         every { alertWrapper.isVersionControlShowing() } returns false
+        // Ensure preferences don't block anything if accessed
+        every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L
 
         // When
         osamCommonsInternal.versionControl(language) { }
@@ -107,9 +111,16 @@ class OSAMCommonsInternalTest {
 
         mockkConstructor(CommonRepository::class)
         mockkConstructor(CommonPreferences::class)
+        
         coEvery { anyConstructed<CommonRepository>().getVersion(language) } returns Either.Right(version)
         every { alertWrapper.isVersionControlShowing() } returns false
-        coEvery { anyConstructed<CommonPreferences>().getCheckBoxDontShowAgainActive() } returns true
+
+        every { platformInformation.getPlatformVersion() } returns "33"
+
+        // Mock preferences to satisfy conditions
+        every { anyConstructed<CommonPreferences>().getCheckBoxDontShowAgainActive() } returns true
+        every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L // Never clicked before
+
         // When
         osamCommonsInternal.versionControl(language) { }
         testScheduler.runCurrent()
@@ -131,11 +142,16 @@ class OSAMCommonsInternalTest {
         // Given
         val language = Language.DEFAULT
         val version = initializeVersion(Version.ComparisonMode.INFO)
+        
         mockkConstructor(CommonRepository::class)
         mockkConstructor(CommonPreferences::class)
+        
         coEvery { anyConstructed<CommonRepository>().getVersion(language) } returns Either.Right(version)
         every { alertWrapper.isVersionControlShowing() } returns false
-        coEvery { anyConstructed<CommonPreferences>().getCheckBoxDontShowAgainActive() } returns true
+        
+        // Mock preferences to satisfy conditions
+        every { anyConstructed<CommonPreferences>().getCheckBoxDontShowAgainActive() } returns true
+        every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L // Never clicked before
 
         // When
         osamCommonsInternal.versionControl(language) { }
@@ -158,9 +174,13 @@ class OSAMCommonsInternalTest {
         val language = Language.DEFAULT
         val version = initializeVersion(Version.ComparisonMode.NONE)
         val callback: (VersionControlResponse) -> Unit = mockk(relaxed = true)
+        
         mockkConstructor(CommonRepository::class)
+        mockkConstructor(CommonPreferences::class)
+        
         coEvery { anyConstructed<CommonRepository>().getVersion(language) } returns Either.Right(version)
         every { alertWrapper.isVersionControlShowing() } returns false
+        every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L
 
         // When
         osamCommonsInternal.versionControl(language, callback)

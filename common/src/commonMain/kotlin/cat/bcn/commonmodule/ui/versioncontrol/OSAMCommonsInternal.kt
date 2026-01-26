@@ -55,7 +55,7 @@ internal class OSAMCommonsInternal(
         )
     }
     private val topicSubscriptionManager: TopicSubscriptionManager by lazy { TopicSubscriptionManager(messagingWrapper) }
-    private val dialogEvent by lazy { DialogEvent(scope, executor, analytics, alertWrapper, commonRepository, internalCrashlyticsWrapper, preferences, platformUtil, currentLanguage) }
+    private val dialogEvent by lazy { DialogEvent(scope, executor, analytics, alertWrapper, commonRepository, internalCrashlyticsWrapper, preferences, platformUtil, currentLanguage, platformInformation) }
     private val infoEvent by lazy { InfoEvent(scope, executor, commonRepository, internalCrashlyticsWrapper) }
     private val subscriptionsEvent by lazy { SubscriptionsEvent(scope, topicSubscriptionManager, preferences, platformInformation, analytics, internalCrashlyticsWrapper, executor) }
 
