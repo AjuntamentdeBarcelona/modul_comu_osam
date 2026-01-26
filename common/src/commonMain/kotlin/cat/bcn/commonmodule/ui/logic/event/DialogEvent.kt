@@ -6,14 +6,18 @@ import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
+import cat.bcn.commonmodule.model.OperativeSystemRuleEnum
+import cat.bcn.commonmodule.model.OperativeSystemVersion
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.platform.PlatformUtil
 import cat.bcn.commonmodule.ui.alert.AlertWrapper
 import cat.bcn.commonmodule.ui.executor.Executor
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import cat.bcn.commonmodule.ui.versioncontrol.RatingControlResponse
 import cat.bcn.commonmodule.ui.versioncontrol.VersionControlResponse
+import cat.bcn.commonmodule.utils.compareVersions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
@@ -29,6 +33,7 @@ internal class DialogEvent(
     private val preferences: Preferences,
     private val platformUtil: PlatformUtil,
     private var currentLanguage: Language,
+    private val platformInformation: PlatformInformation
 ) {
 
     /**
@@ -92,6 +97,11 @@ internal class DialogEvent(
         language: Language,
         f: (VersionControlResponse) -> Unit,
     ) {
+        if(!checkOperativeSystemVersion(version.operativeSystemVersion)){
+            f(VersionControlResponse.DISMISSED)
+            return
+        }
+
         alertWrapper.showVersionControlForce(
             version = version, language = language, onPositiveClick = {
                 f(VersionControlResponse.ACCEPTED)
@@ -111,6 +121,12 @@ internal class DialogEvent(
         checkIfDialogIsShown: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
+
+        if(!checkOperativeSystemVersion(version.operativeSystemVersion)){
+            f(VersionControlResponse.DISMISSED)
+            return
+        }
+
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
             alertWrapper.showVersionControlLazy(version = version, language = language, onPositiveClick = { isCheckBoxChecked ->
                 println("VersionControl - CheckBox checked: $isCheckBoxChecked")
@@ -141,6 +157,12 @@ internal class DialogEvent(
         checkIfDialogIsShown: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
+
+        if(!checkOperativeSystemVersion(version.operativeSystemVersion)){
+            f(VersionControlResponse.DISMISSED)
+            return
+        }
+
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
             alertWrapper.showVersionControlInfo(version = version, language = language, onPositiveClick = { isCheckBoxChecked ->
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
@@ -154,6 +176,41 @@ internal class DialogEvent(
             f(VersionControlResponse.DISMISSED)
         }
     }
+
+    /**
+     * Checks if the current device's operating system version meets the criteria defined
+     * in the version configuration.
+     *
+     * This function compares the device's actual OS version against the target version
+     * specified in [operativeSystemVersion] using the defined comparison rule
+     * (e.g., ensuring the device is on a specific version or newer).
+     *
+     * @param operativeSystemVersion The configuration object containing the target OS version
+     *                               and the comparison rule (e.g., [OperativeSystemRuleEnum.BIGGER_OR_EQUAL_THAN_VERSION]).
+     * @return `true` if the device's OS version satisfies the condition or if the rule is [OperativeSystemRuleEnum.ALL_VERSIONS], `false` otherwise.
+     */
+    private fun checkOperativeSystemVersion(
+        operativeSystemVersion: OperativeSystemVersion,
+    ): Boolean {
+        val osDevice = platformInformation.getPlatformVersion()
+        val osVersion = operativeSystemVersion.osVersion
+        val comparison = compareVersions(osDevice, osVersion)
+
+        println("OSAMCommons - checkOperativeSystemVersion: Device OS=$osDevice, Target OS=$osVersion, Rule=${operativeSystemVersion.osVersionComparisonMode}, ComparisonInt=$comparison")
+
+        if (operativeSystemVersion.osVersionComparisonMode == OperativeSystemRuleEnum.ALL_VERSIONS ||
+            osDevice.isBlank() || osVersion.isBlank()) {
+            return true
+        }
+
+        return when (operativeSystemVersion.osVersionComparisonMode) {
+            OperativeSystemRuleEnum.LESS_OR_EQUAL_THAN_VERSION -> comparison <= 0
+            OperativeSystemRuleEnum.BIGGER_OR_EQUAL_THAN_VERSION -> comparison >= 0
+            OperativeSystemRuleEnum.ONLY_THIS_VERSION -> comparison == 0
+            OperativeSystemRuleEnum.ALL_VERSIONS -> true
+        }
+    }
+
 
     /**
      * Initiates the rating check process.

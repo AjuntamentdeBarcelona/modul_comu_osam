@@ -23,7 +23,8 @@ internal data class Version(
     val cancel: Text,
     val url: String,
     val checkBoxDontShowAgain: CheckBoxDontShowAgain = CheckBoxDontShowAgain(),
-    val dialogDisplayDuration: Long = 3600
+    val dialogDisplayDuration: Long = DIALOG_DISPLAY_DURATION_DEFAULT,
+    val operativeSystemVersion: OperativeSystemVersion = OperativeSystemVersion()
 ) {
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE
@@ -37,7 +38,32 @@ internal data class Version(
         }
         return serverDate in startDate..endDate
     }
+
+    companion object {
+        const val DIALOG_DISPLAY_DURATION_DEFAULT = 3600L
+    }
 }
+
+internal data class OperativeSystemVersion(
+    val osVersionComparisonMode: OperativeSystemRuleEnum = OperativeSystemRuleEnum.ALL_VERSIONS,
+    val osVersion: String = ""
+)
+
+fun Int.toOperativeSystemRuleEnum(): OperativeSystemRuleEnum = when (this) {
+    -1 -> OperativeSystemRuleEnum.ALL_VERSIONS
+    0 -> OperativeSystemRuleEnum.LESS_OR_EQUAL_THAN_VERSION
+    1 -> OperativeSystemRuleEnum.ONLY_THIS_VERSION
+    2 -> OperativeSystemRuleEnum.BIGGER_OR_EQUAL_THAN_VERSION
+    else -> OperativeSystemRuleEnum.ALL_VERSIONS
+}
+
+enum class OperativeSystemRuleEnum {
+    ALL_VERSIONS,
+    LESS_OR_EQUAL_THAN_VERSION,
+    BIGGER_OR_EQUAL_THAN_VERSION,
+    ONLY_THIS_VERSION
+}
+
 
 internal data class Topic(
     val appName: String,
