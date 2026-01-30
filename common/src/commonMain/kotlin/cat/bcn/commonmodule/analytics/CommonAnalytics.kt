@@ -9,7 +9,7 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
         private const val EVENT_NAME_VERSION_CONTROL = "osam_commons"
         private const val EVENT_NAME_RATING = "osam_commons"
         private const val EVENT_NAME_LANGUAGE_CHANGE = "language_change"
-        private const val EVENT_NO_CONNECTION = "no_connection"
+        private const val EVENT_NO_CONNECTION = "no_internet_access"
 
 
 
