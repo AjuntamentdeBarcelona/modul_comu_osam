@@ -51,12 +51,13 @@ internal class CommonRepository(
 
             val cachedVersion = CommonRepositoryUtils.getCachedVersion(platformInformation, preferences)
 
+            sendNoConnectionAnalytic(analytics, platformInformation)
+
             if (storedVersionCode == 0L || storedVersionCode != currentVersionCode) {
                 val emptyVersion = cachedVersion.copy(comparisonMode = Version.ComparisonMode.NONE)
                 return Either.Right(emptyVersion)
             }
 
-            sendNoConnectionAnalytic(analytics, platformInformation)
             return Either.Right(cachedVersion)
         }
     }
