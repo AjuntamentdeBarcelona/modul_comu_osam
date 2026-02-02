@@ -6,6 +6,8 @@ import cat.bcn.commonmodule.data.datasource.local.Preferences
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
+import cat.bcn.commonmodule.model.BackendTimeoutException
+import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.OperativeSystemRuleEnum
 import cat.bcn.commonmodule.model.OperativeSystemVersion
 import cat.bcn.commonmodule.model.Rating
@@ -33,7 +35,7 @@ internal class DialogEvent(
     private val preferences: Preferences,
     private val platformUtil: PlatformUtil,
     private var currentLanguage: Language,
-    private val platformInformation: PlatformInformation
+    private val platformInformation: PlatformInformation,
 ) {
 
     /**
@@ -57,7 +59,8 @@ internal class DialogEvent(
             if (!alertWrapper.isVersionControlShowing()) {
                 try {
                     withContext(executor.bg) { commonRepository.getVersion(language) }.fold(error = { commonError ->
-                        internalCrashlyticsWrapper.recordException(commonError.exception)
+                        handleTimeOutConnectionError(commonError)
+
                         f(VersionControlResponse.ERROR)
                     }, success = { version ->
                         val checkIfDialogIsShown = CommonRepositoryUtils.isDialogDurationOver(
@@ -285,6 +288,25 @@ internal class DialogEvent(
             )
         } else {
             f(RatingControlResponse.DISMISSED)
+        }
+    }
+
+    private fun handleTimeOutConnectionError(commonError: CommonError) {
+        // Retrieve data from CommonError, default to "unknown" if null
+        val httpMethod = "GET"
+
+        when (val exception = commonError.exception) {
+            is BackendTimeoutException -> {
+                val customMessage = "Tiempo de espera del backend: no se recibió respuesta del servidor dentro del tiempo esperado. " +
+                        "Punto final: api/version, Método: $httpMethod, Entorno: ${exception.env}"
+                val exceptionToSend = BackendTimeoutException(message = customMessage, cause = exception.cause)
+
+                // 3. Record the new exception
+                internalCrashlyticsWrapper.recordException(exceptionToSend)
+            }
+            else -> {
+                internalCrashlyticsWrapper.recordException(exception)
+            }
         }
     }
 }
