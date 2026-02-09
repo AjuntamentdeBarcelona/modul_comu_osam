@@ -5,6 +5,7 @@ import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSBundle
 import platform.Foundation.setValue
 import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
@@ -19,7 +20,16 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         language: Language,
         onPositiveClick: () -> Unit
     ) {
-        val alert = buildCommonVersionAlert(version, language, onPositiveClick)
+        val (alert, _) = buildVersionAlert(
+            version = version,
+            language = language,
+            showCheckbox = false
+        )
+        alert.addAction(UIAlertAction.actionWithTitle(
+            title = version.ok.localize(language),
+            style = UIAlertActionStyleDefault,
+            handler = { onPositiveClick() }
+        ))
         vc.presentViewController(alert, animated = true, completion = null)
         versionControlAlert = alert
     }
@@ -70,23 +80,6 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
 
     actual fun isRatingShowing(): Boolean = false //iOS controls the rating alert
 
-    private fun buildCommonVersionAlert(
-        version: Version,
-        language: Language,
-        onPositiveClick: () -> Unit
-    ): UIAlertController =
-        UIAlertController.alertControllerWithTitle(
-            title = version.title.localize(language),
-            message = version.message.localize(language),
-            preferredStyle = UIAlertControllerStyleAlert
-        ).apply {
-            addAction(UIAlertAction.actionWithTitle(
-                title = version.ok.localize(language),
-                style = UIAlertActionStyleDefault,
-                handler = { onPositiveClick() }
-            ))
-        }
-
     /**
      * Builds and displays a configurable version alert.
      *
@@ -101,69 +94,12 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onNegativeClick: (() -> Unit)?,
         onDismiss: () -> Unit
     ) {
-        val alert = UIAlertController.alertControllerWithTitle(
-            title = version.title.localize(language),
-            message = null, // Message is handled conditionally below
-            preferredStyle = UIAlertControllerStyleAlert
+        val (alert, checkboxSwitch) = buildVersionAlert(
+            version = version,
+            language = language,
+            showCheckbox = version.checkBoxDontShowAgain.isCheckBoxVisible
         )
 
-        var checkboxSwitch: UISwitch? = null
-
-        if (version.checkBoxDontShowAgain.isCheckBoxVisible) {
-            // Create a custom UIViewController to host our message and switch.
-            val contentViewController = UIViewController()
-            val containerView = UIView()
-
-            // CORRECTED: Use parameterless constructors when using Auto Layout.
-            val messageLabel = UILabel().apply {
-                text = version.message.localize(language)
-                numberOfLines = 0
-                font = UIFont.systemFontOfSize(13.0)
-                textAlignment = NSTextAlignmentCenter
-            }
-
-            // CORRECTED: Use parameterless constructors when using Auto Layout.
-            val switch = UISwitch()
-            checkboxSwitch = switch // Keep a reference to read its state later
-
-            // CORRECTED: Use parameterless constructors when using Auto Layout.
-            val checkboxLabel = UILabel().apply {
-                text = version.checkBoxDontShowAgain.text.localize(language)
-                font = UIFont.systemFontOfSize(13.0)
-            }
-
-            // Add subviews and configure Auto Layout
-            containerView.addSubview(messageLabel)
-            containerView.addSubview(switch)
-            containerView.addSubview(checkboxLabel)
-
-            messageLabel.translatesAutoresizingMaskIntoConstraints = false
-            switch.translatesAutoresizingMaskIntoConstraints = false
-            checkboxLabel.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activateConstraints(listOf(
-                messageLabel.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant = 16.0),
-                messageLabel.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant = 16.0),
-                messageLabel.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -16.0),
-
-                switch.topAnchor.constraintEqualToAnchor(messageLabel.bottomAnchor, constant = 16.0),
-                switch.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant = 16.0),
-                switch.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant = -16.0),
-
-                checkboxLabel.leadingAnchor.constraintEqualToAnchor(switch.trailingAnchor, constant = 8.0),
-                checkboxLabel.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -16.0),
-                checkboxLabel.centerYAnchor.constraintEqualToAnchor(switch.centerYAnchor)
-            ))
-
-            contentViewController.view = containerView
-            // Embed the custom view controller into the alert.
-            alert.setValue(contentViewController, forKey = "contentViewController")
-        } else {
-            // If no checkbox is needed, just set the standard message.
-            alert.message = version.message.localize(language)
-        }
-
-        // Add the "OK" button. Its handler reads the switch state.
         alert.addAction(UIAlertAction.actionWithTitle(
             title = version.ok.localize(language),
             style = UIAlertActionStyleDefault,
@@ -173,19 +109,167 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             }
         ))
 
-        // Conditionally add the "Cancel" button.
         if (onNegativeClick != null) {
             alert.addAction(UIAlertAction.actionWithTitle(
                 title = version.cancel.localize(language),
                 style = UIAlertActionStyleCancel,
-                handler = {
-                    onNegativeClick()
-                }
+                handler = { onNegativeClick() }
             ))
         }
 
         vc.presentViewController(alert, animated = true, completion = null)
         versionControlAlert = alert
     }
-}
 
+    @OptIn(ExperimentalForeignApi::class)
+    private fun buildVersionAlert(
+        version: Version,
+        language: Language,
+        showCheckbox: Boolean
+    ): Pair<UIAlertController, UISwitch?> {
+        val alert = buildAlertController()
+        val contentViewController = UIViewController()
+        val containerView = buildContainerView()
+
+        val iconView = buildIconView()
+        val iconContainer = buildIconContainer(iconView)
+        val titleLabel = buildTitleLabel(version, language)
+        val messageLabel = buildMessageLabel(version, language)
+        val stack = buildContentStack(iconContainer, titleLabel, messageLabel)
+
+        val checkboxSwitch = if (showCheckbox) {
+            addCheckboxRow(stack, version, language)
+        } else {
+            null
+        }
+
+        setupContentLayout(
+            containerView = containerView,
+            stack = stack,
+            iconView = iconView,
+            iconContainer = iconContainer
+        )
+
+        contentViewController.view = containerView
+        alert.setValue(contentViewController, forKey = "contentViewController")
+
+        return alert to checkboxSwitch
+    }
+
+    private fun buildAlertController(): UIAlertController =
+        UIAlertController.alertControllerWithTitle(
+            title = null,
+            message = null,
+            preferredStyle = UIAlertControllerStyleAlert
+        )
+
+    private fun buildContainerView(): UIView =
+        UIView().apply {
+            backgroundColor = UIColor.clearColor
+        }
+
+    private fun buildIconView(): UIImageView =
+        UIImageView().apply {
+            contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
+            image = appIconImage()
+        }
+
+    private fun buildIconContainer(iconView: UIImageView): UIView =
+        UIView().apply {
+            addSubview(iconView)
+        }
+
+    private fun buildTitleLabel(version: Version, language: Language): UILabel =
+        UILabel().apply {
+            text = version.title.localize(language)
+            font = UIFont.systemFontOfSize(20.0, weight = UIFontWeightSemibold)
+            textAlignment = NSTextAlignmentCenter
+            textColor = UIColor.blackColor
+        }
+
+    private fun buildMessageLabel(version: Version, language: Language): UILabel =
+        UILabel().apply {
+            text = version.message.localize(language)
+            numberOfLines = 0
+            font = UIFont.systemFontOfSize(16.0)
+            textAlignment = NSTextAlignmentCenter
+            textColor = UIColor.blackColor
+        }
+
+    private fun buildContentStack(
+        iconContainer: UIView,
+        titleLabel: UILabel,
+        messageLabel: UILabel
+    ): UIStackView =
+        UIStackView().apply {
+            axis = UILayoutConstraintAxisVertical
+            alignment = UIStackViewAlignmentFill
+            spacing = 12.0
+            addArrangedSubview(iconContainer)
+            addArrangedSubview(titleLabel)
+            addArrangedSubview(messageLabel)
+        }
+
+    private fun addCheckboxRow(
+        stack: UIStackView,
+        version: Version,
+        language: Language
+    ): UISwitch {
+        val row = UIStackView().apply {
+            axis = UILayoutConstraintAxisHorizontal
+            alignment = UIStackViewAlignmentCenter
+            spacing = 12.0
+        }
+
+        val checkboxLabel = UILabel().apply {
+            text = version.checkBoxDontShowAgain.text.localize(language)
+            font = UIFont.systemFontOfSize(16.0)
+            textColor = UIColor.blackColor
+        }
+
+        val switch = UISwitch()
+        row.addArrangedSubview(checkboxLabel)
+        row.addArrangedSubview(UIView().apply {
+            setContentHuggingPriority(1f, UILayoutConstraintAxisHorizontal)
+        })
+        row.addArrangedSubview(switch)
+
+        row.translatesAutoresizingMaskIntoConstraints = false
+        stack.addArrangedSubview(row)
+        row.widthAnchor.constraintEqualToAnchor(stack.widthAnchor).active = true
+        return switch
+    }
+
+    private fun setupContentLayout(
+        containerView: UIView,
+        stack: UIStackView,
+        iconView: UIImageView,
+        iconContainer: UIView
+    ) {
+        containerView.addSubview(stack)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        iconContainer.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activateConstraints(listOf(
+            iconView.widthAnchor.constraintEqualToConstant(90.0),
+            iconView.heightAnchor.constraintEqualToConstant(90.0),
+            iconView.centerXAnchor.constraintEqualToAnchor(iconContainer.centerXAnchor),
+            iconView.centerYAnchor.constraintEqualToAnchor(iconContainer.centerYAnchor),
+            iconContainer.heightAnchor.constraintEqualToConstant(90.0),
+            stack.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant = 16.0),
+            stack.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant = 16.0),
+            stack.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -16.0),
+            stack.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant = -8.0)
+        ))
+    }
+
+    private fun appIconImage(): UIImage? {
+        val info = NSBundle.mainBundle.infoDictionary ?: return null
+        val icons = (info as Map<Any?, Any?>)["CFBundleIcons"] as? Map<Any?, Any?> ?: return null
+        val primary = icons["CFBundlePrimaryIcon"] as? Map<Any?, Any?> ?: return null
+        val files = primary["CFBundleIconFiles"] as? List<*> ?: return null
+        val iconName = files.lastOrNull() as? String ?: return null
+        return UIImage.imageNamed(iconName)
+    }
+}

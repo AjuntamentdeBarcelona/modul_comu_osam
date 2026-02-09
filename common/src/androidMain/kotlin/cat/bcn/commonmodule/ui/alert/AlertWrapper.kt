@@ -3,13 +3,10 @@ package cat.bcn.commonmodule.ui.alert
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.view.LayoutInflater
-import android.widget.CheckBox
-import android.widget.TextView
-import cat.bcn.commonmodule.R
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.testing.Mockable
+import cat.bcn.commonmodule.ui.utils.UIHelper
 import cat.bcn.commonmodule.ui.versioncontrol.Language
 import com.google.android.play.core.review.ReviewManagerFactory
 import java.lang.ref.WeakReference
@@ -18,12 +15,14 @@ import java.lang.ref.WeakReference
 internal actual class AlertWrapper(activity: Activity, private val initialContext: Context) {
 
     private var weakRefActivity: WeakReference<Activity> = WeakReference(activity)
+
     // We prefer using the Activity context for dialogs to ensure correct theming
     private var contextRef: WeakReference<Context> = WeakReference(activity)
 
     fun updateActivity(activity: Activity) {
         weakRefActivity = WeakReference(activity)
         contextRef = WeakReference(activity)
+        uiHelper = UIHelper(context)
     }
 
     private val context: Context
@@ -31,18 +30,34 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
 
     private var versionControlAlert: AlertDialog? = null
     private var ratingAlert: AlertDialog? = null
+    private var uiHelper = UIHelper(context)
 
     actual fun showVersionControlForce(
         version: Version,
         language: Language,
         onPositiveClick: () -> Unit,
     ) {
-        versionControlAlert = AlertDialog.Builder(context)
-            .setTitle(version.title.localize(language))
-            .setMessage(version.message.localize(language))
-            .setPositiveButton(version.ok.localize(language)) { _, _ -> onPositiveClick() }
+        val background = uiHelper.buildDialogBackground()
+        val views = uiHelper.buildVersionDialogView(
+            version = version,
+            language = language,
+            showNegative = false,
+            showClose = false
+        )
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(views.root)
             .setCancelable(false)
-            .show()
+            .create()
+
+        views.positiveButton.setOnClickListener {
+            onPositiveClick()
+            dialog.dismiss()
+        }
+
+        versionControlAlert = dialog
+        dialog.show()
+        dialog.window?.setBackgroundDrawable(background)
     }
 
     actual fun showVersionControlLazy(
@@ -52,16 +67,38 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit,
     ) {
-        val builder = buildCommonVersionAlert(version, language)
-        val checkbox = setupDialogView(builder, version, language)
+        val background = uiHelper.buildDialogBackground()
+        val views = uiHelper.buildVersionDialogView(
+            version = version,
+            language = language,
+            showNegative = true,
+            showClose = true
+        )
 
-        versionControlAlert = builder
-            .setPositiveButton(version.ok.localize(language)) { _, _ ->
-                onPositiveClick(checkbox?.isChecked ?: false)
-            }
-            .setNegativeButton(version.cancel.localize(language)) { _, _ -> onNegativeClick() }
-            .setOnCancelListener { onDismissClick() }
-            .show()
+        val dialog = AlertDialog.Builder(context)
+            .setView(views.root)
+            .setCancelable(true)
+            .create()
+
+        views.positiveButton.setOnClickListener {
+            onPositiveClick(views.checkbox?.isChecked ?: false)
+            dialog.dismiss()
+        }
+
+        views.negativeButton?.setOnClickListener {
+            onNegativeClick()
+            dialog.dismiss()
+        }
+
+        views.closeButton?.setOnClickListener {
+            onDismissClick()
+            dialog.dismiss()
+        }
+
+        dialog.setOnCancelListener { onDismissClick() }
+        versionControlAlert = dialog
+        dialog.show()
+        dialog.window?.setBackgroundDrawable(background)
     }
 
     actual fun showVersionControlInfo(
@@ -70,22 +107,40 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit,
     ) {
-        val builder = buildCommonVersionAlert(version, language)
-        val checkbox = setupDialogView(builder, version, language)
+        val background = uiHelper.buildDialogBackground()
+        val views = uiHelper.buildVersionDialogView(
+            version = version,
+            language = language,
+            showNegative = false,
+            showClose = true
+        )
 
-        versionControlAlert = builder
-            .setPositiveButton(version.ok.localize(language)) { _, _ ->
-                onPositiveClick(checkbox?.isChecked ?: false)
-            }
-            .setOnCancelListener { onDismissClick() }
-            .show()
+        val dialog = AlertDialog.Builder(context)
+            .setView(views.root)
+            .setCancelable(true)
+            .create()
+
+        views.positiveButton.setOnClickListener {
+            onPositiveClick(views.checkbox?.isChecked ?: false)
+            dialog.dismiss()
+        }
+
+        views.closeButton?.setOnClickListener {
+            onDismissClick()
+            dialog.dismiss()
+        }
+
+        dialog.setOnCancelListener { onDismissClick() }
+        versionControlAlert = dialog
+        dialog.show()
+        dialog.window?.setBackgroundDrawable(background)
     }
 
     actual fun showRating(
         rating: Rating,
         language: Language,
         onRatingPopupShown: () -> Unit,
-        onRatingPopupError: () -> Unit
+        onRatingPopupError: () -> Unit,
     ) {
         val activity = weakRefActivity.get()
 
@@ -98,7 +153,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
                     val flow = manager.launchReviewFlow(activity, reviewInfo)
                     flow.addOnCompleteListener {
                         onRatingPopupShown()
-                    }.addOnFailureListener() {
+                    }.addOnFailureListener {
                         onRatingPopupError()
                     }
                 } else {
@@ -114,38 +169,4 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
 
 
     actual fun isRatingShowing(): Boolean = ratingAlert?.isShowing ?: false
-
-    private fun buildCommonVersionAlert(
-        version: Version,
-        language: Language,
-    ): AlertDialog.Builder =
-        AlertDialog.Builder(context)
-            .setTitle(version.title.localize(language))
-
-    private fun setupDialogView(
-        builder: AlertDialog.Builder,
-        version: Version,
-        language: Language
-    ): CheckBox? {
-        // If the checkbox should not be visible, just set the message and return null.
-        if (!version.checkBoxDontShowAgain.isCheckBoxVisible) {
-            builder.setMessage(version.message.localize(language))
-            return null
-        }
-
-        // Otherwise, inflate the custom view.
-        val customView = LayoutInflater.from(context).inflate(R.layout.dialog_version_control_view, null)
-        val checkbox = customView.findViewById<CheckBox>(R.id.dialog_checkbox)
-        val messageText = customView.findViewById<TextView>(R.id.dialog_message)
-
-        // Configure the views
-        messageText.text = version.message.localize(language)
-        checkbox.text = version.checkBoxDontShowAgain.text.localize(language)
-
-        // Set the custom view on the dialog and nullify the default message view.
-        builder.setView(customView).setMessage(null)
-
-        return checkbox
-    }
-
 }

@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.versionControlButton.setOnClickListener {
             osamCommons.versionControl(
-                language = Language.CA
+                language = Language.ES
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
