@@ -22,6 +22,8 @@ internal actual class PlatformInformation(private val context: Context) {
 
     actual fun getPlatformModel(platformUtil: PlatformUtil): String = Build.BRAND + " " + Build.MANUFACTURER + " " + Build.MODEL
 
+    actual fun getDeviceModel(platformUtil: PlatformUtil): String  = Build.MODEL
+
     actual fun getPackageName(): String = context.packageName
 
     actual fun getVersionCode(): Long = getPackageInfo().versionCode.toLong()

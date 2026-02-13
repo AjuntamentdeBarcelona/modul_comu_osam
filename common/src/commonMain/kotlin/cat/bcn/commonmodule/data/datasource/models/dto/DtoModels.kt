@@ -28,7 +28,9 @@ internal data class VersionDto(
     @SerialName(value = "checkBoxDontShowAgain") val isCheckBoxVisible: Boolean,
     @SerialName(value = "dialogDisplayDuration") val dialogDisplayDuration: Long,
     @SerialName(value = "osVersionComparisonMode") val osVersionComparisonMode: Int = -1,
-    @SerialName(value = "osVersion") val osVersion: String = ""
+    @SerialName(value = "osVersion") val osVersion: String = "",
+    @SerialName(value = "modelComparisonMode") val modelComparisonMode: Int = 0,
+    @SerialName(value = "models") val models: List<String> = emptyList()
 )
 
 @Serializable
