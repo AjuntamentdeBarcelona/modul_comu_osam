@@ -41,6 +41,8 @@ internal actual class PlatformInformation {
         return platformUtil.getDeviceModelIdentifier()
     }
 
+    actual fun getDeviceModel(platformUtil: PlatformUtil): String = getPlatformModel(platformUtil)
+
     actual fun getPackageName(): String = NSBundle.mainBundle.bundleIdentifier!!
 
     actual fun getVersionCode(): Long =

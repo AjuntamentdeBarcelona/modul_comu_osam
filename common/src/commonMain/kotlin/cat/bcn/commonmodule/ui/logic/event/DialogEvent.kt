@@ -8,6 +8,8 @@ import cat.bcn.commonmodule.data.utils.CommonRepositoryUtils
 import cat.bcn.commonmodule.extensions.getCurrentDate
 import cat.bcn.commonmodule.model.BackendTimeoutException
 import cat.bcn.commonmodule.model.CommonError
+import cat.bcn.commonmodule.model.ModelRuleEnum
+import cat.bcn.commonmodule.model.ModelsData
 import cat.bcn.commonmodule.model.OperativeSystemRuleEnum
 import cat.bcn.commonmodule.model.OperativeSystemVersion
 import cat.bcn.commonmodule.model.Rating
@@ -100,7 +102,9 @@ internal class DialogEvent(
         language: Language,
         f: (VersionControlResponse) -> Unit,
     ) {
-        if(!checkOperativeSystemVersion(version.operativeSystemVersion)){
+        val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
+
+        if (!isValid) {
             f(VersionControlResponse.DISMISSED)
             return
         }
@@ -125,7 +129,9 @@ internal class DialogEvent(
         f: (VersionControlResponse) -> Unit,
     ) {
 
-        if(!checkOperativeSystemVersion(version.operativeSystemVersion)){
+        val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
+
+        if (!isValid) {
             f(VersionControlResponse.DISMISSED)
             return
         }
@@ -161,7 +167,9 @@ internal class DialogEvent(
         f: (VersionControlResponse) -> Unit,
     ) {
 
-        if(!checkOperativeSystemVersion(version.operativeSystemVersion)){
+        val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
+
+        if (!isValid) {
             f(VersionControlResponse.DISMISSED)
             return
         }
@@ -179,6 +187,18 @@ internal class DialogEvent(
             f(VersionControlResponse.DISMISSED)
         }
     }
+
+    private fun addModelsAndOperativeSystemLogic(
+        modelsData: ModelsData,
+        version: Version,
+    ): Boolean {
+
+        val isOsValid = checkOperativeSystemVersion(version.operativeSystemVersion)
+        val isModelValid = checkModel(modelsData)
+
+        return isOsValid && isModelValid
+    }
+
 
     /**
      * Checks if the current device's operating system version meets the criteria defined
@@ -211,6 +231,41 @@ internal class DialogEvent(
             OperativeSystemRuleEnum.BIGGER_OR_EQUAL_THAN_VERSION -> comparison >= 0
             OperativeSystemRuleEnum.ONLY_THIS_VERSION -> comparison == 0
             OperativeSystemRuleEnum.ALL_VERSIONS -> true
+        }
+    }
+
+    /**
+     * Checks whether the current device model satisfies the rule defined
+     * in the provided [modelsData] configuration.
+     *
+     * This function retrieves the current device model from [platformInformation]
+     * and evaluates it against the list of models and the comparison rule specified
+     * in [modelsData.modelComparisonMode].
+     *
+     * The behavior depends on the rule:
+     * - [ModelRuleEnum.ALL_MODELS]: Always returns `true`, allowing all device models.
+     * - [ModelRuleEnum.ONLY_THESE_MODELS]: Returns `true` only if the current device model
+     *   is contained in [modelsData.models].
+     * - [ModelRuleEnum.NOT_THESE_MODELS]: Returns `true` only if the current device model
+     *   is NOT contained in [modelsData.models].
+     *
+     * @param modelsData The configuration object containing the list of device models
+     *                   and the rule that determines how the comparison should be applied.
+     *
+     * @return `true` if the current device model satisfies the defined rule,
+     *         `false` otherwise.
+     */
+    private fun checkModel(
+        modelsData: ModelsData
+    ): Boolean{
+
+        val model = platformInformation.getDeviceModel(platformUtil)
+        println("OSAMCommons - checkModel - Mode:${modelsData.modelComparisonMode} - phone model:=$model , models=${modelsData.models}")
+
+        return when (modelsData.modelComparisonMode) {
+            ModelRuleEnum.ALL_MODELS -> true
+            ModelRuleEnum.ONLY_THESE_MODELS -> model in modelsData.models
+            ModelRuleEnum.NOT_THESE_MODELS -> model !in modelsData.models
         }
     }
 

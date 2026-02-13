@@ -24,7 +24,8 @@ internal data class Version(
     val url: String,
     val checkBoxDontShowAgain: CheckBoxDontShowAgain = CheckBoxDontShowAgain(),
     val dialogDisplayDuration: Long = DIALOG_DISPLAY_DURATION_DEFAULT,
-    val operativeSystemVersion: OperativeSystemVersion = OperativeSystemVersion()
+    val operativeSystemVersion: OperativeSystemVersion = OperativeSystemVersion(),
+    val modelsData: ModelsData = ModelsData()
 ) {
     enum class ComparisonMode {
         FORCE, LAZY, INFO, NONE
@@ -49,6 +50,11 @@ internal data class OperativeSystemVersion(
     val osVersion: String = ""
 )
 
+internal data class ModelsData(
+    val modelComparisonMode: ModelRuleEnum = ModelRuleEnum.ALL_MODELS,
+    val models: List<String> = emptyList()
+)
+
 fun Int.toOperativeSystemRuleEnum(): OperativeSystemRuleEnum = when (this) {
     -1 -> OperativeSystemRuleEnum.ALL_VERSIONS
     0 -> OperativeSystemRuleEnum.LESS_OR_EQUAL_THAN_VERSION
@@ -62,6 +68,19 @@ enum class OperativeSystemRuleEnum {
     LESS_OR_EQUAL_THAN_VERSION,
     BIGGER_OR_EQUAL_THAN_VERSION,
     ONLY_THIS_VERSION
+}
+
+fun Int.toModelRuleEnum(): ModelRuleEnum = when (this) {
+    0 -> ModelRuleEnum.ALL_MODELS
+    1 -> ModelRuleEnum.ONLY_THESE_MODELS
+    2 -> ModelRuleEnum.NOT_THESE_MODELS
+    else -> ModelRuleEnum.ALL_MODELS
+}
+
+enum class ModelRuleEnum {
+    ALL_MODELS,
+    ONLY_THESE_MODELS,
+    NOT_THESE_MODELS
 }
 
 

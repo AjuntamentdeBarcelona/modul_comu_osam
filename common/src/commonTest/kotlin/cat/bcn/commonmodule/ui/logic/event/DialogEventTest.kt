@@ -67,6 +67,7 @@ class DialogEventTest {
         every { executor.bg } returns testDispatcher
 
         every { platformInformation.getPlatformVersion() } returns "12"
+        every { platformInformation.getDeviceModel(platformUtil) } returns "Pixel 8"
 
         dialogEvent = DialogEvent(
             scope = testScope,
