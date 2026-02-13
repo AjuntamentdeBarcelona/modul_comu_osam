@@ -863,7 +863,9 @@ Aquest objecte pot tenir un dels dos estats possibles:
     "checkBoxDontShowAgain": true,
     "dialogDisplayDuration": 3600,
     "osVersionComparisonMode": 0,
-    "osVersion": "2.0.0"
+    "osVersion": "2.0.0",
+    "modelComparisonMode": 1,
+    "models": ["SM-A536B"]
   }
 }
 ```
@@ -932,6 +934,18 @@ Aquest objecte pot tenir un dels dos estats possibles:
 - **osVersion**
   - Opcional
   - Especifica la versió del sistema operatiu objectiu per a la comparació (ex: "13", "14.2").
+- **modelComparisonMode**
+  - Opcional (default_value=0)
+  - Especifica la regla de comparació del model del dispositiu respecte al paràmetre `models`.
+  - Valors:
+    - 0: Tots els models (`ALL_MODELS`), no aplica cap filtre per model.
+    - 1: Només aquests models (`ONLY_THESE_MODELS`), només mostra el pop-up si el model actual és dins de `models`.
+    - 2: Excloure aquests models (`NOT_THESE_MODELS`), mostra el pop-up si el model actual NO és dins de `models`.
+- **models**
+  - Opcional
+  - Llista de models de dispositiu a utilitzar en el filtre de `modelComparisonMode`.
+  - Format esperat: array JSON de strings, per exemple `["SM-A536B", "iPhone14,2"]`.
+  - Aquest camp només té efecte quan `modelComparisonMode` és 1 o 2.
 
 ### Control de Valoracions
 
