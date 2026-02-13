@@ -4,10 +4,12 @@ import cat.bcn.commonmodule.data.datasource.models.dto.RatingDto
 import cat.bcn.commonmodule.data.datasource.models.dto.TextDto
 import cat.bcn.commonmodule.data.datasource.models.dto.VersionDto
 import cat.bcn.commonmodule.model.CheckBoxDontShowAgain
+import cat.bcn.commonmodule.model.ModelsData
 import cat.bcn.commonmodule.model.OperativeSystemVersion
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Text
 import cat.bcn.commonmodule.model.Version
+import cat.bcn.commonmodule.model.toModelRuleEnum
 import cat.bcn.commonmodule.model.toOperativeSystemRuleEnum
 
 internal fun VersionDto.toModel(): Version = Version(
@@ -29,6 +31,10 @@ internal fun VersionDto.toModel(): Version = Version(
     operativeSystemVersion = OperativeSystemVersion(
         osVersionComparisonMode = osVersionComparisonMode.toOperativeSystemRuleEnum(),
         osVersion = osVersion
+    ),
+    modelsData = ModelsData(
+        modelComparisonMode.toModelRuleEnum(),
+        models = models
     )
 )
 

@@ -10,6 +10,7 @@ internal expect class PlatformInformation {
     fun getPlatformName(): String
     fun getPlatformVersion(): String
     fun getPlatformModel(platformUtil: PlatformUtil): String
+    fun getDeviceModel(platformUtil: PlatformUtil): String
     fun getPackageName(): String
     fun getVersionCode(): Long
     fun getVersionName(): String
