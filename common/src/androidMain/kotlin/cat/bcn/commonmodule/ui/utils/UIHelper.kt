@@ -3,11 +3,12 @@ package cat.bcn.commonmodule.ui.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
 import android.view.View
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
@@ -36,25 +37,36 @@ class UIHelper(private val context: Context) {
         val root = buildDialogRoot()
         val closeButton = buildCloseButton()
         val closeRow = buildCloseRow(closeButton)
+        val focusOrderViews = mutableListOf<View>()
+        val keyboardOrderViews = mutableListOf<View>()
 
         if (showClose) {
             root.addView(closeRow)
+            focusOrderViews.add(closeButton)
+            keyboardOrderViews.add(closeButton)
         } else {
             closeButton.visibility = View.GONE
         }
 
         val appIcon = buildAppIcon()
         root.addView(appIcon)
+        focusOrderViews.add(appIcon)
 
         val titleView = buildTitleView(version, language)
         root.addView(titleView)
+        focusOrderViews.add(titleView)
 
         val messageView = buildMessageView(version, language)
         root.addView(messageView)
+        focusOrderViews.add(messageView)
 
         val checkboxResult = if (showCheckBox) {
             buildCheckboxRow(version, language).also { result ->
-                result.row?.let { root.addView(it) }
+                result.row?.let {
+                    root.addView(it)
+                    focusOrderViews.add(it)
+                    keyboardOrderViews.add(it)
+                }
             }
         } else {
             CheckboxRowResult(checkbox = null, row = null)
@@ -62,15 +74,32 @@ class UIHelper(private val context: Context) {
 
         val primaryButton = buildPrimaryButton(version, language)
         root.addView(primaryButton)
+        focusOrderViews.add(primaryButton)
+        keyboardOrderViews.add(primaryButton)
 
         val secondaryButton = if (showNegative) {
             buildSecondaryButton(version, language).also { root.addView(it) }
         } else {
             null
         }
+        secondaryButton?.let {
+            focusOrderViews.add(it)
+            keyboardOrderViews.add(it)
+        }
+
+        applyAccessibility(
+            root = root,
+            titleView = titleView,
+            closeButton = if (showClose) closeButton else null,
+            checkbox = checkboxResult.checkbox,
+            primaryButton = primaryButton,
+            secondaryButton = secondaryButton
+        )
 
         return VersionDialogViews(
             root = root,
+            focusOrderViews = focusOrderViews,
+            keyboardOrderViews = keyboardOrderViews,
             checkbox = checkboxResult.checkbox,
             positiveButton = primaryButton,
             negativeButton = secondaryButton,
@@ -95,6 +124,7 @@ class UIHelper(private val context: Context) {
         return LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(paddingHorizontal, paddingTop, paddingHorizontal, paddingBottom)
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -127,6 +157,7 @@ class UIHelper(private val context: Context) {
         val iconSize = context.dp(72)
         return ImageView(context).apply {
             setImageDrawable(getAppIcon())
+            contentDescription = context.applicationInfo.loadLabel(context.packageManager)
             layoutParams = LinearLayout.LayoutParams(iconSize, iconSize).apply {
                 gravity = Gravity.CENTER_HORIZONTAL
                 topMargin = context.dp(8)
@@ -147,6 +178,9 @@ class UIHelper(private val context: Context) {
             }
             setTextColor(Color.BLACK)
             gravity = Gravity.CENTER
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                isAccessibilityHeading = true
+            }
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -161,6 +195,7 @@ class UIHelper(private val context: Context) {
             textSize = 16f
             gravity = Gravity.CENTER
             setTextColor(Color.BLACK)
+            setLineSpacing(0f, 1.1f)
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -220,6 +255,7 @@ class UIHelper(private val context: Context) {
             text = version.ok.localize(language)
             isAllCaps = false
             setTextColor(Color.WHITE)
+            contentDescription = text
             background = GradientDrawable().apply {
                 cornerRadius = context.dp(28).toFloat()
                 setColor(colorHex(VERY_DARK_GREY))
@@ -237,6 +273,7 @@ class UIHelper(private val context: Context) {
             text = version.cancel.localize(language)
             isAllCaps = false
             setTextColor(colorHex(VERY_DARK_GREY))
+            contentDescription = text
             background = GradientDrawable().apply {
                 cornerRadius = context.dp(28).toFloat()
                 setColor(Color.TRANSPARENT)
@@ -252,4 +289,25 @@ class UIHelper(private val context: Context) {
 
     @SuppressLint("KtxExtensionAvailable")
     private fun colorHex(value: String): Int = Color.parseColor(value)
+
+    private fun applyAccessibility(
+        root: LinearLayout,
+        titleView: TextView,
+        closeButton: ImageButton?,
+        checkbox: CheckBox?,
+        primaryButton: Button,
+        secondaryButton: Button?
+    ) {
+        closeButton?.let {
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
+        }
+        checkbox?.isFocusable = true
+        primaryButton.isFocusable = true
+        secondaryButton?.isFocusable = true
+        titleView.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            root.isKeyboardNavigationCluster = true
+        }
+    }
 }

@@ -30,6 +30,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             style = UIAlertActionStyleDefault,
             handler = { onPositiveClick() }
         ))
+        alert.view.accessibilityViewIsModal = true
         vc.presentViewController(alert, animated = true, completion = null)
         versionControlAlert = alert
     }
@@ -117,6 +118,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             ))
         }
 
+        alert.view.accessibilityViewIsModal = true
         vc.presentViewController(alert, animated = true, completion = null)
         versionControlAlert = alert
     }
@@ -137,17 +139,26 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         val messageLabel = buildMessageLabel(version, language)
         val stack = buildContentStack(iconContainer, titleLabel, messageLabel)
 
-        val checkboxSwitch = if (showCheckbox) {
+        val checkboxViews = if (showCheckbox) {
             addCheckboxRow(stack, version, language)
         } else {
             null
         }
+        val checkboxSwitch = checkboxViews?.first
 
         setupContentLayout(
             containerView = containerView,
             stack = stack,
             iconView = iconView,
             iconContainer = iconContainer
+        )
+        setupAccessibility(
+            containerView = containerView,
+            iconView = iconView,
+            titleLabel = titleLabel,
+            messageLabel = messageLabel,
+            checkboxLabel = checkboxViews?.second,
+            checkboxSwitch = checkboxSwitch
         )
 
         contentViewController.view = containerView
@@ -172,6 +183,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         UIImageView().apply {
             contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
             image = appIconImage()
+            isAccessibilityElement = false
         }
 
     private fun buildIconContainer(iconView: UIImageView): UIView =
@@ -182,18 +194,24 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     private fun buildTitleLabel(version: Version, language: Language): UILabel =
         UILabel().apply {
             text = version.title.localize(language)
-            font = UIFont.systemFontOfSize(20.0, weight = UIFontWeightSemibold)
+            font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             textAlignment = NSTextAlignmentCenter
             textColor = UIColor.blackColor
+            numberOfLines = 0
+            adjustsFontForContentSizeCategory = true
+            isAccessibilityElement = true
+            accessibilityTraits = accessibilityTraits or UIAccessibilityTraitHeader
         }
 
     private fun buildMessageLabel(version: Version, language: Language): UILabel =
         UILabel().apply {
             text = version.message.localize(language)
             numberOfLines = 0
-            font = UIFont.systemFontOfSize(16.0)
+            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             textAlignment = NSTextAlignmentCenter
             textColor = UIColor.blackColor
+            adjustsFontForContentSizeCategory = true
+            isAccessibilityElement = true
         }
 
     private fun buildContentStack(
@@ -214,7 +232,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         stack: UIStackView,
         version: Version,
         language: Language
-    ): UISwitch {
+    ): Pair<UISwitch, UILabel> {
         val row = UIStackView().apply {
             axis = UILayoutConstraintAxisHorizontal
             alignment = UIStackViewAlignmentCenter
@@ -223,11 +241,16 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
 
         val checkboxLabel = UILabel().apply {
             text = version.checkBoxDontShowAgain.text.localize(language)
-            font = UIFont.systemFontOfSize(16.0)
+            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             textColor = UIColor.blackColor
+            adjustsFontForContentSizeCategory = true
+            numberOfLines = 0
+            isAccessibilityElement = true
         }
 
         val switch = UISwitch()
+        switch.isAccessibilityElement = true
+        switch.accessibilityLabel = version.checkBoxDontShowAgain.text.localize(language)
         row.addArrangedSubview(checkboxLabel)
         row.addArrangedSubview(UIView().apply {
             setContentHuggingPriority(1f, UILayoutConstraintAxisHorizontal)
@@ -237,7 +260,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         row.translatesAutoresizingMaskIntoConstraints = false
         stack.addArrangedSubview(row)
         row.widthAnchor.constraintEqualToAnchor(stack.widthAnchor).active = true
-        return switch
+        return switch to checkboxLabel
     }
 
     private fun setupContentLayout(
@@ -281,5 +304,27 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         val files = primary["CFBundleIconFiles"] as? List<*> ?: return null
         val iconName = files.lastOrNull() as? String ?: return null
         return UIImage.imageNamed(iconName)
+    }
+
+    private fun setupAccessibility(
+        containerView: UIView,
+        iconView: UIImageView,
+        titleLabel: UILabel,
+        messageLabel: UILabel,
+        checkboxLabel: UILabel?,
+        checkboxSwitch: UISwitch?
+    ) {
+        containerView.shouldGroupAccessibilityChildren = true
+        val elements = mutableListOf<Any>()
+        if (iconView.image != null) {
+            iconView.isAccessibilityElement = true
+            iconView.accessibilityLabel = "App icon"
+            elements.add(iconView)
+        }
+        elements.add(titleLabel)
+        elements.add(messageLabel)
+        checkboxLabel?.let { elements.add(it) }
+        checkboxSwitch?.let { elements.add(it) }
+        containerView.accessibilityElements = elements
     }
 }

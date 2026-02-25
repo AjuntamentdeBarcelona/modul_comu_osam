@@ -7,6 +7,8 @@ import android.widget.ImageButton
 
 data class VersionDialogViews(
     val root: View,
+    val focusOrderViews: List<View>,
+    val keyboardOrderViews: List<View>,
     val checkbox: CheckBox?,
     val positiveButton: Button,
     val negativeButton: Button?,
