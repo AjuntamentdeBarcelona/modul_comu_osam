@@ -265,6 +265,12 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     }
 
     private fun appIconImage(): UIImage? {
+        UIImage.imageNamed("dialog_app_icon")?.let { return it }
+        UIImage.imageNamed("ic_launcher")?.let { return it }
+        return appIconFromBundleInfo()
+    }
+
+    private fun appIconFromBundleInfo(): UIImage? {
         val info = NSBundle.mainBundle.infoDictionary ?: return null
         val icons = (info as Map<Any?, Any?>)["CFBundleIcons"] as? Map<Any?, Any?> ?: return null
         val primary = icons["CFBundlePrimaryIcon"] as? Map<Any?, Any?> ?: return null

@@ -2,6 +2,7 @@ package cat.bcn.commonmodule.ui.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
@@ -29,7 +30,8 @@ class UIHelper(private val context: Context) {
         version: Version,
         language: Language,
         showNegative: Boolean,
-        showClose: Boolean
+        showClose: Boolean,
+        showCheckBox: Boolean = true
     ): VersionDialogViews {
         val root = buildDialogRoot()
         val closeButton = buildCloseButton()
@@ -50,8 +52,13 @@ class UIHelper(private val context: Context) {
         val messageView = buildMessageView(version, language)
         root.addView(messageView)
 
-        val checkboxResult = buildCheckboxRow(version, language)
-        checkboxResult.row?.let { root.addView(it) }
+        val checkboxResult = if (showCheckBox) {
+            buildCheckboxRow(version, language).also { result ->
+                result.row?.let { root.addView(it) }
+            }
+        } else {
+            CheckboxRowResult(checkbox = null, row = null)
+        }
 
         val primaryButton = buildPrimaryButton(version, language)
         root.addView(primaryButton)
@@ -174,6 +181,17 @@ class UIHelper(private val context: Context) {
 
         val checkBox = CheckBox(context).apply {
             text = version.checkBoxDontShowAgain.text.localize(language)
+            setTextColor(Color.BLACK)
+            buttonTintList = ColorStateList(
+                arrayOf(
+                    intArrayOf(android.R.attr.state_checked),
+                    intArrayOf(-android.R.attr.state_checked)
+                ),
+                intArrayOf(
+                    colorHex(VERY_DARK_GREY),
+                    colorHex("#6A6A6A")
+                )
+            )
         }
 
         val row = LinearLayout(context).apply {

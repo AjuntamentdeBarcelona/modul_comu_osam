@@ -42,7 +42,8 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
             version = version,
             language = language,
             showNegative = false,
-            showClose = false
+            showClose = false,
+            showCheckBox = false
         )
 
         val dialog = AlertDialog.Builder(context)
