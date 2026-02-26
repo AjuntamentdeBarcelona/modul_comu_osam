@@ -132,7 +132,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         val containerView = buildContainerView()
 
         val iconView = buildIconView()
-        val iconContainer = buildIconContainer(iconView)
+        val iconContainer = if (iconView.image != null) buildIconContainer(iconView) else null
         val titleLabel = buildTitleLabel(version, language)
         val messageLabel = buildMessageLabel(version, language)
         val stack = buildContentStack(iconContainer, titleLabel, messageLabel)
@@ -197,7 +197,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         }
 
     private fun buildContentStack(
-        iconContainer: UIView,
+        iconContainer: UIView?,
         titleLabel: UILabel,
         messageLabel: UILabel
     ): UIStackView =
@@ -205,7 +205,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             axis = UILayoutConstraintAxisVertical
             alignment = UIStackViewAlignmentFill
             spacing = 12.0
-            addArrangedSubview(iconContainer)
+            iconContainer?.let { addArrangedSubview(it) }
             addArrangedSubview(titleLabel)
             addArrangedSubview(messageLabel)
         }
@@ -244,24 +244,28 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         containerView: UIView,
         stack: UIStackView,
         iconView: UIImageView,
-        iconContainer: UIView
+        iconContainer: UIView?
     ) {
         containerView.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconContainer.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activateConstraints(listOf(
-            iconView.widthAnchor.constraintEqualToConstant(90.0),
-            iconView.heightAnchor.constraintEqualToConstant(90.0),
-            iconView.centerXAnchor.constraintEqualToAnchor(iconContainer.centerXAnchor),
-            iconView.centerYAnchor.constraintEqualToAnchor(iconContainer.centerYAnchor),
-            iconContainer.heightAnchor.constraintEqualToConstant(90.0),
+        val constraints = mutableListOf(
             stack.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant = 16.0),
             stack.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant = 16.0),
             stack.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -16.0),
             stack.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant = -8.0)
-        ))
+        )
+
+        if (iconContainer != null) {
+            iconView.translatesAutoresizingMaskIntoConstraints = false
+            iconContainer.translatesAutoresizingMaskIntoConstraints = false
+            constraints += iconView.widthAnchor.constraintEqualToConstant(90.0)
+            constraints += iconView.heightAnchor.constraintEqualToConstant(90.0)
+            constraints += iconView.centerXAnchor.constraintEqualToAnchor(iconContainer.centerXAnchor)
+            constraints += iconView.centerYAnchor.constraintEqualToAnchor(iconContainer.centerYAnchor)
+            constraints += iconContainer.heightAnchor.constraintEqualToConstant(90.0)
+        }
+
+        NSLayoutConstraint.activateConstraints(constraints)
     }
 
     private fun appIconImage(): UIImage? {
