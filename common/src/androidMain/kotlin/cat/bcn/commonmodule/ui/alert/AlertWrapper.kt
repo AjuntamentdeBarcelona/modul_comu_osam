@@ -9,7 +9,6 @@ import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.model.VersionDialogViews
-import android.view.KeyEvent
 import cat.bcn.commonmodule.ui.utils.AccessibilityKeyNavigationManager
 import cat.bcn.commonmodule.ui.utils.UIHelper
 import cat.bcn.commonmodule.ui.versioncontrol.Language

@@ -1,38 +1,117 @@
+@file:OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 package cat.bcn.commonmodule.ui.alert
 
 import cat.bcn.commonmodule.model.Rating
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.testing.Mockable
 import cat.bcn.commonmodule.ui.versioncontrol.Language
+import cat.bcn.commonmodule.ui.utils.AccessibilityKeyNavigationManager
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSBundle
-import platform.Foundation.setValue
-import platform.StoreKit.SKStoreReviewController
 import platform.UIKit.*
+import platform.StoreKit.SKStoreReviewController
+import platform.darwin.NSObject
+import platform.objc.sel_registerName
+import kotlinx.cinterop.*
+
+class AccessibleAlertController : UIViewController(nibName = null, bundle = null) {
+    var navManager: AccessibilityKeyNavigationManager? = null
+    var containerView: UIView? = null
+
+    override fun canBecomeFirstResponder(): Boolean = true
+
+    override fun viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.blackColor.colorWithAlphaComponent(0.4)
+        setupKeyCommands()
+    }
+
+    override fun viewDidAppear(animated: Boolean) {
+        super.viewDidAppear(animated)
+        becomeFirstResponder()
+    }
+
+    override fun viewWillDisappear(animated: Boolean) {
+        super.viewWillDisappear(animated)
+        navManager?.clearHighlight()
+    }
+
+    @ObjCAction
+    fun handleKeyCommand(command: UIKeyCommand) {
+        navManager?.handleKeyCommand(command)
+    }
+    
+    private fun setupKeyCommands() {
+        val commands = listOf(
+            UIKeyCommand.keyCommandWithInput("\t", 0L, sel_registerName("handleKeyCommand:")),
+            UIKeyCommand.keyCommandWithInput(UIKeyInputRightArrow, 0L, sel_registerName("handleKeyCommand:")),
+            UIKeyCommand.keyCommandWithInput(UIKeyInputDownArrow, 0L, sel_registerName("handleKeyCommand:")),
+            UIKeyCommand.keyCommandWithInput(UIKeyInputLeftArrow, 0L, sel_registerName("handleKeyCommand:")),
+            UIKeyCommand.keyCommandWithInput(UIKeyInputUpArrow, 0L, sel_registerName("handleKeyCommand:")),
+            UIKeyCommand.keyCommandWithInput("\r", 0L, sel_registerName("handleKeyCommand:")),
+            UIKeyCommand.keyCommandWithInput(" ", 0L, sel_registerName("handleKeyCommand:"))
+        )
+        commands.forEach { addKeyCommand(it) }
+    }
+}
+
+// Separate target object to handle Objective-C actions
+private class AlertTarget(private val wrapper: AlertWrapper) : NSObject() {
+    @ObjCAction
+    fun onPositiveClickAction() {
+        wrapper.onPositiveClickAction()
+    }
+
+    @ObjCAction
+    fun onNegativeClickAction() {
+        wrapper.onNegativeClickAction()
+    }
+
+    @ObjCAction
+    fun onDismissAction() {
+        wrapper.onDismissAction()
+    }
+}
+
+private data class AlertBuildResult(
+    val alert: AccessibleAlertController,
+    val checkboxSwitch: UISwitch?,
+    val keyboardViews: List<UIView>
+)
 
 @Mockable
 internal actual class AlertWrapper(private val vc: UIViewController) {
 
-    private var versionControlAlert: UIAlertController? = null
+    private var versionControlAlert: AccessibleAlertController? = null
+    private var checkboxSwitch: UISwitch? = null
+    private var onPositiveClick: (() -> Unit)? = null
+    private var onPositiveClickWithCheckbox: ((Boolean) -> Unit)? = null
+    private var onNegativeClick: (() -> Unit)? = null
+    private var onDismiss: (() -> Unit)? = null
+    
+    private val target = AlertTarget(this)
+
+    private val VERY_DARK_GREY = UIColor.colorWithRed(28.0/255.0, 28.0/255.0, 28.0/255.0, 1.0)
+    private val MEDIUM_LIGHT_GREY = UIColor.colorWithRed(176.0/255.0, 176.0/255.0, 176.0/255.0, 1.0)
 
     actual fun showVersionControlForce(
         version: Version,
         language: Language,
         onPositiveClick: () -> Unit
     ) {
-        val (alert, _) = buildVersionAlert(
+        this.onPositiveClick = onPositiveClick
+        this.onNegativeClick = null
+        this.onDismiss = null
+
+        val result = buildVersionAlert(
             version = version,
             language = language,
-            showCheckbox = false
+            showCheckbox = false,
+            showNegative = false,
+            showClose = false
         )
-        alert.addAction(UIAlertAction.actionWithTitle(
-            title = version.ok.localize(language),
-            style = UIAlertActionStyleDefault,
-            handler = { onPositiveClick() }
-        ))
-        alert.view.accessibilityViewIsModal = true
-        vc.presentViewController(alert, animated = true, completion = null)
-        versionControlAlert = alert
+
+        presentAlert(result)
     }
 
     actual fun showVersionControlLazy(
@@ -42,13 +121,19 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit
     ) {
-        showConfigurableVersionAlert(
+        this.onPositiveClickWithCheckbox = onPositiveClick
+        this.onNegativeClick = onNegativeClick
+        this.onDismiss = onDismissClick
+
+        val result = buildVersionAlert(
             version = version,
             language = language,
-            onPositiveClick = onPositiveClick,
-            onNegativeClick = onNegativeClick,
-            onDismiss = onDismissClick
+            showCheckbox = version.checkBoxDontShowAgain.isCheckBoxVisible,
+            showNegative = true,
+            showClose = true
         )
+
+        presentAlert(result)
     }
 
     actual fun showVersionControlInfo(
@@ -57,13 +142,32 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit
     ) {
-        showConfigurableVersionAlert(
+        this.onPositiveClickWithCheckbox = onPositiveClick
+        this.onNegativeClick = null
+        this.onDismiss = onDismissClick
+
+        val result = buildVersionAlert(
             version = version,
             language = language,
-            onPositiveClick = onPositiveClick,
-            onNegativeClick = null, // No "Cancel" button for info-style alerts
-            onDismiss = onDismissClick
+            showCheckbox = version.checkBoxDontShowAgain.isCheckBoxVisible,
+            showNegative = false,
+            showClose = true
         )
+
+        presentAlert(result)
+    }
+
+    private fun presentAlert(result: AlertBuildResult) {
+        val alert = result.alert
+        alert.modalPresentationStyle = UIModalPresentationOverFullScreen
+        alert.modalTransitionStyle = UIModalTransitionStyleCrossDissolve
+        
+        versionControlAlert = alert
+        
+        val navManager = AccessibilityKeyNavigationManager(result.keyboardViews)
+        alert.navManager = navManager
+        
+        vc.presentViewController(alert, animated = true, completion = null)
     }
 
     actual fun showRating(
@@ -79,59 +183,25 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     actual fun isVersionControlShowing(): Boolean =
         versionControlAlert?.let { vc.presentedViewController == it } ?: false
 
-    actual fun isRatingShowing(): Boolean = false //iOS controls the rating alert
+    actual fun isRatingShowing(): Boolean = false
 
-    /**
-     * Builds and displays a configurable version alert.
-     *
-     * This function handles the core logic for all alert types that may include a checkbox.
-     * It conditionally adds a custom content view for the checkbox or sets a simple message.
-     */
-    @OptIn(ExperimentalForeignApi::class)
-    private fun showConfigurableVersionAlert(
-        version: Version,
-        language: Language,
-        onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onNegativeClick: (() -> Unit)?,
-        onDismiss: () -> Unit
-    ) {
-        val (alert, checkboxSwitch) = buildVersionAlert(
-            version = version,
-            language = language,
-            showCheckbox = version.checkBoxDontShowAgain.isCheckBoxVisible
-        )
-
-        alert.addAction(UIAlertAction.actionWithTitle(
-            title = version.ok.localize(language),
-            style = UIAlertActionStyleDefault,
-            handler = {
-                val isChecked = checkboxSwitch?.isOn() ?: false
-                onPositiveClick(isChecked)
-            }
-        ))
-
-        if (onNegativeClick != null) {
-            alert.addAction(UIAlertAction.actionWithTitle(
-                title = version.cancel.localize(language),
-                style = UIAlertActionStyleCancel,
-                handler = { onNegativeClick() }
-            ))
-        }
-
-        alert.view.accessibilityViewIsModal = true
-        vc.presentViewController(alert, animated = true, completion = null)
-        versionControlAlert = alert
-    }
-
-    @OptIn(ExperimentalForeignApi::class)
     private fun buildVersionAlert(
         version: Version,
         language: Language,
-        showCheckbox: Boolean
-    ): Pair<UIAlertController, UISwitch?> {
-        val alert = buildAlertController()
-        val contentViewController = UIViewController()
+        showCheckbox: Boolean,
+        showNegative: Boolean,
+        showClose: Boolean
+    ): AlertBuildResult {
+        val alert = AccessibleAlertController()
         val containerView = buildContainerView()
+        val keyboardViews = mutableListOf<UIView>()
+
+        val closeButton = if (showClose) {
+            buildCloseButton().also {
+                containerView.addSubview(it)
+                keyboardViews.add(it)
+            }
+        } else null
 
         val iconView = buildIconView()
         val iconContainer = if (iconView.image != null) buildIconContainer(iconView) else null
@@ -140,43 +210,78 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         val stack = buildContentStack(iconContainer, titleLabel, messageLabel)
 
         val checkboxViews = if (showCheckbox) {
-            addCheckboxRow(stack, version, language)
+            addCheckboxRow(stack, version, language).also {
+                this.checkboxSwitch = it.first
+                keyboardViews.add(it.first)
+            }
         } else {
+            this.checkboxSwitch = null
             null
         }
-        val checkboxSwitch = checkboxViews?.first
+
+        val primaryButton = buildPrimaryButton(version, language).also {
+            stack.addArrangedSubview(it)
+            keyboardViews.add(it)
+        }
+        
+        val secondaryButton = if (showNegative) {
+            buildSecondaryButton(version, language).also {
+                stack.addArrangedSubview(it)
+                keyboardViews.add(it)
+            }
+        } else null
 
         setupContentLayout(
             containerView = containerView,
             stack = stack,
             iconView = iconView,
-            iconContainer = iconContainer
+            iconContainer = iconContainer,
+            closeButton = closeButton
         )
+        
         setupAccessibility(
             containerView = containerView,
             iconView = iconView,
             titleLabel = titleLabel,
             messageLabel = messageLabel,
             checkboxLabel = checkboxViews?.second,
-            checkboxSwitch = checkboxSwitch
+            checkboxSwitch = checkboxSwitch,
+            primaryButton = primaryButton,
+            secondaryButton = secondaryButton,
+            closeButton = closeButton
         )
 
-        contentViewController.view = containerView
-        alert.setValue(contentViewController, forKey = "contentViewController")
+        alert.view.addSubview(containerView)
+        alert.containerView = containerView
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activateConstraints(listOf(
+            containerView.centerXAnchor.constraintEqualToAnchor(alert.view.centerXAnchor),
+            containerView.centerYAnchor.constraintEqualToAnchor(alert.view.centerYAnchor),
+            containerView.leadingAnchor.constraintGreaterThanOrEqualToAnchor(alert.view.leadingAnchor, constant = 24.0),
+            containerView.trailingAnchor.constraintLessThanOrEqualToAnchor(alert.view.trailingAnchor, constant = -24.0),
+            containerView.widthAnchor.constraintEqualToConstant(300.0) // Typical alert width
+        ))
 
-        return alert to checkboxSwitch
+        return AlertBuildResult(alert, checkboxSwitch, keyboardViews)
     }
-
-    private fun buildAlertController(): UIAlertController =
-        UIAlertController.alertControllerWithTitle(
-            title = null,
-            message = null,
-            preferredStyle = UIAlertControllerStyleAlert
-        )
 
     private fun buildContainerView(): UIView =
         UIView().apply {
-            backgroundColor = UIColor.clearColor
+            backgroundColor = UIColor.whiteColor
+            layer.cornerRadius = 20.0
+            clipsToBounds = true
+        }
+
+    private fun buildCloseButton(): UIButton =
+        UIButton().apply {
+            val config = UIImageSymbolConfiguration.configurationWithPointSize(20.0, UIImageSymbolWeightMedium)
+            val image = UIImage.systemImageNamed("xmark", withConfiguration = config) ?: UIImage.imageNamed("close_mark")
+            setImage(image, forState = UIControlStateNormal)
+            tintColor = UIColor.blackColor
+            addTarget(target, action = sel_registerName("onDismissAction"), forControlEvents = UIControlEventTouchUpInside.toULong())
+            isAccessibilityElement = true
+            accessibilityLabel = "Close"
         }
 
     private fun buildIconView(): UIImageView =
@@ -194,11 +299,10 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     private fun buildTitleLabel(version: Version, language: Language): UILabel =
         UILabel().apply {
             text = version.title.localize(language)
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+            font = UIFont.boldSystemFontOfSize(22.0)
             textAlignment = NSTextAlignmentCenter
             textColor = UIColor.blackColor
             numberOfLines = 0
-            adjustsFontForContentSizeCategory = true
             isAccessibilityElement = true
             accessibilityTraits = accessibilityTraits or UIAccessibilityTraitHeader
         }
@@ -207,11 +311,36 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         UILabel().apply {
             text = version.message.localize(language)
             numberOfLines = 0
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            font = UIFont.systemFontOfSize(16.0)
             textAlignment = NSTextAlignmentCenter
             textColor = UIColor.blackColor
-            adjustsFontForContentSizeCategory = true
             isAccessibilityElement = true
+        }
+
+    private fun buildPrimaryButton(version: Version, language: Language): UIButton =
+        UIButton().apply {
+            setTitle(version.ok.localize(language), forState = UIControlStateNormal)
+            backgroundColor = VERY_DARK_GREY
+            setTitleColor(UIColor.whiteColor, forState = UIControlStateNormal)
+            layer.cornerRadius = 24.0
+            titleLabel?.font = UIFont.boldSystemFontOfSize(16.0)
+            addTarget(target, action = sel_registerName("onPositiveClickAction"), forControlEvents = UIControlEventTouchUpInside.toULong())
+            isAccessibilityElement = true
+            accessibilityLabel = version.ok.localize(language)
+        }
+
+    private fun buildSecondaryButton(version: Version, language: Language): UIButton =
+        UIButton().apply {
+            setTitle(version.cancel.localize(language), forState = UIControlStateNormal)
+            backgroundColor = UIColor.clearColor
+            setTitleColor(VERY_DARK_GREY, forState = UIControlStateNormal)
+            layer.cornerRadius = 24.0
+            layer.borderWidth = 1.0
+            layer.borderColor = MEDIUM_LIGHT_GREY.CGColor
+            titleLabel?.font = UIFont.boldSystemFontOfSize(16.0)
+            addTarget(target, action = sel_registerName("onNegativeClickAction"), forControlEvents = UIControlEventTouchUpInside.toULong())
+            isAccessibilityElement = true
+            accessibilityLabel = version.cancel.localize(language)
         }
 
     private fun buildContentStack(
@@ -222,7 +351,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         UIStackView().apply {
             axis = UILayoutConstraintAxisVertical
             alignment = UIStackViewAlignmentFill
-            spacing = 12.0
+            spacing = 16.0
             iconContainer?.let { addArrangedSubview(it) }
             addArrangedSubview(titleLabel)
             addArrangedSubview(messageLabel)
@@ -241,9 +370,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
 
         val checkboxLabel = UILabel().apply {
             text = version.checkBoxDontShowAgain.text.localize(language)
-            font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            font = UIFont.systemFontOfSize(16.0)
             textColor = UIColor.blackColor
-            adjustsFontForContentSizeCategory = true
             numberOfLines = 0
             isAccessibilityElement = true
         }
@@ -253,13 +381,11 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         switch.accessibilityLabel = version.checkBoxDontShowAgain.text.localize(language)
         row.addArrangedSubview(checkboxLabel)
         row.addArrangedSubview(UIView().apply {
-            setContentHuggingPriority(1f, UILayoutConstraintAxisHorizontal)
+            setContentHuggingPriority(1.0f, UILayoutConstraintAxisHorizontal)
         })
         row.addArrangedSubview(switch)
 
-        row.translatesAutoresizingMaskIntoConstraints = false
         stack.addArrangedSubview(row)
-        row.widthAnchor.constraintEqualToAnchor(stack.widthAnchor).active = true
         return switch to checkboxLabel
     }
 
@@ -267,25 +393,39 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         containerView: UIView,
         stack: UIStackView,
         iconView: UIImageView,
-        iconContainer: UIView?
+        iconContainer: UIView?,
+        closeButton: UIButton?
     ) {
         containerView.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
-        val constraints = mutableListOf(
-            stack.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant = 16.0),
-            stack.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant = 16.0),
-            stack.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -16.0),
-            stack.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant = -8.0)
-        )
+        val constraints = mutableListOf<NSLayoutConstraint>()
+        constraints.add(stack.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant = 32.0))
+        constraints.add(stack.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant = 24.0))
+        constraints.add(stack.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -24.0))
+        constraints.add(stack.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant = -24.0))
 
         if (iconContainer != null) {
             iconView.translatesAutoresizingMaskIntoConstraints = false
             iconContainer.translatesAutoresizingMaskIntoConstraints = false
-            constraints += iconView.widthAnchor.constraintEqualToConstant(90.0)
-            constraints += iconView.heightAnchor.constraintEqualToConstant(90.0)
-            constraints += iconView.centerXAnchor.constraintEqualToAnchor(iconContainer.centerXAnchor)
-            constraints += iconView.centerYAnchor.constraintEqualToAnchor(iconContainer.centerYAnchor)
-            constraints += iconContainer.heightAnchor.constraintEqualToConstant(90.0)
+            constraints.add(iconView.widthAnchor.constraintEqualToConstant(72.0))
+            constraints.add(iconView.heightAnchor.constraintEqualToConstant(72.0))
+            constraints.add(iconView.centerXAnchor.constraintEqualToAnchor(iconContainer.centerXAnchor))
+            constraints.add(iconView.topAnchor.constraintEqualToAnchor(iconContainer.topAnchor))
+            constraints.add(iconView.bottomAnchor.constraintEqualToAnchor(iconContainer.bottomAnchor))
+            constraints.add(iconContainer.heightAnchor.constraintEqualToConstant(72.0))
+        }
+
+        if (closeButton != null) {
+            closeButton.translatesAutoresizingMaskIntoConstraints = false
+            constraints.add(closeButton.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant = 12.0))
+            constraints.add(closeButton.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant = -12.0))
+            constraints.add(closeButton.widthAnchor.constraintEqualToConstant(32.0))
+            constraints.add(closeButton.heightAnchor.constraintEqualToConstant(32.0))
+        }
+        
+        // Ensure buttons have reasonable height
+        stack.arrangedSubviews.filterIsInstance<UIButton>().forEach { button ->
+            constraints.add(button.heightAnchor.constraintEqualToConstant(48.0))
         }
 
         NSLayoutConstraint.activateConstraints(constraints)
@@ -312,10 +452,14 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         titleLabel: UILabel,
         messageLabel: UILabel,
         checkboxLabel: UILabel?,
-        checkboxSwitch: UISwitch?
+        checkboxSwitch: UISwitch?,
+        primaryButton: UIButton,
+        secondaryButton: UIButton?,
+        closeButton: UIButton?
     ) {
         containerView.shouldGroupAccessibilityChildren = true
         val elements = mutableListOf<Any>()
+        closeButton?.let { elements.add(it) }
         if (iconView.image != null) {
             iconView.isAccessibilityElement = true
             iconView.accessibilityLabel = "App icon"
@@ -325,6 +469,30 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         elements.add(messageLabel)
         checkboxLabel?.let { elements.add(it) }
         checkboxSwitch?.let { elements.add(it) }
+        elements.add(primaryButton)
+        secondaryButton?.let { elements.add(it) }
         containerView.accessibilityElements = elements
+    }
+
+    internal fun dismissAlert() {
+        versionControlAlert?.navManager?.clearHighlight()
+        versionControlAlert?.dismissViewControllerAnimated(true, completion = null)
+    }
+
+    internal fun onPositiveClickAction() {
+        val isChecked = checkboxSwitch?.isOn() ?: false
+        onPositiveClickWithCheckbox?.invoke(isChecked)
+        onPositiveClick?.invoke()
+        dismissAlert()
+    }
+
+    internal fun onNegativeClickAction() {
+        onNegativeClick?.invoke()
+        dismissAlert()
+    }
+
+    internal fun onDismissAction() {
+        onDismiss?.invoke()
+        dismissAlert()
     }
 }
