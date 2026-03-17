@@ -479,6 +479,16 @@ __attribute__((swift_name("PlatformUtil")))
 - (BOOL)openUrlUrl:(NSString *)url __attribute__((swift_name("openUrl(url:)")));
 @end
 
+__attribute__((unavailable("Kotlin subclass of Objective-C class can't be imported")))
+__attribute__((swift_name("AccessibleAlertController")))
+@interface OSAMCAccessibleAlertController : NSObject
+@end
+
+__attribute__((unavailable("Kotlin subclass of Objective-C class can't be imported")))
+__attribute__((swift_name("AccessibilityKeyNavigationManager")))
+@interface OSAMCAccessibilityKeyNavigationManager : NSObject
+@end
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("AppInformationResponse")))
 @interface OSAMCAppInformationResponse : OSAMCKotlinEnum<OSAMCAppInformationResponse *>
