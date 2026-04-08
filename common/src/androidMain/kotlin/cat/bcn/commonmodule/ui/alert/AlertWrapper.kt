@@ -39,15 +39,17 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
     actual fun showVersionControlForce(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
         onPositiveClick: () -> Unit,
     ) {
-        val background = uiHelper.buildDialogBackground()
+        val background = uiHelper.buildDialogBackground(isDarkMode)
         val views = uiHelper.buildVersionDialogView(
             version = version,
             language = language,
             showNegative = false,
             showClose = false,
-            showCheckBox = false
+            showCheckBox = false,
+            isDarkMode = isDarkMode
         )
 
         val dialog = AlertDialog.Builder(context)
@@ -69,16 +71,18 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
     actual fun showVersionControlLazy(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit,
     ) {
-        val background = uiHelper.buildDialogBackground()
+        val background = uiHelper.buildDialogBackground(isDarkMode)
         val views = uiHelper.buildVersionDialogView(
             version = version,
             language = language,
             showNegative = true,
-            showClose = true
+            showClose = true,
+            isDarkMode = isDarkMode
         )
 
         val dialog = AlertDialog.Builder(context)
@@ -111,15 +115,17 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
     actual fun showVersionControlInfo(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit,
     ) {
-        val background = uiHelper.buildDialogBackground()
+        val background = uiHelper.buildDialogBackground(isDarkMode)
         val views = uiHelper.buildVersionDialogView(
             version = version,
             language = language,
             showNegative = false,
-            showClose = true
+            showClose = true,
+            isDarkMode = isDarkMode
         )
 
         val dialog = AlertDialog.Builder(context)
@@ -147,6 +153,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
     actual fun showRating(
         rating: Rating,
         language: Language,
+        isDarkMode: Boolean,
         onRatingPopupShown: () -> Unit,
         onRatingPopupError: () -> Unit,
     ) {

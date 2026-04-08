@@ -3,6 +3,7 @@ package presentation.ui.view.activity
 import analytics.AnalyticsWrapperAndroid
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -50,6 +51,11 @@ class HomeActivity : AppCompatActivity() {
         )
     }
 
+    private fun isDarkMode(): Boolean {
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -59,7 +65,8 @@ class HomeActivity : AppCompatActivity() {
 
         binding.versionControlButton.setOnClickListener {
             osamCommons.versionControl(
-                language = Language.ES
+                language = Language.ES,
+                isDarkMode = isDarkMode()
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
@@ -67,7 +74,8 @@ class HomeActivity : AppCompatActivity() {
 
         binding.ratingButton.setOnClickListener {
             osamCommons.rating(
-                language = Language.CA
+                language = Language.CA,
+                isDarkMode = isDarkMode()
             ) {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }

@@ -32,10 +32,11 @@ class UIHelper(private val context: Context) {
         language: Language,
         showNegative: Boolean,
         showClose: Boolean,
-        showCheckBox: Boolean = true
+        showCheckBox: Boolean = true,
+        isDarkMode: Boolean
     ): VersionDialogViews {
         val root = buildDialogRoot()
-        val closeButton = buildCloseButton()
+        val closeButton = buildCloseButton(isDarkMode)
         val closeRow = buildCloseRow(closeButton)
         val focusOrderViews = mutableListOf<View>()
         val keyboardOrderViews = mutableListOf<View>()
@@ -52,16 +53,16 @@ class UIHelper(private val context: Context) {
         root.addView(appIcon)
         focusOrderViews.add(appIcon)
 
-        val titleView = buildTitleView(version, language)
+        val titleView = buildTitleView(version, language, isDarkMode)
         root.addView(titleView)
         focusOrderViews.add(titleView)
 
-        val messageView = buildMessageView(version, language)
+        val messageView = buildMessageView(version, language, isDarkMode)
         root.addView(messageView)
         focusOrderViews.add(messageView)
 
         val checkboxResult = if (showCheckBox) {
-            buildCheckboxRow(version, language).also { result ->
+            buildCheckboxRow(version, language, isDarkMode).also { result ->
                 result.row?.let {
                     root.addView(it)
                     focusOrderViews.add(it)
@@ -72,13 +73,13 @@ class UIHelper(private val context: Context) {
             CheckboxRowResult(checkbox = null, row = null)
         }
 
-        val primaryButton = buildPrimaryButton(version, language)
+        val primaryButton = buildPrimaryButton(version, language, isDarkMode)
         root.addView(primaryButton)
         focusOrderViews.add(primaryButton)
         keyboardOrderViews.add(primaryButton)
 
         val secondaryButton = if (showNegative) {
-            buildSecondaryButton(version, language).also { root.addView(it) }
+            buildSecondaryButton(version, language, isDarkMode).also { root.addView(it) }
         } else {
             null
         }
@@ -110,11 +111,11 @@ class UIHelper(private val context: Context) {
     private fun Context.dp(value: Int): Int =
         (value * resources.displayMetrics.density).toInt()
 
-    fun buildDialogBackground(): GradientDrawable =
+    fun buildDialogBackground(isDarkMode: Boolean): GradientDrawable =
         GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = context.dp(20).toFloat()
-            setColor(Color.WHITE)
+            setColor(if (isDarkMode) colorHex(VERY_DARK_GREY) else Color.WHITE)
         }
 
     private fun buildDialogRoot(): LinearLayout {
@@ -132,9 +133,14 @@ class UIHelper(private val context: Context) {
         }
     }
 
-    private fun buildCloseButton(): ImageButton =
+    private fun buildCloseButton(isDarkMode: Boolean): ImageButton =
         ImageButton(context).apply {
             setImageResource(R.drawable.close_mark)
+            if (isDarkMode) {
+                setColorFilter(Color.WHITE)
+            } else {
+                clearColorFilter()
+            }
             imageTintList = null
             background = null
             setBackgroundColor(Color.TRANSPARENT)
@@ -167,7 +173,7 @@ class UIHelper(private val context: Context) {
 
     private fun getAppIcon() = context.applicationInfo.loadIcon(context.packageManager)
 
-    private fun buildTitleView(version: Version, language: Language): TextView =
+    private fun buildTitleView(version: Version, language: Language, isDarkMode: Boolean): TextView =
         TextView(context).apply {
             text = version.title.localize(language)
             textSize = 22f
@@ -176,7 +182,7 @@ class UIHelper(private val context: Context) {
             } else {
                 Typeface.create(typeface, Typeface.BOLD)
             }
-            setTextColor(Color.BLACK)
+            setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
             gravity = Gravity.CENTER
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 isAccessibilityHeading = true
@@ -189,12 +195,12 @@ class UIHelper(private val context: Context) {
             }
         }
 
-    private fun buildMessageView(version: Version, language: Language): TextView =
+    private fun buildMessageView(version: Version, language: Language, isDarkMode: Boolean): TextView =
         TextView(context).apply {
             text = version.message.localize(language)
             textSize = 16f
             gravity = Gravity.CENTER
-            setTextColor(Color.BLACK)
+            setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
             setLineSpacing(0f, 1.1f)
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -209,22 +215,22 @@ class UIHelper(private val context: Context) {
         val row: LinearLayout?
     )
 
-    private fun buildCheckboxRow(version: Version, language: Language): CheckboxRowResult {
+    private fun buildCheckboxRow(version: Version, language: Language, isDarkMode: Boolean): CheckboxRowResult {
         if (!version.checkBoxDontShowAgain.isCheckBoxVisible) {
             return CheckboxRowResult(checkbox = null, row = null)
         }
 
         val checkBox = CheckBox(context).apply {
             text = version.checkBoxDontShowAgain.text.localize(language)
-            setTextColor(Color.BLACK)
+            setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
             buttonTintList = ColorStateList(
                 arrayOf(
                     intArrayOf(android.R.attr.state_checked),
                     intArrayOf(-android.R.attr.state_checked)
                 ),
                 intArrayOf(
-                    colorHex(VERY_DARK_GREY),
-                    colorHex("#6A6A6A")
+                    if (isDarkMode) Color.WHITE else colorHex(VERY_DARK_GREY),
+                    colorHex(MEDIUM_LIGHT_GREY)
                 )
             )
         }
@@ -250,15 +256,15 @@ class UIHelper(private val context: Context) {
         return CheckboxRowResult(checkbox = checkBox, row = row)
     }
 
-    private fun buildPrimaryButton(version: Version, language: Language): Button =
+    private fun buildPrimaryButton(version: Version, language: Language, isDarkMode: Boolean): Button =
         Button(context).apply {
             text = version.ok.localize(language)
             isAllCaps = false
-            setTextColor(Color.WHITE)
+            setTextColor(if (isDarkMode) colorHex(VERY_DARK_GREY) else Color.WHITE)
             contentDescription = text
             background = GradientDrawable().apply {
                 cornerRadius = context.dp(28).toFloat()
-                setColor(colorHex(VERY_DARK_GREY))
+                setColor(if (isDarkMode) Color.WHITE else colorHex(VERY_DARK_GREY))
             }
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -268,16 +274,16 @@ class UIHelper(private val context: Context) {
             }
         }
 
-    private fun buildSecondaryButton(version: Version, language: Language): Button =
+    private fun buildSecondaryButton(version: Version, language: Language, isDarkMode: Boolean): Button =
         Button(context).apply {
             text = version.cancel.localize(language)
             isAllCaps = false
-            setTextColor(colorHex(VERY_DARK_GREY))
+            setTextColor(if (isDarkMode) Color.WHITE else colorHex(VERY_DARK_GREY))
             contentDescription = text
             background = GradientDrawable().apply {
                 cornerRadius = context.dp(28).toFloat()
                 setColor(Color.TRANSPARENT)
-                setStroke(context.dp(1), colorHex(MEDIUM_LIGHT_GREY))
+                setStroke(context.dp(1), if (isDarkMode) Color.WHITE else colorHex(MEDIUM_LIGHT_GREY))
             }
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,

@@ -68,9 +68,10 @@ internal class OSAMCommonsInternal(
      * previous user interactions (e.g., "Don't show again").
      *
      * @param language The language in which the dialog content should be displayed.
+     * @param isDarkMode Whether the app is in dark mode or not.
      * @param f A callback function invoked with the result of the version control operation.
      */
-    fun versionControl(language: Language, f: (VersionControlResponse) -> Unit) = dialogEvent.versionControl(language, f)
+    fun versionControl(language: Language, isDarkMode: Boolean, f: (VersionControlResponse) -> Unit) = dialogEvent.versionControl(language, isDarkMode, f)
 
     /**
      * Initiates the rating check process.
@@ -80,9 +81,10 @@ internal class OSAMCommonsInternal(
      * the configuration (e.g., number of app opens, time elapsed) and user preferences.
      *
      * @param language The language in which the dialog content should be displayed.
+     * @param isDarkMode Whether the app is in dark mode or not.
      * @param f A callback function invoked with the result of the rating operation.
      */
-    fun rating(language: Language, f: (RatingControlResponse) -> Unit)  = dialogEvent.rating(language, f)
+    fun rating(language: Language, isDarkMode: Boolean, f: (RatingControlResponse) -> Unit)  = dialogEvent.rating(language, isDarkMode, f)
 
     /**
      * Retrieves device-specific information asynchronously.

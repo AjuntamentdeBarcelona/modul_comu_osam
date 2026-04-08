@@ -48,13 +48,15 @@ actual class OSAMCommons constructor(
 
     actual fun versionControl(
         language: Language,
+        isDarkMode: Boolean,
         f: (VersionControlResponse) -> Unit
-    ) = internal.versionControl(language, f)
+    ) = internal.versionControl(language, isDarkMode, f)
 
     actual fun rating(
         language: Language,
+        isDarkMode: Boolean,
         f: (RatingControlResponse) -> Unit
-    ) = internal.rating(language, f)
+    ) = internal.rating(language, isDarkMode, f)
 
     actual fun deviceInformation(
         f: (DeviceInformationResponse, DeviceInformation?) -> Unit

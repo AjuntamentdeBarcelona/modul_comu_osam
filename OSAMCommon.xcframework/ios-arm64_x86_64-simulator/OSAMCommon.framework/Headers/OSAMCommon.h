@@ -561,10 +561,10 @@ __attribute__((swift_name("OSAMCommons")))
 - (void)deviceInformationF:(void (^)(OSAMCDeviceInformationResponse *, OSAMCDeviceInformation * _Nullable))f __attribute__((swift_name("deviceInformation(f:)")));
 - (void)firstTimeOrUpdateEventLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCAppLanguageResponse *))f __attribute__((swift_name("firstTimeOrUpdateEvent(language:f:)")));
 - (void)getFCMTokenF:(void (^)(OSAMCTokenResponse *))f __attribute__((swift_name("getFCMToken(f:)")));
-- (void)ratingLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:f:)")));
+- (void)ratingLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:isDarkMode:f:)")));
 - (void)subscribeToCustomTopicTopic:(NSString *)topic f:(void (^)(OSAMCSubscriptionResponse *))f __attribute__((swift_name("subscribeToCustomTopic(topic:f:)")));
 - (void)unsubscribeToCustomTopicTopic:(NSString *)topic f:(void (^)(OSAMCSubscriptionResponse *))f __attribute__((swift_name("unsubscribeToCustomTopic(topic:f:)")));
-- (void)versionControlLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCVersionControlResponse *))f __attribute__((swift_name("versionControl(language:f:)")));
+- (void)versionControlLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode f:(void (^)(OSAMCVersionControlResponse *))f __attribute__((swift_name("versionControl(language:isDarkMode:f:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))

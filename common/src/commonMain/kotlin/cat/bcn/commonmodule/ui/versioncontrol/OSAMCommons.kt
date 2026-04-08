@@ -8,11 +8,13 @@ import cat.bcn.commonmodule.model.LanguageInformation
 expect class OSAMCommons {
     fun versionControl(
         language: Language,
+        isDarkMode: Boolean = false,
         f: (VersionControlResponse) -> Unit
     )
 
     fun rating(
         language: Language,
+        isDarkMode: Boolean = false,
         f: (RatingControlResponse) -> Unit
     )
 
