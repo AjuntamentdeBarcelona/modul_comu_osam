@@ -17,7 +17,6 @@ class AccessibilityKeyNavigationManager(
     private var currentFocusedIndex = -1
     private val originalBackgrounds = mutableMapOf<View, Drawable?>()
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun handleKeyEvent(event: KeyEvent): Boolean {
         if (event.action != KeyEvent.ACTION_DOWN) return false
 
@@ -65,7 +64,6 @@ class AccessibilityKeyNavigationManager(
         applyHighlight(views[currentFocusedIndex])
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun focusPrevious() {
         if (views.isEmpty()) return
         clearHighlight(views[currentFocusedIndex])
@@ -73,7 +71,6 @@ class AccessibilityKeyNavigationManager(
         applyHighlight(views[currentFocusedIndex])
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun applyHighlight(view: View) {
         if (!originalBackgrounds.containsKey(view)) {
             originalBackgrounds[view] = view.background
@@ -86,7 +83,11 @@ class AccessibilityKeyNavigationManager(
         val highlight = GradientDrawable().apply {
             setStroke(strokeWidth, highlightColor)
             cornerRadius = if (originalBackgrounds[view] is GradientDrawable) {
-                (originalBackgrounds[view] as GradientDrawable).cornerRadius
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    (originalBackgrounds[view] as GradientDrawable).cornerRadius
+                } else {
+                    (8 * density)
+                }
             } else {
                 (8 * density) // Default corner radius if not a GradientDrawable
             }

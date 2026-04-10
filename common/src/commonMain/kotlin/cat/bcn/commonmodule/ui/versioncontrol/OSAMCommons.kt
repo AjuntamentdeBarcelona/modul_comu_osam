@@ -9,12 +9,14 @@ expect class OSAMCommons {
     fun versionControl(
         language: Language,
         isDarkMode: Boolean = false,
+        applyComModStyles: Boolean = true,
         f: (VersionControlResponse) -> Unit
     )
 
     fun rating(
         language: Language,
         isDarkMode: Boolean = false,
+        applyComModStyles: Boolean = true,
         f: (RatingControlResponse) -> Unit
     )
 

@@ -98,6 +98,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: () -> Unit
     ) {
         this.onPositiveClick = onPositiveClick
@@ -110,7 +111,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             showCheckbox = false,
             showNegative = false,
             showClose = false,
-            isDarkMode = isDarkMode
+            isDarkMode = isDarkMode,
+            applyComModStyles = applyComModStyles
         )
 
         presentAlert(result)
@@ -120,6 +122,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit
@@ -134,7 +137,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             showCheckbox = version.checkBoxDontShowAgain.isCheckBoxVisible,
             showNegative = true,
             showClose = true,
-            isDarkMode = isDarkMode
+            isDarkMode = isDarkMode,
+            applyComModStyles = applyComModStyles
         )
 
         presentAlert(result)
@@ -144,6 +148,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit
     ) {
@@ -157,7 +162,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             showCheckbox = version.checkBoxDontShowAgain.isCheckBoxVisible,
             showNegative = false,
             showClose = true,
-            isDarkMode = isDarkMode
+            isDarkMode = isDarkMode,
+            applyComModStyles = applyComModStyles
         )
 
         presentAlert(result)
@@ -180,6 +186,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         rating: Rating,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onRatingPopupShown: () -> Unit,
         onRatingPopupError: () -> Unit
     ) {
@@ -198,14 +205,15 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         showCheckbox: Boolean,
         showNegative: Boolean,
         showClose: Boolean,
-        isDarkMode: Boolean
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean
     ): AlertBuildResult {
         val alert = AccessibleAlertController()
-        val containerView = buildContainerView(isDarkMode)
+        val containerView = buildContainerView(isDarkMode, applyComModStyles)
         val keyboardViews = mutableListOf<UIView>()
 
         val closeButton = if (showClose) {
-            buildCloseButton(isDarkMode).also {
+            buildCloseButton(isDarkMode, applyComModStyles).also {
                 containerView.addSubview(it)
                 keyboardViews.add(it)
             }
@@ -213,12 +221,12 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
 
         val iconView = buildIconView()
         val iconContainer = if (iconView.image != null) buildIconContainer(iconView) else null
-        val titleLabel = buildTitleLabel(version, language, isDarkMode)
-        val messageLabel = buildMessageLabel(version, language, isDarkMode)
+        val titleLabel = buildTitleLabel(version, language, isDarkMode, applyComModStyles)
+        val messageLabel = buildMessageLabel(version, language, isDarkMode, applyComModStyles)
         val stack = buildContentStack(iconContainer, titleLabel, messageLabel)
 
         val checkboxViews = if (showCheckbox) {
-            addCheckboxRow(stack, version, language, isDarkMode).also {
+            addCheckboxRow(stack, version, language, isDarkMode, applyComModStyles).also {
                 this.checkboxSwitch = it.first
                 keyboardViews.add(it.first)
             }
@@ -227,13 +235,13 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             null
         }
 
-        val primaryButton = buildPrimaryButton(version, language, isDarkMode).also {
+        val primaryButton = buildPrimaryButton(version, language, isDarkMode, applyComModStyles).also {
             stack.addArrangedSubview(it)
             keyboardViews.add(it)
         }
         
         val secondaryButton = if (showNegative) {
-            buildSecondaryButton(version, language, isDarkMode).also {
+            buildSecondaryButton(version, language, isDarkMode, applyComModStyles).also {
                 stack.addArrangedSubview(it)
                 keyboardViews.add(it)
             }
@@ -274,19 +282,25 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         return AlertBuildResult(alert, checkboxSwitch, keyboardViews)
     }
 
-    private fun buildContainerView(isDarkMode: Boolean): UIView =
+    private fun buildContainerView(isDarkMode: Boolean, applyComModStyles: Boolean): UIView =
         UIView().apply {
-            backgroundColor = if (isDarkMode) VERY_DARK_GREY else UIColor.whiteColor
+            if (applyComModStyles) {
+                backgroundColor = if (isDarkMode) VERY_DARK_GREY else UIColor.whiteColor
+            } else {
+                 backgroundColor = if (isDarkMode) UIColor.blackColor else UIColor.whiteColor
+            }
             layer.cornerRadius = 20.0
             clipsToBounds = true
         }
 
-    private fun buildCloseButton(isDarkMode: Boolean): UIButton =
+    private fun buildCloseButton(isDarkMode: Boolean, applyComModStyles: Boolean): UIButton =
         UIButton().apply {
             val config = UIImageSymbolConfiguration.configurationWithPointSize(20.0, UIImageSymbolWeightMedium)
             val image = UIImage.systemImageNamed("xmark", withConfiguration = config) ?: UIImage.imageNamed("close_mark")
             setImage(image, forState = UIControlStateNormal)
-            tintColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            if (applyComModStyles) {
+                tintColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            }
             addTarget(target, action = sel_registerName("onDismissAction"), forControlEvents = UIControlEventTouchUpInside.toULong())
             isAccessibilityElement = true
             accessibilityLabel = "Close"
@@ -304,32 +318,40 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             addSubview(iconView)
         }
 
-    private fun buildTitleLabel(version: Version, language: Language, isDarkMode: Boolean): UILabel =
+    private fun buildTitleLabel(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): UILabel =
         UILabel().apply {
             text = version.title.localize(language)
             font = UIFont.boldSystemFontOfSize(22.0)
             textAlignment = NSTextAlignmentCenter
-            textColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            if (applyComModStyles) {
+                textColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            }
             numberOfLines = 0
             isAccessibilityElement = true
             accessibilityTraits = accessibilityTraits or UIAccessibilityTraitHeader
         }
 
-    private fun buildMessageLabel(version: Version, language: Language, isDarkMode: Boolean): UILabel =
+    private fun buildMessageLabel(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): UILabel =
         UILabel().apply {
             text = version.message.localize(language)
             numberOfLines = 0
             font = UIFont.systemFontOfSize(16.0)
             textAlignment = NSTextAlignmentCenter
-            textColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            if (applyComModStyles) {
+                textColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            }
             isAccessibilityElement = true
         }
 
-    private fun buildPrimaryButton(version: Version, language: Language, isDarkMode: Boolean): UIButton =
+    private fun buildPrimaryButton(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): UIButton =
         UIButton().apply {
             setTitle(version.ok.localize(language), forState = UIControlStateNormal)
-            backgroundColor = if (isDarkMode) UIColor.whiteColor else VERY_DARK_GREY
-            setTitleColor(if (isDarkMode) VERY_DARK_GREY else UIColor.whiteColor, forState = UIControlStateNormal)
+            if (applyComModStyles) {
+                backgroundColor = if (isDarkMode) UIColor.whiteColor else VERY_DARK_GREY
+                setTitleColor(if (isDarkMode) VERY_DARK_GREY else UIColor.whiteColor, forState = UIControlStateNormal)
+            } else {
+                 setTitleColor(UIColor.systemBlueColor, forState = UIControlStateNormal)
+            }
             layer.cornerRadius = 24.0
             titleLabel?.font = UIFont.boldSystemFontOfSize(16.0)
             addTarget(target, action = sel_registerName("onPositiveClickAction"), forControlEvents = UIControlEventTouchUpInside.toULong())
@@ -337,14 +359,19 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
             accessibilityLabel = version.ok.localize(language)
         }
 
-    private fun buildSecondaryButton(version: Version, language: Language, isDarkMode: Boolean): UIButton =
+    private fun buildSecondaryButton(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): UIButton =
         UIButton().apply {
             setTitle(version.cancel.localize(language), forState = UIControlStateNormal)
-            backgroundColor = UIColor.clearColor
-            setTitleColor(if (isDarkMode) UIColor.whiteColor else VERY_DARK_GREY, forState = UIControlStateNormal)
+            if (applyComModStyles) {
+                backgroundColor = UIColor.clearColor
+                setTitleColor(if (isDarkMode) UIColor.whiteColor else VERY_DARK_GREY, forState = UIControlStateNormal)
+                layer.borderWidth = 1.0
+                layer.borderColor = if (isDarkMode) UIColor.whiteColor.CGColor else MEDIUM_LIGHT_GREY.CGColor
+            } else {
+                 setTitleColor(UIColor.systemBlueColor, forState = UIControlStateNormal)
+            }
             layer.cornerRadius = 24.0
-            layer.borderWidth = 1.0
-            layer.borderColor = if (isDarkMode) UIColor.whiteColor.CGColor else MEDIUM_LIGHT_GREY.CGColor
+            
             titleLabel?.font = UIFont.boldSystemFontOfSize(16.0)
             addTarget(target, action = sel_registerName("onNegativeClickAction"), forControlEvents = UIControlEventTouchUpInside.toULong())
             isAccessibilityElement = true
@@ -369,7 +396,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         stack: UIStackView,
         version: Version,
         language: Language,
-        isDarkMode: Boolean
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean
     ): Pair<UISwitch, UILabel> {
         val row = UIStackView().apply {
             axis = UILayoutConstraintAxisHorizontal
@@ -380,13 +408,15 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         val checkboxLabel = UILabel().apply {
             text = version.checkBoxDontShowAgain.text.localize(language)
             font = UIFont.systemFontOfSize(16.0)
-            textColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            if (applyComModStyles) {
+                textColor = if (isDarkMode) UIColor.whiteColor else UIColor.blackColor
+            }
             numberOfLines = 0
             isAccessibilityElement = true
         }
 
         val switch = UISwitch()
-        if (isDarkMode) {
+        if (applyComModStyles && isDarkMode) {
             switch.onTintColor = UIColor.whiteColor
             switch.thumbTintColor = VERY_DARK_GREY
         }

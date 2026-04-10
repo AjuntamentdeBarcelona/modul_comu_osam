@@ -40,16 +40,18 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: () -> Unit,
     ) {
-        val background = uiHelper.buildDialogBackground(isDarkMode)
+        val background = if (applyComModStyles) uiHelper.buildDialogBackground(isDarkMode) else null
         val views = uiHelper.buildVersionDialogView(
             version = version,
             language = language,
             showNegative = false,
             showClose = false,
             showCheckBox = false,
-            isDarkMode = isDarkMode
+            isDarkMode = isDarkMode,
+            applyComModStyles = applyComModStyles
         )
 
         val dialog = AlertDialog.Builder(context)
@@ -64,7 +66,9 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
 
         versionControlAlert = dialog
         dialog.show()
-        dialog.window?.setBackgroundDrawable(background)
+        if (background != null) {
+            dialog.window?.setBackgroundDrawable(background)
+        }
         configureVersionDialogAccessibility(dialog, views)
     }
 
@@ -72,17 +76,19 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit,
     ) {
-        val background = uiHelper.buildDialogBackground(isDarkMode)
+        val background = if (applyComModStyles) uiHelper.buildDialogBackground(isDarkMode) else null
         val views = uiHelper.buildVersionDialogView(
             version = version,
             language = language,
             showNegative = true,
             showClose = true,
-            isDarkMode = isDarkMode
+            isDarkMode = isDarkMode,
+            applyComModStyles = applyComModStyles
         )
 
         val dialog = AlertDialog.Builder(context)
@@ -108,7 +114,9 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         dialog.setOnCancelListener { onDismissClick() }
         versionControlAlert = dialog
         dialog.show()
-        dialog.window?.setBackgroundDrawable(background)
+        if (background != null) {
+            dialog.window?.setBackgroundDrawable(background)
+        }
         configureVersionDialogAccessibility(dialog, views)
     }
 
@@ -116,16 +124,18 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit,
     ) {
-        val background = uiHelper.buildDialogBackground(isDarkMode)
+        val background = if (applyComModStyles) uiHelper.buildDialogBackground(isDarkMode) else null
         val views = uiHelper.buildVersionDialogView(
             version = version,
             language = language,
             showNegative = false,
             showClose = true,
-            isDarkMode = isDarkMode
+            isDarkMode = isDarkMode,
+            applyComModStyles = applyComModStyles
         )
 
         val dialog = AlertDialog.Builder(context)
@@ -146,7 +156,9 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         dialog.setOnCancelListener { onDismissClick() }
         versionControlAlert = dialog
         dialog.show()
-        dialog.window?.setBackgroundDrawable(background)
+        if (background != null) {
+            dialog.window?.setBackgroundDrawable(background)
+        }
         configureVersionDialogAccessibility(dialog, views)
     }
 
@@ -154,6 +166,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         rating: Rating,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onRatingPopupShown: () -> Unit,
         onRatingPopupError: () -> Unit,
     ) {

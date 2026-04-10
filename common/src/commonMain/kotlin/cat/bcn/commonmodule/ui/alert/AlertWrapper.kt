@@ -12,6 +12,7 @@ internal expect class AlertWrapper {
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: () -> Unit,
     )
 
@@ -19,6 +20,7 @@ internal expect class AlertWrapper {
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: () -> Unit,
         onDismissClick: () -> Unit,
@@ -28,6 +30,7 @@ internal expect class AlertWrapper {
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit
     )
@@ -36,6 +39,7 @@ internal expect class AlertWrapper {
         rating: Rating,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onRatingPopupShown: () -> Unit,
         onRatingPopupError: () -> Unit
     )

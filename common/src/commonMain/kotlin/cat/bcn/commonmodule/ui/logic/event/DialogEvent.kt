@@ -56,6 +56,7 @@ internal class DialogEvent(
     fun versionControl(
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
         currentLanguage = language
@@ -73,9 +74,9 @@ internal class DialogEvent(
 
                         if (version.isInTimeRange()) {
                             when (version.comparisonMode) {
-                                Version.ComparisonMode.FORCE -> handleForceUpdate(version, language, isDarkMode, f)
-                                Version.ComparisonMode.LAZY -> handleLazyUpdate(version, language, isDarkMode, checkIfDialogIsShown, f)
-                                Version.ComparisonMode.INFO -> handleInfoUpdate(version, language, isDarkMode, checkIfDialogIsShown, f)
+                                Version.ComparisonMode.FORCE -> handleForceUpdate(version, language, isDarkMode, applyComModStyles, f)
+                                Version.ComparisonMode.LAZY -> handleLazyUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
+                                Version.ComparisonMode.INFO -> handleInfoUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
                                 Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
                             }
                             if (version.comparisonMode != Version.ComparisonMode.NONE) {
@@ -103,6 +104,7 @@ internal class DialogEvent(
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
         val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
@@ -113,7 +115,7 @@ internal class DialogEvent(
         }
 
         alertWrapper.showVersionControlForce(
-            version = version, language = language, isDarkMode = isDarkMode, onPositiveClick = {
+            version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = {
                 f(VersionControlResponse.ACCEPTED)
                 platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
@@ -129,6 +131,7 @@ internal class DialogEvent(
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         checkIfDialogIsShown: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
@@ -141,7 +144,7 @@ internal class DialogEvent(
         }
 
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
-            alertWrapper.showVersionControlLazy(version = version, language = language, isDarkMode = isDarkMode, onPositiveClick = { isCheckBoxChecked ->
+            alertWrapper.showVersionControlLazy(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
@@ -168,6 +171,7 @@ internal class DialogEvent(
         version: Version,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         checkIfDialogIsShown: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
@@ -180,7 +184,7 @@ internal class DialogEvent(
         }
 
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
-            alertWrapper.showVersionControlInfo(version = version, language = language, isDarkMode = isDarkMode, onPositiveClick = { isCheckBoxChecked ->
+            alertWrapper.showVersionControlInfo(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.DISMISSED)
@@ -290,6 +294,7 @@ internal class DialogEvent(
     fun rating(
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (RatingControlResponse) -> Unit,
     ) {
         scope.launch(executor.main) {
@@ -305,7 +310,7 @@ internal class DialogEvent(
                         internalCrashlyticsWrapper.recordException(commonError.exception)
                         f(RatingControlResponse.ERROR)
                     }, success = { rating ->
-                        handleRatingDisplay(rating, language, isDarkMode, f)
+                        handleRatingDisplay(rating, language, isDarkMode, applyComModStyles, f)
                     })
                 } catch (e: Exception) {
                     internalCrashlyticsWrapper.recordException(e)
@@ -327,6 +332,7 @@ internal class DialogEvent(
         rating: Rating,
         language: Language,
         isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (RatingControlResponse) -> Unit,
     ) {
         val shouldShowRatingDialog = rating.shouldShowDialog(
@@ -338,6 +344,7 @@ internal class DialogEvent(
                 rating = rating,
                 language = language,
                 isDarkMode = isDarkMode,
+                applyComModStyles = applyComModStyles,
                 onRatingPopupShown = {
                     preferences.setLastDatetime(getCurrentDate())
                     if (preferences.getNumApertures() >= rating.numAperture) {

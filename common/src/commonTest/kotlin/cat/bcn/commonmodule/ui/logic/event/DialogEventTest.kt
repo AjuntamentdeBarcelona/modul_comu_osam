@@ -103,7 +103,7 @@ class DialogEventTest {
 
         // When
         var result: VersionControlResponse? = null
-        dialogEvent.versionControl(language, false) { result = it }
+        dialogEvent.versionControl(language, false, true) { result = it }
         testScheduler.runCurrent()
 
         // Then
@@ -112,6 +112,7 @@ class DialogEventTest {
                 version = version,
                 language = language,
                 isDarkMode = false,
+                applyComModStyles = true,
                 onPositiveClick = any()
             )
         }
@@ -134,7 +135,7 @@ class DialogEventTest {
         every { preferences.getCheckBoxDontShowAgainActive() } returns true
 
         // When
-        dialogEvent.versionControl(language, false) { }
+        dialogEvent.versionControl(language, false, true) { }
         testScheduler.runCurrent()
 
         // Then
@@ -143,6 +144,7 @@ class DialogEventTest {
                 version = version,
                 language = language,
                 isDarkMode = false,
+                applyComModStyles = true,
                 onPositiveClick = any(),
                 onNegativeClick = any(),
                 onDismissClick = any()
@@ -165,12 +167,12 @@ class DialogEventTest {
 
         // When
         var result: VersionControlResponse? = null
-        dialogEvent.versionControl(language, false) { result = it }
+        dialogEvent.versionControl(language, false, true) { result = it }
         testScheduler.runCurrent()
 
         // Then
         // Should NOT show dialog
-        verify(exactly(0)) { alertWrapper.showVersionControlLazy(any(), any(), any(), any(), any(), any()) }
+        verify(exactly(0)) { alertWrapper.showVersionControlLazy(any(), any(), any(), any(), any(), any(), any()) }
         // Should return DISMISSED
         assertTrue { result == VersionControlResponse.DISMISSED   }
     }
@@ -187,14 +189,14 @@ class DialogEventTest {
 
         // When
         var result: VersionControlResponse? = null
-        dialogEvent.versionControl(language, false) { result = it }
+        dialogEvent.versionControl(language, false, true) { result = it }
         testScheduler.runCurrent()
 
         // Then
         verify(exactly(0)) {
-            alertWrapper.showVersionControlForce(any(), any(), any(), any())
-            alertWrapper.showVersionControlLazy(any(), any(), any(), any(), any(), any())
-            alertWrapper.showVersionControlInfo(any(), any(), any(), any(), any())
+            alertWrapper.showVersionControlForce(any(), any(), any(), any(), any())
+            alertWrapper.showVersionControlLazy(any(), any(), any(), any(), any(), any(), any())
+            alertWrapper.showVersionControlInfo(any(), any(), any(), any(), any(), any())
         }
         assertTrue { result == VersionControlResponse.DISMISSED }
     }
@@ -211,7 +213,7 @@ class DialogEventTest {
 
         // When
         var result: VersionControlResponse? = null
-        dialogEvent.versionControl(language, false) { result = it }
+        dialogEvent.versionControl(language, false, true) { result = it }
         testScheduler.runCurrent()
 
         // Then
@@ -243,7 +245,7 @@ class DialogEventTest {
 
         // When
         var result: RatingControlResponse? = null
-        dialogEvent.rating(language, false) { result = it }
+        dialogEvent.rating(language, false, true) { result = it }
         testScheduler.runCurrent()
 
         // Then
@@ -254,6 +256,7 @@ class DialogEventTest {
                 rating = rating,
                 language = language,
                 isDarkMode = false,
+                applyComModStyles = true,
                 onRatingPopupShown = any(),
                 onRatingPopupError = any()
             )
@@ -275,7 +278,7 @@ class DialogEventTest {
 
         // When
         var result: RatingControlResponse? = null
-        dialogEvent.rating(language, false) { result = it }
+        dialogEvent.rating(language, false, true) { result = it }
         testScheduler.runCurrent()
 
         // Then
