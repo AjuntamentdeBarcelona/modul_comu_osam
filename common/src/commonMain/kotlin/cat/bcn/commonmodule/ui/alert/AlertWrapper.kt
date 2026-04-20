@@ -22,7 +22,7 @@ internal expect class AlertWrapper {
         isDarkMode: Boolean,
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onNegativeClick: () -> Unit,
+        onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit,
     )
 

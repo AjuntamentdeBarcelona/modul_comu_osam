@@ -561,6 +561,7 @@ __attribute__((swift_name("OSAMCommons")))
 - (void)deviceInformationF:(void (^)(OSAMCDeviceInformationResponse *, OSAMCDeviceInformation * _Nullable))f __attribute__((swift_name("deviceInformation(f:)")));
 - (void)firstTimeOrUpdateEventLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCAppLanguageResponse *))f __attribute__((swift_name("firstTimeOrUpdateEvent(language:f:)")));
 - (void)getFCMTokenF:(void (^)(OSAMCTokenResponse *))f __attribute__((swift_name("getFCMToken(f:)")));
+- (void)isOnlineF:(void (^)(OSAMCBoolean *))f __attribute__((swift_name("isOnline(f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:isDarkMode:f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode applyComModStyles:(BOOL)applyComModStyles f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:isDarkMode:applyComModStyles:f:)")));

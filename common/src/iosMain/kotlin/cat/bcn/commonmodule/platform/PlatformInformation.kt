@@ -23,6 +23,10 @@ import platform.posix.sockaddr_in
 import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
 import platform.Foundation.languageCode
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.darwin.Darwin
+import io.ktor.client.request.head
+import kotlinx.coroutines.runBlocking
 
 
 @Mockable
@@ -56,7 +60,7 @@ internal actual class PlatformInformation {
     actual fun getAppsStoreUrl(): String = "itms-apps://itunes.apple.com/app/$appsStoreId"
 
     actual fun isOnline(): Boolean {
-        return memScoped {
+        val isReachable = memScoped {
             val address = alloc<sockaddr_in>()
             address.sin_len = sizeOf<sockaddr_in>().toUByte()
             address.sin_family = AF_INET.toUByte()
@@ -70,13 +74,31 @@ internal actual class PlatformInformation {
                 return@memScoped false
             }
 
-            val isReachable = flags.value.and(kSCNetworkReachabilityFlagsReachable) != 0u
+            val hasReachableFlag = flags.value.and(kSCNetworkReachabilityFlagsReachable) != 0u
             val needsConnection =
                 flags.value.and(kSCNetworkReachabilityFlagsConnectionRequired) != 0u
 
             // A network is available if it's reachable and doesn't require a new connection
             // (e.g., a captive portal that needs a login).
-            isReachable && !needsConnection
+            hasReachableFlag && !needsConnection
+        }
+
+        return if (isReachable) {
+            pingEndpoint("osam-modul-comu.dtibcn.cat")
+        } else {
+            false
+        }
+    }
+
+    private fun pingEndpoint(host: String): Boolean = runBlocking {
+        val client = HttpClient(Darwin)
+        try {
+            val response = client.head("https://$host")
+            response.status.value in 200..299
+        } catch (e: Exception) {
+            false
+        } finally {
+            client.close()
         }
     }
 

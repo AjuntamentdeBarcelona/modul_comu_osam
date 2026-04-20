@@ -6,6 +6,7 @@ import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.DeviceInformation
 import cat.bcn.commonmodule.model.Either
+import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.executor.Executor
 import cat.bcn.commonmodule.ui.versioncontrol.AppInformationResponse
 import cat.bcn.commonmodule.ui.versioncontrol.DeviceInformationResponse
@@ -41,6 +42,7 @@ class InfoEventTest {
     private val executor = mock<Executor>()
     private val repository = mock<CommonRepository>()
     private val crashlytics = mock<InternalCrashlyticsWrapper>()
+    private val platformInformation = mock<PlatformInformation>()
 
     private lateinit var infoEvent: InfoEvent
 
@@ -56,7 +58,8 @@ class InfoEventTest {
             scope = testScope,
             executor = executor,
             commonRepository = repository,
-            internalCrashlyticsWrapper = crashlytics
+            internalCrashlyticsWrapper = crashlytics,
+            platformInformation = platformInformation
         )
     }
 
@@ -64,6 +67,38 @@ class InfoEventTest {
     fun tearDown() {
         Dispatchers.resetMain()
     }
+
+    // region Online Check Tests
+
+    @Test
+    fun `isOnline returns true when platform is online`() = runTest(testScheduler) {
+        // Given
+        every { platformInformation.isOnline() } returns true
+
+        // When
+        var result: Boolean? = null
+        infoEvent.isOnline { result = it }
+        testScheduler.runCurrent()
+
+        // Then
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun `isOnline returns false when platform is offline`() = runTest(testScheduler) {
+        // Given
+        every { platformInformation.isOnline() } returns false
+
+        // When
+        var result: Boolean? = null
+        infoEvent.isOnline { result = it }
+        testScheduler.runCurrent()
+
+        // Then
+        assertEquals(false, result)
+    }
+
+    // endregion
 
     // region Device Information Tests
 

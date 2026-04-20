@@ -147,11 +147,11 @@ internal class DialogEvent(
             alertWrapper.showVersionControlLazy(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
-                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.ACCEPTED)
                 platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-            }, onNegativeClick = {
+            }, onNegativeClick = { isCheckBoxChecked ->
+                preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.CANCELLED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
             }, onDismissClick = {
@@ -185,7 +185,6 @@ internal class DialogEvent(
 
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
             alertWrapper.showVersionControlInfo(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
-                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.DISMISSED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)

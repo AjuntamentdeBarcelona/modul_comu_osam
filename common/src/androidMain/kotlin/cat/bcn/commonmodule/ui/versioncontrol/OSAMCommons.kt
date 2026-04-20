@@ -166,4 +166,11 @@ actual class OSAMCommons constructor(
      *          containing the error details.
      */
     actual fun getFCMToken(f: (TokenResponse) -> Unit) = internal.getFCMToken(f)
+
+    /**
+     * Asynchronously checks if the device is online and can reach the backend.
+     *
+     * @param f A callback that receives a Boolean indicating the online status.
+     */
+    actual fun isOnline(f: (Boolean) -> Unit) = internal.isOnline(f)
 }

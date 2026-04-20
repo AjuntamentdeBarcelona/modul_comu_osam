@@ -104,6 +104,13 @@ expect class OSAMCommons {
      *          containing the error details.
      */
     fun getFCMToken(f: (TokenResponse) -> Unit)
+
+    /**
+     * Asynchronously checks if the device is online and can reach the backend.
+     *
+     * @param f A callback that receives a Boolean indicating the online status.
+     */
+    fun isOnline(f: (Boolean) -> Unit)
 }
 
 enum class VersionControlResponse {

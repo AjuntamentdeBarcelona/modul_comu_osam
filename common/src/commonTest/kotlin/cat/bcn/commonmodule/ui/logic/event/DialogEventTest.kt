@@ -6,6 +6,8 @@ import cat.bcn.commonmodule.data.datasource.local.CommonPreferences
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.model.CommonError
 import cat.bcn.commonmodule.model.Either
+import cat.bcn.commonmodule.model.ModelRuleEnum
+import cat.bcn.commonmodule.model.ModelsData
 import cat.bcn.commonmodule.model.OperativeSystemRuleEnum
 import cat.bcn.commonmodule.model.OperativeSystemVersion
 import cat.bcn.commonmodule.model.Platform
@@ -221,6 +223,54 @@ class DialogEventTest {
         assertTrue {result == VersionControlResponse.ERROR}
     }
 
+    @Test
+    fun `versionControl FORCE mode is DISMISSED if OS version rule not met`() = runTest(testScheduler) {
+        // Given
+        val language = Language.DEFAULT
+        val version = createVersion(
+            Version.ComparisonMode.FORCE,
+            osRule = OperativeSystemVersion(OperativeSystemRuleEnum.BIGGER_OR_EQUAL_THAN_VERSION, "15.0")
+        )
+        // Device is on "12" (set in setUp)
+
+        every { alertWrapper.isVersionControlShowing() } returns false
+        everySuspend { repository.getVersion(language) } returns Either.Right(version)
+        every { preferences.getLastTimeUserClickedOnAcceptButton() } returns 0L
+
+        // When
+        var result: VersionControlResponse? = null
+        dialogEvent.versionControl(language, false, true) { result = it }
+        testScheduler.runCurrent()
+
+        // Then
+        verify(exactly(0)) { alertWrapper.showVersionControlForce(any(), any(), any(), any(), any()) }
+        assertTrue { result == VersionControlResponse.DISMISSED }
+    }
+
+    @Test
+    fun `versionControl FORCE mode is DISMISSED if Model rule not met`() = runTest(testScheduler) {
+        // Given
+        val language = Language.DEFAULT
+        val version = createVersion(
+            Version.ComparisonMode.FORCE,
+            modelsData = ModelsData(ModelRuleEnum.ONLY_THESE_MODELS, listOf("iPhone 15"))
+        )
+        // Device is "Pixel 8" (set in setUp)
+
+        every { alertWrapper.isVersionControlShowing() } returns false
+        everySuspend { repository.getVersion(language) } returns Either.Right(version)
+        every { preferences.getLastTimeUserClickedOnAcceptButton() } returns 0L
+
+        // When
+        var result: VersionControlResponse? = null
+        dialogEvent.versionControl(language, false, true) { result = it }
+        testScheduler.runCurrent()
+
+        // Then
+        verify(exactly(0)) { alertWrapper.showVersionControlForce(any(), any(), any(), any(), any()) }
+        assertTrue { result == VersionControlResponse.DISMISSED }
+    }
+
     // endregion
 
     // region Rating Tests
@@ -289,7 +339,8 @@ class DialogEventTest {
     // endregion
 
     private fun createVersion(mode: Version.ComparisonMode,
-                              osRule: OperativeSystemVersion = OperativeSystemVersion(OperativeSystemRuleEnum.ALL_VERSIONS, "0")
+                              osRule: OperativeSystemVersion = OperativeSystemVersion(OperativeSystemRuleEnum.ALL_VERSIONS, "0"),
+                              modelsData: ModelsData = ModelsData(ModelRuleEnum.ALL_MODELS, emptyList())
                               ): Version {
         return Version(
             packageName = "cat.bcn.test",
@@ -305,7 +356,8 @@ class DialogEventTest {
             ok = Text("Ok", "Ok", "Ok"),
             cancel = Text("Cancel", "Cancel", "Cancel"),
             url = "http://test.com",
-            operativeSystemVersion = osRule // Pass the OS rule
+            operativeSystemVersion = osRule, // Pass the OS rule
+            modelsData = modelsData
         )
     }
 }

@@ -78,7 +78,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         isDarkMode: Boolean,
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onNegativeClick: () -> Unit,
+        onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit,
     ) {
         val background = if (applyComModStyles) uiHelper.buildDialogBackground(isDarkMode) else null
@@ -102,7 +102,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         }
 
         views.negativeButton?.setOnClickListener {
-            onNegativeClick()
+            onNegativeClick(views.checkbox?.isChecked ?: false)
             dialog.dismiss()
         }
 

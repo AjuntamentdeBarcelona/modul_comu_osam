@@ -38,18 +38,33 @@ internal actual class PlatformInformation(private val context: Context) {
     actual fun isOnline(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val isConnected = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                 ?.let { capabilities ->
                     setOf(
                         TRANSPORT_CELLULAR,
                         TRANSPORT_WIFI,
                         TRANSPORT_ETHERNET
-                    ).map { capabilities.hasTransport(it) }.reduce(Boolean::or)
+                    ).any { capabilities.hasTransport(it) }
                 } ?: false
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
+        return if (isConnected) {
+            pingEndpoint("osam-modul-comu.dtibcn.cat")
+        } else {
+            false
+        }
+    }
+
+    private fun pingEndpoint(host: String): Boolean {
+        return try {
+            val process = Runtime.getRuntime().exec("ping -c 1 -W 1 $host")
+            process.waitFor() == 0
+        } catch (e: Exception) {
+            false
         }
     }
 

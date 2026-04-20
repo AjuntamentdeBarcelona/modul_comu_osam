@@ -56,8 +56,15 @@ internal class OSAMCommonsInternal(
     }
     private val topicSubscriptionManager: TopicSubscriptionManager by lazy { TopicSubscriptionManager(messagingWrapper) }
     private val dialogEvent by lazy { DialogEvent(scope, executor, analytics, alertWrapper, commonRepository, internalCrashlyticsWrapper, preferences, platformUtil, currentLanguage, platformInformation) }
-    private val infoEvent by lazy { InfoEvent(scope, executor, commonRepository, internalCrashlyticsWrapper) }
+    private val infoEvent by lazy { InfoEvent(scope, executor, commonRepository, internalCrashlyticsWrapper, platformInformation) }
     private val subscriptionsEvent by lazy { SubscriptionsEvent(scope, topicSubscriptionManager, preferences, platformInformation, analytics, internalCrashlyticsWrapper, executor) }
+
+    /**
+     * Checks if the device is online and can reach the backend.
+     *
+     * @param f A callback function invoked with the result of the online check.
+     */
+    fun isOnline(f: (Boolean) -> Unit) = infoEvent.isOnline(f)
 
     /**
      * Initiates the version control check process.

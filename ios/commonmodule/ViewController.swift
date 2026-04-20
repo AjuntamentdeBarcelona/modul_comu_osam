@@ -137,6 +137,12 @@ class ViewController: UIViewController {
         )
     }
 
+    @IBAction func onCheckOnlineStatusClick(_ sender: Any) {
+        osamCommons.isOnline(f: { isOnline in
+            self.showToast(message: "Is Online (Ping included): \(isOnline)")
+        })
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

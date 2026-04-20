@@ -86,7 +86,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     private var checkboxSwitch: UISwitch? = null
     private var onPositiveClick: (() -> Unit)? = null
     private var onPositiveClickWithCheckbox: ((Boolean) -> Unit)? = null
-    private var onNegativeClick: (() -> Unit)? = null
+    private var onNegativeClickWithCheckbox: ((Boolean) -> Unit)? = null
     private var onDismiss: (() -> Unit)? = null
     
     private val target = AlertTarget(this)
@@ -102,7 +102,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onPositiveClick: () -> Unit
     ) {
         this.onPositiveClick = onPositiveClick
-        this.onNegativeClick = null
+        this.onNegativeClickWithCheckbox = null
         this.onDismiss = null
 
         val result = buildVersionAlert(
@@ -124,11 +124,11 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         isDarkMode: Boolean,
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onNegativeClick: () -> Unit,
+        onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
         onDismissClick: () -> Unit
     ) {
         this.onPositiveClickWithCheckbox = onPositiveClick
-        this.onNegativeClick = onNegativeClick
+        this.onNegativeClickWithCheckbox = onNegativeClick
         this.onDismiss = onDismissClick
 
         val result = buildVersionAlert(
@@ -153,7 +153,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onDismissClick: () -> Unit
     ) {
         this.onPositiveClickWithCheckbox = onPositiveClick
-        this.onNegativeClick = null
+        this.onNegativeClickWithCheckbox = null
         this.onDismiss = onDismissClick
 
         val result = buildVersionAlert(
@@ -530,7 +530,8 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     }
 
     internal fun onNegativeClickAction() {
-        onNegativeClick?.invoke()
+        val isChecked = checkboxSwitch?.isOn() ?: false
+        onNegativeClickWithCheckbox?.invoke(isChecked)
         dismissAlert()
     }
 
