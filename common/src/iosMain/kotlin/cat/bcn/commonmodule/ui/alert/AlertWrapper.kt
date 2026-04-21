@@ -179,7 +179,23 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         val navManager = AccessibilityKeyNavigationManager(result.keyboardViews)
         alert.navManager = navManager
         
-        vc.presentViewController(alert, animated = true, completion = null)
+        val topVC = topViewController(vc)
+        println("OSAMCommons - AlertWrapper: Presenting alert on topVC: $topVC")
+        topVC.presentViewController(alert, animated = true, completion = null)
+    }
+
+    private fun topViewController(base: UIViewController?): UIViewController {
+        val presented = base?.presentedViewController
+        if (presented != null) {
+            return topViewController(presented)
+        }
+        if (base is UINavigationController) {
+            return topViewController(base.visibleViewController)
+        }
+        if (base is UITabBarController) {
+            return topViewController(base.selectedViewController)
+        }
+        return base ?: vc
     }
 
     actual fun showRating(
@@ -194,8 +210,11 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onRatingPopupShown()
     }
 
-    actual fun isVersionControlShowing(): Boolean =
-        versionControlAlert?.let { vc.presentedViewController == it } ?: false
+    actual fun isVersionControlShowing(): Boolean {
+        val showing = versionControlAlert?.presentingViewController != null
+        println("OSAMCommons - AlertWrapper: isVersionControlShowing=$showing (based on presentingViewController)")
+        return showing
+    }
 
     actual fun isRatingShowing(): Boolean = false
 
@@ -518,8 +537,12 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     }
 
     internal fun dismissAlert() {
+        println("OSAMCommons - AlertWrapper: Dismissing alert")
         versionControlAlert?.navManager?.clearHighlight()
-        versionControlAlert?.dismissViewControllerAnimated(true, completion = null)
+        versionControlAlert?.dismissViewControllerAnimated(true, completion = {
+            println("OSAMCommons - AlertWrapper: Alert dismissal completion")
+            versionControlAlert = null
+        })
     }
 
     internal fun onPositiveClickAction() {

@@ -41,8 +41,10 @@ object CommonRepositoryUtils {
             platformInformation.getPlatform(),
             platformInformation.getVersionCode()
         )
+        println("OSAMCommons - getRemoteVersion: Remote version fetched: Code=${remoteVersion.versionCode}, Name=${remoteVersion.versionName}, Mode=${remoteVersion.comparisonMode}")
 
         val cachedVersion = getCachedVersion(platformInformation, preferences)
+        println("OSAMCommons - getRemoteVersion: Cached version: Code=${cachedVersion.versionCode}, Name=${cachedVersion.versionName}, Mode=${cachedVersion.comparisonMode}")
 
         // Update Checkbox
         val updatedCheckbox =
@@ -52,8 +54,10 @@ object CommonRepositoryUtils {
             )
 
         val isCheckBoxChanged = hasVersionChanged(cachedVersion, remoteVersion, preferences)
-        println("CommonRepositoryUtils - isCheckBoxChanged: $isCheckBoxChanged")
+        println("OSAMCommons - getRemoteVersion: isCheckBoxChanged (hasVersionChanged result): $isCheckBoxChanged")
+        
         if(isCheckBoxChanged){
+            println("OSAMCommons - getRemoteVersion: Resetting preferences because version changed")
             preferences.setLastTimeUserClickedOnAcceptButton(0)
             preferences.setCheckBoxDontShowAgainActive(true)
         }

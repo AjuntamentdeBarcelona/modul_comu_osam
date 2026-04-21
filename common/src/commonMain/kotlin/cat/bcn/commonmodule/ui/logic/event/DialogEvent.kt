@@ -61,36 +61,63 @@ internal class DialogEvent(
     ) {
         currentLanguage = language
         scope.launch(executor.main) {
+            println("OSAMCommons - versionControl: Starting check...")
             if (!alertWrapper.isVersionControlShowing()) {
                 try {
                     withContext(executor.bg) { commonRepository.getVersion(language) }.fold(error = { commonError ->
+                        println("OSAMCommons - versionControl: Error fetching version: ${commonError.exception.message}")
                         handleTimeOutConnectionError(commonError)
-
                         f(VersionControlResponse.ERROR)
                     }, success = { version ->
-                        val checkIfDialogIsShown = CommonRepositoryUtils.isDialogDurationOver(
-                            preferences.getLastTimeUserClickedOnAcceptButton(), version.dialogDisplayDuration
-                        )
+                        println("OSAMCommons - versionControl: Version fetched successfully: Mode=${version.comparisonMode}, VersionName=${version.versionName}, VersionCode=${version.versionCode}")
+                        
+                        val lastAccepted = preferences.getLastTimeUserClickedOnAcceptButton()
+                        val checkIfDialogIsShown = if (lastAccepted == 0L) {
+                            true
+                        } else {
+                            CommonRepositoryUtils.isDialogDurationOver(
+                                lastAccepted, version.dialogDisplayDuration
+                            )
+                        }
+                        println("OSAMCommons - versionControl: Duration check: lastAccepted=$lastAccepted, duration=${version.dialogDisplayDuration}, isOver=$checkIfDialogIsShown")
 
-                        if (version.isInTimeRange()) {
+                        val isInRange = version.isInTimeRange()
+                        println("OSAMCommons - versionControl: Time range check: isInRange=$isInRange (Start=${version.startDate}, End=${version.endDate}, Server=${version.serverDate})")
+
+                        if (isInRange) {
                             when (version.comparisonMode) {
-                                Version.ComparisonMode.FORCE -> handleForceUpdate(version, language, isDarkMode, applyComModStyles, f)
-                                Version.ComparisonMode.LAZY -> handleLazyUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
-                                Version.ComparisonMode.INFO -> handleInfoUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
-                                Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
+                                Version.ComparisonMode.FORCE -> {
+                                    println("OSAMCommons - versionControl: Handling FORCE update")
+                                    handleForceUpdate(version, language, isDarkMode, applyComModStyles, f)
+                                }
+                                Version.ComparisonMode.LAZY -> {
+                                    println("OSAMCommons - versionControl: Handling LAZY update")
+                                    handleLazyUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
+                                }
+                                Version.ComparisonMode.INFO -> {
+                                    println("OSAMCommons - versionControl: Handling INFO update")
+                                    handleInfoUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
+                                }
+                                Version.ComparisonMode.NONE -> {
+                                    println("OSAMCommons - versionControl: Mode is NONE, dismissing.")
+                                    f(VersionControlResponse.DISMISSED)
+                                }
                             }
                             if (version.comparisonMode != Version.ComparisonMode.NONE) {
                                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.SHOWN)
                             }
                         } else {
+                            println("OSAMCommons - versionControl: Not in time range, dismissing.")
                             f(VersionControlResponse.DISMISSED)
                         }
                     })
                 } catch (e: Exception) {
+                    println("OSAMCommons - versionControl: Unexpected exception: ${e.message}")
                     internalCrashlyticsWrapper.recordException(e)
                     f(VersionControlResponse.ERROR)
                 }
             } else {
+                println("OSAMCommons - versionControl: Alert is already showing, returning ERROR.")
                 f(VersionControlResponse.ERROR)
             }
         }
@@ -108,8 +135,10 @@ internal class DialogEvent(
         f: (VersionControlResponse) -> Unit,
     ) {
         val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
+        println("OSAMCommons - handleForceUpdate: isValid=$isValid")
 
         if (!isValid) {
+            println("OSAMCommons - handleForceUpdate: Logic validation failed, dismissing.")
             f(VersionControlResponse.DISMISSED)
             return
         }
@@ -137,30 +166,39 @@ internal class DialogEvent(
     ) {
 
         val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
+        println("OSAMCommons - handleLazyUpdate: isValid=$isValid")
 
         if (!isValid) {
+            println("OSAMCommons - handleLazyUpdate: Logic validation failed, dismissing.")
             f(VersionControlResponse.DISMISSED)
             return
         }
 
-        if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
+        val checkboxActive = preferences.getCheckBoxDontShowAgainActive()
+        println("OSAMCommons - handleLazyUpdate: checkboxActive=$checkboxActive, checkIfDialogIsShown=$checkIfDialogIsShown")
+
+        if (checkboxActive && checkIfDialogIsShown) {
+            println("OSAMCommons - handleLazyUpdate: Showing Lazy Update dialog")
             alertWrapper.showVersionControlLazy(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
-                println("VersionControl - CheckBox checked: $isCheckBoxChecked")
+                println("OSAMCommons - handleLazyUpdate: Positive click: isCheckBoxChecked=$isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.ACCEPTED)
                 platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
             }, onNegativeClick = { isCheckBoxChecked ->
+                println("OSAMCommons - handleLazyUpdate: Negative click: isCheckBoxChecked=$isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.CANCELLED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
             }, onDismissClick = {
+                println("OSAMCommons - handleLazyUpdate: Dismiss click")
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.DISMISSED)
             })
         } else {
+            println("OSAMCommons - handleLazyUpdate: Criteria not met, dismissing.")
             f(VersionControlResponse.DISMISSED)
         }
     }
@@ -180,23 +218,32 @@ internal class DialogEvent(
     ) {
 
         val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
+        println("OSAMCommons - handleInfoUpdate: isValid=$isValid")
 
         if (!isValid) {
+            println("OSAMCommons - handleInfoUpdate: Logic validation failed, dismissing.")
             f(VersionControlResponse.DISMISSED)
             return
         }
 
-        if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
+        val checkboxActive = preferences.getCheckBoxDontShowAgainActive()
+        println("OSAMCommons - handleInfoUpdate: checkboxActive=$checkboxActive, checkIfDialogIsShown=$checkIfDialogIsShown")
+
+        if (checkboxActive && checkIfDialogIsShown) {
+            println("OSAMCommons - handleInfoUpdate: Showing Info Update dialog")
             alertWrapper.showVersionControlInfo(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
+                println("OSAMCommons - handleInfoUpdate: Positive click: isCheckBoxChecked=$isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.DISMISSED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
             }, onDismissClick = {
+                println("OSAMCommons - handleInfoUpdate: Dismiss click")
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.DISMISSED)
             })
         } else {
+            println("OSAMCommons - handleInfoUpdate: Criteria not met, dismissing.")
             f(VersionControlResponse.DISMISSED)
         }
     }
