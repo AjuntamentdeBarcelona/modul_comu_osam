@@ -133,7 +133,7 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
     override fun setCheckBoxDontShowAgainVisible(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE, value)
     override fun getCheckBoxDontShowAgainVisible(): Boolean = settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE,false)
     override fun setCheckBoxDontShowAgainActive(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE, value)
-    override fun getCheckBoxDontShowAgainActive(): Boolean =  settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE,false)
+    override fun getCheckBoxDontShowAgainActive(): Boolean =  settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE,true)
 
     override fun getLastTimeUserClickedOnAcceptButton(): Long = settings.getLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, 0)
     override fun setLastTimeUserClickedOnAcceptButton(value: Long) = settings.setLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, value)

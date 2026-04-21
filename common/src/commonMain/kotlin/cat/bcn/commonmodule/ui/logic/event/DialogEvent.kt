@@ -147,14 +147,17 @@ internal class DialogEvent(
             alertWrapper.showVersionControlLazy(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
+                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.ACCEPTED)
                 platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
             }, onNegativeClick = { isCheckBoxChecked ->
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
+                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.CANCELLED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
             }, onDismissClick = {
+                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.DISMISSED)
             })
         } else {
@@ -186,9 +189,11 @@ internal class DialogEvent(
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
             alertWrapper.showVersionControlInfo(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
+                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.DISMISSED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
             }, onDismissClick = {
+                preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.DISMISSED)
             })
         } else {
