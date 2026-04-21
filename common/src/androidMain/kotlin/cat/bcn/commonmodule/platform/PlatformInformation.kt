@@ -53,7 +53,7 @@ internal actual class PlatformInformation(private val context: Context) {
         }
 
         return if (isConnected) {
-            pingEndpoint("osam-modul-comu.dtibcn.cat")
+            pingEndpoint("www.google.com")
         } else {
             false
         }

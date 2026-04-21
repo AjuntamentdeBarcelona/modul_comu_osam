@@ -84,7 +84,7 @@ internal actual class PlatformInformation {
         }
 
         return if (isReachable) {
-            pingEndpoint("osam-modul-comu.dtibcn.cat")
+            pingEndpoint("www.google.com")
         } else {
             false
         }
