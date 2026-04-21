@@ -38,14 +38,11 @@ internal actual class PlatformInformation(private val context: Context) {
     actual fun isOnline(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                 ?.let { capabilities ->
-                    setOf(
-                        TRANSPORT_CELLULAR,
-                        TRANSPORT_WIFI,
-                        TRANSPORT_ETHERNET
-                    ).any { capabilities.hasTransport(it) }
+                    capabilities.hasCapability(NET_CAPABILITY_INTERNET) &&
+                    capabilities.hasCapability(NET_CAPABILITY_VALIDATED)
                 } ?: false
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
