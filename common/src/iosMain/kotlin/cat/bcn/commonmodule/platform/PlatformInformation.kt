@@ -93,8 +93,8 @@ internal actual class PlatformInformation {
     private fun pingEndpoint(host: String): Boolean = runBlocking {
         val client = HttpClient(Darwin)
         try {
-            val response = client.head("https://$host")
-            response.status.value in 200..299
+            client.head("https://$host")
+            true
         } catch (e: Exception) {
             false
         } finally {
