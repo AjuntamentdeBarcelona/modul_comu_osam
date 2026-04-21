@@ -142,7 +142,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.checkOnlineStatus.setOnClickListener {
             osamCommons.isOnline { isOnline ->
-                Toast.makeText(this, "Is Online (Ping included): $isOnline", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Is Online: $isOnline", Toast.LENGTH_LONG).show()
             }
         }
     }

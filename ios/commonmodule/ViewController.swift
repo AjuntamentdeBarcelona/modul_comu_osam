@@ -139,7 +139,7 @@ class ViewController: UIViewController {
 
     @IBAction func onCheckOnlineStatusClick(_ sender: Any) {
         osamCommons.isOnline(f: { isOnline in
-            self.showToast(message: "Is Online (Ping included): \(isOnline)")
+            self.showToast(message: "Is Online: \(isOnline)")
         })
     }
 

@@ -38,7 +38,7 @@ internal actual class PlatformInformation(private val context: Context) {
     actual fun isOnline(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val isConnected = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                 ?.let { capabilities ->
                     setOf(
@@ -50,21 +50,6 @@ internal actual class PlatformInformation(private val context: Context) {
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             activeNetworkInfo != null && activeNetworkInfo.isConnected
-        }
-
-        return if (isConnected) {
-            pingEndpoint("www.google.com")
-        } else {
-            false
-        }
-    }
-
-    private fun pingEndpoint(host: String): Boolean {
-        return try {
-            val process = Runtime.getRuntime().exec("ping -c 1 -W 1 $host")
-            process.waitFor() == 0
-        } catch (e: Exception) {
-            false
         }
     }
 
