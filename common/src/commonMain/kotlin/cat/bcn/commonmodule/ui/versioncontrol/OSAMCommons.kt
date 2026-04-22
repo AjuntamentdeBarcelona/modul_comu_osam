@@ -149,16 +149,12 @@ sealed class TokenResponse {
 }
 
 enum class Language {
-    CA, ES, EN;
+    EN, ES, CA;
 
     companion object {
         val DEFAULT = EN
         fun parse(value: String, defaultIfNotFound: Language = DEFAULT): Language {
-            Language.values()
-                .forEach {
-                    if (it.toString().lowercase() == value.lowercase()) return it
-                }
-            return defaultIfNotFound
+            return entries.firstOrNull { it.name.equals(value, ignoreCase = true) } ?: defaultIfNotFound
         }
     }
 }

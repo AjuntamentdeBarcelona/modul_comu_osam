@@ -36,11 +36,6 @@ class AccessibleAlertController : UIViewController(nibName = null, bundle = null
         navManager?.clearHighlight()
     }
 
-    @ObjCAction
-    fun handleKeyCommand(command: UIKeyCommand) {
-        navManager?.handleKeyCommand(command)
-    }
-    
     private fun setupKeyCommands() {
         val commands = listOf(
             UIKeyCommand.keyCommandWithInput("\t", 0L, sel_registerName("handleKeyCommand:")),
@@ -86,9 +81,9 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
     private var checkboxSwitch: UISwitch? = null
     private var onPositiveClick: (() -> Unit)? = null
     private var onPositiveClickWithCheckbox: ((Boolean) -> Unit)? = null
-    private var onNegativeClickWithCheckbox: ((Boolean) -> Unit)? = null
-    private var onDismiss: (() -> Unit)? = null
-    
+    private var onNegativeClick: ((Boolean) -> Unit)? = null
+    private var onDismiss: ((Boolean) -> Unit)? = null
+
     private val target = AlertTarget(this)
 
     private val VERY_DARK_GREY = UIColor.colorWithRed(28.0/255.0, 28.0/255.0, 28.0/255.0, 1.0)
@@ -102,7 +97,7 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         onPositiveClick: () -> Unit
     ) {
         this.onPositiveClick = onPositiveClick
-        this.onNegativeClickWithCheckbox = null
+        this.onNegativeClick = null
         this.onDismiss = null
 
         val result = buildVersionAlert(
@@ -125,10 +120,10 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit
     ) {
         this.onPositiveClickWithCheckbox = onPositiveClick
-        this.onNegativeClickWithCheckbox = onNegativeClick
+        this.onNegativeClick = onNegativeClick
         this.onDismiss = onDismissClick
 
         val result = buildVersionAlert(
@@ -150,10 +145,10 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
         isDarkMode: Boolean,
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit
     ) {
         this.onPositiveClickWithCheckbox = onPositiveClick
-        this.onNegativeClickWithCheckbox = null
+        this.onNegativeClick = null
         this.onDismiss = onDismissClick
 
         val result = buildVersionAlert(
@@ -554,12 +549,13 @@ internal actual class AlertWrapper(private val vc: UIViewController) {
 
     internal fun onNegativeClickAction() {
         val isChecked = checkboxSwitch?.isOn() ?: false
-        onNegativeClickWithCheckbox?.invoke(isChecked)
+        onNegativeClick?.invoke(isChecked)
         dismissAlert()
     }
 
     internal fun onDismissAction() {
-        onDismiss?.invoke()
+        val isChecked = checkboxSwitch?.isOn() ?: false
+        onDismiss?.invoke(isChecked)
         dismissAlert()
     }
 }

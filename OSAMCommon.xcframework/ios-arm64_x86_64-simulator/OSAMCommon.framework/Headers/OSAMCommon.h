@@ -534,9 +534,9 @@ __attribute__((swift_name("Language")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) OSAMCLanguageCompanion *companion __attribute__((swift_name("companion")));
-@property (class, readonly) OSAMCLanguage *ca __attribute__((swift_name("ca")));
-@property (class, readonly) OSAMCLanguage *es __attribute__((swift_name("es")));
 @property (class, readonly) OSAMCLanguage *en __attribute__((swift_name("en")));
+@property (class, readonly) OSAMCLanguage *es __attribute__((swift_name("es")));
+@property (class, readonly) OSAMCLanguage *ca __attribute__((swift_name("ca")));
 + (OSAMCKotlinArray<OSAMCLanguage *> *)values __attribute__((swift_name("values()")));
 @property (class, readonly) NSArray<OSAMCLanguage *> *entries __attribute__((swift_name("entries")));
 @end

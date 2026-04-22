@@ -16,14 +16,14 @@ allOpen {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "3.1.12-dev"
+val libVersionName = "3.1.6-dev"
 
 group = libGroup
 version = libVersionName
 
 kotlin {
-    applyDefaultHierarchyTemplate()
     jvmToolchain(17)
+    applyDefaultHierarchyTemplate()
 
     androidTarget {
         publishLibraryVariants("release", "debug")

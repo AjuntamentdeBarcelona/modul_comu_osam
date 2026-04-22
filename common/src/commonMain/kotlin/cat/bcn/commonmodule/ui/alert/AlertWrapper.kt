@@ -23,7 +23,7 @@ internal expect class AlertWrapper {
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit,
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit,
     )
 
     fun showVersionControlInfo(
@@ -32,7 +32,7 @@ internal expect class AlertWrapper {
         isDarkMode: Boolean,
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit
     )
 
     fun showRating(

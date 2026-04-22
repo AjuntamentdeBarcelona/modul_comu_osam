@@ -79,7 +79,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
         onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit,
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit,
     ) {
         val background = if (applyComModStyles) uiHelper.buildDialogBackground(isDarkMode) else null
         val views = uiHelper.buildVersionDialogView(
@@ -107,11 +107,11 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         }
 
         views.closeButton?.setOnClickListener {
-            onDismissClick()
+            onDismissClick(views.checkbox?.isChecked ?: false)
             dialog.dismiss()
         }
 
-        dialog.setOnCancelListener { onDismissClick() }
+        dialog.setOnCancelListener { onDismissClick(views.checkbox?.isChecked ?: false) }
         versionControlAlert = dialog
         dialog.show()
         if (background != null) {
@@ -126,7 +126,7 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         isDarkMode: Boolean,
         applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit,
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit,
     ) {
         val background = if (applyComModStyles) uiHelper.buildDialogBackground(isDarkMode) else null
         val views = uiHelper.buildVersionDialogView(
@@ -149,11 +149,11 @@ internal actual class AlertWrapper(activity: Activity, private val initialContex
         }
 
         views.closeButton?.setOnClickListener {
-            onDismissClick()
+            onDismissClick(views.checkbox?.isChecked ?: false)
             dialog.dismiss()
         }
 
-        dialog.setOnCancelListener { onDismissClick() }
+        dialog.setOnCancelListener { onDismissClick(views.checkbox?.isChecked ?: false) }
         versionControlAlert = dialog
         dialog.show()
         if (background != null) {
