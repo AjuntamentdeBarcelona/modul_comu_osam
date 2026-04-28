@@ -11,27 +11,35 @@ internal expect class AlertWrapper {
     fun showVersionControlForce(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: () -> Unit,
     )
 
     fun showVersionControlLazy(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onNegativeClick: () -> Unit,
-        onDismissClick: () -> Unit,
+        onNegativeClick: (isCheckboxChecked: Boolean) -> Unit,
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit,
     )
 
     fun showVersionControlInfo(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onPositiveClick: (isCheckboxChecked: Boolean) -> Unit,
-        onDismissClick: () -> Unit
+        onDismissClick: (isCheckboxChecked: Boolean) -> Unit
     )
 
     fun showRating(
         rating: Rating,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         onRatingPopupShown: () -> Unit,
         onRatingPopupError: () -> Unit
     )

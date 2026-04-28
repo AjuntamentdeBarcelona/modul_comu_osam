@@ -3,6 +3,7 @@ package cat.bcn.commonmodule.data.datasource.local
 import cat.bcn.commonmodule.data.datasource.settings.Settings
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.testing.Mockable
+import cat.bcn.commonmodule.ui.versioncontrol.Language
 
 @Mockable
 internal class CommonPreferences(private val settings: Settings) : Preferences {
@@ -133,7 +134,7 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
     override fun setCheckBoxDontShowAgainVisible(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE, value)
     override fun getCheckBoxDontShowAgainVisible(): Boolean = settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_VISIBLE,false)
     override fun setCheckBoxDontShowAgainActive(value: Boolean) = settings.setBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE, value)
-    override fun getCheckBoxDontShowAgainActive(): Boolean =  settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE,false)
+    override fun getCheckBoxDontShowAgainActive(): Boolean =  settings.getBoolean(CHECKBOX_DONT_SHOW_AGAIN_ACTIVE,true)
 
     override fun getLastTimeUserClickedOnAcceptButton(): Long = settings.getLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, 0)
     override fun setLastTimeUserClickedOnAcceptButton(value: Long) = settings.setLong(LAST_TIME_USER_CLICKED_ON_ACCEPT_BUTTON, value)
@@ -142,7 +143,7 @@ internal class CommonPreferences(private val settings: Settings) : Preferences {
 
     override fun getPreviousLanguage(): String = settings.getString(PREVIOUS_LANGUAGE, "")
     override fun setPreviousLanguage(value: String) = settings.setString(PREVIOUS_LANGUAGE, value)
-    override fun getSelectedLanguage(): String = settings.getString(SELECTED_LANGUAGE, "")
+    override fun getSelectedLanguage(): String = settings.getString(SELECTED_LANGUAGE, Language.DEFAULT.name)
     override fun setSelectedLanguage(value: String) = settings.setString(SELECTED_LANGUAGE, value)
     override fun getDisplayedLanguage(): String = settings.getString(DISPLAYED_LANGUAGE, "")
     override fun setDisplayedLanguage(value: String) = settings.setString(DISPLAYED_LANGUAGE, value)

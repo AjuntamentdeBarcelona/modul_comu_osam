@@ -31,10 +31,19 @@ class ViewController: UIViewController {
             return value
         }
     }
+    
+    private func isDarkMode() -> Bool {
+        if #available(iOS 12.0, *) {
+            return traitCollection.userInterfaceStyle == .dark
+        } else {
+            return false
+        }
+    }
 
     @IBAction func onVersionControlClick(_ sender: Any) {
         osamCommons.versionControl(
             language: Language.es,
+            isDarkMode: isDarkMode(),
             f: { versionControlResponse in
                 self.showToast(message: versionControlResponse.name)
             }
@@ -44,6 +53,7 @@ class ViewController: UIViewController {
     @IBAction func onRatingClick(_ sender: Any) {
         osamCommons.rating(
             language: Language.es,
+            isDarkMode: isDarkMode(),
             f: { ratingResponse in
                 self.showToast(message: ratingResponse.name)
             }
@@ -127,6 +137,12 @@ class ViewController: UIViewController {
         )
     }
 
+    @IBAction func onCheckOnlineStatusClick(_ sender: Any) {
+        osamCommons.isOnline(f: { isOnline in
+            self.showToast(message: "Is Online: \(isOnline)")
+        })
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,4 +190,3 @@ class ViewController: UIViewController {
     }
 
 }
-

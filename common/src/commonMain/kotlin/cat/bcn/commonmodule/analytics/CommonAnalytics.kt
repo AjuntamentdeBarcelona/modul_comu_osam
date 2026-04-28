@@ -6,15 +6,15 @@ import cat.bcn.commonmodule.testing.Mockable
 class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
 
     companion object {
-        private const val EVENT_NAME_VERSION_CONTROL = "osam_commons"
-        private const val EVENT_NAME_RATING = "osam_commons"
-        private const val EVENT_NAME_LANGUAGE_CHANGE = "language_change"
-        private const val EVENT_NO_CONNECTION = "no_internet_access"
+        private const val EVENT_NAME = "osam_commons"
+        private const val ID_VALUE_VERSION_CONTROL = "version-control"
+        private const val ID_VALUE_RATING = "rating"
+        private const val ID_VALUE_LANGUAGE_CHANGE = "language-change"
+        private const val ID_VALUE_NO_CONNECTION = "no-connection"
 
 
 
         private const val ITEM_ID_KEY = "item_id"
-        private const val ITEM_ID_VALUE = "osam_commons"
 
         private const val EVENT_ID_KEY = "event_id"
 
@@ -59,15 +59,15 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
 
     fun logRatingPopUp(action: RatingAction) {
         trackActionWithWrapper(
-            EVENT_NAME_RATING,
-            mapOf(ITEM_ID_KEY to ITEM_ID_VALUE, EVENT_ID_KEY to action.toEventString())
+            EVENT_NAME,
+            mapOf(ITEM_ID_KEY to ID_VALUE_RATING, EVENT_ID_KEY to action.toEventString())
         )
     }
 
     fun logVersionControlPopUp(action: VersionControlAction) {
         trackActionWithWrapper(
-            EVENT_NAME_VERSION_CONTROL,
-            mapOf(ITEM_ID_KEY to ITEM_ID_VALUE, EVENT_ID_KEY to action.toEventString())
+            EVENT_NAME,
+            mapOf(ITEM_ID_KEY to ID_VALUE_VERSION_CONTROL, EVENT_ID_KEY to action.toEventString())
         )
     }
 
@@ -77,9 +77,9 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
         languageDisplay: String
     ) {
         trackActionWithWrapper(
-            EVENT_NAME_LANGUAGE_CHANGE,
+            EVENT_NAME,
             mapOf(
-                ITEM_ID_KEY to ITEM_ID_VALUE,
+                ITEM_ID_KEY to ID_VALUE_LANGUAGE_CHANGE,
                 PARAM_PREVIOUS_LANGUAGE to previousLanguage,
                 PARAM_SELECTED_LANGUAGE to selectedLanguage,
                 PARAM_DISPLAYED_LANGUAGE to languageDisplay
@@ -96,9 +96,9 @@ class CommonAnalytics(private val wrapper: AnalyticsWrapper) {
         module: String
     ) {
         trackActionWithWrapper(
-            EVENT_NO_CONNECTION,
+            EVENT_NAME,
             mapOf(
-                ITEM_ID_KEY to ITEM_ID_VALUE,
+                ITEM_ID_KEY to ID_VALUE_NO_CONNECTION,
                 PARAM_NO_CONNECTION_REASON to reason,
                 PARAM_NO_CONNECTION_ENDPOINT to endpoint,
                 PARAM_NO_CONNECTION_OPERATIVE_SYSTEM to operativeSystem,

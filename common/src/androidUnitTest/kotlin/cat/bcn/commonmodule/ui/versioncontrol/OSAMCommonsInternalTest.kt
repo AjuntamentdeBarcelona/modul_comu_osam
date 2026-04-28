@@ -90,7 +90,7 @@ class OSAMCommonsInternalTest {
         every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L
 
         // When
-        osamCommonsInternal.versionControl(language) { }
+        osamCommonsInternal.versionControl(language, false, true) { }
         testScheduler.runCurrent()
 
         // Then
@@ -98,6 +98,8 @@ class OSAMCommonsInternalTest {
             alertWrapper.showVersionControlForce(
                 version = version,
                 language = language,
+                isDarkMode = false,
+                applyComModStyles = true,
                 onPositiveClick = any()
             )
         }
@@ -122,7 +124,7 @@ class OSAMCommonsInternalTest {
         every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L // Never clicked before
 
         // When
-        osamCommonsInternal.versionControl(language) { }
+        osamCommonsInternal.versionControl(language, false, true) { }
         testScheduler.runCurrent()
 
         // Then
@@ -130,6 +132,8 @@ class OSAMCommonsInternalTest {
             alertWrapper.showVersionControlLazy(
                 version = version,
                 language = language,
+                isDarkMode = false,
+                applyComModStyles = true,
                 onPositiveClick = any(),
                 onNegativeClick = any(),
                 onDismissClick = any()
@@ -154,7 +158,7 @@ class OSAMCommonsInternalTest {
         every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L // Never clicked before
 
         // When
-        osamCommonsInternal.versionControl(language) { }
+        osamCommonsInternal.versionControl(language, false, true) { }
         testScheduler.runCurrent()
 
         // Then
@@ -162,6 +166,8 @@ class OSAMCommonsInternalTest {
             alertWrapper.showVersionControlInfo(
                 version = version,
                 language = language,
+                isDarkMode = false,
+                applyComModStyles = true,
                 onPositiveClick = any(),
                 onDismissClick = any()
             )
@@ -183,14 +189,14 @@ class OSAMCommonsInternalTest {
         every { anyConstructed<CommonPreferences>().getLastTimeUserClickedOnAcceptButton() } returns 0L
 
         // When
-        osamCommonsInternal.versionControl(language, callback)
+        osamCommonsInternal.versionControl(language, false, true, callback)
         testScheduler.runCurrent()
 
         // Then
         verify(exactly = 0) {
-            alertWrapper.showVersionControlInfo(any(), any(), any(), any())
-            alertWrapper.showVersionControlLazy(any(), any(), any(), any(), any())
-            alertWrapper.showVersionControlForce(any(), any(), any())
+            alertWrapper.showVersionControlInfo(any(), any(), any(), any(), any(), any())
+            alertWrapper.showVersionControlLazy(any(), any(), any(), any(), any(), any(), any())
+            alertWrapper.showVersionControlForce(any(), any(), any(), any(), any())
         }
         verify { callback(VersionControlResponse.DISMISSED) }
     }

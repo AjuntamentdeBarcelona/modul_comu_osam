@@ -479,6 +479,16 @@ __attribute__((swift_name("PlatformUtil")))
 - (BOOL)openUrlUrl:(NSString *)url __attribute__((swift_name("openUrl(url:)")));
 @end
 
+__attribute__((unavailable("Kotlin subclass of Objective-C class can't be imported")))
+__attribute__((swift_name("AccessibleAlertController")))
+@interface OSAMCAccessibleAlertController : NSObject
+@end
+
+__attribute__((unavailable("Kotlin subclass of Objective-C class can't be imported")))
+__attribute__((swift_name("AccessibilityKeyNavigationManager")))
+@interface OSAMCAccessibilityKeyNavigationManager : NSObject
+@end
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("AppInformationResponse")))
 @interface OSAMCAppInformationResponse : OSAMCKotlinEnum<OSAMCAppInformationResponse *>
@@ -524,9 +534,9 @@ __attribute__((swift_name("Language")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) OSAMCLanguageCompanion *companion __attribute__((swift_name("companion")));
-@property (class, readonly) OSAMCLanguage *ca __attribute__((swift_name("ca")));
-@property (class, readonly) OSAMCLanguage *es __attribute__((swift_name("es")));
 @property (class, readonly) OSAMCLanguage *en __attribute__((swift_name("en")));
+@property (class, readonly) OSAMCLanguage *es __attribute__((swift_name("es")));
+@property (class, readonly) OSAMCLanguage *ca __attribute__((swift_name("ca")));
 + (OSAMCKotlinArray<OSAMCLanguage *> *)values __attribute__((swift_name("values()")));
 @property (class, readonly) NSArray<OSAMCLanguage *> *entries __attribute__((swift_name("entries")));
 @end
@@ -551,10 +561,15 @@ __attribute__((swift_name("OSAMCommons")))
 - (void)deviceInformationF:(void (^)(OSAMCDeviceInformationResponse *, OSAMCDeviceInformation * _Nullable))f __attribute__((swift_name("deviceInformation(f:)")));
 - (void)firstTimeOrUpdateEventLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCAppLanguageResponse *))f __attribute__((swift_name("firstTimeOrUpdateEvent(language:f:)")));
 - (void)getFCMTokenF:(void (^)(OSAMCTokenResponse *))f __attribute__((swift_name("getFCMToken(f:)")));
+- (void)isOnlineF:(void (^)(OSAMCBoolean *))f __attribute__((swift_name("isOnline(f:)")));
 - (void)ratingLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:f:)")));
+- (void)ratingLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:isDarkMode:f:)")));
+- (void)ratingLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode applyComModStyles:(BOOL)applyComModStyles f:(void (^)(OSAMCRatingControlResponse *))f __attribute__((swift_name("rating(language:isDarkMode:applyComModStyles:f:)")));
 - (void)subscribeToCustomTopicTopic:(NSString *)topic f:(void (^)(OSAMCSubscriptionResponse *))f __attribute__((swift_name("subscribeToCustomTopic(topic:f:)")));
 - (void)unsubscribeToCustomTopicTopic:(NSString *)topic f:(void (^)(OSAMCSubscriptionResponse *))f __attribute__((swift_name("unsubscribeToCustomTopic(topic:f:)")));
 - (void)versionControlLanguage:(OSAMCLanguage *)language f:(void (^)(OSAMCVersionControlResponse *))f __attribute__((swift_name("versionControl(language:f:)")));
+- (void)versionControlLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode f:(void (^)(OSAMCVersionControlResponse *))f __attribute__((swift_name("versionControl(language:isDarkMode:f:)")));
+- (void)versionControlLanguage:(OSAMCLanguage *)language isDarkMode:(BOOL)isDarkMode applyComModStyles:(BOOL)applyComModStyles f:(void (^)(OSAMCVersionControlResponse *))f __attribute__((swift_name("versionControl(language:isDarkMode:applyComModStyles:f:)")));
 @end
 
 __attribute__((objc_subclassing_restricted))

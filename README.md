@@ -107,6 +107,19 @@ private val osamCommons by lazy {
 }
 ```
 
+### Gestió del context de l'activitat (Android)
+
+Com que `OSAMCommons` pot mostrar diàlegs (per al control de versions o la valoració de l'app), necessita una referència a l'`Activity` actual. Si la vostra aplicació té múltiples activitats o es recreen (per exemple, canvis de configuració), heu d'actualitzar la referència de l'activitat a `OSAMCommons` per assegurar-vos que els diàlegs es mostrin correctament.
+
+Utilitzeu el mètode `setActivity` en el `onResume` de la vostra activitat:
+
+```kotlin
+override fun onResume() {
+    super.onResume()
+    osamCommons.setActivity(this)
+}
+```
+
 La URL del backend s'ha de declarar en el config_keys.xml amb el nom "common_module_endpoint". El fixer quedaria de la següent manera:
 
 ```xml
@@ -403,7 +416,9 @@ variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```kotlin
 osamCommons.versionControl(
-    language = Language.CA
+    language = Language.CA,
+    isDarkMode = false, // Opcional, per defecte false
+    applyComModStyles = true // Opcional, per defecte true
 ) {
     // Do something...
 }
@@ -436,6 +451,8 @@ variables ja definides i mostrarà l'alerta segons els valors rebuts:
 ```swift
 osamCommons.versionControl(
   language: Language.es,
+  isDarkMode: false, // Opcional, per defecte false
+  applyComModStyles: true, // Opcional, per defecte true
   f: {_ in }
 )
 ```
@@ -469,7 +486,9 @@ variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```kotlin
 osamCommons.rating(
-  language = Language.CA
+  language = Language.CA,
+  isDarkMode = false, // Opcional, per defecte false
+  applyComModStyles = true // Opcional, per defecte true
 ) {
   // Do something...
 }
@@ -502,6 +521,8 @@ variables ja definides i mostrarà l'alerta segons els valors rebuts:
 ```swift
 osamCommons.rating(
   language: Language.es,
+  isDarkMode: false, // Opcional, per defecte false
+  applyComModStyles: true, // Opcional, per defecte true
   f: {_ in }
 )
 ```
@@ -663,9 +684,9 @@ arribar amb 3 valors possibles:
 
 ### Android
 
-Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateAppEvent`, passant l'idioma actual i un callback per gestionar la resposta.
+Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateEvent`, passant l'idioma actual i un callback per gestionar la resposta.
 ```kotlin
-osamCommons.firstTimeOrUpdateAppEvent(language = Language.CA){ response ->
+osamCommons.firstTimeOrUpdateEvent(language = Language.CA){ response ->
     // Do something
 }
 ```
@@ -679,11 +700,11 @@ S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'o
 
 ### iOS
 
-Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateAppEvent`,
+Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateEvent`,
 passant l'idioma actual i un completion handler per processar la resposta.
 
 ```swift
-osamCommons.firstTimeOrUpdateAppEvent(
+osamCommons.firstTimeOrUpdateEvent(
     language: Language.es,
     f: {_ in }
 )
@@ -822,10 +843,37 @@ Aquest objecte pot tenir un dels dos estats possibles:
 - **SUCCESS**: L'operació s'ha completat correctament. Aquest objecte conté una propietat token amb el String del token FCM.
 - **ERROR**: S'ha produït un error durant el procés d'obtenció del token. Aquest objecte conté una propietat error amb els detalls de l'excepció.
 
+## Implementació per comprovar si el dispositiu està en línia
+
+Aquesta funció permet comprovar de manera asíncrona si el dispositiu té connexió a internet i pot arribar al backend.
+
+### Android
+
+```kotlin
+osamCommons.isOnline { online ->
+    if (online) {
+        // El dispositiu està en línia
+    } else {
+        // El dispositiu està fora de línia
+    }
+}
+```
+
+### iOS
+
+```swift
+osamCommons.isOnline(f: { online in
+    if (online) {
+        // El dispositiu està en línia
+    } else {
+        // El dispositiu està fora de línia
+    }
+})
+```
+
 ## Format JSONs
 
 ### Control de Versions
-
 ```json
 {
   "data": {
@@ -1064,3 +1112,16 @@ La funció s'encarrega de gestionar la comunicació amb Firebase per realitzar l
 Aquesta funció permet obtenir el token de registre de Firebase Cloud Messaging (FCM) del dispositiu.
 Aquest token és un identificador únic que s'utilitza per enviar notificacions push directament a un 
 dispositiu específic. L'operació es realitza de manera asíncrona.
+
+## Com funciona el event per comprovar si el dispositiu està en línia
+
+Aquesta funció realitza una petició ràpida al backend per verificar la connectivitat. S'executa de manera asíncrona per no bloquejar el fil principal i retorna un booleà mitjançant un callback.
+
+## Desenvolupament del mòdul
+
+Si voleu compilar el mòdul manualment o realitzar canvis en la part comuna, podeu utilitzar l'script `build.sh` situat a l'arrel del projecte. Aquest script neteja els binaris antics, compila la part d'Android i genera l'XCFramework per a iOS.
+
+```bash
+./build.sh
+```
+

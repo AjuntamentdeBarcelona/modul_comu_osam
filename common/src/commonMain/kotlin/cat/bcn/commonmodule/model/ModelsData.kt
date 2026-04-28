@@ -32,12 +32,18 @@ internal data class Version(
     }
 
     fun isInTimeRange(): Boolean {
-        if (isDebug) {
-            println("Version - Start date: $startDate")
-            println("Version - End date: $endDate")
-            println("Version - Server date: $serverDate")
+        println("OSAMCommons - isInTimeRange check - Start date: $startDate")
+        println("OSAMCommons - isInTimeRange check - End date: $endDate")
+        println("OSAMCommons - isInTimeRange check - Server date: $serverDate")
+        
+        if (serverDate == 0L) {
+            println("OSAMCommons - isInTimeRange check: serverDate is 0, skipping range check and returning true")
+            return true
         }
-        return serverDate in startDate..endDate
+        
+        val result = serverDate in startDate..endDate
+        println("OSAMCommons - isInTimeRange check result: $result")
+        return result
     }
 
     companion object {

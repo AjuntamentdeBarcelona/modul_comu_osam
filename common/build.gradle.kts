@@ -16,12 +16,13 @@ allOpen {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "3.1.0"
+val libVersionName = "3.2.0"
 
 group = libGroup
 version = libVersionName
 
 kotlin {
+    jvmToolchain(17)
     applyDefaultHierarchyTemplate()
 
     androidTarget {

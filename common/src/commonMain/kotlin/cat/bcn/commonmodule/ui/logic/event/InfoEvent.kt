@@ -4,6 +4,7 @@ import cat.bcn.commonmodule.crashlytics.InternalCrashlyticsWrapper
 import cat.bcn.commonmodule.data.repository.CommonRepository
 import cat.bcn.commonmodule.model.AppInformation
 import cat.bcn.commonmodule.model.DeviceInformation
+import cat.bcn.commonmodule.platform.PlatformInformation
 import cat.bcn.commonmodule.ui.executor.Executor
 import cat.bcn.commonmodule.ui.versioncontrol.AppInformationResponse
 import cat.bcn.commonmodule.ui.versioncontrol.DeviceInformationResponse
@@ -15,8 +16,23 @@ internal class InfoEvent(
     private val scope: CoroutineScope,
     private val executor: Executor,
     private val commonRepository: CommonRepository,
-    private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper
+    private val internalCrashlyticsWrapper: InternalCrashlyticsWrapper,
+    private val platformInformation: PlatformInformation
 ) {
+    /**
+     * Checks if the device is online and can reach the backend.
+     *
+     * @param f A callback function invoked with the result of the online check.
+     */
+    fun isOnline(f: (Boolean) -> Unit) {
+        scope.launch(executor.main) {
+            val isOnline = withContext(executor.bg) {
+                platformInformation.isOnline()
+            }
+            f(isOnline)
+        }
+    }
+
     /**
      * Retrieves device-specific information asynchronously.
      *

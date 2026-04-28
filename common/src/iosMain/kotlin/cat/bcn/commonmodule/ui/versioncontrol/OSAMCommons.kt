@@ -40,11 +40,39 @@ actual class OSAMCommons constructor(
 
     actual fun versionControl(
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (VersionControlResponse) -> Unit
-    ) = internal.versionControl(language, f)
+    ) = internal.versionControl(language, isDarkMode, applyComModStyles, f)
 
-    actual fun rating(language: Language, f: (RatingControlResponse) -> Unit) =
-        internal.rating(language, f)
+    fun versionControl(
+        language: Language,
+        isDarkMode: Boolean,
+        f: (VersionControlResponse) -> Unit
+    ) = versionControl(language, isDarkMode, true, f)
+
+    fun versionControl(
+        language: Language,
+        f: (VersionControlResponse) -> Unit
+    ) = versionControl(language, false, true, f)
+
+    actual fun rating(
+        language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
+        f: (RatingControlResponse) -> Unit
+    ) = internal.rating(language, isDarkMode, applyComModStyles, f)
+
+    fun rating(
+        language: Language,
+        isDarkMode: Boolean,
+        f: (RatingControlResponse) -> Unit
+    ) = rating(language, isDarkMode, true, f)
+
+    fun rating(
+        language: Language,
+        f: (RatingControlResponse) -> Unit
+    ) = rating(language, false, true, f)
 
     actual fun deviceInformation(
         f: (DeviceInformationResponse, DeviceInformation?) -> Unit
@@ -130,4 +158,11 @@ actual class OSAMCommons constructor(
      *          containing the error details.
      */
     actual fun getFCMToken(f: (TokenResponse) -> Unit) = internal.getFCMToken(f)
+
+    /**
+     * Asynchronously checks if the device is online and can reach the backend.
+     *
+     * @param f A callback that receives a Boolean indicating the online status.
+     */
+    actual fun isOnline(f: (Boolean) -> Unit) = internal.isOnline(f)
 }

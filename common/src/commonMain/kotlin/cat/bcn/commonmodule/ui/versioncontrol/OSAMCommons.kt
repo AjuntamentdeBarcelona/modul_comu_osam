@@ -8,11 +8,15 @@ import cat.bcn.commonmodule.model.LanguageInformation
 expect class OSAMCommons {
     fun versionControl(
         language: Language,
+        isDarkMode: Boolean = false,
+        applyComModStyles: Boolean = true,
         f: (VersionControlResponse) -> Unit
     )
 
     fun rating(
         language: Language,
+        isDarkMode: Boolean = false,
+        applyComModStyles: Boolean = true,
         f: (RatingControlResponse) -> Unit
     )
 
@@ -100,6 +104,13 @@ expect class OSAMCommons {
      *          containing the error details.
      */
     fun getFCMToken(f: (TokenResponse) -> Unit)
+
+    /**
+     * Asynchronously checks if the device is online and can reach the backend.
+     *
+     * @param f A callback that receives a Boolean indicating the online status.
+     */
+    fun isOnline(f: (Boolean) -> Unit)
 }
 
 enum class VersionControlResponse {
@@ -138,16 +149,12 @@ sealed class TokenResponse {
 }
 
 enum class Language {
-    CA, ES, EN;
+    EN, ES, CA;
 
     companion object {
         val DEFAULT = EN
         fun parse(value: String, defaultIfNotFound: Language = DEFAULT): Language {
-            Language.values()
-                .forEach {
-                    if (it.toString().lowercase() == value.lowercase()) return it
-                }
-            return defaultIfNotFound
+            return entries.firstOrNull { it.name.equals(value, ignoreCase = true) } ?: defaultIfNotFound
         }
     }
 }

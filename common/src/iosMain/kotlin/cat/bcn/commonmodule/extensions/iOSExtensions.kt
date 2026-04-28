@@ -6,6 +6,10 @@ import kotlin.experimental.ExperimentalNativeApi
 
 @OptIn(ExperimentalNativeApi::class)
 actual val isDebug = Platform.isDebugBinary
-actual fun getCurrentDate(): Long = NSDate().getMilliseconds()
+actual fun getCurrentDate(): Long {
+    val ms = NSDate().getMilliseconds()
+    println("OSAMCommons - getCurrentDate (iOS): $ms")
+    return ms
+}
 
 fun NSDate.getMilliseconds(): Long = (this.timeIntervalSince1970 * 1000.0).toLong()

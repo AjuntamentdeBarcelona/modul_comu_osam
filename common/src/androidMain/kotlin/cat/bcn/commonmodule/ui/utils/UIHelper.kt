@@ -3,11 +3,12 @@ package cat.bcn.commonmodule.ui.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
 import android.view.View
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
@@ -15,6 +16,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import cat.bcn.commonmodule.R
 import cat.bcn.commonmodule.model.Version
 import cat.bcn.commonmodule.ui.model.VersionDialogViews
@@ -31,46 +33,76 @@ class UIHelper(private val context: Context) {
         language: Language,
         showNegative: Boolean,
         showClose: Boolean,
-        showCheckBox: Boolean = true
+        showCheckBox: Boolean = true,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean
     ): VersionDialogViews {
-        val root = buildDialogRoot()
-        val closeButton = buildCloseButton()
+        val root = buildDialogRoot(isDarkMode, applyComModStyles)
+        val closeButton = buildCloseButton(isDarkMode, applyComModStyles)
         val closeRow = buildCloseRow(closeButton)
+        val focusOrderViews = mutableListOf<View>()
+        val keyboardOrderViews = mutableListOf<View>()
 
         if (showClose) {
             root.addView(closeRow)
+            focusOrderViews.add(closeButton)
+            keyboardOrderViews.add(closeButton)
         } else {
             closeButton.visibility = View.GONE
         }
 
         val appIcon = buildAppIcon()
         root.addView(appIcon)
+        focusOrderViews.add(appIcon)
 
-        val titleView = buildTitleView(version, language)
+        val titleView = buildTitleView(version, language, isDarkMode, applyComModStyles)
         root.addView(titleView)
+        focusOrderViews.add(titleView)
 
-        val messageView = buildMessageView(version, language)
+        val messageView = buildMessageView(version, language, isDarkMode, applyComModStyles)
         root.addView(messageView)
+        focusOrderViews.add(messageView)
 
         val checkboxResult = if (showCheckBox) {
-            buildCheckboxRow(version, language).also { result ->
-                result.row?.let { root.addView(it) }
+            buildCheckboxRow(version, language, isDarkMode, applyComModStyles).also { result ->
+                result.row?.let {
+                    root.addView(it)
+                    focusOrderViews.add(it)
+                    keyboardOrderViews.add(it)
+                }
             }
         } else {
             CheckboxRowResult(checkbox = null, row = null)
         }
 
-        val primaryButton = buildPrimaryButton(version, language)
+        val primaryButton = buildPrimaryButton(version, language, isDarkMode, applyComModStyles)
         root.addView(primaryButton)
+        focusOrderViews.add(primaryButton)
+        keyboardOrderViews.add(primaryButton)
 
         val secondaryButton = if (showNegative) {
-            buildSecondaryButton(version, language).also { root.addView(it) }
+            buildSecondaryButton(version, language, isDarkMode, applyComModStyles).also { root.addView(it) }
         } else {
             null
         }
+        secondaryButton?.let {
+            focusOrderViews.add(it)
+            keyboardOrderViews.add(it)
+        }
+
+        applyAccessibility(
+            root = root,
+            titleView = titleView,
+            closeButton = if (showClose) closeButton else null,
+            checkbox = checkboxResult.checkbox,
+            primaryButton = primaryButton,
+            secondaryButton = secondaryButton
+        )
 
         return VersionDialogViews(
             root = root,
+            focusOrderViews = focusOrderViews,
+            keyboardOrderViews = keyboardOrderViews,
             checkbox = checkboxResult.checkbox,
             positiveButton = primaryButton,
             negativeButton = secondaryButton,
@@ -81,30 +113,43 @@ class UIHelper(private val context: Context) {
     private fun Context.dp(value: Int): Int =
         (value * resources.displayMetrics.density).toInt()
 
-    fun buildDialogBackground(): GradientDrawable =
+    fun buildDialogBackground(isDarkMode: Boolean): GradientDrawable =
         GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = context.dp(20).toFloat()
-            setColor(Color.WHITE)
+            setColor(if (isDarkMode) colorHex(VERY_DARK_GREY) else Color.WHITE)
         }
 
-    private fun buildDialogRoot(): LinearLayout {
+    private fun buildDialogRoot(isDarkMode: Boolean, applyComModStyles: Boolean): LinearLayout {
         val paddingHorizontal = context.dp(24)
         val paddingTop = context.dp(16)
         val paddingBottom = context.dp(24)
         return LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(paddingHorizontal, paddingTop, paddingHorizontal, paddingBottom)
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
+            if (!applyComModStyles) {
+                setBackgroundColor(if (isDarkMode) Color.BLACK else Color.WHITE)
+            }
         }
     }
 
-    private fun buildCloseButton(): ImageButton =
+    private fun buildCloseButton(isDarkMode: Boolean, applyComModStyles: Boolean): ImageButton =
         ImageButton(context).apply {
             setImageResource(R.drawable.close_mark)
+            if (applyComModStyles) {
+                if (isDarkMode) {
+                    setColorFilter(Color.WHITE)
+                } else {
+                    clearColorFilter()
+                }
+            } else {
+                setColorFilter(Color.DKGRAY)
+            }
             imageTintList = null
             background = null
             setBackgroundColor(Color.TRANSPARENT)
@@ -127,6 +172,7 @@ class UIHelper(private val context: Context) {
         val iconSize = context.dp(72)
         return ImageView(context).apply {
             setImageDrawable(getAppIcon())
+            contentDescription = context.applicationInfo.loadLabel(context.packageManager)
             layoutParams = LinearLayout.LayoutParams(iconSize, iconSize).apply {
                 gravity = Gravity.CENTER_HORIZONTAL
                 topMargin = context.dp(8)
@@ -136,7 +182,7 @@ class UIHelper(private val context: Context) {
 
     private fun getAppIcon() = context.applicationInfo.loadIcon(context.packageManager)
 
-    private fun buildTitleView(version: Version, language: Language): TextView =
+    private fun buildTitleView(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): TextView =
         TextView(context).apply {
             text = version.title.localize(language)
             textSize = 22f
@@ -145,8 +191,13 @@ class UIHelper(private val context: Context) {
             } else {
                 Typeface.create(typeface, Typeface.BOLD)
             }
-            setTextColor(Color.BLACK)
+            if (applyComModStyles) {
+                setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
+            }
             gravity = Gravity.CENTER
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                isAccessibilityHeading = true
+            }
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -155,12 +206,15 @@ class UIHelper(private val context: Context) {
             }
         }
 
-    private fun buildMessageView(version: Version, language: Language): TextView =
+    private fun buildMessageView(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): TextView =
         TextView(context).apply {
             text = version.message.localize(language)
             textSize = 16f
             gravity = Gravity.CENTER
-            setTextColor(Color.BLACK)
+            if (applyComModStyles) {
+                setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
+            }
+            setLineSpacing(0f, 1.1f)
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -174,24 +228,26 @@ class UIHelper(private val context: Context) {
         val row: LinearLayout?
     )
 
-    private fun buildCheckboxRow(version: Version, language: Language): CheckboxRowResult {
+    private fun buildCheckboxRow(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): CheckboxRowResult {
         if (!version.checkBoxDontShowAgain.isCheckBoxVisible) {
             return CheckboxRowResult(checkbox = null, row = null)
         }
 
         val checkBox = CheckBox(context).apply {
             text = version.checkBoxDontShowAgain.text.localize(language)
-            setTextColor(Color.BLACK)
-            buttonTintList = ColorStateList(
-                arrayOf(
-                    intArrayOf(android.R.attr.state_checked),
-                    intArrayOf(-android.R.attr.state_checked)
-                ),
-                intArrayOf(
-                    colorHex(VERY_DARK_GREY),
-                    colorHex("#6A6A6A")
+            if (applyComModStyles) {
+                setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
+                buttonTintList = ColorStateList(
+                    arrayOf(
+                        intArrayOf(android.R.attr.state_checked),
+                        intArrayOf(-android.R.attr.state_checked)
+                    ),
+                    intArrayOf(
+                        if (isDarkMode) Color.WHITE else colorHex(VERY_DARK_GREY),
+                        colorHex(MEDIUM_LIGHT_GREY)
+                    )
                 )
-            )
+            }
         }
 
         val row = LinearLayout(context).apply {
@@ -215,15 +271,24 @@ class UIHelper(private val context: Context) {
         return CheckboxRowResult(checkbox = checkBox, row = row)
     }
 
-    private fun buildPrimaryButton(version: Version, language: Language): Button =
+    private fun buildPrimaryButton(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): Button =
         Button(context).apply {
             text = version.ok.localize(language)
             isAllCaps = false
-            setTextColor(Color.WHITE)
-            background = GradientDrawable().apply {
-                cornerRadius = context.dp(28).toFloat()
-                setColor(colorHex(VERY_DARK_GREY))
+            if (applyComModStyles) {
+                setTextColor(if (isDarkMode) colorHex(VERY_DARK_GREY) else Color.WHITE)
+                background = GradientDrawable().apply {
+                    cornerRadius = context.dp(28).toFloat()
+                    setColor(if (isDarkMode) Color.WHITE else colorHex(VERY_DARK_GREY))
+                }
+            } else {
+                 // Reset background to allow default ripple effect
+                 val typedValue = android.util.TypedValue()
+                 context.theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)
+                 setBackgroundResource(typedValue.resourceId)
+                 setTextColor(Color.DKGRAY)
             }
+            contentDescription = text
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -232,16 +297,24 @@ class UIHelper(private val context: Context) {
             }
         }
 
-    private fun buildSecondaryButton(version: Version, language: Language): Button =
+    private fun buildSecondaryButton(version: Version, language: Language, isDarkMode: Boolean, applyComModStyles: Boolean): Button =
         Button(context).apply {
             text = version.cancel.localize(language)
             isAllCaps = false
-            setTextColor(colorHex(VERY_DARK_GREY))
-            background = GradientDrawable().apply {
-                cornerRadius = context.dp(28).toFloat()
-                setColor(Color.TRANSPARENT)
-                setStroke(context.dp(1), colorHex(MEDIUM_LIGHT_GREY))
+            if (applyComModStyles) {
+                setTextColor(if (isDarkMode) Color.WHITE else colorHex(VERY_DARK_GREY))
+                background = GradientDrawable().apply {
+                    cornerRadius = context.dp(28).toFloat()
+                    setColor(Color.TRANSPARENT)
+                    setStroke(context.dp(1), if (isDarkMode) Color.WHITE else colorHex(MEDIUM_LIGHT_GREY))
+                }
+            } else {
+                 val typedValue = android.util.TypedValue()
+                 context.theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)
+                 setBackgroundResource(typedValue.resourceId)
+                 setTextColor(Color.DKGRAY)
             }
+            contentDescription = text
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -252,4 +325,25 @@ class UIHelper(private val context: Context) {
 
     @SuppressLint("KtxExtensionAvailable")
     private fun colorHex(value: String): Int = Color.parseColor(value)
+
+    private fun applyAccessibility(
+        root: LinearLayout,
+        titleView: TextView,
+        closeButton: ImageButton?,
+        checkbox: CheckBox?,
+        primaryButton: Button,
+        secondaryButton: Button?
+    ) {
+        closeButton?.let {
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
+        }
+        checkbox?.isFocusable = true
+        primaryButton.isFocusable = true
+        secondaryButton?.isFocusable = true
+        titleView.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            root.isKeyboardNavigationCluster = true
+        }
+    }
 }

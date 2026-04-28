@@ -49,11 +49,14 @@ internal class DialogEvent(
      * previous user interactions (e.g., "Don't show again").
      *
      * @param language The language in which the dialog content should be displayed.
+     * @param isDarkMode Whether the app is in dark mode or not.
      * @param f A callback function invoked with the result of the version control operation.
      */
     @OptIn(DelicateCoroutinesApi::class)
     fun versionControl(
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
         currentLanguage = language
@@ -71,9 +74,9 @@ internal class DialogEvent(
 
                         if (version.isInTimeRange()) {
                             when (version.comparisonMode) {
-                                Version.ComparisonMode.FORCE -> handleForceUpdate(version, language, f)
-                                Version.ComparisonMode.LAZY -> handleLazyUpdate(version, language, checkIfDialogIsShown, f)
-                                Version.ComparisonMode.INFO -> handleInfoUpdate(version, language, checkIfDialogIsShown, f)
+                                Version.ComparisonMode.FORCE -> handleForceUpdate(version, language, isDarkMode, applyComModStyles, f)
+                                Version.ComparisonMode.LAZY -> handleLazyUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
+                                Version.ComparisonMode.INFO -> handleInfoUpdate(version, language, isDarkMode, applyComModStyles, checkIfDialogIsShown, f)
                                 Version.ComparisonMode.NONE -> f(VersionControlResponse.DISMISSED)
                             }
                             if (version.comparisonMode != Version.ComparisonMode.NONE) {
@@ -100,6 +103,8 @@ internal class DialogEvent(
     private fun handleForceUpdate(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
         val isValid = addModelsAndOperativeSystemLogic(version.modelsData, version)
@@ -110,7 +115,7 @@ internal class DialogEvent(
         }
 
         alertWrapper.showVersionControlForce(
-            version = version, language = language, onPositiveClick = {
+            version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = {
                 f(VersionControlResponse.ACCEPTED)
                 platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
@@ -125,6 +130,8 @@ internal class DialogEvent(
     private fun handleLazyUpdate(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         checkIfDialogIsShown: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
@@ -137,17 +144,19 @@ internal class DialogEvent(
         }
 
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
-            alertWrapper.showVersionControlLazy(version = version, language = language, onPositiveClick = { isCheckBoxChecked ->
+            alertWrapper.showVersionControlLazy(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 println("VersionControl - CheckBox checked: $isCheckBoxChecked")
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 f(VersionControlResponse.ACCEPTED)
                 platformUtil.openUrl(platformUtil.encodeUrl(version.url) ?: version.url)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-            }, onNegativeClick = {
+            }, onNegativeClick = { isCheckBoxChecked ->
+                preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.CANCELLED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.CANCELLED)
-            }, onDismissClick = {
+            }, onDismissClick = { isCheckBoxChecked ->
+                preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.DISMISSED)
             })
         } else {
@@ -163,6 +172,8 @@ internal class DialogEvent(
     private fun handleInfoUpdate(
         version: Version,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         checkIfDialogIsShown: Boolean,
         f: (VersionControlResponse) -> Unit,
     ) {
@@ -175,12 +186,13 @@ internal class DialogEvent(
         }
 
         if (preferences.getCheckBoxDontShowAgainActive() && checkIfDialogIsShown) {
-            alertWrapper.showVersionControlInfo(version = version, language = language, onPositiveClick = { isCheckBoxChecked ->
+            alertWrapper.showVersionControlInfo(version = version, language = language, isDarkMode = isDarkMode, applyComModStyles = applyComModStyles, onPositiveClick = { isCheckBoxChecked ->
                 preferences.setLastTimeUserClickedOnAcceptButton(getCurrentDate())
                 preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.DISMISSED)
                 analytics.logVersionControlPopUp(CommonAnalytics.VersionControlAction.ACCEPTED)
-            }, onDismissClick = {
+            }, onDismissClick = { isCheckBoxChecked ->
+                preferences.setCheckBoxDontShowAgainActive(!isCheckBoxChecked)
                 f(VersionControlResponse.DISMISSED)
             })
         } else {
@@ -278,11 +290,14 @@ internal class DialogEvent(
      * the configuration (e.g., number of app opens, time elapsed) and user preferences.
      *
      * @param language The language in which the dialog content should be displayed.
+     * @param isDarkMode Whether the app is in dark mode or not.
      * @param f A callback function invoked with the result of the rating operation.
      */
     @OptIn(DelicateCoroutinesApi::class)
     fun rating(
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (RatingControlResponse) -> Unit,
     ) {
         scope.launch(executor.main) {
@@ -298,7 +313,7 @@ internal class DialogEvent(
                         internalCrashlyticsWrapper.recordException(commonError.exception)
                         f(RatingControlResponse.ERROR)
                     }, success = { rating ->
-                        handleRatingDisplay(rating, language, f)
+                        handleRatingDisplay(rating, language, isDarkMode, applyComModStyles, f)
                     })
                 } catch (e: Exception) {
                     internalCrashlyticsWrapper.recordException(e)
@@ -319,6 +334,8 @@ internal class DialogEvent(
     private fun handleRatingDisplay(
         rating: Rating,
         language: Language,
+        isDarkMode: Boolean,
+        applyComModStyles: Boolean,
         f: (RatingControlResponse) -> Unit,
     ) {
         val shouldShowRatingDialog = rating.shouldShowDialog(
@@ -329,6 +346,8 @@ internal class DialogEvent(
             alertWrapper.showRating(
                 rating = rating,
                 language = language,
+                isDarkMode = isDarkMode,
+                applyComModStyles = applyComModStyles,
                 onRatingPopupShown = {
                     preferences.setLastDatetime(getCurrentDate())
                     if (preferences.getNumApertures() >= rating.numAperture) {

@@ -70,13 +70,13 @@ internal actual class PlatformInformation {
                 return@memScoped false
             }
 
-            val isReachable = flags.value.and(kSCNetworkReachabilityFlagsReachable) != 0u
+            val hasReachableFlag = flags.value.and(kSCNetworkReachabilityFlagsReachable) != 0u
             val needsConnection =
                 flags.value.and(kSCNetworkReachabilityFlagsConnectionRequired) != 0u
 
             // A network is available if it's reachable and doesn't require a new connection
             // (e.g., a captive portal that needs a login).
-            isReachable && !needsConnection
+            hasReachableFlag && !needsConnection
         }
     }
 

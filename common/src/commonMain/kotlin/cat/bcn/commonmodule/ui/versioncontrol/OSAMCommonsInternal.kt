@@ -56,8 +56,15 @@ internal class OSAMCommonsInternal(
     }
     private val topicSubscriptionManager: TopicSubscriptionManager by lazy { TopicSubscriptionManager(messagingWrapper) }
     private val dialogEvent by lazy { DialogEvent(scope, executor, analytics, alertWrapper, commonRepository, internalCrashlyticsWrapper, preferences, platformUtil, currentLanguage, platformInformation) }
-    private val infoEvent by lazy { InfoEvent(scope, executor, commonRepository, internalCrashlyticsWrapper) }
+    private val infoEvent by lazy { InfoEvent(scope, executor, commonRepository, internalCrashlyticsWrapper, platformInformation) }
     private val subscriptionsEvent by lazy { SubscriptionsEvent(scope, topicSubscriptionManager, preferences, platformInformation, analytics, internalCrashlyticsWrapper, executor) }
+
+    /**
+     * Checks if the device is online and can reach the backend.
+     *
+     * @param f A callback function invoked with the result of the online check.
+     */
+    fun isOnline(f: (Boolean) -> Unit) = infoEvent.isOnline(f)
 
     /**
      * Initiates the version control check process.
@@ -68,9 +75,10 @@ internal class OSAMCommonsInternal(
      * previous user interactions (e.g., "Don't show again").
      *
      * @param language The language in which the dialog content should be displayed.
+     * @param isDarkMode Whether the app is in dark mode or not.
      * @param f A callback function invoked with the result of the version control operation.
      */
-    fun versionControl(language: Language, f: (VersionControlResponse) -> Unit) = dialogEvent.versionControl(language, f)
+    fun versionControl(language: Language, isDarkMode: Boolean, applyComModStyles: Boolean, f: (VersionControlResponse) -> Unit) = dialogEvent.versionControl(language, isDarkMode, applyComModStyles, f)
 
     /**
      * Initiates the rating check process.
@@ -80,9 +88,10 @@ internal class OSAMCommonsInternal(
      * the configuration (e.g., number of app opens, time elapsed) and user preferences.
      *
      * @param language The language in which the dialog content should be displayed.
+     * @param isDarkMode Whether the app is in dark mode or not.
      * @param f A callback function invoked with the result of the rating operation.
      */
-    fun rating(language: Language, f: (RatingControlResponse) -> Unit)  = dialogEvent.rating(language, f)
+    fun rating(language: Language, isDarkMode: Boolean, applyComModStyles: Boolean, f: (RatingControlResponse) -> Unit)  = dialogEvent.rating(language, isDarkMode, applyComModStyles, f)
 
     /**
      * Retrieves device-specific information asynchronously.
