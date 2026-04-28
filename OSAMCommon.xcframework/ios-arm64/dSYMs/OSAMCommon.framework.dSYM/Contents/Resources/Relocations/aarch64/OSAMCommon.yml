@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/albertoaguilar/Desktop/OSAM/AndroidStudioProj/Gitlab/common_module_mobile/common/build/bin/iosArm64/OSAMCommonReleaseFramework/OSAMCommon.framework/OSAMCommon'
+binary-path:     '/Users/albertoaguilar/Desktop/OSAM/AndroidStudioProj/Github/modul_comu_osam/common/build/bin/iosArm64/OSAMCommonReleaseFramework/OSAMCommon.framework/OSAMCommon'
 relocations:
   - { offset: 0x339, size: 0x8, addend: 0x0, symName: '_kfun:kotlinx.cinterop.CPointer#$<bridge-NUNN>equals(kotlin.Any?){}kotlin.Boolean(kotlin.Any?){}kotlin.Boolean', symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x210 }
   - { offset: 0x341, size: 0x8, addend: 0x0, symName: '_kfun:kotlinx.cinterop.CPointer#$<bridge-NUN>hashCode(){}kotlin.Int(){}kotlin.Int', symObjAddr: 0x210, symBinAddr: 0x4210, symSize: 0x6C }
