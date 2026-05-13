@@ -1,3 +1,35 @@
+# Modul comú OSAM Flutter
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+## Historial de versions
+
+### 3.2.0
+- **Control de versions avançat**: S'han afegit camps per filtrar per versió del sistema operatiu (`osVersion`) i per model de dispositiu (`models`).
+- **Noves funcionalitats**: S'ha afegit el mètode `isOnline` per comprovar la connectivitat amb el backend de manera asíncrona.
+- **Personalització de UI**: Els mètodes `versionControl` i `rating` ara accepten els paràmetres `isDarkMode` i `applyComModStyles` per a una millor integració visual.
+- **Millores en analítica**: S'ha implementat el nou event `language_change` i s'ha millorat el registre d'events inicials.
+- **Gestió del context**: S'ha afegit el mètode `setActivity` per a Android per gestionar millor els canvis de context i cicle de vida.
+- **Timeout**: Implementació de missatges d'error per timeout quan el backend no respon.
+
+### 3.1.0
+- **FCM Token**: S'ha afegit el suport per obtenir el token de Firebase Cloud Messaging (FCM) mitjançant el mètode `getFCMToken`.
+
+### 3.0.0
+- **Gestió de Topics**: S'han implementat els mètodes `firstTimeOrUpdateEvent`, `subscribeToCustomTopic` i `unsubscribeToCustomTopic` per a una gestió completa de les notificacions push.
+- **Event de canvi d'idioma**: S'ha afegit `changeLanguageEvent` per orquestrar el canvi d'idioma, analítica i topics.
+- **Migració a KMP**: Refactorització important per utilitzar Kotlin Multiplatform de manera més eficient i unificar la lògica de negoci.
+
+### 2.3.0-dev
+- **Millores de robustesa**: S'ha afegit la funció `Language.parse` per gestionar millor els idiomes per defecte i evitar excepcions.
+- **Mode No Mostrar Més**: S'ha afegit la funcionalitat per permetre a l'usuari no tornar a veure el diàleg de control de versions (`checkBoxDontShowAgain`).
+
+### 2.1.x / 2.2.x
+- **Informació del sistema**: Introducció dels mètodes `deviceInformation` i `appInformation` per obtenir dades del dispositiu i de l'aplicació.
+- **Refactorització de respostes**: S'ha simplificat `RatingControlResponse` (reduint els estats a `ACCEPTED`, `DISMISSED`, `ERROR`).
+- **Nadiu**: Canvi a implementacions HTTP nadiues (Ktor) en lloc de CIO per a una millor estabilitat en totes les plataformes.
+
 # modul_comu_osam
 
 [![Jitpack version](https://jitpack.io/v/AjuntamentdeBarcelona/modul_comu_osam.svg)](https://jitpack.io/#AjuntamentdeBarcelona/modul_comu_osam)
@@ -58,7 +90,7 @@ A Android s'utilitza la [llibreria de Google Play Core](https://developer.androi
 
 A iOS s'utilitza la llibreria nativa:
 
-```kotlin
+```swift
 SKStoreReviewController.requestReview()
 ```
 
@@ -157,7 +189,7 @@ class AnalyticsWrapperAndroid(context: Context) : AnalyticsWrapper {
 }
 
 class PerformanceWrapperAndroid : PerformanceWrapper {
-  override fun createMetric(url: String, httpMethod: String): PerformanceMetric? {
+  override fun createMetric(url: String, httpMethod: String): PerformanceMetric {
     return PerformanceMetricAndroid(FirebasePerformance.getInstance().newHttpMetric(url, httpMethod))
   }
 }
@@ -275,7 +307,7 @@ class CrashlyticsWrapperIOS: CrashlyticsWrapper {
 }
 
 class PerformanceWrapperIOS: PerformanceWrapper {
-    func createMetric(url: String, httpMethod: String) -> PerformanceMetric? {
+    func createMetric(url: String, httpMethod: String) -> PerformanceMetric {
         
         let httpMethodType: HTTPMethod
         
@@ -430,18 +462,14 @@ Per facilitar l'idioma, la llibreria inclou la classe `Language` que conté **Ca
 **Castellà (ES)** i **Anglès (EN)**, que són els idiomes suportats. Com a extra, se li ha afegit un
 callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
 part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `VersionControlResponse`. Aquest objecte pot
-arrivar amb quatre valors possibles:
+l'aplicació. El que rebem en el callback és l'objecte `VersionControlResponse`. Aquest objecte pot
+arribar amb quatre valors possibles:
 
 - **ACCEPTED**: si l'usuari ha escollit el botó d'acceptar/ok
 - **DISMISSED**: si l'usuari ha tret el popup
 - **CANCELLED**: si l'usuari ha escollit el botó de cancel·lar
 - **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria o al mostrar el
   popup
-
-Per exemple: Si l'usuari cancel·la el popup, al callback rebriem
-l'objecte `VersionControlResponse.CANCELLED`. Si en el cas de que volgués fer alguna acció diferent
-si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica.
 
 ### iOS
 
@@ -453,36 +481,18 @@ osamCommons.versionControl(
   language: Language.es,
   isDarkMode: false, // Opcional, per defecte false
   applyComModStyles: true, // Opcional, per defecte true
-  f: {_ in }
+  f: { versionControlResponse in }
 )
 ```
 
 A la inicialització se li ha de passar el UIViewController de la pantalla que crida al mòdul. Per
 cridar al control de versions només cal executar la funció `versionControl()`, facilitar-li l'idioma
 en què es vol mostrar el popup i la funció que volem que executi el callback que retorna el mòdul.
-Per facilitar l'idioma, la llibreria inclou la classe `Language` que conté **Català (CA)**,
-**Castellà (ES)** i **Anglès (EN)**, que són els idiomes suportats. Pel que respecta al callback,
-s'ha afegit perquè la pantalla pugui reaccionar en cas que hi hagi hagut un error o si, a part de la
-funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `VersionControlResponse`. Aquest objecte pot
-arrivar amb quatre valors possibles:
-
-- **ACCEPTED**: si l'usuari ha escollit el botó d'acceptar/ok
-- **DISMISSED**: si l'usuari ha tret el popup o no compleix les condicions per mostrar-li a l'usuari
-- **CANCELLED**: si l'usuari ha escollit el botó de cancel·lar
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria o al mostrar el
-  popup
-
-Per exemple: Si l'usuari cancel·la el popup, al callback rebriem
-l'objecte `VersionControlResponse.CANCELLED`. Si en el cas de que volgués fer alguna acció diferent
-si l'usuari cancel·la el popup, es podria definir en aquest punt la casuistica.
+El que rebem en el callback és l'objecte `VersionControlResponse` (ACCEPTED, DISMISSED, CANCELLED o ERROR).
 
 ## Implementació control de valoracions
 
 ### Android
-
-Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les
-variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```kotlin
 osamCommons.rating(
@@ -494,379 +504,111 @@ osamCommons.rating(
 }
 ```
 
-A la inicialització se li ha de passar el context de l'app. Per cridar al control de valoracions
-només cal executar la funció `rating()` i facilitar-li l'idioma en què es vol mostrar el popup. Per
-facilitar l'idioma, la llibreria inclou la classe `Language` que conté **Català (CA)**,
-**Castellà (ES)** i **Anglès (EN)**, que són els idiomes suportats. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `RatingControlResponse`. Aquest objecte pot
-arrivar amb tres valors possibles:
-
-- **ACCEPTED**: s'ha sol·licitat que surti el popup natiu de valoració de Android: Google In-App Review
-- **DISMISSED**: el popup no compleix les condicions per mostrar-li a l'usuari
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria o al mostrar el
-  popup
-
-Per exemple: Si l'usuari treu el popup, al callback rebriem
-l'objecte `RatingControlResponse.DISMISSED`. Si en el cas de que volgués fer alguna acció diferent
-si l'usuari ha tret el popup o aquest no compleix les condicions per sortir, es podria definir en
-aquest punt la casuistica.
+El que rebem en el callback és l'objecte `RatingControlResponse`:
+- **ACCEPTED**: s'ha sol·licitat el popup natiu de valoració (Google In-App Review)
+- **DISMISSED**: el popup no s'ha mostrat (per exemple, per no complir condicions)
+- **ERROR**: error en el procés
 
 ### iOS
-
-Per crear el missatge d'alerta, únicament hem de cridar a la funció que descarregarà el json amb les
-variables ja definides i mostrarà l'alerta segons els valors rebuts:
 
 ```swift
 osamCommons.rating(
   language: Language.es,
   isDarkMode: false, // Opcional, per defecte false
   applyComModStyles: true, // Opcional, per defecte true
-  f: {_ in }
+  f: { ratingControlResponse in }
 )
 ```
 
-A la inicialització se li ha de passar el UIViewController de la pantalla que crida al mòdul. Per
-cridar al control de valoracions només cal executar la funció `rating()`, facilitar-li l'idioma en
-què es vol mostrar el popup i la funció que volem que executi el callback que retorna el mòdul. Per
-facilitar l'idioma, la llibreria inclou la classe `Language` que conté **Català (CA)**,
-**Castellà (ES)** i **Anglès (EN)**, que són els idiomes suportats. Pel que respecta al callback,
-s'ha afegit perquè la pantalla pugui reaccionar en cas que hi hagi hagut un error o si, a part de la
-funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `RatingControlResponse`. Aquest objecte pot
-arrivar amb tres valors possibles:
+El que rebem en el callback és l'objecte `RatingControlResponse` (ACCEPTED, DISMISSED o ERROR).
 
-- **ACCEPTED**: s'ha sol·licitat que surti el popup natiu de valoració d'iOS:
-  SKStoreReviewController
-- **DISMISSED**: el popup no compleix les condicions per mostrar-li a l'usuari
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria o al mostrar el
-  popup
+## Implementació per obtenir informació de la plataforma i de l'app
 
-Per exemple: Si l'usuari treu el popup, al callback rebriem
-l'objecte `RatingControlResponse.DISMISSED`. Si en el cas de que volgués fer alguna acció diferent
-si l'usuari ha tret el popup o aquest no compleix les condicions per sortir, es podria definir en
-aquest punt la casuistica.
+### Informació del dispositiu
 
-## Implementació per obtenir informació de la plataforma
+Extreu el sistema operatiu, versió i model.
 
-### Android
+- **Android**: `osamCommons.deviceInformation { response, info -> ... }`
+- **iOS**: `osamCommons.deviceInformation(f: { response, info in ... })`
 
-Entre la informació a extreure hi ha: el sistema operatiu, la versió del sistema operatiu 
-i el model del dispositiu.
+### Informació de l'aplicació
 
+Extreu el nom, versió (nom i codi) de l'aplicació.
+
+- **Android**: `osamCommons.appInformation { response, info -> ... }`
+- **iOS**: `osamCommons.appInformation(f: { response, info in ... })`
+
+## Esdeveniments de l'aplicació
+
+### Canvi d'idioma (`changeLanguageEvent`)
+
+Gestiona la lògica de canvi d'idioma: actualitza preferències, envia analítica i actualitza subscripcions a topics de FCM.
+
+- **Android**:
 ```kotlin
-osamCommons.deviceInformation { deviceInformationResponse, deviceInformation ->
-  // Do something...
-}
+osamCommons.changeLanguageEvent(Language.CA) { response -> }
 ```
-
-Per obtenir l'informació només cal executar la funció `deviceInformation()`. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `DeviceInformationResponse`. Aquest objecte pot
-arrivar amb 2 valors possibles:
-
-- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
-
-### iOS
-
-Entre la informació a extreure hi ha: el sistema operatiu, la versió del sistema operatiu
-i el model del dispositiu.
-
+- **iOS**:
 ```swift
-osamCommons.deviceInformation(
-  f: {deviceInformationResponse, deviceInformation in }
-)
+osamCommons.changeLanguageEvent(language: Language.es, f: { response in })
 ```
 
-Per obtenir l'informació només cal executar la funció `deviceInformation()`. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `DeviceInformationResponse`. Aquest objecte pot
-arrivar amb 2 valors possibles:
+**Respostes (`AppLanguageResponse`):**
+- **SUCCESS**: Operació completada correctament.
+- **UNCHANGED**: L'idioma és el mateix que l'actual.
+- **ERROR**: Error en el procés.
 
-- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
+### Inici o actualització de l'app (`firstTimeOrUpdateEvent`)
 
-## Implementació per obtenir informació de l'app
+Gestiona la subscripció inicial o actualització del topic de notificacions. S'ha de cridar a l'inici de l'app.
 
-### Android
+- **Android**: `osamCommons.firstTimeOrUpdateEvent(Language.CA) { response -> }`
+- **iOS**: `osamCommons.firstTimeOrUpdateEvent(language: Language.es, f: { response in })`
 
-Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
-i versió de l'app.
+**Respostes (`AppLanguageResponse`):** `SUCCESS`, `UNCHANGED` o `ERROR`.
 
-```kotlin
-osamCommons.appInformation { appInformationResponse, appInformation ->
-  // Do something...
-}
-```
+## Gestió de Topics i FCM
 
-Per obtenir l'informació només cal executar la funció `appInformation()`. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `AppInformationResponse`. Aquest objecte pot
-arrivar amb 2 valors possibles:
+### Subscripció a topic personalitzat
 
-- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
+- **Android**: `osamCommons.subscribeToCustomTopic("TOPIC") { response -> }`
+- **iOS**: `osamCommons.subscribeToCustomTopic(topic: "TOPIC", f: { response in })`
 
-### iOS
+**Respostes (`SubscriptionResponse`):** `ACCEPTED` o `ERROR`.
 
-Entre la informació a extreure està: informació del model , sistema operatiu, versió de SO, nom app,
-i versió de l'app.
+### Desubscripció de topic personalitzat
 
-```swift
-osamCommons.appInformation(
-  f: { appInformationResponse, appInformation in }
-)
-```
+- **Android**: `osamCommons.unsubscribeToCustomTopic("TOPIC") { response -> }`
+- **iOS**: `osamCommons.unsubscribeToCustomTopic(topic: "TOPIC", f: { response in })`
 
-Per obtenir l'informació només cal executar la funció `appInformation()`. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. Lo que revem en el callback es l'objecte `AppInformationResponse`. Aquest objecte pot
-arrivar amb 2 valors possibles:
+**Respostes (`SubscriptionResponse`):** `ACCEPTED` o `ERROR`.
 
-- **ACCEPTED**: s'ha pogut obtenir les dades i s'han retornat correctament
-- **ERROR**: si hi ha hagut cap error al procés d'obtenir la informació necessaria
+### Obtenir el token de Firebase (FCM)
 
-## Implementació per enviar l'esdeveniment de canvi d'idioma a l'aplicació
-
-### Android
-
-Per executar l'esdeveniment, cal cridar la funció `changeLanguageEvent`, passant el nou Language i un callback per gestionar la resposta.
-
-```kotlin
-osamCommons.changeLanguageEvent(
-    language = Language.CA
-) { response ->
-    // Do something
-}
-```
-
-Per obtenir la informació només cal executar la funció `changeLanguageEvent()`. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. El que reviem callback és l'objecte `AppLanguageResponse`. Aquest objecte pot
-arribar amb 3 valors possibles:
-
-- **SUCCESS**: La part síncrona de l'esdeveniment 
-- (actualització de preferències i registre d'analítiques) 
-- s'ha completat correctament i s'ha enviat la sol·licitud asíncrona per actualitzar la subscripció al topic.
-- **UNCHANGED**: No s'ha realitzat cap acció perquè l'idioma seleccionat era el mateix que l'actual.
-- **ERROR**: S'ha produït un error en intentar actualitzar les preferències locals o registrar l'esdeveniment d'analítica.
-
-### iOS
-
-Aquest esdeveniment recull la informació de l'idioma anterior al canvi, l'idioma recent seleccionat i l'idioma
-del dispositiu mòbil
-
-```swift
-osamCommons.changeLanguageEvent(
-    language: Language.es,
-    f: {_ in }
-)
-```
-
-Per obtenir la informació només cal executar la funció `changeLanguageEvent()`. Com a extra, se li ha afegit un
-callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
-part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
-l'aplicació. El que reviem callback és l'objecte `AppLanguageResponse`. Aquest objecte pot
-arribar amb 3 valors possibles:
-
-- **SUCCESS**: l'analítica s'ha enviat correctament i s'ha actualitzat la subscripció.
-- **UNCHANGED**: l'analitica no s'ha enviat perquè l'idioma no ha canviat.
-- **ERROR**: hi ha hagut un error enviant l'analítica o actualitzant les preferències.
-
-## Implementació de l'esdeveniment d'inici o actualització de l'app
-
-### Android
-
-Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateEvent`, passant l'idioma actual i un callback per gestionar la resposta.
-```kotlin
-osamCommons.firstTimeOrUpdateEvent(language = Language.CA){ response ->
-    // Do something
-}
-```
-
-Aquesta funció s'encarrega de tota la lògica de fons.
-S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte AppLanguageResponse pot arribar amb 3 valors possibles:
-
-- **SUCCESS**: La subscripció al topic s'ha realitzat o actualitzat correctament.
-- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
-- **ERROR**: S'ha produït un error durant el procés de subscripció.
-
-### iOS
-
-Per executar l'esdeveniment, cal cridar la funció `firstTimeOrUpdateEvent`,
-passant l'idioma actual i un completion handler per processar la resposta.
-
-```swift
-osamCommons.firstTimeOrUpdateEvent(
-    language: Language.es,
-    f: {_ in }
-)
-```
-
-La funció inclou un callback que retorna un objecte `AppLanguageResponse`,
-permetent a l'aplicació reaccionar al resultat de l'operació.
-Aquest objecte pot tenir un dels tres valors possibles:
-
-- **SUCCESS**: La subscripció al topic s'ha realitzat o actualitzat correctament.
-- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
-- **ERROR**: S'ha produït un error durant el procés de subscripció.
-
-
-## Implementació de la subscripció a un topic personalitzat
-
-### Android
-
-Per executar l'esdeveniment, cal cridar la funció `subscribeToCustomTopic`, passant el nom del topic i un callback per gestionar la resposta.
-```kotlin
-osamCommons.subscribeToCustomTopic(topic = "NOM_DEL_TOPIC") { response ->
-    // Do something
-}
-```
-
-Aquesta funció s'encarrega de tota la lògica de fons. 
-S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte `SubscriptionResponse` pot arribar amb 2 valors possibles:
-
-- **ACCEPTED**: La subscripció al topic s'ha realitzat correctament.
-- **ERROR**: S'ha produït un error durant el procés de subscripció.
-
-### iOS
-
-Per executar l'esdeveniment, cal cridar la funció `subscribeToCustomTopic`, 
-passant el nom del topic i un completion handler per processar la resposta.
-
-```swift
-osamCommons.subscribeToCustomTopic(topic: "NOM_DEL_TOPIC") { response in
-    // Do something
-}
-```
-
-La funció inclou un callback que retorna un objecte `SubscriptionResponse`, permetent a l'aplicació reaccionar 
-al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possibles:
-
-- **ACCEPTED**: La subscripció al topic s'ha realitzat correctament.
-- **ERROR**: S'ha produït un error durant el procés de subscripció.
-## Implementació de la desubscripció d'un topic personalitzat
-
-### Android
-
-Per executar l'esdeveniment, cal cridar la funció `unsubscribeToCustomTopic`, passant el nom del topic i un callback per gestionar la resposta.
-```kotlin
-osamCommons.unsubscribeToCustomTopic(topic = "NOM_DEL_TOPIC") { response ->
-    // Do something
-}
-```
-
-Aquesta funció s'encarrega de tota la lògica de fons.
-S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte `SubscriptionResponse` pot arribar amb 2 valors possibles:
-
-- **ACCEPTED**: La desubscripció al topic s'ha realitzat correctament.
-- **ERROR**: S'ha produït un error durant el procés de desubscripció.
-
-### iOS
-
-Per executar l'esdeveniment, cal cridar la funció `unsubscribeToCustomTopic`,
-passant el nom del topic i un completion handler per processar la resposta.
-
-```swift
-osamCommons.unsubscribeToCustomTopic(topic: "NOM_DEL_TOPIC") { response in
-    // Do something
-}
-```
-
-La funció inclou un callback que retorna un objecte `SubscriptionResponse`, permetent a l'aplicació reaccionar
-al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possibles:
-
-- **ACCEPTED**: La desubscripció al topic s'ha realitzat correctament.
-- **ERROR**: S'ha produït un error durant el procés de desubscripció.
-
-## Implementació per obtenir el token de Firebase (FCM)
-
-### Android
-
-Per obtenir el token, cal cridar la funció `getFCMToken` i gestionar el resultat mitjançant un callback.
+- **Android**:
 ```kotlin
 osamCommons.getFCMToken { response ->
     when (response) {
-        is TokenResponse.Success -> {
-            val token = response.token
-            // El token s'ha obtingut correctament.
-            // Pots utilitzar el 'token' aquí.
-            Log.d("MyApp", "Token FCM: $token")
-        }
-        is TokenResponse.Error -> {
-            // S'ha produït un error en obtenir el token.
-            val exception = response.error.exception
-            Log.e("MyApp", "Error en obtenir el token", exception)
-        }
+        is TokenResponse.Success -> println(response.token)
+        is TokenResponse.Error -> println(response.error)
     }
 }
 ```
-
-La funció inclou un callback que retorna un objecte `TokenResponse`, permetent a l'aplicació reaccionar al resultat de l'operació. Aquest objecte pot tenir un dels dos estats possibles:
-
-- **SUCCESS**: L'operació s'ha completat correctament. Aquest objecte conté una propietat token amb el String del token FCM.
-- **ERROR**: S'ha produït un error durant el procés d'obtenció del token. Aquest objecte conté una propietat error amb els detalls de l'excepció.
-
-### iOS
-
-Per obtenir el token, cal cridar la funció `getFCMToken` i gestionar el resultat mitjançant un completion handler.
-
+- **iOS**:
 ```swift
 osamCommons.getFCMToken { response in
-    // Aquest callback s'executa sempre en el fil principal (main thread).
-    switch response {
-    case let success as TokenResponse.Success:
-        let token = success.token
-        print("Token FCM obtingut: \(token)")
-    case let error as TokenResponse.Error:
-        let errorMessage = error.error.exception.message ?? "Error desconegut"
-        print("S'ha produït un error en obtenir el token: \(errorMessage)")
-    default:
-        print("Resposta desconeguda")
+    if let success = response as? TokenResponse.Success {
+        print(success.token)
+    } else if let error = response as? TokenResponse.Error {
+        print(error.error)
     }
 }
 ```
 
-La funció inclou un callback que retorna un objecte `TokenResponse`, permetent a l'aplicació reaccionar al resultat de l'operació. 
-Aquest objecte pot tenir un dels dos estats possibles:
+## Comprovar si el dispositiu està en línia
 
-- **SUCCESS**: L'operació s'ha completat correctament. Aquest objecte conté una propietat token amb el String del token FCM.
-- **ERROR**: S'ha produït un error durant el procés d'obtenció del token. Aquest objecte conté una propietat error amb els detalls de l'excepció.
-
-## Implementació per comprovar si el dispositiu està en línia
-
-Aquesta funció permet comprovar de manera asíncrona si el dispositiu té connexió a internet i pot arribar al backend.
-
-### Android
-
-```kotlin
-osamCommons.isOnline { online ->
-    if (online) {
-        // El dispositiu està en línia
-    } else {
-        // El dispositiu està fora de línia
-    }
-}
-```
-
-### iOS
-
-```swift
-osamCommons.isOnline(f: { online in
-    if (online) {
-        // El dispositiu està en línia
-    } else {
-        // El dispositiu està fora de línia
-    }
-})
-```
+- **Android**: `osamCommons.isOnline { online -> }`
+- **iOS**: `osamCommons.isOnline(f: { online in })`
 
 ## Format JSONs
 
@@ -879,121 +621,34 @@ osamCommons.isOnline(f: { online in
     "packageName": "cat.bcn.commonmodule",
     "versionCode": 2021050000,
     "versionName": "1.0.0",
+    "platform": "IOS",
+    "comparisonMode": "LAZY",
     "startDate": 1645311600000,
     "endDate": 1645311600000,
     "serverDate": 1645788600000,
-    "platform": "IOS",
-    "comparisonMode": "NONE",
-    "title": {
-      "es": "TITLE_ES",
-      "en": "TITLE_EN",
-      "ca": "TITLE_CA"
-    },
-    "message": {
-      "es": "MESSAGE_ES",
-      "en": "MESSAGE_EN",
-      "ca": "MESSAGE_CA"
-    },
-    "ok": {
-      "es": "OK",
-      "en": "OK",
-      "ca": "OK"
-    },
-    "cancel": {
-      "es": "Cancelar",
-      "en": "Cancel",
-      "ca": "Cancel.lar"
-    },
-    "url": "https://apps.apple.com/es/app/barcelona-a-la-butxaca/id1465234509?l=ca",
+    "title": { "es": "Títol", "en": "Title", "ca": "Títol" },
+    "message": { "es": "Missatge", "en": "Message", "ca": "Missatge" },
+    "ok": { "es": "OK", "en": "OK", "ca": "OK" },
+    "cancel": { "es": "Cancelar", "en": "Cancel", "ca": "Cancel·lar" },
+    "url": "https://...",
     "checkBoxDontShowAgain": true,
     "dialogDisplayDuration": 3600,
     "osVersionComparisonMode": 0,
-    "osVersion": "2.0.0",
+    "osVersion": "13.0",
     "modelComparisonMode": 1,
-    "models": ["SM-A536B"]
+    "models": ["iPhone14,2"]
   }
 }
 ```
 
-#### Paràmetres
-
-- **packageName**
-    - Obligatori
-    - Especifica el ApplicationID o BundleID de l'app que afecta
-- **versionCode**
-    - Obligatori
-    - Especifica la versió a la que afecta el control de versions
-- **startDate**
-    - Opcional
-    - Data des de quan s'ha de començar a mostrar el pop-up del control de versions, expressada
-      amb *timestamp* (milisegons des del 01/01/1970). Si no arriba informada, es considerarà com si
-      fos el 0.
-- **endDate**
-    - Opcional
-    - Data fins quan s'ha de mostrar el pop-up del control de versions, expressada amb *timestamp* (
-      milisegons des del 01/01/1970). Si no arriba informada, es considerara com si fos
-      9223372036854775807 (el valor màxim possible del Long).
-- **serverDate**
-    - Obligatori
-    - Data actual proporcionada per el servidor. Serà la que s'utilitzi per comparar amb `startDate`
-      y `endDate`.
-- **platform**
-    - Obligatori
-    - Especifica per a quina plataforma (ANDROID o IOS) afecta
-- **comparisonMode**
-    - Obligatori
-    - Especifica la manera de comparació de la versió de l'app amb el mòdul
-- **title**
-    - Obligatori
-    - Títol de l'alerta en el cas que s'hagi de mostrar.
-- **message**
-    - Obligatori
-    - Missatge de l'alerta en cas que s'hagi de mostrar.
-- **ok**
-    - Opcional
-    - Títol del botó d'acceptar.
-    - Si es rep aquest paràmetre juntament amb el paràmetre okButtonActionURL, es mostrarà en
-      l'alerta un botó d'acceptar que obrirà el link que s'ha especificat en el paràmetre
-      okButtonActionURL.
-- **cancel**
-    - Opcional
-    - Títol del botó de cancel·lar
-- **url**
-    - Opcional
-    - Link que s'obrirà quan l'usuari seleccioni el botó d'acceptar. Per exemple: link de la nova
-      versió de l'aplicació a l'App Store / Google Play. Si el `comparisonMode` és del tipus INFO, el botó no redirigirà a aquesta URL.
-- **checkBoxDontShowAgain**
-  - Opcional (default_value=True)
-  - Als modes INFO i LAZY hi ha una casella de selecció "No ho mostris més" si l'usuari no vol actualitzar l'app i no vol tornar a veure el pop-up.
-- **dialogDisplayDuration**
-    - Opcional (default_value=3600seconds)
-    - Per als modes INFO i LAZY, quan l’usuari obre el control de versions i accepta, ara existeix un camp que defineix el temps perquè torni a aparèixer aquest popup.
-- **osVersionComparisonMode**
-    - Opcional (default_value=-1)
-    - Especifica la regla de comparació de la versió del sistema operatiu del dispositiu respecte al paràmetre osVersion.
-    - Valors:
-      - -1: Totes les versions (no filtra per SO).
-      - 0: Menor o igual que la versió especificada. 
-      - 1: Exactament la versió especificada. 
-      - 2: Major o igual que la versió especificada.
-- **osVersion**
-  - Opcional
-  - Especifica la versió del sistema operatiu objectiu per a la comparació (ex: "13", "14.2").
-- **modelComparisonMode**
-  - Opcional (default_value=0)
-  - Especifica la regla de comparació del model del dispositiu respecte al paràmetre `models`.
-  - Valors:
-    - 0: Tots els models (`ALL_MODELS`), no aplica cap filtre per model.
-    - 1: Només aquests models (`ONLY_THESE_MODELS`), només mostra el pop-up si el model actual és dins de `models`.
-    - 2: Excloure aquests models (`NOT_THESE_MODELS`), mostra el pop-up si el model actual NO és dins de `models`.
-- **models**
-  - Opcional
-  - Llista de models de dispositiu a utilitzar en el filtre de `modelComparisonMode`.
-  - Format esperat: array JSON de strings, per exemple `["SM-A536B", "iPhone14,2"]`.
-  - Aquest camp només té efecte quan `modelComparisonMode` és 1 o 2.
+#### Paràmetres destacats:
+- **comparisonMode**: `FORCE` (obligatori), `LAZY` (voluntari), `INFO` (informatiu), `NONE` (no mostrar).
+- **osVersionComparisonMode**: -1 (tots), 0 (<=), 1 (==), 2 (>=).
+- **modelComparisonMode**: 0 (tots), 1 (incloure llista), 2 (excloure llista).
+- **checkBoxDontShowAgain**: Si es mostra la casella de "No tornar a mostrar".
+- **dialogDisplayDuration**: Temps en segons perquè torni a aparèixer el diàleg si s'ha tancat.
 
 ### Control de Valoracions
-
 ```json
 {
   "data": {
@@ -1003,122 +658,12 @@ osamCommons.isOnline(f: { online in
     "packageName": "cat.bcn.commonmodule",
     "platform": "ANDROID",
     "minutes": 2880,
-    "numAperture": 5,
-    "message": {
-      "es": "MESSAGE_ES",
-      "en": "MESSAGE_EN",
-      "ca": "MESSAGE_CA"
-    }
+    "numAperture": 5
   }
 }
 ```
+- **minutes**: Temps mínim entre valoracions.
+- **numAperture**: Nombre mínim d'apertures per mostrar el popup.
 
-#### Paràmetres
-
-- **appStoreIdentifier**
-    - Obligatori
-    - Especifica el id de l'app al AppStore per poder valorar-la
-- **packageName**
-    - Obligatori
-    - Especifica el ApplicationID o BundleID de l'app que afecta
-- **platform**
-    - Obligatori
-    - Especifica per a quina plataforma (ANDROID o IOS) afecta
-- **minutes**
-    - Obligatori
-    - Especifica el temps (en minuts) que ha de passar perquè surti el popup
-- **numAperture**
-    - Obligatori
-    - Especifica la quantitat de vegades que s'ha d'obrir l'app perquè surti el popup
-- **message**
-    - Obsolet
-    - A partir de la versió 2.0.0, aquest paràmetre ja no es fa servir
-
-## Com funciona el mòdul de control de versions
-
-En primer lloc, ha de cumplir-se que el valor del paràmetre `serverDate` estigui entre el valor
-de `startDate` i el de `endDate`. Si això no es compleix, no es mostrarà l'alerta. Si es compleix,
-en funció del valor del paràmetre `comparisonMode` es mostrarà o no l'alerta. Aquest paràmetre
-compararà la versió instal·lada amb la qual rebem del json, en funció de tres valors:
-
-- **FORCE**: Mostra l'alerta i no es pot treure. Actualització obligatoria
-- **LAZY**: Mostra l'alerta amb l'opció d'actualitzar l'app o seguir utilitzant l'actual.
-  Actualització voluntaria
-- **INFO**: Mostra l'alerta amb un missatge informatiu. El botó no obre cap URL, deixa seguir utilitzant l'app amb normalitat.
-- **NONE**: no es mostra el popup
-
-## Com funciona el control de valoracions
-
-- L’app compta cada vegada que s’obre (s'ha de cridar el mètode "rating" de la llibreria)
-- L’app espera a que passin un nº de minuts determinats (p.ex. 90) des de l’últim cop que ha mostrat
-  la pop up (per tal de l’usuari no la consideri intrusiva o abusiva).
-- Un cop passats aquests dies i quan el comptador superi un valor determinat (p.ex. 20), mostra el
-  popup i el comptador es reinicia independentment de la resposta de l’usuari.*
-- La operativa no es veu modificada si hi ha un canvi de versió (és a dir, es mantenen els valors de
-  comptatge de dies i de nº de apertures).
-- En cas de què s'hagi de mostrar el popup, a Android es crida a la llibreria de Google Play Core i a iOS es crida al SKStoreReviewController.
-
-> **Idioma per "default", s'ha d'utilitzar Language.parse(...) en comptes de valueOf(...)**
-
-- S'ha d'utilitzar: Language.parse(...) si es vol obtenir un idioma "default". Així no genera l'error a l'utilitzar valueOf(...) de l'enum de Language.
-
-## Com funciona el event d'anàlisi de l'esdeveniment del canvi d'idioma a l'aplicació
-
-Gestiona tota la lògica associada al canvi d'idioma de l'aplicació. Aquesta funció és el punt d'entrada principal per processar un canvi d'idioma. Orquestra diverses accions clau per assegurar que l'estat de l'aplicació s'actualitzi correctament:
-
-1. Actualitza les preferències locals: Desa a l'emmagatzematge local del dispositiu tant l'idioma nou seleccionat com l'idioma anterior.
-2. Envia un esdeveniment d'analítica: Registra un esdeveniment language_change a Firebase Analytics, capturant l'idioma previ, el nou idioma i l'idioma de visualització del dispositiu.
-3. Actualitza la subscripció al topic de notificacions: Actualitza de manera asíncrona la subscripció de l'app als topics de Firebase Cloud Messaging. Això garanteix que l'usuari rebi les notificacions push dirigides al seu nou idioma seleccionat.
-
-## Com funciona el event del'esdeveniment d'inici o actualització de l'app
-
-Gestiona la subscripció inicial o l'actualització del topic de notificacions de l'aplicació. Aquesta funció s'ha de cridar un cop l'aplicació s'inicia per assegurar que el dispositiu estigui subscrit al topic correcte de Firebase Cloud Messaging.
-
-A més, durant la primera instal·lació també s’executa l’enviament de dades d’analítica inicial, 
-de manera que el sistema pot registrar l’estat de l’usuari i la configuració de l’app des del primer moment.
-
-Orquestra les següents accions:
-
-1. Recupera la informació del darrer topic al qual l'app estava subscrita (si existeix).
-2. Construeix el nom del nou topic basant-se en la versió actual de l'app i l'idioma del dispositiu.
-3. Actualitza la subscripció a Firebase, donant de baixa l'antic topic i subscrivint-se al nou.
-4. Desa localment la informació de la nova versió per a la propera execució de l'app.
-
-## Com funciona el event de la subscripció a un topic personalitzat
-
-Aquesta funció permet subscriure l'aplicació a un topic de
-notificacions de Firebase amb un nom específic i personalitzat.
-
-És útil per a campanyes de màrqueting o per segmentar usuaris en
-grups que no depenen de la versió de l'app o de l'idioma.
-La funció s'encarrega de gestionar la comunicació amb Firebase
-per realitzar la subscripció de manera asíncrona.
-
-## Com funciona el event de la desubscripció a un topic personalitzat
-
-Aquesta funció permet desubscriure l'aplicació d'un topic de
-notificacions de Firebase amb un nom específic i personalitzat.
-
-És l'operació inversa a subscribeToCustomTopic i és útil per
-aturar la recepció de notificacions d'una campanya concreta o per
-netejar subscripcions quan ja no són necessàries.
-La funció s'encarrega de gestionar la comunicació amb Firebase per realitzar la desubscripció de manera asíncrona.
-
-## Com funciona el event per obtenir el token de Firebase
-
-Aquesta funció permet obtenir el token de registre de Firebase Cloud Messaging (FCM) del dispositiu.
-Aquest token és un identificador únic que s'utilitza per enviar notificacions push directament a un 
-dispositiu específic. L'operació es realitza de manera asíncrona.
-
-## Com funciona el event per comprovar si el dispositiu està en línia
-
-Aquesta funció realitza una petició ràpida al backend per verificar la connectivitat. S'executa de manera asíncrona per no bloquejar el fil principal i retorna un booleà mitjançant un callback.
-
-## Desenvolupament del mòdul
-
-Si voleu compilar el mòdul manualment o realitzar canvis en la part comuna, podeu utilitzar l'script `build.sh` situat a l'arrel del projecte. Aquest script neteja els binaris antics, compila la part d'Android i genera l'XCFramework per a iOS.
-
-```bash
-./build.sh
-```
-
+---
+**Idioma per "default"**: S'ha d'utilitzar `Language.parse(value)` en comptes de `valueOf(value)` per evitar excepcions si l'idioma no es troba.
