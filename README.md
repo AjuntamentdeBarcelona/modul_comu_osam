@@ -11,7 +11,7 @@
 - Afegeix aquesta dependència en el teu projecte:
 
 ```groovy
-implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:3.1.0'
+implementation 'com.github.AjuntamentdeBarcelona.modul_comu_osam:common-android:3.2.0'
 ```
 
 - Afegir aquest codi al teu **build.gradle**
@@ -30,7 +30,7 @@ allprojects {
   repositori:
 
 ```pod
-pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '3.1.0'
+pod 'OSAMCommon', :git => 'https://github.com/AjuntamentdeBarcelona/modul_comu_osam.git', :tag => '3.2.0'
 ```
 
 - Actualitzar mitjançant el comandament `pod update` les dependències.
@@ -157,7 +157,7 @@ class AnalyticsWrapperAndroid(context: Context) : AnalyticsWrapper {
 }
 
 class PerformanceWrapperAndroid : PerformanceWrapper {
-  override fun createMetric(url: String, httpMethod: String): PerformanceMetric {
+  override fun createMetric(url: String, httpMethod: String): PerformanceMetric? {
     return PerformanceMetricAndroid(FirebasePerformance.getInstance().newHttpMetric(url, httpMethod))
   }
 }
@@ -275,7 +275,7 @@ class CrashlyticsWrapperIOS: CrashlyticsWrapper {
 }
 
 class PerformanceWrapperIOS: PerformanceWrapper {
-    func createMetric(url: String, httpMethod: String) -> PerformanceMetric {
+    func createMetric(url: String, httpMethod: String) -> PerformanceMetric? {
         
         let httpMethodType: HTTPMethod
         
@@ -501,7 +501,7 @@ facilitar l'idioma, la llibreria inclou la classe `Language` que conté **Catal�
 callback perquè la pantalla principal pugui reaccionar en cas que hi hagi hagut un error o si, a
 part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funcionalitat més pròpia de
 l'aplicació. Lo que revem en el callback es l'objecte `RatingControlResponse`. Aquest objecte pot
-arrivar amb quatre valors possibles:
+arrivar amb tres valors possibles:
 
 - **ACCEPTED**: s'ha sol·licitat que surti el popup natiu de valoració de Android: Google In-App Review
 - **DISMISSED**: el popup no compleix les condicions per mostrar-li a l'usuari
@@ -676,9 +676,9 @@ part de la funcionalitat que ofereix la llibreria, es vol afegir alguna funciona
 l'aplicació. El que reviem callback és l'objecte `AppLanguageResponse`. Aquest objecte pot
 arribar amb 3 valors possibles:
 
-- **SENT**: l'analítica s'ha enviat correctament
-- **NOT_SENT**: l'analitica no s'ha enviat perqu l'idioma no ha canviat
-- **ERROR**: hi ha hagut un error enviant l'analitica
+- **SUCCESS**: l'analítica s'ha enviat correctament i s'ha actualitzat la subscripció.
+- **UNCHANGED**: l'analitica no s'ha enviat perquè l'idioma no ha canviat.
+- **ERROR**: hi ha hagut un error enviant l'analítica o actualitzant les preferències.
 
 ## Implementació de l'esdeveniment d'inici o actualització de l'app
 
@@ -726,17 +726,14 @@ Aquest objecte pot tenir un dels tres valors possibles:
 Per executar l'esdeveniment, cal cridar la funció `subscribeToCustomTopic`, passant el nom del topic i un callback per gestionar la resposta.
 ```kotlin
 osamCommons.subscribeToCustomTopic(topic = "NOM_DEL_TOPIC") { response ->
-    {
-        // Do something 
-    }
+    // Do something
 }
 ```
 
 Aquesta funció s'encarrega de tota la lògica de fons. 
-S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte AppLanguageResponse pot arribar amb 3 valors possibles:
+S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte `SubscriptionResponse` pot arribar amb 2 valors possibles:
 
-- **SUCCESS**: La subscripció al topic s'ha realitzat o actualitzat correctament.
-- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
+- **ACCEPTED**: La subscripció al topic s'ha realitzat correctament.
 - **ERROR**: S'ha produït un error durant el procés de subscripció.
 
 ### iOS
@@ -745,15 +742,16 @@ Per executar l'esdeveniment, cal cridar la funció `subscribeToCustomTopic`,
 passant el nom del topic i un completion handler per processar la resposta.
 
 ```swift
-osamCommons.subscribeToCustomTopic(topic: "NOM_DEL_TOPIC")
+osamCommons.subscribeToCustomTopic(topic: "NOM_DEL_TOPIC") { response in
+    // Do something
+}
 ```
 
 La funció inclou un callback que retorna un objecte `SubscriptionResponse`, permetent a l'aplicació reaccionar 
 al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possibles:
 
-- **SUCCESS**: La subscripció al topic s'ha realitzat correctament
+- **ACCEPTED**: La subscripció al topic s'ha realitzat correctament.
 - **ERROR**: S'ha produït un error durant el procés de subscripció.
-
 ## Implementació de la desubscripció d'un topic personalitzat
 
 ### Android
@@ -761,18 +759,15 @@ al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possible
 Per executar l'esdeveniment, cal cridar la funció `unsubscribeToCustomTopic`, passant el nom del topic i un callback per gestionar la resposta.
 ```kotlin
 osamCommons.unsubscribeToCustomTopic(topic = "NOM_DEL_TOPIC") { response ->
-    {
-        // Do something
-    }
+    // Do something
 }
 ```
 
 Aquesta funció s'encarrega de tota la lògica de fons.
-S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte AppLanguageResponse pot arribar amb 3 valors possibles:
+S'ha afegit un callback perquè l'aplicació pugui reaccionar al resultat de l'operació. L'objecte `SubscriptionResponse` pot arribar amb 2 valors possibles:
 
-- **SUCCESS**: La unsubscripció al topic s'ha realitzat o actualitzat correctament.
-- **UNCHANGED**: No s'ha realitzat cap acció perquè el topic no ha canviat (mateixa versió i idioma).
-- **ERROR**: S'ha produït un error durant el procés de unsubscripció.
+- **ACCEPTED**: La desubscripció al topic s'ha realitzat correctament.
+- **ERROR**: S'ha produït un error durant el procés de desubscripció.
 
 ### iOS
 
@@ -780,14 +775,16 @@ Per executar l'esdeveniment, cal cridar la funció `unsubscribeToCustomTopic`,
 passant el nom del topic i un completion handler per processar la resposta.
 
 ```swift
-osamCommons.unsubscribeToCustomTopic(topic: "NOM_DEL_TOPIC")
+osamCommons.unsubscribeToCustomTopic(topic: "NOM_DEL_TOPIC") { response in
+    // Do something
+}
 ```
 
 La funció inclou un callback que retorna un objecte `SubscriptionResponse`, permetent a l'aplicació reaccionar
 al resultat de l'operació. Aquest objecte pot tenir un dels dos valors possibles:
 
-- **SUCCESS**: La unsubscripció al topic s'ha realitzat correctament
-- **ERROR**: S'ha produït un error durant el procés de unsubscripció.
+- **ACCEPTED**: La desubscripció al topic s'ha realitzat correctament.
+- **ERROR**: S'ha produït un error durant el procés de desubscripció.
 
 ## Implementació per obtenir el token de Firebase (FCM)
 
