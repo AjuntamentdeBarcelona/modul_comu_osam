@@ -15,6 +15,9 @@
 
 ### 3.1.0
 - **FCM Token**: S'ha afegit el suport per obtenir el token de Firebase Cloud Messaging (FCM) mitjançant el mètode `getFCMToken`.
+- **FirstTimeOrUpdate**: Aquest mètode s'encarrega de subscriure's automàticament al tòpic de la versió en l'idioma de l'aplicació si és la primera vegada que s'obre, o d'actualitzar-lo si la versió ha canviat.
+- **Subscribe and unsubscribe from topic**: 2 mètodes que ajuden amb les subscripcions i cancel·lacions de subscripcions a topics d'idioma i versió.
+- **Millores d'UI i accessibilitat al popup de control de versions**: S'ha millorat l'accessibilitat al popup del control de versions, incrementat el contrast dels seus elements i assegurat diferents tipus de navegació accessible.
 
 ### 3.0.0
 - **Gestió de Topics**: S'han implementat els mètodes `firstTimeOrUpdateEvent`, `subscribeToCustomTopic` i `unsubscribeToCustomTopic` per a una gestió completa de les notificacions push.
@@ -24,6 +27,7 @@
 ### 2.3.0-dev
 - **Millores de robustesa**: S'ha afegit la funció `Language.parse` per gestionar millor els idiomes per defecte i evitar excepcions.
 - **Mode No Mostrar Més**: S'ha afegit la funcionalitat per permetre a l'usuari no tornar a veure el diàleg de control de versions (`checkBoxDontShowAgain`).
+- **Temps d'acceptar en control de versions**: Quan al popup del control de versions es prem a acceptar en info o lazy mode el popup no tornarà a aparèixer en una quantitat de temps que sigui definida.
 
 ### 2.1.x / 2.2.x
 - **Informació del sistema**: Introducció dels mètodes `deviceInformation` i `appInformation` per obtenir dades del dispositiu i de l'aplicació.
