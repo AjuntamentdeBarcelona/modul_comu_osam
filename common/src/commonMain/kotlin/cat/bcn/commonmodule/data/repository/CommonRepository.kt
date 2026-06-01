@@ -31,34 +31,44 @@ internal class CommonRepository(
 
     suspend fun getVersion(language: Language): Either<CommonError, Version> {
         if (platformInformation.isOnline()) {
-            val versionResult = try {
-                CommonRepositoryUtils.getRemoteVersion(
-                    remote,
-                    internalPerformanceWrapper,
-                    platformInformation,
-                    preferences,
-                    language
+            return try {
+                Either.Right(
+                    CommonRepositoryUtils.getRemoteVersion(
+                        remote,
+                        internalPerformanceWrapper,
+                        platformInformation,
+                        preferences,
+                        language
+                    )
                 )
             } catch (e: Exception) {
-                return Either.Left(CommonError(e))
+                // The remote call failed, typically a transient connectivity
+                // failure on an unstable network. Instead of surfacing a
+                // recoverable error, fall back to the cached version, mirroring
+                // the offline branch below so the flow degrades gracefully.
+                Either.Right(getCachedVersionOrEmpty())
             }
-
-            return Either.Right(versionResult)
-
         } else {
-            val storedVersionCode = preferences.getVersionControlVersionCode()
-            val currentVersionCode = platformInformation.getVersionCode()
-
-            val cachedVersion = CommonRepositoryUtils.getCachedVersion(platformInformation, preferences)
-
             sendNoConnectionAnalytic(analytics, platformInformation)
+            return Either.Right(getCachedVersionOrEmpty())
+        }
+    }
 
-            if (storedVersionCode == 0L || storedVersionCode != currentVersionCode) {
-                val emptyVersion = cachedVersion.copy(comparisonMode = Version.ComparisonMode.NONE)
-                return Either.Right(emptyVersion)
-            }
+    /**
+     * Builds the version to use when the remote source is unavailable (device
+     * offline or a failed request). If there is no usable cache yet, or the app
+     * has been updated since the cache was stored, the comparison mode is forced
+     * to NONE so no dialog is shown based on stale data.
+     */
+    private fun getCachedVersionOrEmpty(): Version {
+        val storedVersionCode = preferences.getVersionControlVersionCode()
+        val currentVersionCode = platformInformation.getVersionCode()
+        val cachedVersion = CommonRepositoryUtils.getCachedVersion(platformInformation, preferences)
 
-            return Either.Right(cachedVersion)
+        return if (storedVersionCode == 0L || storedVersionCode != currentVersionCode) {
+            cachedVersion.copy(comparisonMode = Version.ComparisonMode.NONE)
+        } else {
+            cachedVersion
         }
     }
 
