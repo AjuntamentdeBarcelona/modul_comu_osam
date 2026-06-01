@@ -4,6 +4,8 @@ import cat.bcn.commonmodule.extensions.isDebug
 import cat.bcn.commonmodule.performance.PerformanceMetric
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
+import io.ktor.client.plugins.HttpRequestRetry
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -34,6 +36,17 @@ fun buildClient(
             }
 
             header("Authorization", "Basic b3NhbTpvc2Ft")
+        }
+        install(HttpTimeout) {
+            connectTimeoutMillis = 10_000
+            socketTimeoutMillis = 10_000
+            requestTimeoutMillis = 15_000
+        }
+        install(HttpRequestRetry) {
+            // Retry transient connectivity failures (DNS/connect/socket) and 5xx.
+            // GET endpoints (api/version, api/rating) are idempotent, so this is safe.
+            retryOnExceptionOrServerErrors(maxRetries = 2)
+            exponentialDelay(maxDelayMs = 3_000)
         }
         if (isDebug) {
             install(Logging) {
