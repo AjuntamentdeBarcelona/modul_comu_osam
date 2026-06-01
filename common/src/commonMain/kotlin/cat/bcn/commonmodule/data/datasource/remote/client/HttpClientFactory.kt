@@ -61,10 +61,16 @@ fun buildClient(
         }
         block(this)
     }
+    // HttpRequestRetry re-runs the send pipeline on every retry attempt, so guard
+    // the metric so it is started only once per request (each client instance
+    // serves a single request). Avoids "metric already started" warnings while
+    // still measuring the full duration, retries included.
+    var metricStarted = false
     client.sendPipeline.intercept(HttpSendPipeline.Before) {
-        val url = context.url.buildString()
-        val httpMethod = context.method.value
-        metric?.start()
+        if (!metricStarted) {
+            metric?.start()
+            metricStarted = true
+        }
         proceed()
     }
     client.sendPipeline.intercept(HttpSendPipeline.Engine) {
