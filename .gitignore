@@ -11,8 +11,6 @@
 /buildSrc/build
 /.idea/
 /build/
-/ios/Pods
-/ios/Podfile.lock
 /ios/.idea
 /builds
 /ios/Build/
@@ -20,3 +18,5 @@ ios/Build/
 ios/commonmodule.xcworkspace/xcuserdata
 ios/commonmodule.xcodeproj/xcuserdata
 .kotlin
+.build/
+/.build/

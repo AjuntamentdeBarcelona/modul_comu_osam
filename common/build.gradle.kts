@@ -16,7 +16,7 @@ allOpen {
 
 val libName = "OSAMCommon"
 val libGroup = "com.github.AjuntamentdeBarcelona"
-val libVersionName = "3.2.0"
+val libVersionName = "3.2.1-dev"
 
 group = libGroup
 version = libVersionName
@@ -96,7 +96,7 @@ kotlin {
         register<Copy>("copyFiles") {
             println("Copy new XCFramework to root dir")
             from(layout.buildDirectory.dir("XCFrameworks/release"))
-            into(layout.buildDirectory.dir("$rootDir"))
+            into(rootDir)
         }
 
         register("createFramework") {
@@ -107,7 +107,7 @@ kotlin {
         }
 
         register("publishFramework") {
-            description = "Publish iOs framework to the Cocoa Repo"
+            description = "Publish iOS framework for Swift Package Manager distribution"
             group = "Publishing"
 
             // Create Release Framework for Xcode
@@ -115,25 +115,13 @@ kotlin {
             dependsOn("createFramework")
             named("createFramework").get().mustRunAfter("deleteXCFramework")
 
-
             doLast {
-                val dir = File("$rootDir/$libName.podspec")
-                val tempFile = File("$rootDir/$libName.podspec.new")
-
-                val reader = dir.bufferedReader()
-                val writer = tempFile.bufferedWriter()
-                var currentLine: String?
-
-                while (reader.readLine().also { currLine -> currentLine = currLine } != null) {
-                    if (currentLine?.startsWith("    s.version") == true) {
-                        writer.write("    s.version                  = \'${libVersionName}\'" + System.lineSeparator())
-                    } else {
-                        writer.write(currentLine + System.lineSeparator())
-                    }
+                val xcframeworkDir = File("$rootDir/$libName.xcframework")
+                if (xcframeworkDir.exists()) {
+                    println("Successfully prepared $libName.xcframework (v$libVersionName) for Swift Package Manager distribution.")
+                } else {
+                    println("Warning: $libName.xcframework was not found in root dir.")
                 }
-                writer.close()
-                reader.close()
-                tempFile.renameTo(dir)
             }
         }
     }
