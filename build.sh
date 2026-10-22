@@ -1,30 +1,25 @@
 #!/bin/bash
+set -e
 
-rm -r .gradle
+rm -rf .gradle
 
 cd android
-rm -r build
-rm -r .gradle
+rm -rf build
+rm -rf .gradle
 cd ..
 
 cd buildSrc
-rm -r build
-rm -r .gradle
+rm -rf build
+rm -rf .gradle
 cd ..
 
 cd common
-rm -r build
-rm -r .gradle
+rm -rf build
+rm -rf .gradle
 cd ..
 
 ./gradlew build
 ./gradlew createFramework
 
-cd ios
-pod deintegrate
-rm Podfile.lock
-pod install
-pod update
-pod install
-pod update
-cd ..
+echo "Verifying iOS demo project compilation with Swift Package Manager..."
+xcodebuild -project ios/commonmodule.xcodeproj -scheme commonmodule -destination 'generic/platform=iOS Simulator' build CODE_SIGNING_ALLOWED=NO
